@@ -25,6 +25,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
+            // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
             baseName = xcframeworkName
 
             binaryOption("bundleId", "org.example.${xcframeworkName}")
