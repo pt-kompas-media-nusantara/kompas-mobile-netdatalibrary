@@ -26,6 +26,11 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
+            // ./gradlew :shared:assembleSharedXCFramework, output :
+            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/Shared.xcframework
+            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/Shared.xcframework
+            // swift package compute-checksum Shared.xcframework.zip
+
             baseName = xcframeworkName
 
             binaryOption("bundleId", "org.example.${xcframeworkName}")
