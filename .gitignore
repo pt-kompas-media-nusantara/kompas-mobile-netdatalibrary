@@ -8,6 +8,5 @@ captures
 local.properties
 xcuserdata
 .build
-Shared.xcframework
 .kotlin
 shared/build
