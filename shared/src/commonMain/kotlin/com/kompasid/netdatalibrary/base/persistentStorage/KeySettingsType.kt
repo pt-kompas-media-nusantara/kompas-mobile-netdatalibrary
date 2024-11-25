@@ -1,0 +1,26 @@
+package com.kompasid.netdatalibrary.base.persistentStorage
+
+enum class KeySettingsType(val key: String) {
+    ACCESS_TOKEN("accessToken"),
+    REFRESH_TOKEN("refreshToken"),
+    IS_VERIFIED("isVerified"),
+    DEVICE_KEY_ID("deviceKeyId"),
+    IS_SOCIAL("isSocial"),
+    USER_ID("userId"),
+    FIRST_NAME("firstName"),
+    LAST_NAME("lastName"),
+    EMAIL("email"),
+    USER_GUID("userGuid"),
+    PHONE_NUMBER("phoneNumber"),
+    COUNTRY_CODE("countryCode"),
+    COUNTRY("country"),
+    PROVINCE("province"),
+    CITY("city"),
+    MEMBERSHIP_EXPIRED("expired"),
+    MEMBERSHIP_ACTIVE("active"),
+    MEMBERSHIP_START_DATE("startDate"),
+    MEMBERSHIP_END_DATE("endDate"),
+    MEMBERSHIP_TOTAL_GRACE_PERIOD("totalGracePeriod"),
+    MEMBERSHIP_GRACE_PERIOD("gracePeriod"),
+    RUBRIK_PILIHANKU("rubrikPilihanku"),
+}

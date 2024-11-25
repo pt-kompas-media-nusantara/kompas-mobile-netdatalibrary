@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 400,
+  "message": "Format data yang dikirim tidak valid.",
+  "meta": {
+    "cache": false,
+    "time": 1729666861
+  },
+  "data": null
+}

@@ -53,6 +53,8 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.napier) // logging
             implementation(libs.konform) // validation
+            implementation(libs.multiplatform.settings.no.arg) // Storage for UserDefaults & SharedPreferences
+            implementation(libs.jwtparser) // JWTDecode
         }
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)

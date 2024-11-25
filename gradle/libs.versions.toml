@@ -12,6 +12,8 @@ napier = "2.7.1"
 konform = "0.7.0"
 navigationCompose = "2.8.4"
 lifecycleViewmodelKtx = "2.8.6"
+multiplatformSettings = "1.2.0"
+jwtparser = "1.0.0"
 
 [libraries]
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
@@ -49,6 +51,8 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 # done
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 konform = { module = "io.konform:konform", version.ref = "konform" }
+multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
+jwtparser = { module = "io.github.developer--:JwtParser", version.ref = "jwtparser" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

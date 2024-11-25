@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 406,
+  "message": "Gagal mendapatkan token",
+  "meta": {
+    "cache": false,
+    "time": 1729666751
+  },
+  "data": null
+}
