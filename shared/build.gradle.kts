@@ -46,11 +46,11 @@ kotlin {
             // cek lagi untuk kotlinx ada yang masih bisa di pakai tidak : https://github.com/orgs/Kotlin/repositories?q=kotlinx
 
             // lagi lagi : ada lagi nggak untuk ktor
+            // io.ktor:ktor-client-resources, bagus untuk di gunakan cek lagi https://ktor.io/docs/client-resources.html#install_plugin. tapi sepertinya bentrok dengan ktor-serialization-kotlinx-json
             implementation(libs.bundles.ktor)
-            // lagi lagi : ada lagi nggak untuk koin
-            implementation(libs.koin.core)
 
             // done
+            implementation(libs.koin.core)
             implementation(libs.napier) // logging
             implementation(libs.konform) // validation
         }
@@ -63,6 +63,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.koin.test)
         }
     }
 }
