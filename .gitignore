@@ -10,3 +10,4 @@ xcuserdata
 .build
 Shared.xcframework
 .kotlin
+shared/build
