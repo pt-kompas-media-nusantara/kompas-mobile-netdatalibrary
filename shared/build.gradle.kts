@@ -41,7 +41,25 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(libs.kotlinx.coroutines.core) // https://github.com/Kotlin/kotlinx.coroutines
+            implementation(libs.kotlinx.datetime) // https://github.com/Kotlin/kotlinx-datetime
+            // cek lagi untuk kotlinx ada yang masih bisa di pakai tidak : https://github.com/orgs/Kotlin/repositories?q=kotlinx
+
+            // lagi lagi : ada lagi nggak untuk ktor
+            implementation(libs.bundles.ktor)
+            // lagi lagi : ada lagi nggak untuk koin
+            implementation(libs.koin.core)
+
+            // done
+            implementation(libs.napier) // logging
+            implementation(libs.konform) // validation
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp) // http client for android
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin) // http client for ios
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
