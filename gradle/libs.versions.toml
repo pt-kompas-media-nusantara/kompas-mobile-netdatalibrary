@@ -11,6 +11,7 @@ koin = "3.4.3"
 napier = "2.7.1"
 konform = "0.7.0"
 navigationCompose = "2.8.4"
+lifecycleViewmodelKtx = "2.8.6"
 
 [libraries]
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
@@ -24,6 +25,7 @@ compose-material3 = { module = "androidx.compose.material3:material3", version.r
 
 # androidx
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 
 # kotlinx
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }

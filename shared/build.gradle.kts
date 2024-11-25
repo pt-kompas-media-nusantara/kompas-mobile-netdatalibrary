@@ -55,6 +55,7 @@ kotlin {
             implementation(libs.konform) // validation
         }
         androidMain.dependencies {
+            implementation(libs.androidx.lifecycle.viewmodel.ktx)
             implementation(libs.ktor.client.okhttp) // http client for android
         }
         iosMain.dependencies {
