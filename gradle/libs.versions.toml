@@ -1,9 +1,9 @@
 [versions]
 agp = "8.7.2"
-kotlin = "2.0.0"
-compose = "1.5.4"
-compose-material3 = "1.1.2"
-androidx-activityCompose = "1.8.0"
+kotlin = "2.0.20"
+compose = "1.7.5"
+compose-material3 = "1.3.1"
+androidx-activityCompose = "1.9.3"
 kotlinxCoroutinesCore = "1.9.0"
 kotlinxDatetime = "0.6.1"
 ktorClient = "3.0.0"
@@ -11,9 +11,9 @@ koin = "3.4.3"
 napier = "2.7.1"
 konform = "0.7.0"
 navigationCompose = "2.8.4"
-lifecycleViewmodelKtx = "2.8.6"
+lifecycleViewmodelKtx = "2.8.7"
 multiplatformSettings = "1.2.0"
-jwtparser = "1.0.0"
+coilCompose = "2.7.0"
 
 [libraries]
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
@@ -24,6 +24,8 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 # androidx
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -52,7 +54,6 @@ koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", versi
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 konform = { module = "io.konform:konform", version.ref = "konform" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
-jwtparser = { module = "io.github.developer--:JwtParser", version.ref = "jwtparser" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -68,5 +69,5 @@ ktor = [
     "ktor-client-content-negotiation",
     "ktor-client-logging",
     "ktor-serialization-kotlinx-json",
-    "ktor-client-resources",
 ]
+#    "ktor-client-resources",

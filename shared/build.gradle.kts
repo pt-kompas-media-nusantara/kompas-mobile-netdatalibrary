@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    id("co.touchlab.skie") version "0.9.3"
+    kotlin("plugin.serialization") version "1.9.20"
 }
 
 kotlin {
@@ -54,7 +56,7 @@ kotlin {
             implementation(libs.napier) // logging
             implementation(libs.konform) // validation
             implementation(libs.multiplatform.settings.no.arg) // Storage for UserDefaults & SharedPreferences
-            implementation(libs.jwtparser) // JWTDecode
+//            implementation(libs.jwtparser) // JWTDecode
         }
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -66,7 +68,7 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation(libs.koin.test)
+            // implementation(libs.koin.test)
         }
     }
 }

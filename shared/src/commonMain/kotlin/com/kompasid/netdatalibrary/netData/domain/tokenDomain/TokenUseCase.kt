@@ -1,6 +1,5 @@
 package com.kompasid.netdatalibrary.netData.domain.tokenDomain
 
-import JwtParser
 import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestRepository
 import com.kompasid.netdatalibrary.base.interactor.NetworkError
 import com.kompasid.netdatalibrary.base.interactor.Results
@@ -41,15 +40,16 @@ class TokenUseCase(
     }
 
     private fun isTokenExpired(token: String): Boolean {
-        if (token.isEmpty()) return true
-
-        val parser = JwtParser()
-        val jsonObject = parser.parseToJsonObject(token)
-        val exp = jsonObject?.get("exp")?.jsonPrimitive?.long ?: 0L
-
-        // Tambahkan margin waktu (10 detik) untuk menghindari masalah delay
-        val currentTime = Clock.System.now().epochSeconds
-        return currentTime >= exp - EXPIRATION_MARGIN_SECONDS
+        return false
+//        if (token.isEmpty()) return true
+//
+//        val parser = JwtParser()
+//        val jsonObject = parser.parseToJsonObject(token)
+//        val exp = jsonObject?.get("exp")?.jsonPrimitive?.long ?: 0L
+//
+//        // Tambahkan margin waktu (10 detik) untuk menghindari masalah delay
+//        val currentTime = Clock.System.now().epochSeconds
+//        return currentTime >= exp - EXPIRATION_MARGIN_SECONDS
     }
 
     private suspend fun handleLoginGuest(): Results<Unit, NetworkError> {
