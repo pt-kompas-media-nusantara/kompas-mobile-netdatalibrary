@@ -12,7 +12,7 @@ class LoginEmailRepository(
 ) {
 
 
-    suspend fun postLoginEmail(request: LoginEmailRequest): Results<SuccessInterceptor, NetworkError> {
+    suspend fun postLoginEmail(request: LoginEmailRequest): Results<Unit, NetworkError> {
         when (val result = loginEmailApiService.postLoginEmail(request)) {
             is ApiResults.Success -> {
                 result.data.let {
@@ -26,7 +26,7 @@ class LoginEmailRepository(
                 }
 
 
-                return Results.Success(SuccessInterceptor())
+                return Results.Success(Unit)
             }
             // Jika terjadi error
             is ApiResults.Error -> {

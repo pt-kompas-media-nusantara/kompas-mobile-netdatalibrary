@@ -23,7 +23,7 @@ class AuthUseCase(
         return result
     }
 
-    suspend fun loginByEmail(request: LoginEmailRequest): Results<Pair<SuccessInterceptor, Pair<UserDetailResInterceptor, UserMembershipHistoryResInterceptor>>, NetworkError> {
+    suspend fun loginByEmail(request: LoginEmailRequest): Results<Pair<Unit, Pair<UserDetailResInterceptor, UserMembershipHistoryResInterceptor>>, NetworkError> {
         // Menjalankan login email terlebih dahulu
         val loginResult = loginEmailRepository.postLoginEmail(request)
 
@@ -62,7 +62,7 @@ class AuthUseCase(
         }
     }
 
-    suspend fun logout(): Results<SuccessInterceptor, NetworkError> {
+    suspend fun logout(): Results<Unit, NetworkError> {
         val result = logoutRepository.postLogout()
         return result
     }

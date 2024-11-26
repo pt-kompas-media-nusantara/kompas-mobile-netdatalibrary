@@ -1,10 +1,9 @@
 package com.kompasid.netdatalibrary.netData.data.logoutData
 
-import com.kompasid.app.netdatamodule.Example.Data.LogoutData.DTO.ApiService.LogoutRequest
+import com.kompasid.netdatalibrary.netData.data.logoutData.dto.LogoutRequest
 import com.kompasid.netdatalibrary.base.interactor.ApiResults
 import com.kompasid.netdatalibrary.base.interactor.NetworkError
 import com.kompasid.netdatalibrary.base.interactor.Results
-import com.kompasid.netdatalibrary.base.interactor.SuccessInterceptor
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 
@@ -14,12 +13,12 @@ class LogoutRepository(
     private val logoutDatasource: LogoutDatasource,
     private val settingsDataSource: SettingsDataSource,
 ) {
-    suspend fun postLogout(): Results<SuccessInterceptor, NetworkError> {
+    suspend fun postLogout(): Results<Unit, NetworkError> {
         val refreshToken = settingsDataSource.load(KeySettingsType.REFRESH_TOKEN, "")
         when (val result = logoutApiService.postLogout(LogoutRequest(refreshToken))) {
             is ApiResults.Success -> {
                 logoutDatasource.logout()
-                return Results.Success(SuccessInterceptor())
+                return Results.Success(Unit)
             }
 
             is ApiResults.Error -> {

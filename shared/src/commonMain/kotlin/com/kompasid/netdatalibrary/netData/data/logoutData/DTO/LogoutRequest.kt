@@ -1,4 +1,4 @@
-package com.kompasid.app.netdatamodule.Example.Data.LogoutData.DTO.ApiService
+package com.kompasid.netdatalibrary.netData.data.logoutData.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
