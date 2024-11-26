@@ -20,7 +20,6 @@ import com.kompasid.netdatalibrary.android.screens.AccountScreen
 import com.kompasid.netdatalibrary.android.screens.ArticleListScreen
 import com.kompasid.netdatalibrary.android.screens.AuthUseCaseScreen
 import com.kompasid.netdatalibrary.android.screens.example.AboutScreen
-import com.kompasid.netdatalibrary.android.screens.example.ArticlesScreen
 import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.Screens
 import com.kompasid.netdatalibrary.android.screens.SettingsScreen
@@ -58,11 +57,11 @@ fun AppNavHost(
                 onAuthUseCaseClick = { navController.navigate(Screens.AUTH_USECASE_VIEW.route) },
             )
         }
-        composable(Screens.ARTICLES_EXAMPLE.route) {
-            ArticlesScreen(
-                onAboutButtonClick = { navController.navigate(Screens.ABOUT_DEVICE_EXAMPLE.route) },
-            )
-        }
+//        composable(Screens.ARTICLES_EXAMPLE.route) {
+//            ArticlesScreen(
+//                onAboutButtonClick = { navController.navigate(Screens.ABOUT_DEVICE_EXAMPLE.route) },
+//            )
+//        }
 
         composable(Screens.ABOUT_DEVICE_EXAMPLE.route) {
             AboutScreen(

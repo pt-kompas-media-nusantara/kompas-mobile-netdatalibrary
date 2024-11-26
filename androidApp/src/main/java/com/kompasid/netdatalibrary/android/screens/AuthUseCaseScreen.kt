@@ -33,6 +33,18 @@ fun AuthUseCaseScreen(
         Text("AuthUseCaseScreen")
         HorizontalDivider()
 
+        FilledButton("Login Anon", {
+            vm.postLoginGuest()
+        })
+
+        FilledButton("Login by Email", {
+            vm.postLoginByEmail()
+        })
+
+        FilledButton("Logout", {
+            vm.postLogout()
+        })
+
         FilledButton("Decode JWT", {
             vm.decodeJWT()
         })

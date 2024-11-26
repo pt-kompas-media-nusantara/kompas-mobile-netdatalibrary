@@ -20,6 +20,8 @@ import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMe
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryRepository
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 class NetDataModule {}
@@ -32,37 +34,37 @@ val netDataModule = module {
     Refresh Token
     Logout
      */
-    single<AuthUseCase> { AuthUseCase(get(), get(), get(), get()) }
+    singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
-    single<LoginGuestRepository> { LoginGuestRepository(get(), get()) }
-    single<LoginGuestDataSource> { LoginGuestDataSource(get()) }
-    single<LoginGuestApiService> { LoginGuestApiService(get()) }
+    singleOf(::LoginGuestRepository) { bind<LoginGuestRepository>() }
+    singleOf(::LoginGuestDataSource) { bind<LoginGuestDataSource>() }
+    singleOf(::LoginGuestApiService) { bind<LoginGuestApiService>() }
 
-    single<RefreshTokenRepository> { RefreshTokenRepository(get(), get()) }
-    single<RefreshTokenDataSource> { RefreshTokenDataSource(get()) }
-    single<RefreshTokenApiService> { RefreshTokenApiService(get(), get()) }
+    singleOf(::RefreshTokenRepository) { bind<RefreshTokenRepository>() }
+    singleOf(::RefreshTokenDataSource) { bind<RefreshTokenDataSource>() }
+    singleOf(::RefreshTokenApiService) { bind<RefreshTokenApiService>() }
 
-    single<LoginEmailRepository> { LoginEmailRepository(get(), get()) }
-    single<LoginEmailDataSource> { LoginEmailDataSource(get()) }
-    single<LoginEmailApiService> { LoginEmailApiService(get()) }
+    singleOf(::LoginEmailRepository) { bind<LoginEmailRepository>() }
+    singleOf(::LoginEmailDataSource) { bind<LoginEmailDataSource>() }
+    singleOf(::LoginEmailApiService) { bind<LoginEmailApiService>() }
 
-    single<LogoutRepository> { LogoutRepository(get(), get(), get()) }
-    single<LogoutDatasource> { LogoutDatasource(get()) }
-    single<LogoutApiService> { LogoutApiService(get()) }
+    singleOf(::LogoutRepository) { bind<LogoutRepository>() }
+    singleOf(::LogoutDatasource) { bind<LogoutDatasource>() }
+    singleOf(::LogoutApiService) { bind<LogoutApiService>() }
 
     // Personal Info
     /**
     User Detail
     User Membership History
      */
-    single<PersonalInfoUseCase> { PersonalInfoUseCase(get(), get()) }
+    singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
-    single<UserDetailRepository> { UserDetailRepository(get(), get()) }
-    single<UserDetailDataSource> { UserDetailDataSource(get()) }
-    single<UserDetailApiService> { UserDetailApiService(get(), get()) }
+    singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
+    singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
+    singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
-    single<UserMembershipHistoryRepository> { UserMembershipHistoryRepository(get(), get()) }
-    single<UserMembershipHistoryDataSource> { UserMembershipHistoryDataSource(get()) }
-    single<UserMembershipHistoryApiService> { UserMembershipHistoryApiService(get(), get()) }
+    singleOf(::UserMembershipHistoryRepository) { bind<UserMembershipHistoryRepository>() }
+    singleOf(::UserMembershipHistoryDataSource) { bind<UserMembershipHistoryDataSource>() }
+    singleOf(::UserMembershipHistoryApiService) { bind<UserMembershipHistoryApiService>() }
 }
 

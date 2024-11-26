@@ -1,9 +1,14 @@
 package com.kompasid.netdatalibrary.base
 
+import kotlinx.datetime.Clock
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
 class DecodeJWT {
+
+    companion object {
+        private const val EXPIRATION_MARGIN_SECONDS = 30
+    }
 
     // Dekode Base64 URL tanpa library eksternal
     private fun decodeBase64Url(input: String): ByteArray {
@@ -33,7 +38,7 @@ class DecodeJWT {
     }
 
 
-    fun decodeJwt(jwt: String): JwtPayload {
+    private fun decodeJwt(jwt: String): JwtPayload {
         val parts = jwt.split(".")
         require(parts.size == 3) { "Invalid JWT token format" }
 
@@ -42,6 +47,16 @@ class DecodeJWT {
 
         // Parsing JSON ke data class
         return Json.decodeFromString(payloadJson)
+    }
+
+    fun isTokenExpired(token: String): Boolean {
+        if (token.isEmpty()) return true
+
+        val exp = decodeJwt(token).exp
+
+        // Tambahkan margin waktu (10 detik) untuk menghindari masalah delay
+        val currentTime = Clock.System.now().epochSeconds
+        return currentTime >= exp - EXPIRATION_MARGIN_SECONDS
     }
 }
 
