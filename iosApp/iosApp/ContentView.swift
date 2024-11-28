@@ -3,7 +3,7 @@ import Shared
 
 struct ContentView: View {
     
-    @StateObject private let vm = AuthVMWrapper(authVM: .init(authUseCase: <#T##AuthUseCase#>, settingsDataSource: <#T##SettingsDataSource#>))
+//    @StateObject private let vm = AuthVMWrapper(authVM: .init(authUseCase: <#T##AuthUseCase#>, settingsDataSource: <#T##SettingsDataSource#>))
 
 	var body: some View {
 		Text("greet")
