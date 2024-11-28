@@ -20,6 +20,7 @@ import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMe
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryRepository
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -34,6 +35,8 @@ val netDataModule = module {
     Refresh Token
     Logout
      */
+    singleOf(::AuthVM) { bind<AuthVM>() }
+
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
     singleOf(::LoginGuestRepository) { bind<LoginGuestRepository>() }

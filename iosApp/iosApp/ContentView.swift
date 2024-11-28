@@ -3,12 +3,12 @@ import Shared
 
 struct ContentView: View {
     
-//    @StateObject private let vm = AuthVMWrapper(authVM: .init(authUseCase: <#T##AuthUseCase#>, settingsDataSource: <#T##SettingsDataSource#>))
+    @StateObject private var vm = AuthVMWrapper()
 
 	var body: some View {
 		Text("greet")
         Button("Login By Guest") {
-            
+            vm.loginGuest()
         }
 	}
 }
@@ -16,11 +16,11 @@ struct ContentView: View {
 class AuthVMWrapper: ObservableObject {
     let authVM: AuthVM
     
-    init(authVM: AuthVM) {
-        self.authVM = authVM
+    init() {
+        self.authVM = KoinInjector().authVM
     }
     
-    func coba() {
+    func loginGuest() {
         self.authVM.postLoginGuest()
     }
 }

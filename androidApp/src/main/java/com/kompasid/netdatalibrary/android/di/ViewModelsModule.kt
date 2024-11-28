@@ -13,15 +13,4 @@ val viewModelsModule = module {
     viewModelOf(::ArticlesVM)
     viewModelOf(::AuthVM)
 
-//    viewModel {
-//        ArticlesVM(
-//            get(),
-//            get(),
-//        )
-//    }
-//    viewModel {
-//        AuthVM(
-//            get()
-//        )
-//    }
 }
