@@ -3684,6 +3684,12 @@ __attribute__((swift_name("ApiResultsKt")))
 @end
 
 __attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("KoinInitializerKt")))
+@interface SharedKoinInitializerKt : SharedBase
++ (void)doInitKoin __attribute__((swift_name("doInitKoin()")));
+@end
+
+__attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("NetDataModuleKt")))
 @interface SharedNetDataModuleKt : SharedBase
 @property (class, readonly) SharedKoin_coreModule *netDataModule __attribute__((swift_name("netDataModule")));
