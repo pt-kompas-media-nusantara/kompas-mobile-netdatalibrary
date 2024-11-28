@@ -7,6 +7,7 @@ import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.dto.LoginEmailRequest
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
+import com.kompasid.netdatalibrary.utilities.Constants
 import kotlinx.coroutines.launch
 
 class AuthVM(
