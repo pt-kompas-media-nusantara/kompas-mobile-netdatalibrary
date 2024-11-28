@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		237DE12F2CF84D59002710FB /* NetDataLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 237DE12E2CF84D59002710FB /* NetDataLibrary */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		F855F855535CA9E04F8EB949 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336AAF0C35FD3989F723EAC5 /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				237DE12F2CF84D59002710FB /* NetDataLibrary in Frameworks */,
 				F855F855535CA9E04F8EB949 /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,7 +67,6 @@
 				202016E6356C2C54576D4EB6 /* Pods-iosApp.debug.xcconfig */,
 				8C345497C341B15391DA3100 /* Pods-iosApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -126,6 +127,9 @@
 			dependencies = (
 			);
 			name = iosApp;
+			packageProductDependencies = (
+				237DE12E2CF84D59002710FB /* NetDataLibrary */,
+			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
 			productType = "com.apple.product-type.application";
@@ -154,6 +158,9 @@
 				Base,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				237DE12D2CF84D59002710FB /* XCRemoteSwiftPackageReference "kompas-mobile-netdatalibrary" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -428,6 +435,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		237DE12D2CF84D59002710FB /* XCRemoteSwiftPackageReference "kompas-mobile-netdatalibrary" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		237DE12E2CF84D59002710FB /* NetDataLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 237DE12D2CF84D59002710FB /* XCRemoteSwiftPackageReference "kompas-mobile-netdatalibrary" */;
+			productName = NetDataLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }

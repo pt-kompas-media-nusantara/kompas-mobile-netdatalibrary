@@ -1,0 +1,15 @@
+{
+  "originHash" : "52545b4de288d3f6d3d0c5ae11850177f688ac24386563046c6ede79f0b5bc15",
+  "pins" : [
+    {
+      "identity" : "kompas-mobile-netdatalibrary",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary",
+      "state" : {
+        "revision" : "f1bdb39f57e759a3b72b7ba78e569ec4de4c9428",
+        "version" : "1.0.9"
+      }
+    }
+  ],
+  "version" : 3
+}
