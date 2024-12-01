@@ -2,8 +2,8 @@ package com.kompasid.netdatalibrary.netData.domain.tokenDomain
 
 import com.kompasid.netdatalibrary.base.DecodeJWT
 import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestRepository
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 import com.kompasid.netdatalibrary.netData.data.refreshTokenData.RefreshTokenRepository

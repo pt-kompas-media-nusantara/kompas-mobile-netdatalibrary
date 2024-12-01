@@ -71,3 +71,8 @@ val netDataModule = module {
     singleOf(::UserMembershipHistoryApiService) { bind<UserMembershipHistoryApiService>() }
 }
 
+//val appModule = module {
+//    single<INetworkApiService> { NetworkApiService(get()) }
+//    single { HttpClient() }
+//    single { AppIconApiService(get()) }
+//}

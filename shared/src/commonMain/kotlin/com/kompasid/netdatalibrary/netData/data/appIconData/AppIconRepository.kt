@@ -1,10 +1,9 @@
 package com.kompasid.netdatalibrary.netData.data.appIconData
 
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.netData.data.appIconData.dto.AppIconResponse
-import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconApiService
 
 class AppIconRepository(
     private val appIconApiService: AppIconApiService

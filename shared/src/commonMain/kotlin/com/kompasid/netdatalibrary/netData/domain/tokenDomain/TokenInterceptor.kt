@@ -1,8 +1,8 @@
 package com.kompasid.netdatalibrary.netData.domain.tokenDomain
 
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 
 class TokenInterceptor(
     private val tokenUseCase: TokenUseCase

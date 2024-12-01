@@ -1,9 +1,8 @@
 package com.kompasid.netdatalibrary.netData.data.loginEmailData
 
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
-import com.kompasid.netdatalibrary.base.interactor.SuccessInterceptor
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.dto.LoginEmailRequest
 
 class LoginEmailRepository(

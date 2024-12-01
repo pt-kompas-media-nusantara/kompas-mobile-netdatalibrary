@@ -1,7 +1,7 @@
 package com.kompasid.netdatalibrary.netData.domain.articleListDomain
 
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.netData.data.articleListData.ArticleListRepository
 import com.kompasid.netdatalibrary.netData.data.articleListData.ArticleListType
 

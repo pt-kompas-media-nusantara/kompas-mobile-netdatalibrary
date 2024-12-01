@@ -1,7 +1,7 @@
 package com.kompasid.netdatalibrary.netData.data.articleListData
 
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.response.BaseArticlesResponse
 import com.kompasid.netdatalibrary.netData.data.articleListData.dto.ArticleListResponse
 import com.kompasid.netdatalibrary.netData.domain.tokenDomain.TokenInterceptor

@@ -1,77 +1,57 @@
 package com.kompasid.netdatalibrary.netData.data.appIconData
 
+import com.kompasid.netdatalibrary.base.network.ApiConfig
 import com.kompasid.netdatalibrary.netData.data.appIconData.dto.AppIconResponse
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import io.ktor.client.HttpClient
-import io.ktor.client.call.body
-import io.ktor.client.plugins.ClientRequestException
-import io.ktor.client.plugins.RedirectResponseException
-import io.ktor.client.plugins.ServerResponseException
-import io.ktor.client.request.accept
-import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.INetworkApiService
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.utilities.Constants
 
 
 //https://cdn-content.kompas.id/mobile/json/generalContent.json   | app icon
 //https://private-d6360b-hariankompasios.apiary-mock.com/generalContent
 class AppIconApiService(
-    private val httpClient: HttpClient
+    private val iNetworkApiService: INetworkApiService
 ) {
 
-    suspend fun getAppIcon(): ApiResults<AppIconResponse, NetworkError> {
-        try {
+    suspend fun getAppIcon(): ApiResults<AppIconResponse, NetworkError> = try {
+        val (body, code) = iNetworkApiService.fetchDataFromApi(ApiConfig.APP_ICON_URL)
+        val response: AppIconResponse? = body as? AppIconResponse
 
-            val httpResponse: HttpResponse =
-                httpClient.get("https://cdn-content.kompas.id/mobile/json/generalContent.json") {
-                    contentType(ContentType.Application.Json)
-                    accept(ContentType.Application.Json)
-                }
+        if (response == null) {
+            ApiResults.Error(NetworkError.Technical(code.value, code.description))
+        } else if (Constants.isUsinStatusCode) {
+            handleCustomStatusCode(response)
+        } else {
+            handleHttpStatusCode(code.value, code.description, response)
+        }
+    } catch (e: Exception) {
+        ApiResults.Error(iNetworkApiService.mapExceptionToError(e))
+    }
 
-
-            val response: AppIconResponse = httpResponse.body()
-            val statusCode = httpResponse.status.value
-
-            when (statusCode) {
-                200 -> {
-                    return ApiResults.Success(response)
-                }
-
-                400 -> return ApiResults.Error(
-                    NetworkError.Technical(
-                        400,
-                        "error"
-                    )
+    private fun handleCustomStatusCode(response: AppIconResponse): ApiResults<AppIconResponse, NetworkError> {
+        return when (val responseCode = response.code) {
+            200 -> ApiResults.Success(response)
+            400 -> ApiResults.Error(
+                NetworkError.Technical(
+                    responseCode,
+                    response.message ?: "Bad request"
                 )
+            )
 
-                401 -> return ApiResults.Error(NetworkError.Unauthorized)
-                404 -> return ApiResults.Error(NetworkError.NotFound)
-                in 500..599 -> return ApiResults.Error(NetworkError.ServerError)
-                else -> return ApiResults.Error(
-                    NetworkError.Technical(
-                        statusCode,
-                        "error"
-                    )
-                )
-            }
+            else -> ApiResults.Error(iNetworkApiService.mapHttpStatusToError(responseCode ?: 500))
+        }
+    }
 
-        } catch (e: RedirectResponseException) {
-            // 3xx responses (redirects)
-            return ApiResults.Error(NetworkError.Error(e))
-        } catch (e: ClientRequestException) {
-            // 4xx responses (client errors)
-            return ApiResults.Error(NetworkError.Error(e))
-        } catch (e: ServerResponseException) {
-            // 5xx responses (server errors)
-            return ApiResults.Error(NetworkError.Error(e))
-        } catch (e: kotlinx.io.IOException) {
-            // Jaringan tidak tersedia atau permintaan mengalami timeout
-            return ApiResults.Error(NetworkError.Error(e))
-        } catch (e: Exception) {
-            // Error lain, misalnya masalah serialisasi
-            return ApiResults.Error(NetworkError.Error(e))
+    private fun handleHttpStatusCode(
+        code: Int,
+        description: String,
+        response: AppIconResponse
+    ): ApiResults<AppIconResponse, NetworkError> {
+        return when (val statusCode = code) {
+            200 -> ApiResults.Success(response)
+            400 -> ApiResults.Error(NetworkError.Technical(statusCode, description))
+            else -> ApiResults.Error(iNetworkApiService.mapHttpStatusToError(statusCode))
         }
     }
 }

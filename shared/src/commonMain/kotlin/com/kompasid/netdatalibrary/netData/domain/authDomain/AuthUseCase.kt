@@ -1,8 +1,7 @@
 package com.kompasid.netdatalibrary.netData.domain.authDomain
 
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
-import com.kompasid.netdatalibrary.base.interactor.SuccessInterceptor
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailRepository
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.dto.LoginEmailRequest
 import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestRepository

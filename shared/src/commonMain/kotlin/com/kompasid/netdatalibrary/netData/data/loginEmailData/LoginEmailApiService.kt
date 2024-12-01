@@ -1,7 +1,7 @@
 package com.kompasid.netdatalibrary.netData.data.loginEmailData
 
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.response.BaseResponse
 import com.kompasid.netdatalibrary.base.validation.ValidationRules
 import com.kompasid.netdatalibrary.base.validation.Validator

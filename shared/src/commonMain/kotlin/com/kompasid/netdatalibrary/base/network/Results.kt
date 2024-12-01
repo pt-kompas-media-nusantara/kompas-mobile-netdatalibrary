@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.base.interactor
+package com.kompasid.netdatalibrary.base.network
 
 // Result menggunakan NetworkError sebagai pengganti Error
 sealed interface Results<out D, out E: NetworkError> {

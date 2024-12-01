@@ -1,21 +1,16 @@
 package com.kompasid.netdatalibrary.netData.presentation.articlesPresentation
 
 import com.kompasid.netdatalibrary.BaseVM
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
-import kotlin.random.Random
-import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.long
 
 
 class ArticlesVM(
@@ -132,7 +127,15 @@ class ArticlesVM(
 
     fun postLoginGuest() {
         scope.launch {
-            authUseCase.loginAnon()
+            val result = authUseCase.loginAnon()
+            when (result) {
+                is Results.Error -> {
+                    TODO()
+                }
+                is Results.Success -> {
+                    TODO()
+                }
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.base.interactor
+package com.kompasid.netdatalibrary.base.network
 
 
 data class SuccessInterceptor (

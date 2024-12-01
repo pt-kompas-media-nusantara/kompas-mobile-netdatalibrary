@@ -2,8 +2,8 @@ package com.kompasid.netdatalibrary.netData.data.loginGuestData
 
 import com.kompasid.netdatalibrary.netData.data.loginGuestData.dto.LoginGuestRequest
 import com.kompasid.netdatalibrary.netData.data.loginGuestData.dto.LoginGuestResponse
-import com.kompasid.netdatalibrary.base.interactor.ApiResults
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
+import com.kompasid.netdatalibrary.base.network.ApiResults
+import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.response.BaseResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

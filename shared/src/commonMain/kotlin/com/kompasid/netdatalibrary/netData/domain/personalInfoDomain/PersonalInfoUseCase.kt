@@ -1,7 +1,7 @@
 package com.kompasid.netdatalibrary.netData.domain.personalInfoDomain
 
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.netData.data.userDetailData.UserDetailRepository
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryRepository
 import kotlinx.coroutines.async

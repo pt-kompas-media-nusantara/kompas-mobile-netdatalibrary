@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.base.interactor
+package com.kompasid.netdatalibrary.base.network
 
 // ApiResult menggunakan CustomError sebagai pengganti Error
 sealed interface ApiResults<out D, out E : CustomError> {

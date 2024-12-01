@@ -1,8 +1,8 @@
 package com.kompasid.netdatalibrary.netData.domain.appIconDomain
 
 import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconRepository
-import com.kompasid.netdatalibrary.base.interactor.NetworkError
-import com.kompasid.netdatalibrary.base.interactor.Results
+import com.kompasid.netdatalibrary.base.network.NetworkError
+import com.kompasid.netdatalibrary.base.network.Results
 
 
 class AppIconUseCase(
