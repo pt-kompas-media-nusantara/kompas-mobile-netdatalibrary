@@ -9,7 +9,7 @@ class AppIconUseCase(
     private val appIconRepository: AppIconRepository
 ) {
 
-    suspend fun appIcon(): Results<AppIconResInterceptor, NetworkError> {
+    suspend fun appIcon(): Results<AppIconResInterceptor, NetworkError> =
         when (val response = appIconRepository.getAppIcon()) {
             is Results.Success -> {
                 val appIconResponse = response.data
@@ -44,14 +44,11 @@ class AppIconUseCase(
                     mrwQuotaRegon = appIconResponse.result?.mrwQuotaRegon ?: 1
                 )
 
-                return Results.Success(appIconResInterceptor)
+                Results.Success(appIconResInterceptor)
             }
 
-            is Results.Error -> {
-                return Results.Error(response.error)
-            }
+            is Results.Error -> Results.Error(response.error)
         }
-    }
 
 
 }

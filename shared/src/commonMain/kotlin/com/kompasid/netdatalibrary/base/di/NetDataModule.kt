@@ -1,6 +1,12 @@
 package com.kompasid.netdatalibrary.base.di
 
 import com.kompasid.app.netdatamodule.Example.Data.UserDetailData.UserDetailDataSource
+import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
+import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
+import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
+import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
+import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconApiService
+import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconRepository
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailApiService
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailDataSource
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailRepository
@@ -18,8 +24,10 @@ import com.kompasid.netdatalibrary.netData.data.userDetailData.UserDetailReposit
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryApiService
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryDataSource
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
 import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -28,6 +36,10 @@ import org.koin.dsl.module
 class NetDataModule {}
 
 val netDataModule = module {
+
+    singleOf(::NetworkApiService) { bind<INetworkApiService>() }
+    singleOf(::NetworkVM) { bind<INetworkVM>() }
+
     // Auth
     /**
     Login Email
@@ -69,10 +81,16 @@ val netDataModule = module {
     singleOf(::UserMembershipHistoryRepository) { bind<UserMembershipHistoryRepository>() }
     singleOf(::UserMembershipHistoryDataSource) { bind<UserMembershipHistoryDataSource>() }
     singleOf(::UserMembershipHistoryApiService) { bind<UserMembershipHistoryApiService>() }
-}
 
-//val appModule = module {
-//    single<INetworkApiService> { NetworkApiService(get()) }
-//    single { HttpClient() }
-//    single { AppIconApiService(get()) }
-//}
+    /**
+    App Icon
+     */
+    singleOf(::AppIconVM) { bind<AppIconVM>() }
+
+    singleOf(::AppIconUseCase) { bind<AppIconUseCase>() }
+
+    singleOf(::AppIconRepository) { bind<AppIconRepository>() }
+    singleOf(::AppIconApiService) { bind<AppIconApiService>() }
+
+
+}

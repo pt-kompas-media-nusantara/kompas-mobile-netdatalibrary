@@ -1,5 +1,6 @@
-package com.kompasid.netdatalibrary.base.network
+package com.kompasid.netdatalibrary.base.network.NetworkApiService
 
+import com.kompasid.netdatalibrary.base.network.NetworkError
 import io.ktor.http.HttpStatusCode
 
 interface INetworkApiService {
@@ -7,3 +8,4 @@ interface INetworkApiService {
     fun mapHttpStatusToError(statusCode: Int): NetworkError
     fun mapExceptionToError(exception: Throwable): NetworkError
 }
+

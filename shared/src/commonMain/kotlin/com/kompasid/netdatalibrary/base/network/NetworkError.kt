@@ -17,7 +17,7 @@ sealed class NetworkError : CustomError {
     data class Error(val throwable: Throwable) : NetworkError()
 
 
-    data class General<T>(val value: T) : NetworkError()
+    // data class General<T>(val value: T) : NetworkError()
 }
 
 /*

@@ -1,5 +1,6 @@
-package com.kompasid.netdatalibrary.base.network
+package com.kompasid.netdatalibrary.base.network.NetworkApiService
 
+import com.kompasid.netdatalibrary.base.network.NetworkError
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException

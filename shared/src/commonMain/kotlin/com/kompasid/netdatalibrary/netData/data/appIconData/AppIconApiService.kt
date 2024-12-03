@@ -3,7 +3,7 @@ package com.kompasid.netdatalibrary.netData.data.appIconData
 import com.kompasid.netdatalibrary.base.network.ApiConfig
 import com.kompasid.netdatalibrary.netData.data.appIconData.dto.AppIconResponse
 import com.kompasid.netdatalibrary.base.network.ApiResults
-import com.kompasid.netdatalibrary.base.network.INetworkApiService
+import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.utilities.Constants
 

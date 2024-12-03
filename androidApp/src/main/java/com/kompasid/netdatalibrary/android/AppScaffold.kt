@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kompasid.netdatalibrary.android.screens.AccountScreen
+import com.kompasid.netdatalibrary.android.screens.AppIconUseCaseScreen
 import com.kompasid.netdatalibrary.android.screens.ArticleListScreen
 import com.kompasid.netdatalibrary.android.screens.AuthUseCaseScreen
 import com.kompasid.netdatalibrary.android.screens.example.AboutScreen
@@ -55,6 +56,7 @@ fun AppNavHost(
                 onArticleListClick = { navController.navigate(Screens.ARTICLE_LIST_VIEW.route) },
                 onSettinsClick = { navController.navigate(Screens.SETTINGS_VIEW.route) },
                 onAuthUseCaseClick = { navController.navigate(Screens.AUTH_USECASE_VIEW.route) },
+                onAppIconUseCaseClick = { navController.navigate(Screens.APPICON_USECASE_VIEW.route) },
             )
         }
 //        composable(Screens.ARTICLES_EXAMPLE.route) {
@@ -89,6 +91,12 @@ fun AppNavHost(
 
         composable(Screens.AUTH_USECASE_VIEW.route) {
             AuthUseCaseScreen(
+                onBackClick = { navController.popBackStack() },
+            )
+        }
+
+        composable(Screens.APPICON_USECASE_VIEW.route) {
+            AppIconUseCaseScreen(
                 onBackClick = { navController.popBackStack() },
             )
         }
