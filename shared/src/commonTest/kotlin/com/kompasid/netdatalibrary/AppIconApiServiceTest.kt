@@ -1,5 +1,104 @@
-package com.kompasid.netdatalibrary.netData.data.appIconData
+package com.kompasid.netdatalibrary
 
+import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
+import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
+import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
+import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
+import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconApiService
+import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconRepository
+import com.kompasid.netdatalibrary.netData.data.appIconData.dto.AppIconResponse
+import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconUseCase
+import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import kotlinx.serialization.json.Json
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.module.dsl.bind
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.module
+import org.koin.test.KoinTest
+import org.koin.test.get
+import org.koin.test.inject
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertIs
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
+
+//AppIconApiServiceTest
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class AppIconApiServiceTest : KoinTest {
+
+    private lateinit var viewModel: AppIconVM
+
+    // Koin module
+    private val testModule = module {
+//        singleOf(::NetworkApiService) { bind<INetworkApiService>() }
+//        singleOf(::NetworkVM) { bind<INetworkVM>() }
+//
+//        singleOf(::AppIconVM) { bind<AppIconVM>() }
+//
+//        singleOf(::AppIconUseCase) { bind<AppIconUseCase>() }
+//
+//        singleOf(::AppIconRepository) { bind<AppIconRepository>() }
+//        singleOf(::AppIconApiService) { bind<AppIconApiService>() }
+
+        single<INetworkApiService> { NetworkApiService(get()) }
+        single<NetworkVM> { NetworkVM() }
+        single<AppIconVM> { AppIconVM(get(), get()) }
+        single<AppIconUseCase> { AppIconUseCase(get()) }
+        single<AppIconRepository> { AppIconRepository(get()) }
+        single<AppIconApiService> { AppIconApiService(get()) }
+    }
+
+    @BeforeTest
+    fun setUp() {
+        // Start Koin
+        startKoin {
+            modules(testModule)
+        }
+
+        // Set the main dispatcher for testing
+        Dispatchers.setMain(StandardTestDispatcher())
+        viewModel = get() // Get the ViewModel instance
+    }
+
+    @AfterTest
+    fun tearDown() {
+        // Stop Koin
+        stopKoin()
+
+        // Reset the dispatcher
+        Dispatchers.resetMain()
+    }
+
+    @Test
+    fun testFetchNewsUpdatesStateWhenAPICallIsSuccessful() = runTest {
+        // Arrange
+
+        // Act
+        viewModel.appIcon()
+
+        // Menunggu hingga semua coroutine selesai
+        runCurrent()
+
+        // Assert
+        val result = viewModel.data.value
+        assertNotNull(result, "AppIconResInterceptor is null")
+        // Anda juga bisa melakukan assert lebih lanjut tergantung pada data yang diharapkan
+    }
+
+}
 /*
 Untuk menggunakan file `app-icon.json` sebagai mock response dalam unit test, kita bisa memanfaatkan library seperti **Mockk** untuk memmock response dari `fetchDataFromApi`. File JSON tersebut akan dibaca ke dalam sebuah string dan di-parse ke dalam model `AppIconResponse` untuk memverifikasi logika layanan API.
 

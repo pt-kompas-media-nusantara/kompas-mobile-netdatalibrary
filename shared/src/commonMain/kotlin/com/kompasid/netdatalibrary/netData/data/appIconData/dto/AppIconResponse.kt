@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.netData.data.appIconData.dto
-import kotlinx.serialization.Serializable
 
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
