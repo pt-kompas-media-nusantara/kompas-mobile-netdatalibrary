@@ -1,0 +1,12 @@
+class LoginGuestApiServiceTest : KoinTest {
+
+    @Test
+    fun `should inject my components`() {
+        startKoin {
+            modules(networkModule, authModule) // Gunakan modul yang didefinisikan
+        }
+         val loginGuestApiService = get<LoginGuestApiService>()
+
+         assertNotNull(loginGuestApiService)
+    }
+}

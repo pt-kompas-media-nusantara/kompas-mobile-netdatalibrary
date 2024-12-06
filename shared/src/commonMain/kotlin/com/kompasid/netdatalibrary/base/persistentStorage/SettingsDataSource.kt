@@ -6,9 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 @Suppress("UNCHECKED_CAST")
-class SettingsDataSource {
-
-    private val settings: Settings = Settings()
+class SettingsDataSource(private val settings: Settings) {
 
     // StateFlow untuk data reaktif
     private val _stringFlowMap: MutableMap<String, MutableStateFlow<String?>> = mutableMapOf()

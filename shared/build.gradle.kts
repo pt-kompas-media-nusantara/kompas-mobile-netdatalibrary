@@ -1,11 +1,13 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.20"
     id("co.touchlab.skie") version "0.9.5"
+    id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
 kotlin {
@@ -58,6 +60,10 @@ kotlin {
             implementation(libs.konform) // validation
             implementation(libs.multiplatform.settings.no.arg) // Storage for UserDefaults & SharedPreferences
 //            implementation(libs.jwtparser) // JWTDecode
+
+//            api(libs.koin.annotations) // sementara di komen
+//            implementation(libs.koin.ksp.compiler)  // sementara di komen // gue nggak tau pakai pakai implementation atau api karna dokumentasinya tidak jelas api(libs.koin.ksp.compiler)
+
         }
         androidMain.dependencies {
             implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -70,8 +76,14 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
             implementation(libs.koin.test)
-            implementation(libs.kotlinx.coroutines.test) }
+            implementation(libs.kotlinx.coroutines.test)
+        }
     }
+
+//    // KSP Common sourceSet
+//    sourceSets.named("commonMain").configure {
+//        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+//    }
 }
 
 android {
@@ -85,3 +97,19 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
+//// KSP Tasks
+//dependencies {
+//    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+//    add("kspAndroid", libs.koin.ksp.compiler)
+//    add("kspIosX64", libs.koin.ksp.compiler)
+//    add("kspIosArm64", libs.koin.ksp.compiler)
+//    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+//}
+//
+//// Trigger Common Metadata Generation from Native tasks
+//project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+//    if (name != "kspCommonMainKotlinMetadata") {
+//        dependsOn("kspCommonMainKotlinMetadata")
+//    }
+//}

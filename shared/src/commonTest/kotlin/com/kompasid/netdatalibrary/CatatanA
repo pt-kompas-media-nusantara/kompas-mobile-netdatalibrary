@@ -1,0 +1,57 @@
+Perbedaan antara **`val componentB: ComponentB by inject()`** dan **`val componentA = get<ComponentA>()`** terletak pada **waktu injeksi** dan **cara penggunaan Koin untuk mendapatkan dependency**.
+
+Mari kita bahas mengapa urutan ini digunakan:
+
+---
+
+### **1. `val componentB: ComponentB by inject()` di atas**
+- **Menggunakan Delegasi `by inject()`**:
+  - Dengan delegasi ini, **`componentB` akan di-inject secara lazy (ditunda)** hingga properti tersebut pertama kali diakses.
+  - Dependency ini akan tersedia **setelah Koin diinisialisasi** dengan `startKoin { ... }`.
+  - Jadi, deklarasi **`val componentB: ComponentB by inject()`** harus berada **di atas** karena properti ini perlu didefinisikan **sebelum digunakan di dalam pengujian**.
+
+#### Mengapa di atas?
+- Karena **Kotlin membutuhkan semua properti di kelas dideklarasikan di awal** (sebelum metode seperti `@Test` dipanggil).
+- Properti ini belum benar-benar dibuat hingga pertama kali diakses, jadi aman untuk mendeklarasikan ini bahkan sebelum `startKoin { ... }`.
+
+---
+
+### **2. `val componentA = get<ComponentA>()` di bawah**
+- **Menggunakan `get()`**:
+  - Fungsi `get()` langsung meminta instance dari container Koin.
+  - Tidak seperti `by inject()`, `get()` memerlukan Koin sudah diinisialisasi sebelumnya dengan `startKoin { ... }`.
+
+#### Mengapa di bawah?
+- Karena **Koin harus sudah diinisialisasi** sebelum Anda memanggil `get()`.
+- Jika `get()` dipanggil sebelum `startKoin { ... }`, akan terjadi error karena container Koin belum siap.
+
+---
+
+### **Urutan yang Tepat**
+1. **Deklarasi properti lazy** (`by inject()`):
+   - Ini hanya mendeklarasikan bahwa **`componentB` akan di-inject ketika pertama kali diakses.**
+   - Tidak ada objek yang dibuat di tahap ini.
+
+2. **Inisialisasi Koin**:
+   - `startKoin { ... }` mengatur modul dan membuat container dependency.
+
+3. **Mengakses dependency secara langsung** (`get()`):
+   - Anda sekarang bisa menggunakan `get()` untuk mengambil instance dependency karena Koin sudah siap.
+
+---
+
+### **Ilustrasi Alur Eksekusi**
+Berikut alur eksekusi kode tersebut:
+1. **`val componentB: ComponentB by inject()`**: Hanya deklarasi, tidak ada injeksi yang terjadi.
+2. **`startKoin { ... }`**: Menginisialisasi Koin dan memuat modul.
+3. **`val componentA = get<ComponentA>()`**: Mengambil instance `ComponentA` dari Koin.
+4. **`assertEquals(componentA, componentB.a)`**: Pada saat ini, `componentB` diakses untuk pertama kali, sehingga injeksi dependency terjadi.
+
+---
+
+### **Kesimpulan**
+- **`by inject()`** digunakan untuk **lazy injection**, dan properti ini hanya diakses ketika benar-benar dibutuhkan.
+- **`get()`** digunakan untuk **immediate injection** dan memerlukan container Koin sudah siap.
+- Urutan seperti di contoh digunakan agar Koin dapat diinisialisasi dengan benar sebelum dependency diminta.
+
+Semoga penjelasan ini membantu Anda memahami perbedaan dan alasan di balik urutan kode tersebut! 😊
