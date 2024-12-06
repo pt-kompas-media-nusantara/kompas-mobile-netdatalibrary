@@ -30,12 +30,12 @@
 //import com.google.accompanist.swiperefresh.SwipeRefreshState
 //import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
 //import com.kompasid.app.netdatamodule.Example.Domain.ExampleArticlesDomain.ExampleArticleResInterceptor
-//import org.koin.androidx.compose.getViewModel
+//
 //
 //@Composable
 //fun ArticlesScreen(
 //    onAboutButtonClick: () -> Unit,
-//    articlesViewModel: ArticlesVM = getViewModel(),
+//    articlesViewModel: ArticlesVM ,
 //) {
 //    val articlesState = articlesViewModel.articlesState.collectAsState()
 //

@@ -10,11 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
+
 
 @Composable
 fun MainScreen(
-    articlesVM: ArticlesVM = getViewModel(),
+    articlesVM: ArticlesVM = koinViewModel<ArticlesVM>(),
     onAccountClick: () -> Unit,
     onArticleListClick: () -> Unit,
     onSettinsClick: () -> Unit,

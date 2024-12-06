@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
-    id("com.google.devtools.ksp") version "2.0.20-1.0.25"
+    // id("com.google.devtools.ksp") version "2.0.20-1.0.25"
 }
 
 android {
@@ -54,8 +54,8 @@ dependencies {
     // Koin
     // kalau ada error coba barter aja penggunaan api, implementationn dan ksp ini soalnya tidak standart, referensi https://insert-koin.io/docs/setup/annotations
     // api(libs.koin.annotations)
-    implementation(libs.koin.annotations) // gue nggak
-    ksp(libs.koin.ksp.compiler)
+//    implementation(libs.koin.annotations) // gue nggak
+//    ksp(libs.koin.ksp.compiler)
     // implementation(libs.koin.ksp.compiler)
 
 

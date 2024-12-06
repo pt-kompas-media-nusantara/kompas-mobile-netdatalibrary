@@ -1,17 +1,31 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.20"
     id("co.touchlab.skie") version "0.9.5"
-    id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
+    // id("maven-publish")
+    // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
+//group = "com.example"
+//version = "1.0"
+//
+//publishing {
+//    repositories {
+//        maven {
+//            //...
+//        }
+//    }
+//}
+
 kotlin {
+//    withSourcesJar(publish = true)
     androidTarget {
+//        publishLibraryVariants("debug")
+//        publishLibraryVariantsGroupedByFlavor = true
         compilations.all {
             compileTaskProvider.configure {
                 compilerOptions {
@@ -113,3 +127,10 @@ android {
 //        dependsOn("kspCommonMainKotlinMetadata")
 //    }
 //}
+//generate arr bisa pakai ini
+//https://eamedina87.medium.com/how-to-add-an-android-aar-library-in-kotlin-multiplatform-6286041d135d
+///Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/outputs/aar/shared-release.aar
+// ./gradlew :<module-name>:assembleRelease
+// ./gradlew :shared:assembleRelease
+// ./gradlew :<module-name>:assembleRelease --info
+// ./gradlew :<module-name>:assembleRelease --debug

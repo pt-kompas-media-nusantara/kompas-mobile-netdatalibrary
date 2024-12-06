@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
 import com.kompasid.netdatalibrary.android.AppBackBar
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun SettingsScreen(
-    articlesVM: ArticlesVM = getViewModel(),
+    articlesVM: ArticlesVM = koinViewModel<ArticlesVM>(),
     onBackClick: () -> Unit,
 ) {
     val accessToken by articlesVM.accessToken.collectAsState()
