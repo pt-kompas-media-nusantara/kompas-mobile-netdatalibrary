@@ -18,3 +18,9 @@ shared/build/intermediates
 shared/build/kotlin
 shared/build/tmp
 shared/build/outputs/logs
+shared/build/bin
+build/reports
+xcode-version.txt
+*.klib
+shared/build/SharedXCFrameworkTemp
+shared/build/skie
