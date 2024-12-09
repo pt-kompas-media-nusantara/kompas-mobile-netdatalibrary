@@ -9,3 +9,12 @@ local.properties
 xcuserdata
 .kotlin
 
+androidApp/build/intermediates
+androidApp/build/kotlin
+androidApp/build/outputs/logs
+androidApp/build/tmp
+shared/build/.transforms
+shared/build/intermediates
+shared/build/kotlin
+shared/build/tmp
+shared/build/outputs/logs
