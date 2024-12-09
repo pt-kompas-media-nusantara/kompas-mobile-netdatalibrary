@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.kompasid.netdatalibrary.android.screens.AccountScreen
 import com.kompasid.netdatalibrary.android.screens.AppIconUseCaseScreen
-import com.kompasid.netdatalibrary.android.screens.ArticleListScreen
+
 import com.kompasid.netdatalibrary.android.screens.AuthUseCaseScreen
 import com.kompasid.netdatalibrary.android.screens.example.AboutScreen
 import com.kompasid.netdatalibrary.android.screens.MainScreen
@@ -73,12 +73,6 @@ fun AppNavHost(
 
         composable(Screens.SETTINGS_VIEW.route) {
             SettingsScreen(
-                onBackClick = { navController.popBackStack() },
-            )
-        }
-
-        composable(Screens.ARTICLE_LIST_VIEW.route) {
-            ArticleListScreen(
                 onBackClick = { navController.popBackStack() },
             )
         }

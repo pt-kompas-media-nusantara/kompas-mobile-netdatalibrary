@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
 import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
 fun AppIconUseCaseScreen(
-    vm: AppIconVM = koinViewModel<AppIconVM>(),
+    vm: AppIconVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
 

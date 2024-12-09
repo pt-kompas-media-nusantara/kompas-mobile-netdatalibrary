@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 
 val settingsModule = module {
-    // singleOf(::Settings) { bind<Settings>() }
+    singleOf(::Settings) { bind<Settings>() }
     singleOf(::SettingsDataSource) { bind<SettingsDataSource>() }
 }

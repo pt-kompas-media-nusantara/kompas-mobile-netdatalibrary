@@ -5,8 +5,7 @@ import com.kompasid.netdatalibrary.android.di.viewModelsModule
 import com.kompasid.netdatalibrary.base.di.base.sharedKoinModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.core.logger.Logger
-import java.util.logging.Level
+import org.koin.dsl.KoinAppDeclaration
 
 class KompasIdApp : Application() {
 

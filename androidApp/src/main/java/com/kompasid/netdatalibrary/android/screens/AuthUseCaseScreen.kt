@@ -10,17 +10,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
 import com.kompasid.netdatalibrary.android.AppBackBar
 import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
-import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
-getViewModel() deprecated,
-dan harus ganti menggunakan yang lain menggunakan koin lagi khusu untuk compose.
-dan sekarang masih error
+
 @Composable
 fun AuthUseCaseScreen(
-    vm: AuthVM = koinViewModel<AuthVM>(),
+    vm: AuthVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
 
