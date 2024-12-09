@@ -7,8 +7,5 @@ captures
 .cxx
 local.properties
 xcuserdata
-.build
 .kotlin
-shared/build
-androidApp/build
-build/reports
+
