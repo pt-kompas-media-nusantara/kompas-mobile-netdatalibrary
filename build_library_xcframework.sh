@@ -1,14 +1,31 @@
 #!/bin/bash
 
-# 1. Jalankan assemble task
+# 1. Minta input versi untuk URL
+read -p "Masukkan versi untuk URL (misalnya, 1.0.0): " version
+if [ -z "$version" ]; then
+    echo "Versi tidak boleh kosong!"
+    exit 1
+fi
+
+# 2. Perbarui URL di Package.swift
+url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/$version/Shared.xcframework.zip"
+if [ -f "Package.swift" ]; then
+    sed -i '' "s|url: \".*\"|url: \"$url\"|" Package.swift
+    echo "URL berhasil diperbarui di Package.swift: $url"
+else
+    echo "Package.swift tidak ditemukan"
+    exit 1
+fi
+
+# 3. Jalankan assemble task
 ./gradlew :shared:assembleSharedXCFramework || { echo "Gagal membuat XCFramework"; exit 1; }
 
-# 2. Path ke XCFramework
+# 4. Path ke XCFramework
 XCFRAMEWORK_PATH="shared/build/XCFrameworks"
 TARGET_PATH="."
 ZIP_NAME="Shared.xcframework.zip"
 
-# 3. Pindahkan XCFramework ke root proyek
+# 5. Pindahkan XCFramework ke root proyek
 if [ -d "$XCFRAMEWORK_PATH" ]; then
     mv "$XCFRAMEWORK_PATH" "$TARGET_PATH"
     echo "XCFramework berhasil dipindahkan ke root: $TARGET_PATH"
@@ -17,7 +34,7 @@ else
     exit 1
 fi
 
-# 4. Buat ZIP dari file XCFramework
+# 6. Buat ZIP dari file XCFramework
 SOURCE_ZIP="XCFrameworks/debug/Shared.xcframework"
 ZIP_NAME="Shared.xcframework.zip"
 if [ -d "$SOURCE_ZIP" ]; then
@@ -28,7 +45,7 @@ else
     exit 1
 fi
 
-# 5. Hitung checksum
+# 7. Hitung checksum
 if [ -f "$ZIP_NAME" ]; then
     checksum=$(swift package compute-checksum "$ZIP_NAME")
     echo "Checksum berhasil dihitung: $checksum"
@@ -37,7 +54,7 @@ else
     exit 1
 fi
 
-# 6. Perbarui checksum di Package.swift
+# 8. Perbarui checksum di Package.swift
 if [ -f "Package.swift" ]; then
     sed -i '' "s/checksum: \".*\"/checksum: \"$checksum\"/" Package.swift
     echo "Checksum berhasil diperbarui di Package.swift: $checksum"
