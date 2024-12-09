@@ -1,24 +1,52 @@
 #!/bin/bash
 
-# Jalankan assemble task
-./gradlew :shared:assembleSharedXCFramework
+# 1. Jalankan assemble task
+./gradlew :shared:assembleSharedXCFramework || { echo "Gagal membuat XCFramework"; exit 1; }
 
-# Path ke XCFramework
-SOURCE_PATH="shared/build/XCFrameworks"
+# 2. Path ke XCFramework
+XCFRAMEWORK_PATH="shared/build/XCFrameworks"
 TARGET_PATH="."
+ZIP_NAME="Shared.xcframework.zip"
 
-# Pindahkan file ke root
-mv $SOURCE_PATH $TARGET_PATH
+# 3. Pindahkan XCFramework ke root proyek
+if [ -d "$XCFRAMEWORK_PATH" ]; then
+    mv "$XCFRAMEWORK_PATH" "$TARGET_PATH"
+    echo "XCFramework berhasil dipindahkan ke root: $TARGET_PATH"
+else
+    echo "XCFramework tidak ditemukan di $XCFRAMEWORK_PATH"
+    exit 1
+fi
 
-# Buat ZIP dari file XCFramework
+# 4. Buat ZIP dari file XCFramework
 SOURCE_ZIP="XCFrameworks/debug/Shared.xcframework"
-NAME_OF_ZIP="Shared.xcframework.zip"
-zip -r "${NAME_OF_ZIP}" $SOURCE_ZIP
+ZIP_NAME="Shared.xcframework.zip"
+if [ -d "$SOURCE_ZIP" ]; then
+    zip -r "$ZIP_NAME" "$SOURCE_ZIP"
+    echo "File ZIP berhasil dibuat: $ZIP_NAME"
+else
+    echo "Folder XCFramework tidak ditemukan: $SOURCE_ZIP"
+    exit 1
+fi
 
-# Checksum
-swift package compute-checksum $SOURCE_ZIP
+# 5. Hitung checksum
+if [ -f "$ZIP_NAME" ]; then
+    checksum=$(swift package compute-checksum "$ZIP_NAME")
+    echo "Checksum berhasil dihitung: $checksum"
+else
+    echo "File ZIP tidak ditemukan: $ZIP_NAME"
+    exit 1
+fi
 
-echo "File XCFramework telah dipindahkan dan di-zip."
+# 6. Perbarui checksum di Package.swift
+if [ -f "Package.swift" ]; then
+    sed -i '' "s/checksum: \".*\"/checksum: \"$checksum\"/" Package.swift
+    echo "Checksum berhasil diperbarui di Package.swift: $checksum"
+else
+    echo "Package.swift tidak ditemukan"
+    exit 1
+fi
+
+echo "Proses selesai."
 
 
 # BERI IZIN
