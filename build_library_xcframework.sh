@@ -1,14 +1,15 @@
 #!/bin/bash
 
 # 1. Minta input versi untuk URL
-read -p "Masukkan versi untuk URL (misalnya, 1.0.0): " version
-if [ -z "$version" ]; then
-    echo "Versi tidak boleh kosong!"
-    exit 1
-fi
+# read -p "Masukkan versi untuk URL (misalnya, 1.0.0): " version
+# if [ -z "$version" ]; then
+#     echo "Versi tidak boleh kosong!"
+#     exit 1
+# fi
 
 # 2. Perbarui URL di Package.swift
-url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/$version/Shared.xcframework.zip"
+# url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/$version/Shared.xcframework.zip"
+url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.14/Shared.xcframework.zip"
 if [ -f "Package.swift" ]; then
     sed -i '' "s|url: \".*\"|url: \"$url\"|" Package.swift
     echo "URL berhasil diperbarui di Package.swift: $url"
