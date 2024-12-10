@@ -1,0 +1,83 @@
+name: ZGit - Deploy Library iOS
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version : "
+        required: true
+        default: ""
+        type: string
+
+jobs:
+  deploy_library_ios:
+    name: Deploy Library iOS
+    runs-on: macos-14
+    timeout-minutes: 10
+
+    steps:
+      - name: Print Inputs
+        run: |
+          echo "version": "${{ github.event.inputs.version }}"
+
+      - name: Setup Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.3.app
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Install Swift Package Manager (SPM) tools
+        run: |
+          swift package --version
+
+      - name: Grant Execution Permission for Build Script
+        run: chmod +x build_library_xcframework.sh
+
+      - name: Build Library XCFramework
+        run: |
+          ./build_library_xcframework.sh
+
+      - name: Verify XCFramework Build
+        run: |
+          if [ ! -f "Shared.xcframework.zip" ]; then
+            echo "XCFramework ZIP not found!"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Upload XCFramework ZIP as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Shared.xcframework.zip
+          path: Shared.xcframework.zip
+
+      - name: Create Release
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: Release ${{ github.event.inputs.version }}
+          body: |
+            XCFramework for version ${{ github.event.inputs.version }}.
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload XCFramework to Release
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: Shared.xcframework.zip
+          asset_name: Shared.xcframework.zip
+          asset_content_type: application/zip
