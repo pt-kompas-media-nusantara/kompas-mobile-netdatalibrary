@@ -1,4 +1,4 @@
-name: ZGit - Deploy Library iOS
+name: Loc - Deploy Library iOS
 
 on:
   workflow_dispatch:
@@ -9,10 +9,14 @@ on:
         default: ""
         type: string
 
+defaults:
+  run:
+    shell: zsh --login --errexit --pipefail {0}
+
 jobs:
   deploy_library_ios:
     name: Deploy Library iOS
-    runs-on: macos-14
+    runs-on: mk-mac-ios-01
     timeout-minutes: 100
 
     steps:
@@ -32,31 +36,32 @@ jobs:
         run: |
           echo "version": "${{ github.event.inputs.version }}"
 
-      - name: Setup Xcode
-        run: sudo xcode-select -s /Applications/Xcode_15.3.app
+      - name: Xcode List Available
+        run: ls /Applications | grep Xcode
 
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           persist-credentials: true
 
-      - name: Cache Swift Packages
-        uses: actions/cache@v3
-        with:
-          path: ~/Library/Caches/org.swift.swiftpm
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
+      - name: Install Ruby Gems
+        run: |
+          bundle config set --local path '/tmp/gem-bundle/${{ runner.name }}'
+          bundle install
+          ruby --version
+          bundle --version
+          bundle exec rake --version
+          fastlane --version
+          pod --version
+          pod install --repo-update
 
-      - name: Cache CocoaPods
-        uses: actions/cache@v3
-        with:
-          path: |
-            Pods
-            ~/Library/Caches/CocoaPods
-          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cocoapods-
+      - name: Library Version After
+        run: |
+          ruby --version
+          bundle --version
+          bundle exec rake --version
+          fastlane --version
+          pod --version
 
       - uses: actions/setup-java@v4
         with:
@@ -66,12 +71,6 @@ jobs:
           cache-dependency-path: |
             **/*.gradle*
             **/gradle-wrapper.properties
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-          bundler-cache: true
 
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
