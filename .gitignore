@@ -25,3 +25,4 @@ xcode-version.txt
 shared/build/SharedXCFrameworkTemp
 shared/build/skie
 shared/build/XCFrameworks
+shared/build/xcode-frameworks

@@ -9,14 +9,14 @@ struct ContentView: View {
 		Text("greet")
         Button("Login By Guest") {
             Task {
-                await vm.loginGuest()
+                try await vm.loginGuest()
             }
         }
 	}
 }
 
 class AuthVMWrapper: ObservableObject {
-    let authUseCase: AuthUseCase
+    private let authUseCase: AuthUseCase
     
     init() {
         self.authUseCase = KoinInjector().authUseCase
@@ -27,14 +27,14 @@ class AuthVMWrapper: ObservableObject {
         do {
             let result = try await authUseCase.loginAnon()
             
-            switch result {
-            case .success:
-                // Handle success
-                print("Login successful")
-            case .failure(let error):
-                // Handle failure
-                print("Error: \(error.localizedDescription)")
-            }
+//            switch result {
+//            case .success:
+//                // Handle success
+//                print("Login successful")
+//            case .failure(let error):
+//                // Handle failure
+//                print("Error: \(error.localizedDescription)")
+//            }
         } catch {
             // Handle unexpected errors
             print("Unexpected error: \(error.localizedDescription)")
