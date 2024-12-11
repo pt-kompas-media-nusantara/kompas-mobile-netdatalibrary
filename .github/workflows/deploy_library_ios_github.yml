@@ -76,9 +76,9 @@ jobs:
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
 
-      - name: Build Gradle Project
-        run: ./gradlew build --no-daemon
-        continue-on-error: false
+      # - name: Build Gradle Project
+      #   run: ./gradlew build --no-daemon
+      #   continue-on-error: false
 
       - name: Build Library XCFramework
         run: |
