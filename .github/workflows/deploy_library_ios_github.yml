@@ -76,13 +76,11 @@ jobs:
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
 
-      # - name: Build Gradle Project
-      #   run: ./gradlew build --no-daemon
-      #   continue-on-error: false
-
       - name: Build Library XCFramework
         run: |
           ./build_library_xcframework.sh
+        env:
+          version: ${{ github.event.inputs.version }}
 
       - name: Verify XCFramework Build
         run: |
@@ -125,6 +123,7 @@ jobs:
         run: |
           ls -R
 
+        # Shared.xcframework.zip tidak di perlukan di taruh di master, karna sudah bisa. contoh tag versi 1.0.18
       - name: Commit and Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -133,7 +132,7 @@ jobs:
           git config --global user.email "nurirppan@gmail.com"
 
           # Add files to Git
-          git add Package.swift Shared.xcframework.zip
+          git add Package.swift
 
           # Commit changes
           if git diff-index --quiet HEAD --; then
