@@ -64,8 +64,8 @@ jobs:
           java-version: "21"
           cache: "gradle"
           cache-dependency-path: |
-            sub-project/*.gradle*
-            sub-project/**/gradle-wrapper.properties
+            **/*.gradle*
+            **/gradle-wrapper.properties
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -120,6 +120,10 @@ jobs:
         run: |
           echo "Checking repository..."
           ls -al
+
+      - name: List Files
+        run: |
+          ls -R
 
       # - name: Create Release
       #   id: create_release
