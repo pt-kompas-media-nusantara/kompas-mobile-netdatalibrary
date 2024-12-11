@@ -9,7 +9,7 @@
 
 # 2. Perbarui URL di Package.swift
 # url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/$version/Shared.xcframework.zip"
-url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.15/Shared.xcframework.zip"
+url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.16/Shared.xcframework.zip"
 if [ -f "Package.swift" ]; then
     sed -i '' "s|url: \".*\"|url: \"$url\"|" Package.swift
     echo "URL berhasil diperbarui di Package.swift: $url"
