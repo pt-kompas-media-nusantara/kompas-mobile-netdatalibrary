@@ -16,6 +16,18 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: Validate Version Input
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [[ -z "$VERSION" ]]; then
+            echo "Version input is required."
+            exit 1
+          fi
+          if [[ ! $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid version format. Use semantic versioning (e.g., 1.0.0)."
+            exit 1
+          fi
+
       - name: Print Inputs
         run: |
           echo "version": "${{ github.event.inputs.version }}"
@@ -26,7 +38,34 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: false
+          persist-credentials: true
+
+      - name: Cache Swift Packages
+        uses: actions/cache@v3
+        with:
+          path: ~/Library/Caches/org.swift.swiftpm
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v3
+        with:
+          path: |
+            Pods
+            ~/Library/Caches/CocoaPods
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+          cache: "gradle"
+          cache-dependency-path: |
+            sub-project/*.gradle*
+            sub-project/**/gradle-wrapper.properties
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -34,12 +73,12 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
-      - name: Install Swift Package Manager (SPM) tools
-        run: |
-          swift package --version
-
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
+
+      - name: Build Gradle Project
+        run: ./gradlew build --no-daemon
+        continue-on-error: false
 
       - name: Build Library XCFramework
         run: |
@@ -60,20 +99,27 @@ jobs:
           path: Shared.xcframework.zip
 
       - name: Push Git Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git tag ${{ github.event.inputs.version }}
-          git push origin ${{ github.event.inputs.version }}
+          git config --global user.name "nurirppan"
+          git config --global user.email "nurirppan@gmail.com"
+          git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ github.event.inputs.version }}
 
       - name: Create or Update Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Create release or update existing one
           gh release create ${{ github.event.inputs.version }} \
             Shared.xcframework.zip \
-            --title "Release ${{ github.event.inputs.version }}" \
             --notes "XCFramework for version ${{ github.event.inputs.version }}." \
             --target v1.0/dev --latest
+
+      - name: Logging for Debugging
+        run: |
+          echo "Checking repository..."
+          ls -al
 
       # - name: Create Release
       #   id: create_release
@@ -109,3 +155,9 @@ jobs:
 # Outputs from create_release:
 # upload_url: https://uploads.github.com/repos/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/189886828/assets{?name,label}
 # html_url: https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/tag/1.0.15
+# # Create release or update existing one
+# gh release create ${{ github.event.inputs.version }} \
+#   Shared.xcframework.zip \
+#   --title "Release ${{ github.event.inputs.version }}" \
+#   --notes "XCFramework for version ${{ github.event.inputs.version }}." \
+#   --target v1.0/dev --latest
