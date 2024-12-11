@@ -442,7 +442,7 @@
 			repositoryURL = "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary";
 			requirement = {
 				kind = exactVersion;
-				version = 1.0.18;
+				version = 1.0.19;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

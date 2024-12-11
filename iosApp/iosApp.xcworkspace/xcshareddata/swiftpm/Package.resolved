@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary",
       "state" : {
-        "revision" : "c17974493eeeaf0f9d6f55f83206e7ffaf982ff2",
-        "version" : "1.0.18"
+        "revision" : "730f0777ddd78024913d95563832983806daae31",
+        "version" : "1.0.19"
       }
     }
   ],
