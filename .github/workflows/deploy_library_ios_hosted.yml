@@ -44,25 +44,6 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Install Ruby Gems
-        run: |
-          bundle config set --local path '/tmp/gem-bundle/${{ runner.name }}'
-          bundle install
-          ruby --version
-          bundle --version
-          bundle exec rake --version
-          fastlane --version
-          pod --version
-          pod install --repo-update
-
-      - name: Library Version After
-        run: |
-          ruby --version
-          bundle --version
-          bundle exec rake --version
-          fastlane --version
-          pod --version
-
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
