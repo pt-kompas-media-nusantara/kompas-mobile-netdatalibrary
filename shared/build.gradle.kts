@@ -24,7 +24,8 @@ plugins {
 kotlin {
 //    withSourcesJar(publish = true)
     androidTarget {
-//        publishLibraryVariants("debug")
+        //publishLibraryVariants("debug")
+        publishLibraryVariants("release")
 //        publishLibraryVariantsGroupedByFlavor = true
         compilations.all {
             compileTaskProvider.configure {
