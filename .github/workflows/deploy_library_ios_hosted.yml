@@ -14,7 +14,7 @@ defaults:
     shell: zsh --login --errexit --pipefail {0}
 
 jobs:
-  deploy_library_ios:
+  deploy_library:
     name: Deploy Library iOS
     runs-on: mk-mac-ios-01
     timeout-minutes: 100

@@ -1,0 +1,61 @@
+name: ZGit - Deploy Library Android
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version : "
+        required: true
+        default: ""
+        type: string
+
+jobs:
+  deploy_library:
+    name: Deploy Library iOS
+    runs-on: macos-14
+    timeout-minutes: 100
+
+    steps:
+      - name: Validate Version Input
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if [[ -z "$VERSION" ]]; then
+            echo "Version input is required."
+            exit 1
+          fi
+          if [[ ! $VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid version format. Use semantic versioning (e.g., 1.0.0)."
+            exit 1
+          fi
+
+      - name: Print Inputs
+        run: |
+          echo "version": "${{ github.event.inputs.version }}"
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+          cache: "gradle"
+          cache-dependency-path: |
+            **/*.gradle*
+            **/gradle-wrapper.properties
+
+      - name: Build Library
+        run: ./gradlew :shared:assembleRelease
+        env:
+          version: ${{ github.event.inputs.version }}
+
+      - name: Logging for Debugging
+        run: |
+          echo "Checking repository..."
+          ls -al
+
+      - name: List Files
+        run: |
+          ls -R
