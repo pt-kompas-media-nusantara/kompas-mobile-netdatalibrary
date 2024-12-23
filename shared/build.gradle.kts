@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.20"
     id("co.touchlab.skie") version "0.9.5"
-    // id("maven-publish")
+     id("maven-publish")
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
@@ -108,8 +108,8 @@ android {
         minSdk = 28
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
