@@ -13,30 +13,20 @@ if [ -z "$version" ]; then
     exit 1
 fi
 
-# 2. Perbarui URL di Package.swift
-url="https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/$version/Shared.xcframework.zip"
-if [ -f "Package.swift" ]; then
-    sed -i '' "s|url: \".*\"|url: \"$url\"|" Package.swift
-    echo "URL berhasil diperbarui di Package.swift: $url"
-else
-    echo "Package.swift tidak ditemukan"
-    exit 1
-fi
+# 2. Jalankan assemble task
+./gradlew :shared:assembleRelease || { echo "Gagal membuat AAR"; exit 1; }
 
-# 3. Jalankan assemble task
-./gradlew :shared:assembleSharedXCFramework || { echo "Gagal membuat XCFramework"; exit 1; }
-
-# 4. Path ke XCFramework
-XCFRAMEWORK_PATH="shared/build/XCFrameworks"
+# 4. Path ke aar
+AAR_PATH="shared/build/outputs/aar"
 TARGET_PATH="."
 ZIP_NAME="Shared.xcframework.zip"
 
-# 5. Pindahkan XCFramework ke root proyek
-if [ -d "$XCFRAMEWORK_PATH" ]; then
-    mv "$XCFRAMEWORK_PATH" "$TARGET_PATH"
+# 5. Pindahkan AAR ke root proyek
+if [ -d "$AAR_PATH" ]; then
+    mv "$AAR_PATH" "$TARGET_PATH"
     echo "XCFramework berhasil dipindahkan ke root: $TARGET_PATH"
 else
-    echo "XCFramework tidak ditemukan di $XCFRAMEWORK_PATH"
+    echo "XCFramework tidak ditemukan di $AAR_PATH"
     exit 1
 fi
 
