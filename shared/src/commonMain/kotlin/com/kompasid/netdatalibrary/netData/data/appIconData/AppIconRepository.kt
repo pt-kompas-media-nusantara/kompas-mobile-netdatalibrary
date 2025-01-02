@@ -20,4 +20,20 @@ class AppIconRepository(
         }
     }
 
+    suspend fun createDataToDb() {
+
+    }
+
+    suspend fun readDataToDb() {
+
+    }
+
+    suspend fun updateDataToDb() {
+
+    }
+
+    suspend fun deleteDataToDb() {
+
+    }
+
 }

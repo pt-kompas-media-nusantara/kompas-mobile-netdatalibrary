@@ -8,8 +8,8 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.utilities.Constants
 
 
-//https://cdn-content.kompas.id/mobile/json/generalContent.json   | app icon
-//https://private-d6360b-hariankompasios.apiary-mock.com/generalContent
+// https://cdn-content.kompas.id/mobile/json/generalContent.json   | app icon
+// https://private-d6360b-hariankompasios.apiary-mock.com/generalContent
 class AppIconApiService(
     private val iNetworkApiService: INetworkApiService
 ) {
