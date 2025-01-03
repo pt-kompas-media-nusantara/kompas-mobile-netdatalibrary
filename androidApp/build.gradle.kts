@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.compose.compiler)
+    id("maven-publish")
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25"
 }
 
