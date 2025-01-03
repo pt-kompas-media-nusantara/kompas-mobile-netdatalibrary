@@ -115,7 +115,7 @@ publishing {
             credentials {
                 // sample
                 username = System.getenv("GITHUB_ACTOR") ?: "wahyukharismaa" // Or your preferred method to provide credentials.
-                password = "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" // Create a token in github and give it read/write permission
+                password = "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" // Create a token in github and give it read/write permission
             }
         }
     }
