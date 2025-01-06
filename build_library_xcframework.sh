@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # 1. Minta input versi untuk URL / un komen jika di jalankan di local
 # read -p "Masukkan versi untuk URL (misalnya, 1.0.0): " version
 # if [ -z "$version" ]; then
