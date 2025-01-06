@@ -44,21 +44,21 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Set JAVA_HOME Manually
-        run: |
-          export JAVA_HOME=$(/usr/libexec/java_home -v 21)
-          echo "JAVA_HOME set to: $JAVA_HOME"
-          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV  # Menyimpan JAVA_HOME di lingkungan untuk langkah selanjutnya
-          java --version
+      # - name: Set JAVA_HOME Manually
+      #   run: |
+      #     export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+      #     echo "JAVA_HOME set to: $JAVA_HOME"
+      #     echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV  # Menyimpan JAVA_HOME di lingkungan untuk langkah selanjutnya
+      #     java --version
     
-      - name: Verify JAVA_HOME
-        run: |
-          echo "JAVA_HOME is set to: $JAVA_HOME"
-          if [[ ! -d "$JAVA_HOME" ]]; then
-            echo "JAVA_HOME is invalid: $JAVA_HOME"
-            exit 1
-          fi
-          java --version
+      # - name: Verify JAVA_HOME
+      #   run: |
+      #     echo "JAVA_HOME is set to: $JAVA_HOME"
+      #     if [[ ! -d "$JAVA_HOME" ]]; then
+      #       echo "JAVA_HOME is invalid: $JAVA_HOME"
+      #       exit 1
+      #     fi
+      #     java --version
 
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
