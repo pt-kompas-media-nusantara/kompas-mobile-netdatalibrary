@@ -39,9 +39,6 @@ jobs:
       - name: Xcode List Available
         run: ls /Applications | grep Xcode
 
-      - name: Java Version
-        run: java --version
-
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
@@ -55,6 +52,23 @@ jobs:
           cache-dependency-path: |
             **/*.gradle*
             **/gradle-wrapper.properties
+
+      - name: Set JAVA_HOME
+        run: |
+          export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+          echo "JAVA_HOME set to: $JAVA_HOME"
+          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+        shell: bash
+    
+      - name: Verify Java Installation
+        run: |
+          echo "Checking Java version..."
+          java --version
+          echo "Checking JAVA_HOME..."
+          if [[ ! -d "$JAVA_HOME" ]]; then
+            echo "JAVA_HOME is invalid: $JAVA_HOME"
+            exit 1
+          fi
 
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
