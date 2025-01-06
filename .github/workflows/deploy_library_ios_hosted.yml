@@ -39,19 +39,13 @@ jobs:
       - name: Xcode List Available
         run: ls /Applications | grep Xcode
 
+      - name: Java Version
+        run: java --version
+
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           persist-credentials: true
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: "temurin"
-          java-version: "21"
-          cache: "gradle"
-          cache-dependency-path: |
-            **/*.gradle*
-            **/gradle-wrapper.properties
 
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
