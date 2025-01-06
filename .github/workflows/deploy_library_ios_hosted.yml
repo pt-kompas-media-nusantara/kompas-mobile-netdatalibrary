@@ -47,6 +47,15 @@ jobs:
         with:
           persist-credentials: true
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+          cache: "gradle"
+          cache-dependency-path: |
+            **/*.gradle*
+            **/gradle-wrapper.properties
+
       - name: Grant Execution Permission for Build Script
         run: chmod +x build_library_xcframework.sh
 
