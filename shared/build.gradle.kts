@@ -105,7 +105,7 @@ publishing {
             from(components["kotlin"]) // This includes all targets
             groupId = "com.kompasid.netdatalibrary"
             artifactId = "shared"
-            version = "0.0.1-beta"
+            version = "0.0.3"
         }
     }
     repositories {
@@ -114,8 +114,8 @@ publishing {
             url = uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary") // Replace with your info
             credentials {
                 // sample
-                username = System.getenv("GITHUB_ACTOR") ?: "wahyukharismaa" // Or your preferred method to provide credentials.
-                password = "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" // Create a token in github and give it read/write permission
+                username = System.getenv("GITHUB_ACTOR") // Or your preferred method to provide credentials.
+                password = System.getenv("GITHUB_TOKEN") // Create a token in github and give it read/write permission
             }
         }
     }
@@ -125,7 +125,7 @@ android {
     namespace = "com.kompasid.netdatalibrary"
     compileSdk = 34
     defaultConfig {
-        minSdk = 28
+        minSdk = 21
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
