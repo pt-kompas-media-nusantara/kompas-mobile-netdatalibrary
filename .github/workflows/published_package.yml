@@ -1,4 +1,4 @@
-name: ZGit - Deploy Library Android
+name: Deploy Package Github
 
 on:
   workflow_dispatch:
