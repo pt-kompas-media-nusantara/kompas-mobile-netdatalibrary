@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.20"
     id("co.touchlab.skie") version "0.9.5"
-     id("maven-publish")
+    id("maven-publish")
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
@@ -24,9 +24,7 @@ plugins {
 kotlin {
 //    withSourcesJar(publish = true)
     androidTarget {
-        //publishLibraryVariants("debug")
         publishLibraryVariants("release")
-//        publishLibraryVariantsGroupedByFlavor = true
         compilations.all {
             compileTaskProvider.configure {
                 compilerOptions {
@@ -101,18 +99,45 @@ kotlin {
 //    }
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("default") {
+            from(components["kotlin"]) // This includes all targets
+            groupId = "com.kompasid.netdatalibrary"
+            artifactId = "shared"
+            version = "0.0.3"
+        }
+    }
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary") // Replace with your info
+            credentials {
+                // sample
+                username = System.getenv("GITHUB_ACTOR") // Or your preferred method to provide credentials.
+                password = System.getenv("GITHUB_TOKEN") // Create a token in github and give it read/write permission
+            }
+        }
+    }
+}
+
 android {
     namespace = "com.kompasid.netdatalibrary"
     compileSdk = 34
     defaultConfig {
-        minSdk = 28
+        minSdk = 21
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-}
 
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+        }
+    }
+}
 
 //// KSP Tasks
 //dependencies {
