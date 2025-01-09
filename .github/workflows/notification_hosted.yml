@@ -159,7 +159,7 @@ jobs:
                   "entities": [
                       {
                           "type": "mention",
-                          "text": "<at>"${{ steps.id_user_data.outputs.output_fullname }}"</at>",
+                          "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
                           "mentioned": {
                               "id": "${{ steps.id_user_data.outputs.output_work_email }}",
                               "name": "${{ steps.id_user_data.outputs.output_fullname }}"
