@@ -140,20 +140,33 @@ jobs:
                       "separator": true,
                       "spacing": "Medium"
                   },
-                  
+                  {
+                      "type": "Component",
+                      "name": "graph.microsoft.com/users",
+                      "view": "compact",
+                      "properties": {
+                          "users": [
+                              {
+                                  "id": "${{ steps.id_user_data.outputs.output_work_email }}",
+                                  "displayName": "${{ steps.id_user_data.outputs.output_fullname }}",
+                                  "userPrincipalName": "${{ steps.id_user_data.outputs.output_work_email }}"
+                              }
+                          ]
+                      }
+                  }
               ],
-                "msteams": {
-                "entities": [
-                    {
-                        "type": "mention",
-                        "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
-                        "mentioned": {
-                            "id": "${{ steps.id_user_data.outputs.output_work_email }}",
-                            "name": "${{ steps.id_user_data.outputs.output_fullname }}"
-                        }
-                    }
-                ]
-            }
+              "msteams": {
+                  "entities": [
+                      {
+                          "type": "mention",
+                          "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
+                          "mentioned": {
+                              "id": "${{ steps.id_user_data.outputs.output_work_email }}",
+                              "name": "${{ steps.id_user_data.outputs.output_fullname }}"
+                          }
+                      }
+                  ]
+              }
           }'
 
           curl -X POST -H "Content-Type: application/json" -d "{\"type\": \"message\", \"attachments\": [{\"contentType\": \"application/vnd.microsoft.card.adaptive\", \"content\": $CARD_JSON }]}" ${{ inputs.webhook }}
