@@ -104,16 +104,16 @@ jobs:
 
       - name: Push Git Tag
         env:
-          GITHUB_TOKEN: ${{ secrets.CONFIG_USER_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "${{ vars.CONFIG_USER_NAME }}"
           git config --global user.email "${{ vars.CONFIG_USER_EMAIL }}"
           git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}"
-          git push https://x-access-token:${{ secrets.CONFIG_USER_PAT }}@github.com/${{ github.repository }} ${{ github.event.inputs.version }}
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ github.event.inputs.version }}
 
       - name: Create or Update Release
         env:
-          GITHUB_TOKEN: ${{ secrets.CONFIG_USER_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.event.inputs.version }} \
             Shared.xcframework.zip \
@@ -132,7 +132,7 @@ jobs:
         # Shared.xcframework.zip tidak di perlukan di taruh di master, karna sudah bisa. contoh tag versi 1.0.18
       - name: Commit and Push Changes
         env:
-          GITHUB_TOKEN: ${{ secrets.CONFIG_USER_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "${{ vars.CONFIG_USER_NAME }}"
           git config --global user.email "${{ vars.CONFIG_USER_EMAIL }}"
@@ -146,5 +146,5 @@ jobs:
           else
             git commit -m "Update Package.swift and Shared.xcframework.zip for version ${{ github.event.inputs.version }}"
             # Push changes to the same branch
-            git push https://x-access-token:${{ secrets.CONFIG_USER_PAT }}@github.com/${{ github.repository }}
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           fi
