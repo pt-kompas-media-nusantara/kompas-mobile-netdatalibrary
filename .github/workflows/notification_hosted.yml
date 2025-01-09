@@ -6,6 +6,9 @@ on:
       webhook:
         required: true
         type: string
+      github_version:
+        required: true
+        type: string
       github_state: # failure / success
         required: true
         type: string
@@ -17,15 +20,6 @@ defaults:
 # concurrency:
 #   group: ${{ github.ref }}-${{ github.workflow }}
 #   cancel-in-progress: true
-
-env:
-  # Nur Irfan Pangestu
-  GH_ALIAS_IRFAN: "nurirppan"
-  GH_NAME_IRFAN: "Nur Irfan Pangestu"
-  GH_EMAIL_IRFAN: "nur.irfan@kompas.com"
-  GH_ALIAS_WAHYU: "wahyukharismaa"
-  GH_NAME_WAHYU: "Made Wahyu Kharisma Candra Kirana"
-  GH_EMAIL_WAHYU: "made.kirana@kompas.id"
 
 jobs:
   notificationfa:
@@ -42,6 +36,7 @@ jobs:
       - name: Print Inputs
         run: |
           echo "webhook ${{ inputs.webhook }}"
+          echo "github_version ${{ inputs.github_version }}"
           echo "github_state ${{ inputs.github_state }}"
 
       - name: Set Icon URL
@@ -53,6 +48,29 @@ jobs:
             echo "output_icon_url=https://img.icons8.com/external-anggara-filled-outline-anggara-putra/64/external-checklist-basic-user-interface-anggara-filled-outline-anggara-putra.png" >> $GITHUB_OUTPUT
           fi
 
+      - name: Set Fullname & Email
+        id: id_user_data
+        run: |
+          # Convert USER_DATA to a file for jq parsing
+          echo '${{ vars.USER_DATA }}' > user_data.json
+      
+          # Find user data by matching github.actor
+          user=$(jq -c --arg username "${{ github.actor }}" '.[] | select(.username == $username)' user_data.json)
+      
+          if [[ -n "$user" ]]; then
+            fullname=$(echo "$user" | jq -r '.fullname')
+            work_email=$(echo "$user" | jq -r '.work_email')
+            personal_email=$(echo "$user" | jq -r '.personal_email')
+      
+            # Output the fullname and email
+            echo "output_fullname=$fullname" >> $GITHUB_OUTPUT
+            echo "output_work_email=$work_email" >> $GITHUB_OUTPUT
+            echo "output_personal_email=$personal_email" >> $GITHUB_OUTPUT
+          else
+            echo "output_fullname=Not Found" >> $GITHUB_OUTPUT
+            echo "output_work_email=Not Found" >> $GITHUB_OUTPUT
+            echo "output_personal_email=Not Found" >> $GITHUB_OUTPUT
+          fi
 
       - name: Template UI
         run: |
@@ -86,6 +104,18 @@ jobs:
                           {
                               "title": "GH Actor",
                               "value": "${{ github.actor }}"
+                          },
+                          {
+                              "title": "GH Fullname",
+                              "value": "${{ steps.id_icon_url.outputs.output_fullname }}"
+                          },
+                          {
+                              "title": "GH Work Email",
+                              "value": "${{ steps.id_icon_url.outputs.output_work_email }}"
+                          },
+                          {
+                              "title": "GH Personal Email",
+                              "value": "${{ steps.id_icon_url.outputs.output_personal_email }}"
                           },
                           {
                               "title": "GH Job",
@@ -122,10 +152,10 @@ jobs:
                   "entities": [
                       {
                           "type": "mention",
-                          "text": "<at>${{ steps.id_actor.outputs.output_name_actor }}</at>",
+                          "text": "<at>"${{ steps.id_icon_url.outputs.output_fullname }}"</at>",
                           "mentioned": {
-                              "id": "${{ steps.id_actor.outputs.output_email_actor }}",
-                              "name": "${{ steps.id_actor.outputs.output_name_actor }}"
+                              "id": "${{ steps.id_icon_url.outputs.output_work_email }}",
+                              "name": "${{ steps.id_icon_url.outputs.output_fullname }}"
                           }
                       }
                   ]
@@ -136,133 +166,3 @@ jobs:
         env:
           TEAMS_WEBHOOK_URL: ${{ inputs.webhook }}
 
-      - name: Send Notification triggering_actor != actor
-        if: "${{ inputs.github_triggering_actor != inputs.github_actor }}"
-        run: |
-          CARD_JSON='{
-            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-            "type": "AdaptiveCard",
-            "version": "1.6",
-            "body": [
-                  {
-                      "type": "ColumnSet",
-                      "columns": [
-                          {
-                              "type": "Column",
-                              "items": [
-                                  {
-                                      "type": "Image",
-                                      "style": "Person",
-                                      "url": "${{ steps.id_icon_url.outputs.output_icon_url }}",
-                                      "width": "64px",
-                                      "height": "64px",
-                                      "size": "Small"
-                                  }
-                              ],
-                              "width": "auto"
-                          }
-                      ]
-                  },
-                  {
-                      "type": "FactSet",
-                      "facts": [
-                          {
-                              "title": "GH Actor",
-                              "value": "${{ inputs.github_actor }}"
-                          },
-                          {
-                              "title": "GH Name Actor",
-                              "value": "<at>${{ steps.id_actor.outputs.output_name_actor }}</at>"
-                          },
-                          {
-                              "title": "GH Email Actor",
-                              "value": "${{ steps.id_actor.outputs.output_email_actor }}"
-                          },
-                          {
-                              "title": "GH Triggering Actor",
-                              "value": "${{ inputs.github_triggering_actor }}"
-                          },
-                          {
-                              "title": "GH Name Triggering Actor",
-                              "value": "<at>${{ steps.id_triggering_actor.outputs.output_name_triggering_actor }}</at>"
-                          },
-                          {
-                              "title": "GH Email Triggering Actor",
-                              "value": "${{ steps.id_triggering_actor.outputs.output_email_triggering_actor }}"
-                          },
-                          {
-                              "title": "GH Job",
-                              "value": "${{ inputs.github_job }}"
-                          },
-                          {
-                              "title": "GH Ref",
-                              "value": "${{ inputs.github_ref }}"
-                          },
-                          {
-                              "title": "GH Workflow Ref",
-                              "value": "${{ inputs.github_workflow_ref }}"
-                          }
-                      ],
-                      "separator": true,
-                      "spacing": "Medium"
-                  },
-                  {
-                      "type": "Component",
-                      "name": "graph.microsoft.com/users",
-                      "view": "compact",
-                      "properties": {
-                          "users": [
-                              {
-                                  "id": "nur.irfan@kompas.com",
-                                  "displayName": "Nur Irfan Pangestu",
-                                  "userPrincipalName": "nur.irfan@kompas.com"
-                              },
-                              {
-                                  "id": "andi.asrafil@kompas.com",
-                                  "displayName": "Andi Asrafil",
-                                  "userPrincipalName": "andi.asrafil@kompas.com"
-                              },
-                              {
-                                  "id": "azura.sakan@kompas.com",
-                                  "displayName": "Azura Sakan Taufik",
-                                  "userPrincipalName": "azura.sakan@kompas.com"
-                              },
-                              {
-                                  "id": "reza.fadli@kompas.com",
-                                  "displayName": "Reza Fadli Harris",
-                                  "userPrincipalName": "reza.fadli@kompas.com"
-                              },
-                              {
-                                  "id": "lia.rahmania@kompas.com",
-                                  "displayName": "Lia Suci Rahmania",
-                                  "userPrincipalName": "lia.rahmania@kompas.com"
-                              }
-                          ]
-                      }
-                  }
-              ],
-              "msteams": {
-                  "entities": [
-                      {
-                          "type": "mention",
-                          "text": "<at>${{ steps.id_actor.outputs.output_name_actor }}</at>",
-                          "mentioned": {
-                              "id": "${{ steps.id_actor.outputs.output_email_actor }}",
-                              "name": "${{ steps.id_actor.outputs.output_name_actor }}"
-                          }
-                      },
-                      {
-                          "type": "mention",
-                          "text": "<at>${{ steps.id_triggering_actor.outputs.output_name_triggering_actor }}</at>",
-                          "mentioned": {
-                              "id": "${{ steps.id_triggering_actor.outputs.output_email_triggering_actor }}",
-                              "name": "${{ steps.id_triggering_actor.outputs.output_name_triggering_actor }}"
-                          }
-                      }
-                  ]
-              }
-          }'
-
-          curl -X POST -H "Content-Type: application/json" -d "{\"type\": \"message\", \"attachments\": [{\"contentType\": \"application/vnd.microsoft.card.adaptive\", \"content\": $CARD_JSON }]}" ${{ inputs.webhook }}
-        env:
-          TEAMS_WEBHOOK_URL: ${{ inputs.webhook }}
