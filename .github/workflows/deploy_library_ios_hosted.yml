@@ -88,8 +88,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CONFIG_USER_PAT }}
         run: |
-          echo "${{ secrets.CONFIG_USER_PAT }}" | gh auth login --with-token
-          gh auth status
           gh release create ${{ inputs.github_version }} \
             Shared.xcframework.zip \
             --notes "XCFramework for version ${{ inputs.github_version }}." \

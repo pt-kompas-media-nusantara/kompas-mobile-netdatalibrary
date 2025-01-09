@@ -53,43 +53,8 @@ jobs:
             echo "output_icon_url=https://img.icons8.com/external-anggara-filled-outline-anggara-putra/64/external-checklist-basic-user-interface-anggara-filled-outline-anggara-putra.png" >> $GITHUB_OUTPUT
           fi
 
-      - name: Set Actor
-        id: id_actor
-        run: |
-          if [[ "${{ inputs.github_actor }}" == "${{ env.GH_ALIAS_IRFAN }}" ]]; then
-            echo "output_name_actor=${{ env.GH_NAME_IRFAN }}" >> $GITHUB_OUTPUT
-            echo "output_email_actor=${{ env.GH_EMAIL_IRFAN }}" >> $GITHUB_OUTPUT
-          elif [[ "${{ inputs.github_actor }}" == "${{ env.GH_ALIAS_WAHYU }}" ]]; then
-            echo "output_name_actor=${{ env.GH_NAME_WAHYU }}" >> $GITHUB_OUTPUT
-            echo "output_email_actor=${{ env.GH_EMAIL_WAHYU }}" >> $GITHUB_OUTPUT
-          else
-            echo "output_name_actor=${{ env.GH_NAME_IRFAN }}" >> $GITHUB_OUTPUT
-            echo "output_email_actor=${{ env.GH_EMAIL_IRFAN }}" >> $GITHUB_OUTPUT
-          fi
 
-      - name: Set Triggering Actor
-        id: id_triggering_actor
-        run: |
-          if [[ "${{ inputs.github_triggering_actor }}" == "${{ env.GH_ALIAS_IRFAN }}" ]]; then
-            echo "output_name_triggering_actor=${{ env.GH_NAME_IRFAN }}" >> $GITHUB_OUTPUT
-            echo "output_email_triggering_actor=${{ env.GH_EMAIL_IRFAN }}" >> $GITHUB_OUTPUT
-          elif [[ "${{ inputs.github_triggering_actor }}" == "${{ env.GH_ALIAS_WAHYU }}" ]]; then
-            echo "output_name_triggering_actor=${{ env.GH_NAME_WAHYU }}" >> $GITHUB_OUTPUT
-            echo "output_email_triggering_actor=${{ env.GH_EMAIL_WAHYU }}" >> $GITHUB_OUTPUT
-          else
-            echo "output_name_triggering_actor=${{ env.GH_NAME_IRFAN }}" >> $GITHUB_OUTPUT
-            echo "output_email_triggering_actor=${{ env.GH_EMAIL_IRFAN }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Print User Informations
-        run: |
-          echo "output_name_actor: ${{ steps.id_actor.outputs.output_name_actor }}"
-          echo "output_email_actor: ${{ steps.id_actor.outputs.output_email_actor }}"
-          echo "output_name_triggering_actor: ${{ steps.id_triggering_actor.outputs.output_name_triggering_actor }}"
-          echo "output_email_triggering_actor: ${{ steps.id_triggering_actor.outputs.output_email_triggering_actor }}"
-
-      - name: Send Notification triggering_actor == actor
-        if: "${{ inputs.github_triggering_actor == inputs.github_actor }}"
+      - name: Template UI
         run: |
           CARD_JSON='{
             "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -120,27 +85,19 @@ jobs:
                       "facts": [
                           {
                               "title": "GH Actor",
-                              "value": "${{ inputs.github_actor }}"
-                          },
-                          {
-                              "title": "GH Name Actor",
-                              "value": "<at>${{ steps.id_actor.outputs.output_name_actor }}</at>"
-                          },
-                          {
-                              "title": "GH Email Actor",
-                              "value": "${{ steps.id_actor.outputs.output_email_actor }}"
+                              "value": "${{ github.actor }}"
                           },
                           {
                               "title": "GH Job",
-                              "value": "${{ inputs.github_job }}"
+                              "value": "${{ github.job }}"
                           },
                           {
                               "title": "GH Ref",
-                              "value": "${{ inputs.github_ref }}"
+                              "value": "${{ github.ref }}"
                           },
                           {
                               "title": "GH Workflow Ref",
-                              "value": "${{ inputs.github_workflow_ref }}"
+                              "value": "${{ github.workflow_ref }}"
                           }
                       ],
                       "separator": true,
@@ -156,26 +113,6 @@ jobs:
                                   "id": "nur.irfan@kompas.com",
                                   "displayName": "Nur Irfan Pangestu",
                                   "userPrincipalName": "nur.irfan@kompas.com"
-                              },
-                              {
-                                  "id": "andi.asrafil@kompas.com",
-                                  "displayName": "Andi Asrafil",
-                                  "userPrincipalName": "andi.asrafil@kompas.com"
-                              },
-                              {
-                                  "id": "azura.sakan@kompas.com",
-                                  "displayName": "Azura Sakan Taufik",
-                                  "userPrincipalName": "azura.sakan@kompas.com"
-                              },
-                              {
-                                  "id": "reza.fadli@kompas.com",
-                                  "displayName": "Reza Fadli Harris",
-                                  "userPrincipalName": "reza.fadli@kompas.com"
-                              },
-                              {
-                                  "id": "lia.rahmania@kompas.com",
-                                  "displayName": "Lia Suci Rahmania",
-                                  "userPrincipalName": "lia.rahmania@kompas.com"
                               }
                           ]
                       }
