@@ -71,10 +71,11 @@ jobs:
             echo "output_work_email=Not Found" >> $GITHUB_OUTPUT
             echo "output_personal_email=Not Found" >> $GITHUB_OUTPUT
           fi
+
           echo "${{ github.actor }}"
-          echo "${{ steps.id_icon_url.outputs.output_fullname }}"
-          echo "${{ steps.id_icon_url.outputs.output_work_email }}"
-          echo "${{ steps.id_icon_url.outputs.output_personal_email }}"
+          echo "${{ steps.id_user_data.outputs.output_fullname }}"
+          echo "${{ steps.id_user_data.outputs.output_work_email }}"
+          echo "${{ steps.id_user_data.outputs.output_personal_email }}"
 
       - name: Template UI
         run: |
@@ -111,15 +112,15 @@ jobs:
                           },
                           {
                               "title": "GH Fullname",
-                              "value": "${{ steps.id_icon_url.outputs.output_fullname }}"
+                              "value": "${{ steps.id_user_data.outputs.output_fullname }}"
                           },
                           {
                               "title": "GH Work Email",
-                              "value": "${{ steps.id_icon_url.outputs.output_work_email }}"
+                              "value": "${{ steps.id_user_data.outputs.output_work_email }}"
                           },
                           {
                               "title": "GH Personal Email",
-                              "value": "${{ steps.id_icon_url.outputs.output_personal_email }}"
+                              "value": "${{ steps.id_user_data.outputs.output_personal_email }}"
                           },
                           {
                               "title": "GH Job",
@@ -156,10 +157,10 @@ jobs:
                   "entities": [
                       {
                           "type": "mention",
-                          "text": "<at>"${{ steps.id_icon_url.outputs.output_fullname }}"</at>",
+                          "text": "<at>"${{ steps.id_user_data.outputs.output_fullname }}"</at>",
                           "mentioned": {
-                              "id": "${{ steps.id_icon_url.outputs.output_work_email }}",
-                              "name": "${{ steps.id_icon_url.outputs.output_fullname }}"
+                              "id": "${{ steps.id_user_data.outputs.output_work_email }}",
+                              "name": "${{ steps.id_user_data.outputs.output_fullname }}"
                           }
                       }
                   ]
