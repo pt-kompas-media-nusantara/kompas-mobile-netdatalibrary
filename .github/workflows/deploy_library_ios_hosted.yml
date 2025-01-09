@@ -90,8 +90,9 @@ jobs:
         run: |
           gh release create ${{ inputs.github_version }} \
             Shared.xcframework.zip \
-            --notes "XCFramework for version ${{ inputs.github_version }}." \
-            --target v1.0/dev --latest
+            --generate-notes
+            --latest
+# --target v1.0/dev --latest atau bisa pakai ini untuk spesific branch
 
       - name: Logging for Debugging
         run: |
