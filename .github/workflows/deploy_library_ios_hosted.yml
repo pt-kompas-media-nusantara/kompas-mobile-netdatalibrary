@@ -3,7 +3,7 @@ name: Loc - Deploy Library iOS
 on:
   workflow_call:
     inputs:
-      version:
+      github_version:
         required: true
         type: string
   # workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Validate Version Input
         run: |
-          VERSION="${{ inputs.version }}"
+          VERSION="${{ inputs.github_version }}"
           if [[ -z "$VERSION" ]]; then
             echo "Version input is required."
             exit 1
@@ -39,7 +39,7 @@ jobs:
 
       - name: Print Inputs
         run: |
-          echo "version": "${{ inputs.version }}"
+          echo "version": "${{ inputs.github_version }}"
 
       - name: Xcode List Available
         run: ls /Applications | grep Xcode
@@ -56,7 +56,7 @@ jobs:
         run: |
           ./build_library_xcframework.sh
         env:
-          version: ${{ inputs.version }}
+          version: ${{ inputs.github_version }}
 
       - name: Verify XCFramework Build
         run: |
@@ -78,16 +78,16 @@ jobs:
         run: |
           git config --global user.name "${{ vars.CONFIG_USER_NAME }}"
           git config --global user.email "${{ vars.CONFIG_USER_EMAIL }}"
-          git tag -a ${{ inputs.version }} -m "Release ${{ inputs.version }}"
-          git push https://x-access-token:${{ secrets.CONFIG_USER_PAT }}@github.com/${{ github.repository }} ${{ inputs.version }}
+          git tag -a ${{ inputs.github_version }} -m "Release ${{ inputs.github_version }}"
+          git push https://x-access-token:${{ secrets.CONFIG_USER_PAT }}@github.com/${{ github.repository }} ${{ inputs.github_version }}
 
       - name: Create or Update Release
         env:
           GITHUB_TOKEN: ${{ secrets.CONFIG_USER_PAT }}
         run: |
-          gh release create ${{ inputs.version }} \
+          gh release create ${{ inputs.github_version }} \
             Shared.xcframework.zip \
-            --notes "XCFramework for version ${{ inputs.version }}." \
+            --notes "XCFramework for version ${{ inputs.github_version }}." \
             --target v1.0/dev --latest
 
       - name: Logging for Debugging
@@ -114,7 +114,7 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "No changes to commit."
           else
-            git commit -m "Update Package.swift and Shared.xcframework.zip for version ${{ inputs.version }}"
+            git commit -m "Update Package.swift and Shared.xcframework.zip for version ${{ inputs.github_version }}"
             # Push changes to the same branch
             git push https://x-access-token:${{ secrets.CONFIG_USER_PAT }}@github.com/${{ github.repository }}
           fi
