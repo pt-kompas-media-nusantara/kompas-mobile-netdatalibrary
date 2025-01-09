@@ -79,7 +79,7 @@ jobs:
           echo "${{ steps.id_user_data.outputs.output_work_email }}"
           echo "${{ steps.id_user_data.outputs.output_personal_email }}"
 
-      - name: Template UI
+      - name: User Interface
         run: |
           CARD_JSON='{
             "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
@@ -113,16 +113,12 @@ jobs:
                               "value": "${{ github.actor }}"
                           },
                           {
-                              "title": "GH Fullname",
-                              "value": "${{ steps.id_user_data.outputs.output_fullname }}"
+                              "title": "GH Name Actor",
+                              "value": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>"
                           },
                           {
-                              "title": "GH Work Email",
+                              "title": "GH Email Actor",
                               "value": "${{ steps.id_user_data.outputs.output_work_email }}"
-                          },
-                          {
-                              "title": "GH Personal Email",
-                              "value": "${{ steps.id_user_data.outputs.output_personal_email }}"
                           },
                           {
                               "title": "GH Job",
@@ -172,23 +168,3 @@ jobs:
           curl -X POST -H "Content-Type: application/json" -d "{\"type\": \"message\", \"attachments\": [{\"contentType\": \"application/vnd.microsoft.card.adaptive\", \"content\": $CARD_JSON }]}" ${{ inputs.webhook }}
         env:
           TEAMS_WEBHOOK_URL: ${{ inputs.webhook }}
-
-
-
-
-
-
-    # {
-    #                   "type": "Component",
-    #                   "name": "graph.microsoft.com/users",
-    #                   "view": "compact",
-    #                   "properties": {
-    #                       "users": [
-    #                           {
-    #                               "id": "nur.irfan@kompas.com",
-    #                               "displayName": "Nur Irfan Pangestu",
-    #                               "userPrincipalName": "nur.irfan@kompas.com"
-    #                           }
-    #                       ]
-    #                   }
-    #               }
