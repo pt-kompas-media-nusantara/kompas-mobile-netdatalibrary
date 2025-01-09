@@ -72,6 +72,8 @@ jobs:
             echo "output_personal_email=Not Found" >> $GITHUB_OUTPUT
           fi
 
+      - name: Log User Data
+        run: |
           echo "${{ github.actor }}"
           echo "${{ steps.id_user_data.outputs.output_fullname }}"
           echo "${{ steps.id_user_data.outputs.output_work_email }}"
