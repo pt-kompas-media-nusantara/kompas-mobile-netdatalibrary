@@ -24,6 +24,9 @@ jobs:
     runs-on: mk-mac-ios-01
     timeout-minutes: 100
 
+    outputs:
+      github_state: ${{ steps.id_setup_github_state.outputs.github_state }}
+
     steps:
       - name: Validate Version Input
         run: |
@@ -85,6 +88,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.CONFIG_USER_PAT }}
         run: |
+          echo "${{ secrets.CONFIG_USER_PAT }}" | gh auth login --with-token
+          gh auth status
           gh release create ${{ inputs.github_version }} \
             Shared.xcframework.zip \
             --notes "XCFramework for version ${{ inputs.github_version }}." \
@@ -119,4 +124,22 @@ jobs:
             git push https://x-access-token:${{ secrets.CONFIG_USER_PAT }}@github.com/${{ github.repository }}
           fi
 
+      - name: Setup Github State
+        id: id_setup_github_state
+        if: ${{ always() }}
+        run: |
+          if [[ "${{ job.status }}" == "success" ]]; then
+            echo "github_state=success" >> $GITHUB_OUTPUT
+          else
+            echo "github_state=failure" >> $GITHUB_OUTPUT
+          fi
 
+
+  # notification_msteams:
+  #   if: ${{ always() }}
+  #   needs: deploy_library
+  #   uses: ./.github/workflows/notification_hosted.yml
+  #   with:
+  #     webhook: ""
+  #     github_version: "${{ inputs.github_version }}"
+  #     github_state: "${{ needs.deploy_library.outputs.github_state }}"
