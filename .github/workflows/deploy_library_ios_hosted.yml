@@ -92,7 +92,7 @@ jobs:
             Shared.xcframework.zip \
             --generate-notes \
             --latest
-# --target v1.0/dev --latest atau bisa pakai ini untuk spesific branch
+# --target v1.0/dev --latest atau bisa pakai ini untuk spesific branch 
 
       - name: Logging for Debugging
         run: |
