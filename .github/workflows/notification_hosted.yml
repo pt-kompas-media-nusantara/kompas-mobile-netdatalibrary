@@ -142,7 +142,18 @@ jobs:
                   },
                   
               ],
-              
+                "msteams": {
+                "entities": [
+                    {
+                        "type": "mention",
+                        "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
+                        "mentioned": {
+                            "id": "${{ steps.id_user_data.outputs.output_work_email }}",
+                            "name": "${{ steps.id_user_data.outputs.output_fullname }}"
+                        }
+                    }
+                ]
+            }
           }'
 
           curl -X POST -H "Content-Type: application/json" -d "{\"type\": \"message\", \"attachments\": [{\"contentType\": \"application/vnd.microsoft.card.adaptive\", \"content\": $CARD_JSON }]}" ${{ inputs.webhook }}
@@ -151,18 +162,7 @@ jobs:
 
 
 
-    # "msteams": {
-    #               "entities": [
-    #                   {
-    #                       "type": "mention",
-    #                       "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
-    #                       "mentioned": {
-    #                           "id": "${{ steps.id_user_data.outputs.output_work_email }}",
-    #                           "name": "${{ steps.id_user_data.outputs.output_fullname }}"
-    #                       }
-    #                   }
-    #               ]
-    #           }
+
 
 
     # {
