@@ -140,36 +140,42 @@ jobs:
                       "separator": true,
                       "spacing": "Medium"
                   },
-                  {
-                      "type": "Component",
-                      "name": "graph.microsoft.com/users",
-                      "view": "compact",
-                      "properties": {
-                          "users": [
-                              {
-                                  "id": "nur.irfan@kompas.com",
-                                  "displayName": "Nur Irfan Pangestu",
-                                  "userPrincipalName": "nur.irfan@kompas.com"
-                              }
-                          ]
-                      }
-                  }
+                  
               ],
-              "msteams": {
-                  "entities": [
-                      {
-                          "type": "mention",
-                          "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
-                          "mentioned": {
-                              "id": "${{ steps.id_user_data.outputs.output_work_email }}",
-                              "name": "${{ steps.id_user_data.outputs.output_fullname }}"
-                          }
-                      }
-                  ]
-              }
+              
           }'
 
           curl -X POST -H "Content-Type: application/json" -d "{\"type\": \"message\", \"attachments\": [{\"contentType\": \"application/vnd.microsoft.card.adaptive\", \"content\": $CARD_JSON }]}" ${{ inputs.webhook }}
         env:
           TEAMS_WEBHOOK_URL: ${{ inputs.webhook }}
 
+
+
+    # "msteams": {
+    #               "entities": [
+    #                   {
+    #                       "type": "mention",
+    #                       "text": "<at>${{ steps.id_user_data.outputs.output_fullname }}</at>",
+    #                       "mentioned": {
+    #                           "id": "${{ steps.id_user_data.outputs.output_work_email }}",
+    #                           "name": "${{ steps.id_user_data.outputs.output_fullname }}"
+    #                       }
+    #                   }
+    #               ]
+    #           }
+
+
+    # {
+    #                   "type": "Component",
+    #                   "name": "graph.microsoft.com/users",
+    #                   "view": "compact",
+    #                   "properties": {
+    #                       "users": [
+    #                           {
+    #                               "id": "nur.irfan@kompas.com",
+    #                               "displayName": "Nur Irfan Pangestu",
+    #                               "userPrincipalName": "nur.irfan@kompas.com"
+    #                           }
+    #                       ]
+    #                   }
+    #               }
