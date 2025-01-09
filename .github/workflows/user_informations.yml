@@ -1,0 +1,86 @@
+name: Print Informations
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  # pull_request:
+  #   types: [ opened, reopened, edited, synchronize, closed ]
+  #   branches:
+  #     - 'Development/3.38.0/99275/dependabot'
+
+jobs:
+  print_informations:
+    name: Print Informations
+    runs-on: mk-mac-ios-01
+    timeout-minutes: 115
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Github Context Informations
+        run: |
+          echo "action: ${{ github.action }}"
+          echo "action_path: ${{ github.action_path }}"
+          echo "action_ref: ${{ github.action_ref }}"
+          echo "action_repository: ${{ github.action_repository }}"
+          echo "action_status: ${{ github.action_status }}"
+          echo "actor: ${{ github.actor }}"
+          echo "actor_id: ${{ github.actor_id }}"
+          echo "base_ref: ${{ github.base_ref }}"
+          echo "env: ${{ github.env }}"
+          echo "event: ${{ github.event }}"
+          echo "$event_name: {{ github.event_name }}"
+          echo "event_path: ${{ github.event_path }}"
+          echo "graphql_url: ${{ github.graphql_url }}"
+          echo "head_ref: ${{ github.head_ref }}"
+          echo "job: ${{ github.job }}"
+          echo "path: ${{ github.path }}"
+          echo "ref: ${{ github.ref }}"
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "ref_type: ${{ github.ref_type }}"
+          echo "repository: ${{ github.repository }}"
+          echo "repository_owner: ${{ github.repository_owner }}"
+          echo "retention_days: ${{ github.retention_days }}"
+          echo "token: ${{ github.token }}"
+          echo "triggering_actor: ${{ github.triggering_actor }}"
+          echo "workflow_ref: ${{ github.workflow_ref }}"
+          echo "workspace: ${{ github.workspace }}"
+          echo "workflow: ${{ github.workflow }}"
+          echo "run_id: ${{ github.run_id }}"
+
+# Note :
+# parent : Development/3.38.0/99275/dependabot
+# child : Development/3.38.0/99275/dependabot-child-one
+
+# action: __run
+# action_path:
+# action_ref:
+# action_repository:
+# action_status:
+# actor: nurirppan
+# actor_id: 22546781
+# base_ref: Development/3.38.0/99275/dependabot
+# env: /System/Volumes/Data/actions-runner/_work/_temp/_runner_file_commands/set_env_ef2ce019-855e-48c7-82cf-31557f17309c
+# event: Object
+# : {{ github.event_name }}
+# event_path: /System/Volumes/Data/actions-runner/_work/_temp/_github_workflow/event.json
+# graphql_url: https://api.github.com/graphql
+# head_ref: Development/3.38.0/99275/dependabot-child-one
+# job: print_informations
+# path: /System/Volumes/Data/actions-runner/_work/_temp/_runner_file_commands/add_path_ef2ce019-855e-48c7-82cf-31557f17309c
+# ref: refs/pull/1866/merge
+# ref_name: 1866/merge
+# ref_type: branch
+# repository: pt-kompas-media-nusantara/kompas-id-ios
+# repository_owner: pt-kompas-media-nusantara
+# retention_days: 40
+# token: ***
+# triggering_actor: nurirppan
+# workflow_ref: pt-kompas-media-nusantara/kompas-id-ios/.github/workflows/user_informations.yml@refs/pull/1866/merge
+# workspace: /System/Volumes/Data/actions-runner/_work/kompas-id-ios/kompas-id-ios
+# workflow: Print Informations
+# run_id: 9299112835
+

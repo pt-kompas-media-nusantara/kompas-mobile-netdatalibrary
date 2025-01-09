@@ -1,13 +1,19 @@
 name: ZGit - Deploy Library iOS
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       version:
-        description: "Version : "
         required: true
-        default: ""
         type: string
+# uncoment if you want to run this file
+  # workflow_dispatch:
+  #   inputs:
+  #     version:
+  #       description: "Version : "
+  #       required: true
+  #       default: ""
+  #       type: string
 
 jobs:
   deploy_library:
