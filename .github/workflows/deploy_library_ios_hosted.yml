@@ -90,7 +90,7 @@ jobs:
         run: |
           gh release create ${{ inputs.github_version }} \
             Shared.xcframework.zip \
-            --generate-notes
+            --generate-notes \
             --latest
 # --target v1.0/dev --latest atau bisa pakai ini untuk spesific branch
 
