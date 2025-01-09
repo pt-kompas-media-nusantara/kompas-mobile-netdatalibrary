@@ -1,4 +1,4 @@
-name: Loc - AAA Coba
+name: Loc - Personal Informations
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ defaults:
 #   cancel-in-progress: true
 
 jobs:
-  coba:
+  personal_informations:
     name: coba
     runs-on: mk-mac-ios-01
     timeout-minutes: 5
@@ -40,8 +40,10 @@ jobs:
           
           USERNAME=$(echo "$USER" | jq -r ".username")
           FULLNAME=$(echo "$USER" | jq -r ".fullname")
-          EMAIL=$(echo "$USER" | jq -r ".email")
+          PERSONAL_EMAIL=$(echo "$USER" | jq -r ".personal_email")
+          WORK_EMAIL=$(echo "$USER" | jq -r ".work_email")
           
           echo "Username: $USERNAME"
           echo "Full Name: $FULLNAME"
-          echo "Email: $EMAIL
+          echo "Personal Email: $PERSONAL_EMAIL
+          echo "Work Email: $WORK_EMAIL
