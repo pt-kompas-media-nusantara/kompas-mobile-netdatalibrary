@@ -71,6 +71,10 @@ jobs:
             echo "output_work_email=Not Found" >> $GITHUB_OUTPUT
             echo "output_personal_email=Not Found" >> $GITHUB_OUTPUT
           fi
+          echo "${{ github.actor }}"
+          echo "${{ steps.id_icon_url.outputs.output_fullname }}"
+          echo "${{ steps.id_icon_url.outputs.output_work_email }}"
+          echo "${{ steps.id_icon_url.outputs.output_personal_email }}"
 
       - name: Template UI
         run: |
