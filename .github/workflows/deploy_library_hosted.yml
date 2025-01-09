@@ -21,10 +21,4 @@ jobs:
     uses: ./.github/workflows/deploy_library_ios_hosted.yml
     with:
       github_version: "${{ github.event.inputs.version }}"
-      webhook: ""
-      github_actor: "${{ github.actor }}"
-      github_triggering_actor: "${{ github.triggering_actor }}"
-      github_job: "${{ github.job }}"
-      github_ref: "${{ github.ref }}"
-      github_workflow_ref: "${{ github.workflow_ref }}"
       
