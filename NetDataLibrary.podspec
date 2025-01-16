@@ -163,4 +163,10 @@ Pod::Spec.new do |spec|
 
   # pod repo push NetDataLibrary NetDataLibrary.podspec
 
+# ――― Remove Public Pods ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+# pod trunk login
+# pod trunk delete NetDataLibrary 1.0.44
+# pod trunk delete NetDataLibrary --silent
+
+
 end
