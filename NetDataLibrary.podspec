@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "NetDataLibrary"
-  spec.version      = "1.0.44"
+  spec.version      = "1.0.46"
   spec.summary      = "Kompas.id"
 
   # This description is used to generate tags and improve search results.
@@ -140,13 +140,27 @@ Pod::Spec.new do |spec|
   # spec.dependency "JSONKit", "~> 1.4"
 
   # ――― Framework built by Kotlin Multiplatform ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  spec.vendored_frameworks = "build/c"
-  # spec.vendored_frameworks      = "build/bin/ios/releaseFramework/NetDataLibrary.xcframework"
+  # spec.vendored_frameworks = "build/c"
+  # spec.vendored_frameworks = "build/bin/ios/releaseFramework/NetDataLibrary.xcframework"
+  # spec.vendored_frameworks = "shared/build/XCFrameworks/release/Shared.xcframework"
 
   # pod spec create NetDataLibrary
   # pod spec lint NetDataLibrary.podspec
   # pod trunk push NetDataLibrary.podspec
   # pod trunk register nurirppan@gmail.com 'nurirppan'
 
+  # spec.prepare_command = <<-SCRIPT
+  # ./gradlew :shared:assembleReleaseXCFramework
+  # SCRIPT
+
+# ――― Private Pods ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  # https://guides.cocoapods.org/making/private-cocoapods.html
+  # pod repo add NetDataLibrary https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary.git
+
+  # To check if your installation is successful and ready to go:
+  # cd ~/.cocoapods/repos/REPO_NAME
+  # pod repo lint .
+
+  # pod repo push NetDataLibrary NetDataLibrary.podspec
 
 end
