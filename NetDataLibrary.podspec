@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "NetDataLibrary"
-  spec.version      = "1.0.42"
+  spec.version      = "1.0.43"
   spec.summary      = "Kompas.id"
 
   # This description is used to generate tags and improve search results.
@@ -93,8 +93,9 @@ Pod::Spec.new do |spec|
 
   # spec.source_files  = "Classes", "Classes/**/*.{h,m,swift}"
   # spec.source_files  = "shared/**/*.{h,m,swift}", "iosApp/**/*.{h,m,swift}" # file tersebar ke beberapa folder
-  spec.source_files  = "shared/**/*.{h,m,swift}"
-  spec.exclude_files = "shared/Exclude"
+  # spec.source_files  = "shared/**/*.{h,m,swift}"
+  spec.source_files = "shared/src/commonMain/kotlin/**/*.{kt,kotlin}"
+  # spec.exclude_files = "shared/Exclude"
   # spec.exclude_files = "Classes/Exclude"
 
   # spec.public_header_files = "Classes/**/*.h"
@@ -137,6 +138,10 @@ Pod::Spec.new do |spec|
 
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
+
+  # ――― Framework built by Kotlin Multiplatform ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  # spec.vendored_frameworks = 'build/c
+  spec.vendored_frameworks      = "build/bin/ios/releaseFramework/NetDataLibrary.xcframework"
 
   # pod spec create NetDataLibrary
   # pod spec lint NetDataLibrary.podspec

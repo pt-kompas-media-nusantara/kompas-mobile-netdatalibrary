@@ -111,11 +111,14 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary") // Replace with your info
+            url =
+                uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary") // Replace with your info
             credentials {
                 // sample
-                username = System.getenv("GITHUB_ACTOR") // Or your preferred method to provide credentials.
-                password = System.getenv("GITHUB_TOKEN") // Create a token in github and give it read/write permission
+                username =
+                    System.getenv("GITHUB_ACTOR") // Or your preferred method to provide credentials.
+                password =
+                    System.getenv("GITHUB_TOKEN") // Create a token in github and give it read/write permission
             }
         }
     }
