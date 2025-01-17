@@ -121,7 +121,7 @@ jobs:
           git config --global user.email "${{ vars.CONFIG_USER_EMAIL }}"
 
           # Add files to Git
-          git add Package.swift
+          git add Package.swift NetDataLibrary.podspec
 
           # Commit changes
           if git diff-index --quiet HEAD --; then
