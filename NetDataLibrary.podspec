@@ -139,7 +139,7 @@ Pod::Spec.new do |spec|
   # spec.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # spec.dependency "JSONKit", "~> 1.4"
 
-  # ――― Framework built by Kotlin Multiplatform ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  # ――― Framework built by Kotlin Multiplatform - Public Pods ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   # spec.vendored_frameworks = "build/c"
   # spec.vendored_frameworks = "build/bin/ios/releaseFramework/NetDataLibrary.xcframework"
   # spec.vendored_frameworks = "shared/build/XCFrameworks/release/Shared.xcframework"

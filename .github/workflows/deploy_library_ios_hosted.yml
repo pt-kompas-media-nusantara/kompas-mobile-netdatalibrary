@@ -52,12 +52,21 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Grant Execution Permission for Build Script
+      - name: Grant Execution Permission for Build Script SPM
         run: chmod +x build_library_xcframework.sh
+
+      - name: Grant Execution Permission for Build Script POD
+        run: chmod +x build_library_podfile.sh
 
       - name: Build Library XCFramework
         run: |
           ./build_library_xcframework.sh
+        env:
+          version: ${{ inputs.github_version }}
+
+      - name: Build Library Podspec
+        run: |
+          ./build_library_podfile.sh
         env:
           version: ${{ inputs.github_version }}
 
