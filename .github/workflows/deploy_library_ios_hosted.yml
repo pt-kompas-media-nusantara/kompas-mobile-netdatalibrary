@@ -11,6 +11,10 @@ defaults:
   run:
     shell: zsh --login --errexit --pipefail {0}
 
+# concurrency:
+#   group: ${{ github.actor }}-${{ github.workflow_ref }}
+#   cancel-in-progress: true
+
 jobs:
   deploy_library:
     name: Deploy Library iOS

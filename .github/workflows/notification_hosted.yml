@@ -17,9 +17,9 @@ defaults:
   run:
     shell: zsh --login --errexit --pipefail {0}
 
-concurrency:
-  group: ${{ github.actor }}-${{ github.workflow_ref }}-${{ github.run_id }}
-  cancel-in-progress: true
+# concurrency:
+#   group: ${{ github.actor }}-${{ github.workflow_ref }}
+#   cancel-in-progress: true
 
 jobs:
   notificationfa:
