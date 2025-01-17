@@ -6,13 +6,6 @@ on:
       github_version:
         required: true
         type: string
-  # workflow_dispatch:
-  #   inputs:
-  #     version:
-  #       description: "Version : "
-  #       required: true
-  #       default: ""
-  #       type: string
 
 defaults:
   run:

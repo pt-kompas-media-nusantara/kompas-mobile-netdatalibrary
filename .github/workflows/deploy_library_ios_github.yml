@@ -118,7 +118,7 @@ jobs:
           gh release create ${{ github.event.inputs.version }} \
             Shared.xcframework.zip \
             --notes "XCFramework for version ${{ github.event.inputs.version }}." \
-            --target v1.0/dev --latest
+            --latest
 
       - name: Logging for Debugging
         run: |
