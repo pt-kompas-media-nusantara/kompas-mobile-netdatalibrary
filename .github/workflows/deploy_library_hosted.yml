@@ -14,8 +14,8 @@ defaults:
     shell: zsh --login --errexit --pipefail {0}
 
 jobs:
-  user_informations:
-    uses: ./.github/workflows/user_informations.yml
+  # user_informations:
+  #   uses: ./.github/workflows/user_informations.yml
 
   deploy_library_ios:
     uses: ./.github/workflows/deploy_library_ios_hosted.yml
