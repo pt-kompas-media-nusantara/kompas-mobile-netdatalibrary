@@ -18,7 +18,7 @@ defaults:
     shell: zsh --login --errexit --pipefail {0}
 
 concurrency:
-  group: ${{ github.actor }}-${{ github.workflow_ref }}
+  group: ${{ github.actor }}-${{ github.workflow_ref }}-${{ github.run_id }}
   cancel-in-progress: true
 
 jobs:
@@ -38,6 +38,10 @@ jobs:
           echo "webhook ${{ inputs.webhook }}"
           echo "github_version ${{ inputs.github_version }}"
           echo "github_state ${{ inputs.github_state }}"
+
+          echo "actor ${{ github.actor_id }}"
+          echo "workflow_ref ${{ github.workflow_ref }}"
+          echo "run_id ${{ github.run_id }}"
 
       - name: Set Icon URL
         id: id_icon_url
