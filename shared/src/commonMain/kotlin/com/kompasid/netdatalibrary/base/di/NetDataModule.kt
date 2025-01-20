@@ -24,6 +24,7 @@ import com.kompasid.netdatalibrary.netData.data.userDetailData.UserDetailReposit
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryApiService
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryDataSource
 import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.MyAccountUseCase
 import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
@@ -96,5 +97,7 @@ val netDataModule = module {
     singleOf(::AppIconRepository) { bind<AppIconRepository>() }
     singleOf(::AppIconApiService) { bind<AppIconApiService>() }
 
+
+    singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
 
 }

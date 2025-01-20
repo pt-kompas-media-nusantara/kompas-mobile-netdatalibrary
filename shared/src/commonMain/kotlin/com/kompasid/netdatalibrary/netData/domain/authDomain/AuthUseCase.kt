@@ -10,6 +10,9 @@ import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInf
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserMembershipHistoryResInterceptor
 
+interface LoginGuestRepositoryContoh {
+    suspend fun postLoginGuest(): Results<Unit, NetworkError>
+}
 
 class AuthUseCase(
     private val loginGuestRepository: LoginGuestRepository,
