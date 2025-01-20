@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     kotlin("plugin.serialization") version "1.9.20"
-    id("co.touchlab.skie") version "0.9.5"
+    id("co.touchlab.skie") version "0.10.0"
     id("maven-publish")
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }

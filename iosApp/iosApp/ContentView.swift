@@ -26,15 +26,18 @@ class AuthVMWrapper: ObservableObject {
     func loginGuest() async throws {
         do {
             let result = try await authUseCase.loginAnon()
-            
-//            switch result {
-//            case .success:
-//                // Handle success
-//                print("Login successful")
-//            case .failure(let error):
-//                // Handle failure
-//                print("Error: \(error.localizedDescription)")
-//            }
+            switch result {
+            case let success as ResultsSuccess<Unit>:
+                let interceptor = success.data
+                print("Interceptor: \(interceptor)")
+                
+            case let error as ResultsError<NetworkError>:
+                let networkError = error.error
+                print("Network Error: \(networkError.description)")
+                
+            default:
+                print("Unhandled case")
+            }
         } catch {
             // Handle unexpected errors
             print("Unexpected error: \(error.localizedDescription)")

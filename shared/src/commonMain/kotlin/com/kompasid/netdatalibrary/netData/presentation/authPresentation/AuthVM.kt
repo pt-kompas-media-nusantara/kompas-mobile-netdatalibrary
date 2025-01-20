@@ -3,6 +3,7 @@ package com.kompasid.netdatalibrary.netData.presentation.authPresentation
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.DecodeJWT
 import com.kompasid.netdatalibrary.base.logger.Logger
+import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.dto.LoginEmailRequest
@@ -17,7 +18,17 @@ class AuthVM(
 
     fun postLoginGuest() {
         scope.launch {
-            authUseCase.loginAnon()
+            val result = authUseCase.loginAnon()
+            when (result) {
+                is Results.Error -> {
+                    Logger.debug { result.error.toString() }
+                }
+
+                is Results.Success -> {
+                    val interceptor = result.data
+                    Logger.debug { interceptor.toString() }
+                }
+            }
         }
     }
 

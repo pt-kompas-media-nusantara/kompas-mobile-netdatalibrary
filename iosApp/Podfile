@@ -4,8 +4,8 @@ target 'iosApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  source 'https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary.git'  # repositori private
-
-  pod 'NetDataLibrary', :git => 'https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary.git', :tag => '1.0.46'
+#  source 'https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary.git'  # repositori private
+#
+#  pod 'NetDataLibrary', :git => 'https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary.git', :tag => '1.0.46'
 
 end
