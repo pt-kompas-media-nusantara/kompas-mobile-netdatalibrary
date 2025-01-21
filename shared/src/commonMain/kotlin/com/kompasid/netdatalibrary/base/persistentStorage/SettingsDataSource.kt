@@ -21,7 +21,6 @@ class SettingsDataSource(private val settings: Settings) {
             is String -> {
                 settings.putString(key.key, value)
                 getStringFlow(key).update {
-                    Logger.debug { "Updated ${key.key} to: $value" }
                     value
                 }
             }
@@ -29,7 +28,6 @@ class SettingsDataSource(private val settings: Settings) {
             is Int -> {
                 settings.putInt(key.key, value)
                 getIntFlow(key).update {
-                    Logger.debug { "Updated ${key.key} to: $value" }
                     value
                 }
             }
@@ -37,7 +35,6 @@ class SettingsDataSource(private val settings: Settings) {
             is Boolean -> {
                 settings.putBoolean(key.key, value)
                 getBooleanFlow(key).update {
-                    Logger.debug { "Updated ${key.key} to: $value" }
                     value
                 }
             }
@@ -67,22 +64,22 @@ class SettingsDataSource(private val settings: Settings) {
     fun <T> load(key: KeySettingsType, defaultValue: T): T {
         return when (defaultValue) {
             is String -> {
-                settings.getString(key.key, defaultValue)
                 Logger.debug {
                     "${key.key} : $defaultValue"
                 }
+                settings.getString(key.key, defaultValue)
             }
             is Int -> {
-                settings.getInt(key.key, defaultValue)
                 Logger.debug {
                     "${key.key} : $defaultValue"
                 }
+                settings.getInt(key.key, defaultValue)
             }
             is Boolean -> {
-                settings.getBoolean(key.key, defaultValue)
                 Logger.debug {
                     "${key.key} : $defaultValue"
                 }
+                settings.getBoolean(key.key, defaultValue)
             }
             is List<*> -> {
                 // Cek apakah defaultValue adalah List<String>
@@ -92,16 +89,15 @@ class SettingsDataSource(private val settings: Settings) {
                     val storedValue = settings.getString(key.key, "")
                     if (storedValue.isNotEmpty()) {
                         // Mengonversi string yang dipisahkan koma kembali menjadi List<String>
-                        storedValue.split(",")
                         Logger.debug {
                             "${key.key} : ${storedValue.split(",")}"
                         }
-
+                        storedValue.split(",")
                     } else {
-                        listDefaultValue // Mengembalikan defaultValue jika tidak ada data yang disimpan
                         Logger.debug {
                             "${key.key} : $listDefaultValue"
                         }
+                        listDefaultValue // Mengembalikan defaultValue jika tidak ada data yang disimpan
                     }
                 } else {
                     throw IllegalArgumentException("Unsupported list type, must be List<String>")

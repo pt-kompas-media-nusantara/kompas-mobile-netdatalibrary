@@ -48,6 +48,14 @@ fun AuthUseCaseScreen(
             vm.decodeJWT()
         })
 
+        FilledButton("Cetak All Settings", {
+            vm.cetakAllSettings()
+        })
+
+        FilledButton("Cetak Access Token", {
+            vm.cetakAccessSettings()
+        })
+
 
     }
 }

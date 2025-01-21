@@ -7,14 +7,29 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.dto.LoginEmailRequest
+import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.utilities.Constants
 import kotlinx.coroutines.launch
 
 class AuthVM(
     private val authUseCase: AuthUseCase,
+    private val settingsUseCase: SettingsUseCase,
     private val settingsDataSource: SettingsDataSource,
 ) : BaseVM() {
+
+    fun cetakAllSettings() {
+        scope.launch {
+            settingsUseCase.loadAllSettings()
+        }
+    }
+
+    fun cetakAccessSettings() {
+        scope.launch {
+            settingsUseCase.loadAccessToken()
+        }
+    }
+
 
     fun postLoginGuest() {
         scope.launch {
