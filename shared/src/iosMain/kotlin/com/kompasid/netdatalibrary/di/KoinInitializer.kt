@@ -2,6 +2,7 @@ package com.kompasid.netdatalibrary.di
 
 import com.kompasid.netdatalibrary.base.di.base.sharedKoinModules
 import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.MyAccountUseCase
+import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
 import org.koin.core.component.KoinComponent
@@ -23,4 +24,5 @@ class KoinInjector : KoinComponent {
     val authVM: AuthVM by inject()
     val authUseCase: AuthUseCase by inject()
     val myAccountUseCase: MyAccountUseCase by inject()
+    val settingsUseCase: SettingsUseCase by inject()
 }

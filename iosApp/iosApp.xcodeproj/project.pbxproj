@@ -11,6 +11,9 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		23AB2F232D3E3F45007AFEE9 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB2F222D3E3F45007AFEE9 /* AccountView.swift */; };
+		23EBD8582D3F458A00222B4E /* AuthVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD8572D3F458900222B4E /* AuthVMWrapper.swift */; };
+		23EBD85A2D3F45A800222B4E /* AccountVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD8592D3F45A800222B4E /* AccountVMWrapper.swift */; };
+		23EBD85C2D3F45DB00222B4E /* SettingsVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD85B2D3F45DA00222B4E /* SettingsVMWrapper.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		F855F855535CA9E04F8EB949 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336AAF0C35FD3989F723EAC5 /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
@@ -34,6 +37,9 @@
 		202016E6356C2C54576D4EB6 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		23AB2F222D3E3F45007AFEE9 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		23EBD8572D3F458900222B4E /* AuthVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVMWrapper.swift; sourceTree = "<group>"; };
+		23EBD8592D3F45A800222B4E /* AccountVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVMWrapper.swift; sourceTree = "<group>"; };
+		23EBD85B2D3F45DA00222B4E /* SettingsVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVMWrapper.swift; sourceTree = "<group>"; };
 		336AAF0C35FD3989F723EAC5 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +65,16 @@
 				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		23EBD8552D3F457300222B4E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23EBD85B2D3F45DA00222B4E /* SettingsVMWrapper.swift */,
+				23EBD8592D3F45A800222B4E /* AccountVMWrapper.swift */,
+				23EBD8572D3F458900222B4E /* AuthVMWrapper.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3272E7571E7F6DDD14826747 /* Pods */ = {
@@ -91,6 +107,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				23EBD8552D3F457300222B4E /* ViewModel */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				23AB2F222D3E3F45007AFEE9 /* AccountView.swift */,
@@ -224,6 +241,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23EBD85A2D3F45A800222B4E /* AccountVMWrapper.swift in Sources */,
+				23EBD85C2D3F45DB00222B4E /* SettingsVMWrapper.swift in Sources */,
+				23EBD8582D3F458A00222B4E /* AuthVMWrapper.swift in Sources */,
 				23AB2F232D3E3F45007AFEE9 /* AccountView.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
