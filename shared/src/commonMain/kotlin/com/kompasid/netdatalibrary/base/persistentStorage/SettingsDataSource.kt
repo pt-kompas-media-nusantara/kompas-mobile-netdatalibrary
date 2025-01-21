@@ -20,6 +20,7 @@ class SettingsDataSource(private val settings: Settings) {
         when (value) {
             is String -> {
                 settings.putString(key.key, value)
+                Logger.debug { "Saved ${key.key} with value: $value" }
                 getStringFlow(key).update {
                     value
                 }
@@ -27,6 +28,7 @@ class SettingsDataSource(private val settings: Settings) {
 
             is Int -> {
                 settings.putInt(key.key, value)
+                Logger.debug { "Saved ${key.key} with value: $value" }
                 getIntFlow(key).update {
                     value
                 }
@@ -34,6 +36,7 @@ class SettingsDataSource(private val settings: Settings) {
 
             is Boolean -> {
                 settings.putBoolean(key.key, value)
+                Logger.debug { "Saved ${key.key} with value: $value" }
                 getBooleanFlow(key).update {
                     value
                 }
@@ -47,6 +50,7 @@ class SettingsDataSource(private val settings: Settings) {
                     // Mengonversi List<String> menjadi string yang dipisahkan koma
                     val stringValue = stringList.joinToString(",")
                     settings.putString(key.key, stringValue)
+                    Logger.debug { "Saved ${key.key} with value: $stringValue" }
                     getStringListFlow(key).update {
                         Logger.debug { "Updated ${key.key} to: $stringList" }
                         stringList
@@ -64,29 +68,33 @@ class SettingsDataSource(private val settings: Settings) {
     fun <T> load(key: KeySettingsType, defaultValue: T): T {
         return when (defaultValue) {
             is String -> {
-                Logger.debug {
-                    "${key.key} : $defaultValue"
-                }
-                settings.getString(key.key, defaultValue)
+                val flow = getStringFlow(key)
+                val value = flow.value ?: settings.getString(key.key, defaultValue)
+                Logger.debug { "Loaded ${key.key} with value: $value" }
+                value
             }
+
             is Int -> {
-                Logger.debug {
-                    "${key.key} : $defaultValue"
-                }
-                settings.getInt(key.key, defaultValue)
+                val flow = getIntFlow(key)
+                val value = flow.value ?: settings.getInt(key.key, defaultValue)
+                Logger.debug { "Loaded ${key.key} with value: $value" }
+                value
             }
+
             is Boolean -> {
-                Logger.debug {
-                    "${key.key} : $defaultValue"
-                }
-                settings.getBoolean(key.key, defaultValue)
+                val flow = getBooleanFlow(key)
+                val value = flow.value ?: settings.getBoolean(key.key, defaultValue)
+                Logger.debug { "Loaded ${key.key} with value: $value" }
+                value
             }
+
             is List<*> -> {
                 // Cek apakah defaultValue adalah List<String>
                 val listDefaultValue = defaultValue as? List<String>
                 if (listDefaultValue != null) {
                     // Menangani List<String> yang disimpan sebagai string dipisahkan koma
-                    val storedValue = settings.getString(key.key, "")
+                    val flow = getStringFlow(key)
+                    val storedValue = flow.value ?: settings.getString(key.key, "")
                     if (storedValue.isNotEmpty()) {
                         // Mengonversi string yang dipisahkan koma kembali menjadi List<String>
                         Logger.debug {

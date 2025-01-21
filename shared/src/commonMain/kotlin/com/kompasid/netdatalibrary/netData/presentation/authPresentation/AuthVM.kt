@@ -10,6 +10,10 @@ import com.kompasid.netdatalibrary.netData.data.loginEmailData.dto.LoginEmailReq
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.utilities.Constants
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class AuthVM(
@@ -17,6 +21,10 @@ class AuthVM(
     private val settingsUseCase: SettingsUseCase,
     private val settingsDataSource: SettingsDataSource,
 ) : BaseVM() {
+
+    val accessToken: StateFlow<String?> =
+        settingsDataSource.getStringFlow(KeySettingsType.ACCESS_TOKEN).map { it ?: "" }
+            .stateIn(scope, SharingStarted.WhileSubscribed(), "")
 
     fun cetakAllSettings() {
         scope.launch {
