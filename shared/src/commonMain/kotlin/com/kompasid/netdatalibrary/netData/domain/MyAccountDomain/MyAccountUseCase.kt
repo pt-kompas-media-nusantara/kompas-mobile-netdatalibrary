@@ -1,10 +1,32 @@
 package com.kompasid.netdatalibrary.netData.domain.MyAccountDomain
 
+import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestRepository
+import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import kotlinx.serialization.Serializable
 
 
 class MyAccountUseCase(
+    private val settingsUseCase: SettingsUseCase
 ) {
+
+    suspend fun myAccountInformation(): MyAccountInformationModel {
+        val firstName = settingsUseCase.getStringDataSource(KeySettingsType.FIRST_NAME) // Nurirp
+        val lastName = settingsUseCase.getStringDataSource(KeySettingsType.LAST_NAME) // Pangestu
+        val dateExpired = settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_EXPIRED) // 21 Jan 2022 - 18 Feb 2038
+        val stateMembership = settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_ACTIVE) // Aktif Berlangganan
+
+        val strings = listOf(firstName, lastName) // Output: "NP"
+        val idUserName = strings.joinToString(separator = "") { it.firstOrNull()?.toString() ?: "" }
+
+        return MyAccountInformationModel (
+            idUserName,
+            firstName,
+            lastName,
+            dateExpired,
+            stateMembership
+        )
+    }
 
     suspend fun suberAccountMenu(): List<AccountModel> {
         return listOf(
@@ -21,6 +43,14 @@ class MyAccountUseCase(
 
 
 }
+
+data class MyAccountInformationModel(
+    val idUserName: String,
+    val firstName: String,
+    val lastName: String,
+    val dateExpired: String,
+    val stateMembership: String,
+)
 
 data class AccountModel(
     val menuIcon: String,

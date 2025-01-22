@@ -4,10 +4,16 @@ import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
 import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestRepository
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.settingData
 
 class SettingsUseCase(
     private val settingsDataSource: SettingsDataSource
 ) {
+
+    suspend fun getStringDataSource(type: KeySettingsType): String {
+        val result = settingsDataSource.load(type, "")
+        return result
+    }
 
     suspend fun loadAccessToken() {
         settingsDataSource.load(KeySettingsType.ACCESS_TOKEN, "")

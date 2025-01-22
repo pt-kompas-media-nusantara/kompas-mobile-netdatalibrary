@@ -18,6 +18,12 @@ struct AccountView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
+                Button("Get Profile") {
+                    Task {
+                        try await self.myAccountVM.myAccountInformation()
+                    }
+                }
+                
                 Button("Test Multiple Callback") {
                     Task {
                         try await self.authVM.loginGuestOne()

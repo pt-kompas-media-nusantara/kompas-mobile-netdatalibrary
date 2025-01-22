@@ -21,11 +21,20 @@ class AccountVMWrapper: ObservableObject {
         self.myAccountUseCase = KoinInjector().myAccountUseCase
         
         Task {
-            await self.accountMenus()
+            try await self.accountMenus()
         }
     }
     
-    func accountMenus() async {
+    func myAccountInformation() async throws {
+        do {
+            let result = try await self.myAccountUseCase.myAccountInformation()
+            print(result)
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
+    func accountMenus() async throws {
         do {
             let result = try await self.myAccountUseCase.suberAccountMenu()
             self.accountData = result.map { account in
