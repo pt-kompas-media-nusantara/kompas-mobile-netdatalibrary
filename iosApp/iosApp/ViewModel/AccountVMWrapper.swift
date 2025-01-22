@@ -25,6 +25,31 @@ class AccountVMWrapper: ObservableObject {
         }
     }
     
+    func stateLoginUser() async throws {
+        do {
+            let result = try await self.myAccountUseCase.stateLoginUser()
+            switch result {
+            case .anon:
+                print("Unexpected anon")
+            case .regon:
+                print("Unexpected regon")
+            case .suber:
+                print("Unexpected suber")
+            }
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
+    func isAccountSubcriber() async throws {
+        do {
+            let result = try await self.myAccountUseCase.isAccountSubcriber()
+            print(result)
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
     func myAccountInformation() async throws {
         do {
             let result = try await self.myAccountUseCase.myAccountInformation()

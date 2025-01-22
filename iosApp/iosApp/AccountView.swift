@@ -18,6 +18,18 @@ struct AccountView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
+                Button("Status Login User") {
+                    Task {
+                        try await self.myAccountVM.stateLoginUser()
+                    }
+                }
+                
+                Button("Get Status Suber User") {
+                    Task {
+                        try await self.myAccountVM.isAccountSubcriber()
+                    }
+                }
+                
                 Button("Get Profile") {
                     Task {
                         try await self.myAccountVM.myAccountInformation()

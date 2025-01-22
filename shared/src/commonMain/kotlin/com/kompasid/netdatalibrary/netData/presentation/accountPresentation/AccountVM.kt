@@ -33,3 +33,6 @@ class AccountVM(
         }
     }
 }
+//myAccountUseCase.myAccountInformation()
+//myAccountUseCase.isAccountSubcriber()
+//myAccountUseCase.stateLoginUser()
