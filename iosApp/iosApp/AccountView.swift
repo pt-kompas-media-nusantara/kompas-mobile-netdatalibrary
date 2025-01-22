@@ -18,16 +18,26 @@ struct AccountView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
+                Button("Test Multiple Callback") {
+                    Task {
+                        try await self.authVM.loginGuestOne()
+                        try await self.authVM.loginAnonTwo()
+                    }
+                }
                 Button("Login Anon") {
                     Task {
                         try await self.authVM.loginGuest()
                     }
                 }
                 Button("Login Regon") {
-                    
+                    Task {
+                        try await self.authVM.loginByEmail(type: .regonByEmail)
+                    }
                 }
                 Button("Login Login Suber by Email") {
-                    
+                    Task {
+                        try await self.authVM.loginByEmail(type: .suberByEmail)
+                    }
                 }
                 Button("Refresh Token") {
                     

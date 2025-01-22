@@ -9,6 +9,7 @@ import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutRepository
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserMembershipHistoryResInterceptor
+import kotlinx.coroutines.coroutineScope
 
 interface LoginGuestRepositoryContoh {
     suspend fun postLoginGuest(): Results<Unit, NetworkError>
@@ -20,6 +21,17 @@ class AuthUseCase(
     private val logoutRepository: LogoutRepository,
     private val personalInfoUseCase: PersonalInfoUseCase
 ) {
+
+    suspend fun loginAnonOne(): Results<LoginAnonResInterceptor, NetworkError> {
+        val result = loginGuestRepository.postLoginGuest()
+        return Results.Success(LoginAnonResInterceptor("nurirppan"))
+    }
+
+    suspend fun loginAnonTwo(): Results<Pair<LoginAnonResInterceptor, LoginAnonResInterceptor>, NetworkError> {
+        val result = loginGuestRepository.postLoginGuest()
+        return Results.Success(Pair(LoginAnonResInterceptor("nurirppan"), LoginAnonResInterceptor("pangestu")))
+    }
+
     suspend fun loginAnon(): Results<Unit, NetworkError> {
         val result = loginGuestRepository.postLoginGuest()
         return result
@@ -71,3 +83,7 @@ class AuthUseCase(
 
 
 }
+
+data class LoginAnonResInterceptor(
+    val userId: String
+)
