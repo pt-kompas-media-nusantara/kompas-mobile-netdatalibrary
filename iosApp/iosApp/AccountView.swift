@@ -18,24 +18,42 @@ struct AccountView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
-                Button("Status Login User") {
+                Button("Status State User Type") {
                     Task {
-                        try await self.myAccountVM.stateLoginUser()
+                        try await self.myAccountVM.stateUserType()
                     }
                 }
                 
-                Button("Get Status Suber User") {
-                    Task {
-                        try await self.myAccountVM.isAccountSubcriber()
-                    }
-                }
-                
-                Button("Get Profile") {
+                Button("Informasi Akun") {
                     Task {
                         try await self.myAccountVM.myAccountInformation()
                     }
                 }
                 
+                Button("accountMenus") {
+                    Task {
+                        try await self.myAccountVM.accountMenus()
+                    }
+                }
+                
+                Button("aboutHarianKompasMenus") {
+                    Task {
+                        try await self.myAccountVM.aboutHarianKompasMenus()
+                    }
+                }
+                
+                Button("aboutAppMenus") {
+                    Task {
+                        try await self.myAccountVM.aboutAppMenus()
+                    }
+                }
+                
+                Button("settingMenus") {
+                    Task {
+                        try await self.myAccountVM.settingMenus()
+                    }
+                }
+                                
                 Button("Test Multiple Callback") {
                     Task {
                         try await self.authVM.loginGuestOne()

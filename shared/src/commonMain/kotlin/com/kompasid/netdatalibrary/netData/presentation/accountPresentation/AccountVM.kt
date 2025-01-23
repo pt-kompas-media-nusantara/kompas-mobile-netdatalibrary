@@ -18,7 +18,7 @@ class AccountVM(
 
     fun appIcon() {
         scope.launch {
-            val result = myAccountUseCase.suberAccountMenu()
+            val result = myAccountUseCase.accountMenus()
 //            when (result) {
 //                is Results.Error -> {
 //                    networkVM.statusToError(result.error)
