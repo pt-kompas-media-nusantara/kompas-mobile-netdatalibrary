@@ -1,5 +1,31 @@
 package com.kompasid.netdatalibrary.core.domain.myAccount.usecase
 
+import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.AccountModel
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.MyAccountInformationModel
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.StateUserType
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.aboutAppData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.aboutAppSubMenuData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.aboutHarianKompasData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.aboutOrganizationData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.bookmarkData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.changePasswordData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.companyHistoryData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.companyProfileData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.contactUsData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.cyberMediaGuidelinesData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.deleteAccountData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.deleteDataData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.deviceActivitiesData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.manageAccountData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.qnaData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.rewardData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.settingData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.signOutData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.termsConditionsData
+import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.themeData
+
 
 class MyAccountUseCase(
     private val settingsUseCase: SettingsUseCase
