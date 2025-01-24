@@ -1,0 +1,84 @@
+API
+name    : Article List
+prod    :
+- Tagar List
++ First Article   : https://cds.kompas.id/api/v2/article/list/tag/$name
++ Load More       : https://cds.kompas.id/api/v2/article/list/tag/$name?cursor=12345
+
+- Pilihanku List
++ First Article   : https://cds.kompas.id/api/v2/article/pilihanku
++ Load More       : https://cds.kompas.id/api/v2/article/pilihanku?cursor=12345
+
+- Favrite Pembaca List
++ First Article   : https://cds.kompas.id/api/v2/article/konten-promo
++ Load More       : https://cds.kompas.id/api/v2/article/konten-promo?cursor=12345
+
+- Bookmark List
++ First Article   : https://cds.kompas.id/api/v2/article/bookmark
++ Load More       : https://cds.kompas.id/api/v2/article/bookmark?cursor=12345
+
+- Berita Utama List
++ First Article   : https://cds.kompas.id/api/v2/article/list/tag/utama
++ Load More       : https://cds.kompas.id/api/v2/article/list/tag/utama?cursor=12345
+
+- Terpopuler List
++ First Article   : https://cds.kompas.id/api/v2/article/popular-article
++ Load More       : https://cds.kompas.id/api/v2/article/popular-article?cursor=12345
+
+- Terbaru List
++ First Article   : https://cds.kompas.id/api/v2/article/list
++ Load More       : https://cds.kompas.id/api/v2/article/list?cursor=12345
+
+- Baca Lainnya List
++ First Article   : https://ai.kompas.id/api/v1/recommendation?
+                    pageUrl=https://www.kompas.id/baca/investigasi/2024/10/21/mencari-jawaban-dari-kapan-nikah&
+                    pageType=read&
+                    itemType=articles&
+                    guid=947baf96-67cd-45a7-ac30-e900651a96c0&
+                    cursor=
++ Load More       : https://ai.kompas.id/api/v1/recommendation?
+                    pageUrl=https://www.kompas.id/baca/investigasi/2024/10/21/mencari-jawaban-dari-kapan-nikah&
+                    pageType=read&
+                    itemType=articles&
+                    guid=947baf96-67cd-45a7-ac30-e900651a96c0&
+                    cursor=12345
+
+dev     : -
+Type    : GET
+
+SUCCEED
+
+API SERVICE
++ test_articleListFirstLoad_responseIs200_returnSuccess
++ test_articleListLoadMore_responseIs200_returnSuccess
++ test_articleList_emptyArticle_responseIs200_returnSuccess
++ test_articleListLoadMore_cursorValidationCorrect_responseIs200_returnSuccess
++ test_bacaLainnyaListFirstLoad_responseIs200_returnSuccess
++ test_bacaLainnyaListLoadMore_responseIs200_returnSuccess
++ test_bacaLainnya_parameterValidationCorrect_responseIs200_returnSuccess
+
+REPOSITORY
+- data to settings
++ test_loginEmail_saveDataToDb_returnSuccess
+
+
+
+FAILED
+
+API SERVICE
++ test_withOffline_returnError
++ test_withOnlineAndResponseIs500_returnError
++ test_articleListFirstLoad_tokenExpired_responseIs401_returnError
++ test_articleListLoadMore_tokenExpired_responseIs401_returnError
++ test_articleListFirstLoad_tokenInvalid_responseIs401_returnError
++ test_articleListLoadMore_tokenInvalid_responseIs401_returnError
++ test_articleListFirstLoad_tokenInvalid_responseIs401_returnError
++ test_articleListLoadMore_tokenInvalid_responseIs401_returnError
++ test_articleListLoadMore_cursorValidationInCorrect_responseIs200_returnError | kursor string kosong
++ test_bacaLainnya_pageUrlEmpty_returnError
++ test_bacaLainnya_pageTypeEmpty_returnError
++ test_bacaLainnya_itemTypeEmpty_returnError
++ test_bacaLainnya_guidEmpty_returnError
+
+REPOSITORY
++ test_loginEmail_saveDataToDb_returnError

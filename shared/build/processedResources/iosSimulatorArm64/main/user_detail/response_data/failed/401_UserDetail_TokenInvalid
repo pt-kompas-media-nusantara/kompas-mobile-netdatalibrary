@@ -1,0 +1,2 @@
+curl --location 'https://api.kompas.id/account/api/v2/users/detail' \
+--header 'Authorization: Bearer asdd'

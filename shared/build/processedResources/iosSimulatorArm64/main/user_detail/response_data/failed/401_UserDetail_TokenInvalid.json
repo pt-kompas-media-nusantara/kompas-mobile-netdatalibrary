@@ -1,0 +1,10 @@
+{
+    "success": false,
+    "code": 401,
+    "message": "Token tidak valid",
+    "meta": {
+        "cache": false,
+        "time": 1729751587
+    },
+    "data": null
+}

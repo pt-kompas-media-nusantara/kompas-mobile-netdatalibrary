@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 400,
+  "message": "Token refresh wajib diisi.",
+  "meta": {
+    "cache": false,
+    "time": 1729666831
+  },
+  "data": null
+}

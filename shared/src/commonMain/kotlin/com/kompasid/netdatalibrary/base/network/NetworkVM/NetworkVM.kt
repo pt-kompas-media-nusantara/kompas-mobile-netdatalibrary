@@ -4,7 +4,7 @@ import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.NetworkError
 
 
-class NetworkVM(): INetworkVM {
+class NetworkVM : INetworkVM {
     override fun statusToError(error: NetworkError) {
         when (error) {
             // error mau di tampilin view apa saja
@@ -15,7 +15,7 @@ class NetworkVM(): INetworkVM {
             is NetworkError.ServerError -> Logger.debug { "Error: ${error.toString()}" }
             is NetworkError.Technical -> Logger.debug { "Error: ${error.toString()}" }
             is NetworkError.Unauthorized -> Logger.debug { "Error: ${error.toString()}" }
+            NetworkError.Unknown -> Logger.debug { "Unknown Error" }
         }
     }
-
 }

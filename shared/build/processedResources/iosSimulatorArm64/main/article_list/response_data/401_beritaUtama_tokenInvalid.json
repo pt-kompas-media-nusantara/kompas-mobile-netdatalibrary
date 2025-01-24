@@ -1,0 +1,7 @@
+{
+  "code": 401,
+  "message": {
+    "message": "invalid character '\\x0e' in string literal"
+  },
+  "result": []
+}

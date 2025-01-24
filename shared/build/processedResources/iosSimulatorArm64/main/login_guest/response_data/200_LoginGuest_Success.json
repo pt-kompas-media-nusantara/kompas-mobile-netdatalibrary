@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "code": 200,
+  "message": "Autentikasi guest berhasil",
+  "meta": {
+    "cache": false,
+    "time": 1728903379
+  },
+  "data": {
+    "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc2MDQzOTM3OSwic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3Mjg5MDQyNzksImlhdCI6MTcyODkwMzM3OSwiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.qsHwpnwrVu2PULCvc2faeudBdGiFlT02CYVdcQQ6q0X_ifgWGVwPczO-CeFwnLx369UOqjH_cBRE8ozer1aVqEbBuo9hqvqtnZ-2607EbRKccMldqxJ3kAwPSsbbYAGPXiAbpFA74CT7ad0VvzpBpn0Pf-9sg8h3UVXD4HN1BY8",
+    "refreshToken": "abe782e8a13fccdab12caf80720597d319dbc79c7f69a4739d822ba1e11276f6"
+  }
+}

@@ -1,0 +1,4 @@
+curl --location --request POST 'https://api.kompas.id/account/api/v2/login/guest' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--data ''

@@ -13,7 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
+import com.kompasid.netdatalibrary.core.presentation.authPresentation.AuthVM
 import org.koin.compose.viewmodel.koinViewModel
 
 

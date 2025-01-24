@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 401,
+  "message": "Harus memberikan header otorisasi dengan format `Bearer {token}`",
+  "meta": {
+    "cache": false,
+    "time": 1729751139
+  },
+  "data": null
+}

@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 400,
+  "message": "Email wajib diisi.",
+  "meta": {
+    "cache": false,
+    "time": 1728904085
+  },
+  "data": null
+}

@@ -1,0 +1,7 @@
+curl --location 'https://api.kompas.id/account/api/v2/login/email' \
+--data-raw '{
+    "email": "nur.irfan@kompas.com"
+
+
+
+}'
