@@ -10,6 +10,7 @@ sealed class NetworkError : CustomError {
     object NoInternet : NetworkError()
     object ServerError : NetworkError()
     object NotFound : NetworkError()
+    object Unknown : NetworkError()
 
     // Tambahkan class untuk error yang menerima kode dan pesan
     data class Technical(val code: Int, val message: String) : NetworkError()

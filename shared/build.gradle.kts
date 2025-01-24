@@ -88,8 +88,9 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            // implementation(libs.koin.test)
+             implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.kotlinx.coroutines.core.v181)
         }
     }
 
@@ -109,6 +110,7 @@ publishing {
         }
     }
     repositories {
+        maven { url = uri("https://dl.bintray.com/kodein-framework/maven") }
         maven {
             name = "GitHubPackages"
             url =
