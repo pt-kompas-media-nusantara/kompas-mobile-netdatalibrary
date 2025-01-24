@@ -1,0 +1,6 @@
+curl --location 'https://api.kompas.id/account/api/v2/logout' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--data '{
+  "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzYxMjAyNjQ5LCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.vBKrIMiC479JQ3O3xM1otrYdrh7Idc2hxHmsffi5l03-Tr16RRREbzclSTi4yLffLg6Fotru45fs8BbdP7-0lqIdfHjnFe68WxMNJd-h4LtAnA6EWM3pD6KAFl_oBFgOmLLiulh0mjERy3YXXhNbJaLFUDtdjNovvihK8wZIk"
+}'

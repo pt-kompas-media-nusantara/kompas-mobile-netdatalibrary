@@ -1,0 +1,33 @@
+API
+name    : AppIcon
+prod    : https://cdn-content.kompas.id/mobile/json/generalContent.json
+dev     : https://private-d6360b-hariankompasios.apiary-mock.com/generalContent
+Type    : GET
+
+SUCCEED
+
+API SERVICE
++ test_appIcon_dataFilled_withOnlineAndResponseIs200_returnSuccess
++ test_appIcon_dataEmpty_withOnlineAndResponseIs200_returnSuccess
+
+REPOSITORY
+- data to database
++ test_appIcon_createDataToDb_returnSuccess
++ test_appIcon_readDataFromDb_returnSuccess
++ test_appIcon_updateDataToDb_returnSuccess
++ test_appIcon_deleteDataToDb_returnSuccess
+
+
+
+FAILED
+
+API SERVICE
++ test_appIcon_withOffline_returnError
++ test_appIcon_withOnlineAndResponseIs500_returnError
+
+REPOSITORY
+- data to database
++ test_appIcon_createDataToDb_returnError
++ test_appIcon_readDataFromDb_returnError
++ test_appIcon_updateDataToDb_returnError
++ test_appIcon_deleteDataToDb_returnError

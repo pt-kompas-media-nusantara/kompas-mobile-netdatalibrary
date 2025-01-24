@@ -1,0 +1,17 @@
+{
+    "success": true,
+    "code": 200,
+    "message": "Login berhasil!",
+    "meta": {
+        "cache": false,
+        "time": 1729155751
+    },
+    "data": {
+        "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzYwNjkxNzUxLCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTcyOTE1NjY1MSwiaWF0IjoxNzI5MTU1NzUxLCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.QJfB8JuDPfkBlsLNoEn_iONoGkGwz8aHmcvX0sWNt9908SSARwCk3SCDmN8XDwOil5A545WjHllZRQpazDWIgM_oLHiHT7_uKuC6z8XQmTt8vSS60ggYlxwqQfz1L9PZiN9lNZPT9gn9KvbbqaZiasFFfnGEvjVG2ABlb__h7jM",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzYwNjkxNzUxLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.c8MZwnMH19KGM1Y2BZ7ZWzhFuw_k6aO3afcypgvYDaQoJM8KY769ciP9sg7L3HdqHaNlCJbNH3Meovr8F4xixfvV1Zbl1L2nVc9QU-aLMn2WDnoUkywCWMofTTv7qnRqBfSZtX8toVZgEhdUQoqLF45DM7Z0vZLSo_HK529kMIA",
+        "isVerified": true,
+        "deviceKeyId": "3WAUkUW4iEYcMT+ZFnBeGzCmo/GuV7JkS8m9cqiFtGW3OHkquwSP1IrJIk55oYgQNBFW9JwbzCNojQ/nnFHLo6pJqTsqTO4P7UvyMt6+8rfAtEvSpDYaa1xEqz+OiYwN",
+        "isSocial": false,
+        "isPassEmpty": false
+    }
+}

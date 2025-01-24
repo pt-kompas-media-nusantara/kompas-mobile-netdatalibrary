@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 422,
+  "message": "Email tidak ditemukan",
+  "meta": {
+    "cache": false,
+    "time": 1729155984
+  },
+  "data": null
+}

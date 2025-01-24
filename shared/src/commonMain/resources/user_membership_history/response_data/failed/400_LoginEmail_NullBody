@@ -1,0 +1,2 @@
+curl --location --request POST 'https://api.kompas.id/account/api/v2/login/email' \
+--data ''
