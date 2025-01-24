@@ -21,13 +21,38 @@ class AccountVMWrapper: ObservableObject {
         self.myAccountUseCase = KoinInjector().myAccountUseCase
         
         Task {
-            await self.accountMenus()
+            try await self.accountMenus()
         }
     }
     
-    func accountMenus() async {
+    func stateUserType() async throws {
         do {
-            let result = try await self.myAccountUseCase.suberAccountMenu()
+            let result = try await self.myAccountUseCase.stateUserType()
+            switch result {
+            case .anon:
+                print("Unexpected anon")
+            case .regon:
+                print("Unexpected regon")
+            case .suber:
+                print("Unexpected suber")
+            }
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
+    func myAccountInformation() async throws {
+        do {
+            let result = try await self.myAccountUseCase.myAccountInformation()
+            print(result)
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
+    func accountMenus() async throws {
+        do {
+            let result = try await self.myAccountUseCase.accountMenus()
             self.accountData = result.map { account in
                 AccountModel(
                     menuIcon: account.menuIcon,
@@ -42,6 +67,57 @@ class AccountVMWrapper: ObservableObject {
         }
     }
     
+    func aboutHarianKompasMenus() async throws {
+        do {
+            let result = try await self.myAccountUseCase.aboutHarianKompasMenus()
+            self.accountData = result.map { account in
+                AccountModel(
+                    menuIcon: account.menuIcon,
+                    title: account.title,
+                    desc: account.desc,
+                    navigation: self.mappingNavigation(value: account.navigation.name)
+                    
+                )
+            }
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+
+    
+    func aboutAppMenus() async throws {
+        do {
+            let result = try await self.myAccountUseCase.aboutAppMenus()
+            self.accountData = result.map { account in
+                AccountModel(
+                    menuIcon: account.menuIcon,
+                    title: account.title,
+                    desc: account.desc,
+                    navigation: self.mappingNavigation(value: account.navigation.name)
+                    
+                )
+            }
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
+    func settingMenus() async throws {
+        do {
+            let result = try await self.myAccountUseCase.settingMenus()
+            self.accountData = result.map { account in
+                AccountModel(
+                    menuIcon: account.menuIcon,
+                    title: account.title,
+                    desc: account.desc,
+                    navigation: self.mappingNavigation(value: account.navigation.name)
+                    
+                )
+            }
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
     private func mappingNavigation(value: String) -> AccountNavigationType {
         switch value {
         case "LOGIN": return .login

@@ -18,16 +18,62 @@ struct AccountView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 10) {
+                Button("Status State User Type") {
+                    Task {
+                        try await self.myAccountVM.stateUserType()
+                    }
+                }
+                
+                Button("Informasi Akun") {
+                    Task {
+                        try await self.myAccountVM.myAccountInformation()
+                    }
+                }
+                
+                Button("accountMenus") {
+                    Task {
+                        try await self.myAccountVM.accountMenus()
+                    }
+                }
+                
+                Button("aboutHarianKompasMenus") {
+                    Task {
+                        try await self.myAccountVM.aboutHarianKompasMenus()
+                    }
+                }
+                
+                Button("aboutAppMenus") {
+                    Task {
+                        try await self.myAccountVM.aboutAppMenus()
+                    }
+                }
+                
+                Button("settingMenus") {
+                    Task {
+                        try await self.myAccountVM.settingMenus()
+                    }
+                }
+                                
+                Button("Test Multiple Callback") {
+                    Task {
+                        try await self.authVM.loginGuestOne()
+                        try await self.authVM.loginAnonTwo()
+                    }
+                }
                 Button("Login Anon") {
                     Task {
                         try await self.authVM.loginGuest()
                     }
                 }
                 Button("Login Regon") {
-                    
+                    Task {
+                        try await self.authVM.loginByEmail(type: .regonByEmail)
+                    }
                 }
                 Button("Login Login Suber by Email") {
-                    
+                    Task {
+                        try await self.authVM.loginByEmail(type: .suberByEmail)
+                    }
                 }
                 Button("Refresh Token") {
                     

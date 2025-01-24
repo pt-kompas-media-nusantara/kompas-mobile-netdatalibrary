@@ -7,6 +7,16 @@ class SettingsUseCase(
     private val settingsDataSource: SettingsDataSource
 ) {
 
+    suspend fun getStringDataSource(type: KeySettingsType): String {
+        val result = settingsDataSource.load(type, "")
+        return result
+    }
+
+    suspend fun getBooleanDataSource(type: KeySettingsType): Boolean {
+        val result = settingsDataSource.load(type, false)
+        return result
+    }
+
     suspend fun loadAccessToken() {
         settingsDataSource.load(KeySettingsType.ACCESS_TOKEN, "")
     }
