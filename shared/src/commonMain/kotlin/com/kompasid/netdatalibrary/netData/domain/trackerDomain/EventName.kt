@@ -5,6 +5,9 @@ package com.kompasid.netdatalibrary.netData.domain.trackerDomain
 //    SIGN_UP_STARTED("sign_up_started")
 //}
 
+
+
+
 enum class EventName(val value: String) {
     EXAMPLE("EXAMPLE"),
     SIGN_UP_STARTED("sign_up_started"),

@@ -9,9 +9,8 @@ import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutRepository
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserMembershipHistoryResInterceptor
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.EventName
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.ExampleModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
 
 interface LoginGuestRepositoryContoh {
     suspend fun postLoginGuest(): Results<Unit, NetworkError>
@@ -25,20 +24,20 @@ class AuthUseCase(
     private val trackerUseCase: TrackerUseCase
 ) {
 
-    suspend fun nativeTrackerDelegate() {
-        trackerUseCase.post(
-            EventName.EXAMPLE,
-            ExampleModel("nurirppan coba")
-        )
-//        trackerManager.post("nurirppan")
-//        trackerManager.trackEvent(
-//            EventName.EXAMPLE,
-//            mapOf(
-//                "event_name" to "AppOpened",
-//                "property" to "nurirppan"
-//            )
-//        )
-    }
+//    suspend fun nativeTrackerDelegate() {
+////        trackerUseCase.post(
+////            EventName.EXAMPLE,
+////            ExampleModel("nurirppan coba")
+////        )
+////        trackerManager.post("nurirppan")
+////        trackerManager.trackEvent(
+////            EventName.EXAMPLE,
+////            mapOf(
+////                "event_name" to "AppOpened",
+////                "property" to "nurirppan"
+////            )
+////        )
+//    }
 
     suspend fun loginAnonOne(): Results<LoginAnonResInterceptor, NetworkError> {
         val result = loginGuestRepository.postLoginGuest()

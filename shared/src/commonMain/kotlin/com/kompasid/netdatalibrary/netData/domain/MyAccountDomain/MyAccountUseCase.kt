@@ -3,10 +3,12 @@ package com.kompasid.netdatalibrary.netData.domain.MyAccountDomain
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.EventName
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.ExampleModel
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.SignUpStartedModel
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.AuthenticationEntryPoint
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.StateSubscriptionType
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.UserType
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStartedModel
 
 
 class MyAccountUseCase(
@@ -16,13 +18,20 @@ class MyAccountUseCase(
 
     suspend fun nativeTrackerDelegate() {
         trackerUseCase.post(
-            EventName.EXAMPLE,
-            ExampleModel("nurirppan coba")
+            EventName.SIGN_UP_STARTED,
+            SignUpStartedModel(
+                AuthenticationEntryPoint.ONBOARDING,
+                "",
+                "",
+                "",
+                "",
+                UserType.ANONYMOUS,
+                StateSubscriptionType.ACTIVE,
+                "",
+                "",
+                "" )
         )
-//        trackerUseCase.post(
-//            EventName.SIGN_UP_STARTED,
-//            SignUpStartedModel("", "", "", "", "", "", "", "", "", "")
-//        )
+
     }
 
     suspend fun stateUserType(): StateUserType {
