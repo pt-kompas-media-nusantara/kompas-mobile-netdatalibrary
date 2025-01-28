@@ -3,22 +3,24 @@ package com.kompasid.netdatalibrary.netData.domain.MyAccountDomain
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.tracker.EventName
-import com.kompasid.netdatalibrary.netData.tracker.TrackerDelegate
+import com.kompasid.netdatalibrary.netData.tracker.ITrackerDelegate
+import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
 
 
 class MyAccountUseCase(
     private val settingsUseCase: SettingsUseCase,
-    private var trackerDelegate: TrackerDelegate
+    private var trackerManager: TrackerManager
 ) {
 
     suspend fun nativeTrackerDelegate() {
-        trackerDelegate.trackEvent(
-            EventName.EXAMPLE,
-            mapOf(
-                "event_name" to "AppOpened",
-                "property" to "nurirppan"
-            )
-        )
+        trackerManager.post("nurirppan")
+//        trackerManager.trackEvent(
+//            EventName.EXAMPLE,
+//            mapOf(
+//                "event_name" to "AppOpened",
+//                "property" to "nurirppan"
+//            )
+//        )
     }
 
     suspend fun stateUserType(): StateUserType {

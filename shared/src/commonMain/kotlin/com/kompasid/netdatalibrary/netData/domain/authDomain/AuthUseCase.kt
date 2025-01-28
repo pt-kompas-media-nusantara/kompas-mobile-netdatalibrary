@@ -10,8 +10,8 @@ import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInf
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserMembershipHistoryResInterceptor
 import com.kompasid.netdatalibrary.netData.tracker.EventName
-import com.kompasid.netdatalibrary.netData.tracker.TrackerDelegate
-import kotlinx.coroutines.coroutineScope
+import com.kompasid.netdatalibrary.netData.tracker.ITrackerDelegate
+import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
 
 interface LoginGuestRepositoryContoh {
     suspend fun postLoginGuest(): Results<Unit, NetworkError>
@@ -22,17 +22,18 @@ class AuthUseCase(
     private val loginEmailRepository: LoginEmailRepository,
     private val logoutRepository: LogoutRepository,
     private val personalInfoUseCase: PersonalInfoUseCase,
-    private var trackerDelegate: TrackerDelegate
+    private val trackerManager: TrackerManager
 ) {
 
     suspend fun nativeTrackerDelegate() {
-        trackerDelegate.trackEvent(
-            EventName.EXAMPLE,
-            mapOf(
-                "event_name" to "AppOpened",
-                "property" to "nurirppan"
-            )
-        )
+        trackerManager.post("nurirppan")
+//        trackerManager.trackEvent(
+//            EventName.EXAMPLE,
+//            mapOf(
+//                "event_name" to "AppOpened",
+//                "property" to "nurirppan"
+//            )
+//        )
     }
 
     suspend fun loginAnonOne(): Results<LoginAnonResInterceptor, NetworkError> {

@@ -1,24 +1,34 @@
 package com.kompasid.netdatalibrary.netData.tracker
 
-import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.NavigationType
-
 // Reference : https://medium.com/@afonso.script.sol/a-step-by-step-guide-to-the-delegate-pattern-in-swift-91a28de1baf8
 
 // commonMain
-interface TrackerDelegate {
+interface ITrackerDelegate {
 
-    fun trackEvent(eventName: EventName, eventProperty: Map<String, Any>)
+    suspend fun trackEvent(eventName: EventName, eventProperty: Map<String, Any>)
 }
 
 enum class EventName(val value: String) {
     EXAMPLE("EXAMPLE"),
 }
 
-object TrackerManager {
-    var delegate: TrackerDelegate? = null
+//class TrackerManager {
+//    var delegate: ITrackerDelegate? = null
+//
+//    suspend fun trackEvent(eventName: EventName, eventProperty: Map<String, Any>) {
+//        delegate?.trackEvent(eventName, eventProperty)
+//    }
+//}
 
-    fun trackEvent(eventName: EventName, eventProperty: Map<String, Any>) {
-        delegate?.trackEvent(eventName, eventProperty)
+object TrackerManager {
+    private val listeners = mutableListOf<(String) -> Unit>()
+
+    fun register(listener: (String) -> Unit) {
+        listeners.add(listener)
+    }
+
+    fun post(event: String) {
+        listeners.forEach { it(event) }
     }
 }
 

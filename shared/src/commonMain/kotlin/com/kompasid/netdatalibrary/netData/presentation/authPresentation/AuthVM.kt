@@ -34,6 +34,7 @@ class AuthVM(
 
     fun cetakAccessSettings() {
         scope.launch {
+            authUseCase.nativeTrackerDelegate()
             settingsUseCase.loadAccessToken()
         }
     }

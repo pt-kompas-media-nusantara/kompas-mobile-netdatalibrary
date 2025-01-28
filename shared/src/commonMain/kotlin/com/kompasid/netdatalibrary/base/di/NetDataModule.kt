@@ -31,7 +31,7 @@ import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
 import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
-import com.kompasid.netdatalibrary.netData.tracker.TrackerDelegate
+import com.kompasid.netdatalibrary.netData.tracker.ITrackerDelegate
 import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -103,8 +103,26 @@ val netDataModule = module {
 
     singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
     singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
+    single { TrackerManager }
+//    singleOf(::TrackerManager) { bind<TrackerManager>() }
 //    singleOf(::TrackerDelegate) { bind<TrackerManager>() }
-//    singleOf(::TrackerManager) { bind<TrackerDelegate>() }
-    single { TrackerManager.apply { delegate = get() } }
+//    singleOf(::TrackerManager) { bind<ITrackerDelegate>() }
+//    single { TrackerManager.apply { delegate = get() } }
 
 }
+
+//val trackerModule = module {
+//    // Registrasi ITrackerDelegate sebagai implementasi yang konkret
+//    single<ITrackerDelegate> { ITrackerDelegate() }
+//
+//    // Registrasi TrackerManager dan mengatur dependency-nya
+//    single {
+//        TrackerManager().apply {
+//            delegate = get<ITrackerDelegate>() // Inject ITrackerDelegate ke TrackerManager
+//        }
+//    }
+//}
+
+//singleOf(::GeneralContentUseCaseImpl) { bind<GeneralContentUseCase>() }
+//singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
+//singleOf(::GeneralContentApiServiceImpl) { bind<GeneralContentApiService>() }
