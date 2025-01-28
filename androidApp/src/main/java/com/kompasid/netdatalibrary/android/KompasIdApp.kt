@@ -3,13 +3,9 @@ package com.kompasid.netdatalibrary.android
 import android.app.Application
 import com.kompasid.netdatalibrary.android.di.viewModelsModule
 import com.kompasid.netdatalibrary.base.di.base.sharedKoinModules
-import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.netData.tracker.EventName
-import com.kompasid.netdatalibrary.netData.tracker.ITrackerDelegate
-import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import org.koin.dsl.KoinAppDeclaration
 
 class KompasIdApp : Application() {
 
@@ -20,8 +16,8 @@ class KompasIdApp : Application() {
     }
 
     private fun initTracker() {
-        TrackerManager.register { event ->
-            println("Kelas B menerima: $event")
+        TrackerUseCase.register { eventName, eventProperty ->
+            println("Kelas B menerima: $eventName $eventProperty")
         }
     }
 

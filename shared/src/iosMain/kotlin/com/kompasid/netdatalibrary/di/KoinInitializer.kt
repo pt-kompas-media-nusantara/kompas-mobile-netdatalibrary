@@ -5,7 +5,7 @@ import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.MyAccountUseCa
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
-import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -26,5 +26,5 @@ class KoinInjector : KoinComponent {
     val authUseCase: AuthUseCase by inject()
     val myAccountUseCase: MyAccountUseCase by inject()
     val settingsUseCase: SettingsUseCase by inject()
-    val trackerManager: TrackerManager by inject()
+    val trackerManager: TrackerUseCase by inject()
 }

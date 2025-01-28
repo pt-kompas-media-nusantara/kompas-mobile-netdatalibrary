@@ -2,30 +2,34 @@ package com.kompasid.netdatalibrary.netData.domain.MyAccountDomain
 
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
-import com.kompasid.netdatalibrary.netData.tracker.EventName
-import com.kompasid.netdatalibrary.netData.tracker.ITrackerDelegate
-import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.EventName
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.ExampleModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.SignUpStartedModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 
 
 class MyAccountUseCase(
     private val settingsUseCase: SettingsUseCase,
-    private var trackerManager: TrackerManager
+    private var trackerUseCase: TrackerUseCase
 ) {
 
     suspend fun nativeTrackerDelegate() {
-        trackerManager.post("nurirppan")
-//        trackerManager.trackEvent(
-//            EventName.EXAMPLE,
-//            mapOf(
-//                "event_name" to "AppOpened",
-//                "property" to "nurirppan"
-//            )
+        trackerUseCase.post(
+            EventName.EXAMPLE,
+            ExampleModel("nurirppan coba")
+        )
+//        trackerUseCase.post(
+//            EventName.SIGN_UP_STARTED,
+//            SignUpStartedModel("", "", "", "", "", "", "", "", "", "")
 //        )
     }
 
     suspend fun stateUserType(): StateUserType {
-        val email = settingsUseCase.getStringDataSource(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
-        val stateMembership = settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_ACTIVE) // Aktif Berlangganan
+        val email =
+            settingsUseCase.getStringDataSource(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
+        val stateMembership =
+            settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_ACTIVE) // Aktif Berlangganan
         // val stateGracePeriod = settingsUseCase.getBooleanDataSource(KeySettingsType.MEMBERSHIP_GRACE_PERIOD) // false
 
         if (email.isEmpty()) {

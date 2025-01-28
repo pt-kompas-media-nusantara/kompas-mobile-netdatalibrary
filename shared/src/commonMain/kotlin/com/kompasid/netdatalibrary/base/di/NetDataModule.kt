@@ -31,8 +31,7 @@ import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
 import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
-import com.kompasid.netdatalibrary.netData.tracker.ITrackerDelegate
-import com.kompasid.netdatalibrary.netData.tracker.TrackerManager
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -103,7 +102,7 @@ val netDataModule = module {
 
     singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
     singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
-    single { TrackerManager }
+    single { TrackerUseCase }
 //    singleOf(::TrackerManager) { bind<TrackerManager>() }
 //    singleOf(::TrackerDelegate) { bind<TrackerManager>() }
 //    singleOf(::TrackerManager) { bind<ITrackerDelegate>() }
