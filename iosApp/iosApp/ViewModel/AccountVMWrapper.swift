@@ -25,6 +25,14 @@ class AccountVMWrapper: ObservableObject {
         }
     }
     
+    func getTracker() async throws {
+        do {
+            try await self.myAccountUseCase.nativeTrackerDelegate()
+        } catch {
+            print("Unexpected error: \(error.localizedDescription)")
+        }
+    }
+    
     func stateUserType() async throws {
         do {
             let result = try await self.myAccountUseCase.stateUserType()

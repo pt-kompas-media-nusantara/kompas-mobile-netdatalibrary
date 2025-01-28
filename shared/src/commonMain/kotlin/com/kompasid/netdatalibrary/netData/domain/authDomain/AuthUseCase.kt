@@ -9,6 +9,8 @@ import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutRepository
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserMembershipHistoryResInterceptor
+import com.kompasid.netdatalibrary.netData.tracker.EventName
+import com.kompasid.netdatalibrary.netData.tracker.TrackerDelegate
 import kotlinx.coroutines.coroutineScope
 
 interface LoginGuestRepositoryContoh {
@@ -19,8 +21,19 @@ class AuthUseCase(
     private val loginGuestRepository: LoginGuestRepository,
     private val loginEmailRepository: LoginEmailRepository,
     private val logoutRepository: LogoutRepository,
-    private val personalInfoUseCase: PersonalInfoUseCase
+    private val personalInfoUseCase: PersonalInfoUseCase,
+    private var trackerDelegate: TrackerDelegate
 ) {
+
+    suspend fun nativeTrackerDelegate() {
+        trackerDelegate.trackEvent(
+            EventName.EXAMPLE,
+            mapOf(
+                "event_name" to "AppOpened",
+                "property" to "nurirppan"
+            )
+        )
+    }
 
     suspend fun loginAnonOne(): Results<LoginAnonResInterceptor, NetworkError> {
         val result = loginGuestRepository.postLoginGuest()

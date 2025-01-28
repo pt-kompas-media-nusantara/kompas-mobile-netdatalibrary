@@ -2,11 +2,24 @@ package com.kompasid.netdatalibrary.netData.domain.MyAccountDomain
 
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
+import com.kompasid.netdatalibrary.netData.tracker.EventName
+import com.kompasid.netdatalibrary.netData.tracker.TrackerDelegate
 
 
 class MyAccountUseCase(
-    private val settingsUseCase: SettingsUseCase
+    private val settingsUseCase: SettingsUseCase,
+    private var trackerDelegate: TrackerDelegate
 ) {
+
+    suspend fun nativeTrackerDelegate() {
+        trackerDelegate.trackEvent(
+            EventName.EXAMPLE,
+            mapOf(
+                "event_name" to "AppOpened",
+                "property" to "nurirppan"
+            )
+        )
+    }
 
     suspend fun stateUserType(): StateUserType {
         val email = settingsUseCase.getStringDataSource(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
