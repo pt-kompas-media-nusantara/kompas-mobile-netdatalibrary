@@ -1,14 +1,7 @@
-package com.kompasid.netdatalibrary.netData.presentation.accountPresentation
+package com.kompasid.netdatalibrary.netData.presentation
 
 import com.kompasid.netdatalibrary.BaseVM
-import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
-import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.MyAccountUseCase
-import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconResInterceptor
-import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AccountVM(

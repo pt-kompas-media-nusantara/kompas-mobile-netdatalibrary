@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.netData.presentation.appIconPresentation
+package com.kompasid.netdatalibrary.netData.presentation
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger

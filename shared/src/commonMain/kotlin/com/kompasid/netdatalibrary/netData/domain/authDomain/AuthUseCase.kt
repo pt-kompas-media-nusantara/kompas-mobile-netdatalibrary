@@ -9,8 +9,7 @@ import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutRepository
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.UserMembershipHistoryResInterceptor
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
 
 interface LoginGuestRepositoryContoh {
     suspend fun postLoginGuest(): Results<Unit, NetworkError>
@@ -21,11 +20,11 @@ class AuthUseCase(
     private val loginEmailRepository: LoginEmailRepository,
     private val logoutRepository: LogoutRepository,
     private val personalInfoUseCase: PersonalInfoUseCase,
-    private val trackerUseCase: TrackerUseCase
+    private val trackerUseCase: TrackerManager
 ) {
 
 //    suspend fun nativeTrackerDelegate() {
-////        trackerUseCase.post(
+////        trackerManager.post(
 ////            EventName.EXAMPLE,
 ////            ExampleModel("nurirppan coba")
 ////        )

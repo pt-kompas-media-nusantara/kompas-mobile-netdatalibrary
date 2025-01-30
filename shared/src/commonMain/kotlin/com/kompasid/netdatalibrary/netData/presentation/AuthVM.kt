@@ -1,7 +1,6 @@
-package com.kompasid.netdatalibrary.netData.presentation.authPresentation
+package com.kompasid.netdatalibrary.netData.presentation
 
 import com.kompasid.netdatalibrary.BaseVM
-import com.kompasid.netdatalibrary.base.DecodeJWT
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
@@ -34,7 +33,6 @@ class AuthVM(
 
     fun cetakAccessSettings() {
         scope.launch {
-            authUseCase.nativeTrackerDelegate()
             settingsUseCase.loadAccessToken()
         }
     }

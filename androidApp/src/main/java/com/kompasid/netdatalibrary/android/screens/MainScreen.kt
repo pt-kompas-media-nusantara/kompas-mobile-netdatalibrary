@@ -19,6 +19,7 @@ fun MainScreen(
     onSettinsClick: () -> Unit,
     onAuthUseCaseClick: () -> Unit,
     onAppIconUseCaseClick: () -> Unit,
+    onMyAccountUseCaseScreenClick: () -> Unit,
 ) {
 
     Column(
@@ -36,6 +37,10 @@ fun MainScreen(
 
         FilledButton("App Icon Use Case", {
             onAppIconUseCaseClick()
+        })
+
+        FilledButton("My Account Use Case", {
+            onMyAccountUseCaseScreenClick()
         })
 
 //        FilledButton("Login Guest - Api Service", {

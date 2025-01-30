@@ -8,5 +8,6 @@ enum class Screens(val route: String) {
     ARTICLE_LIST_VIEW("article-list-view"),
     ACCOUNT_VIEW("account-view"),
     AUTH_USECASE_VIEW("auth-usecase-view"),
+    MY_ACCOUNT_VIEW("MY_ACCOUNT_VIEW"),
     APPICON_USECASE_VIEW("appicon-usecase-view"),
 }

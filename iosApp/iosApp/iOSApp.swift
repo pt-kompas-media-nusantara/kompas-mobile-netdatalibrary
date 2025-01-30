@@ -25,8 +25,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        Shared.TrackerManager().register { event in
-            print("Kelas B menerima: \(event)")
+        Shared.TrackerManager().register { eventName, eventProperty in
+            print("Kelas B (eventName): \(eventName)")
+            print("Kelas B eventProperty: \(eventProperty)")
         }
         return true
     }

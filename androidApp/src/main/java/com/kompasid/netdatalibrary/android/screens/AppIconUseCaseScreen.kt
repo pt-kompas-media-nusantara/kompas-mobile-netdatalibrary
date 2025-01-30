@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
+import com.kompasid.netdatalibrary.netData.presentation.AppIconVM
 import org.koin.compose.viewmodel.koinViewModel
 
 

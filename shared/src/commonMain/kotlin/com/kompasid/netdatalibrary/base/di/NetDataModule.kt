@@ -5,6 +5,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiSer
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
+import com.kompasid.netdatalibrary.helper.UserDataHelper
 import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconApiService
 import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconRepository
 import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailApiService
@@ -29,9 +30,11 @@ import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconUseCase
 import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
 import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.netData.presentation.appIconPresentation.AppIconVM
-import com.kompasid.netdatalibrary.netData.presentation.authPresentation.AuthVM
+import com.kompasid.netdatalibrary.netData.presentation.AppIconVM
+import com.kompasid.netdatalibrary.netData.presentation.AuthVM
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
+import com.kompasid.netdatalibrary.netData.presentation.MyAccountVM
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -100,28 +103,13 @@ val netDataModule = module {
     singleOf(::AppIconApiService) { bind<AppIconApiService>() }
 
 
+    singleOf(::MyAccountVM) { bind<MyAccountVM>() }
     singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
     singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
-    single { TrackerUseCase }
-//    singleOf(::TrackerManager) { bind<TrackerManager>() }
-//    singleOf(::TrackerDelegate) { bind<TrackerManager>() }
-//    singleOf(::TrackerManager) { bind<ITrackerDelegate>() }
-//    single { TrackerManager.apply { delegate = get() } }
+
+    singleOf(::TrackerUseCase) { bind<TrackerUseCase>() }
+    single { TrackerManager }
+    singleOf(::UserDataHelper) { bind<UserDataHelper>() }
+
 
 }
-
-//val trackerModule = module {
-//    // Registrasi ITrackerDelegate sebagai implementasi yang konkret
-//    single<ITrackerDelegate> { ITrackerDelegate() }
-//
-//    // Registrasi TrackerManager dan mengatur dependency-nya
-//    single {
-//        TrackerManager().apply {
-//            delegate = get<ITrackerDelegate>() // Inject ITrackerDelegate ke TrackerManager
-//        }
-//    }
-//}
-
-//singleOf(::GeneralContentUseCaseImpl) { bind<GeneralContentUseCase>() }
-//singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
-//singleOf(::GeneralContentApiServiceImpl) { bind<GeneralContentApiService>() }

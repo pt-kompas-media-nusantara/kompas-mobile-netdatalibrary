@@ -4,22 +4,26 @@ import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.UserDataHelper
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.EventName
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.AuthenticationEntryPoint
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.StateSubscriptionType
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.UserType
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.OpenFromEntryPoint
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStartedModel
 
 
 class MyAccountUseCase(
     private val settingsUseCase: SettingsUseCase,
-    private var trackerUseCase: TrackerUseCase,
+    private var trackerManager: TrackerManager,
     private var userDataHelper: UserDataHelper,
+    private var trackerUseCase: TrackerUseCase,
 ) {
 
+    suspend fun pageViewedTracker(openFromEntryPoint: OpenFromEntryPoint) {
+        trackerUseCase.pageViewed(openFromEntryPoint)
+    }
+
     suspend fun nativeTrackerDelegate() {
-        trackerUseCase.post(
+        trackerManager.post(
             EventName.SIGN_UP_STARTED,
             SignUpStartedModel(
                 AuthenticationEntryPoint.ONBOARDING,
