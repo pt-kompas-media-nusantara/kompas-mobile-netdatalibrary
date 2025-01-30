@@ -1,7 +1,9 @@
 package com.kompasid.netdatalibrary.netData.domain.trackerDomain
 
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.AboutHarianKompasModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStartedModel
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.base.UserDataTrackerModel
 
 object TrackerUseCase {
     private val listeners =
@@ -13,7 +15,7 @@ object TrackerUseCase {
     }
 
     // Posting event dengan logika konversi berdasarkan model
-    fun post(eventName: EventName, eventProperty: Any) {
+    fun post(eventName: EventName, eventProperty: Any, userDataTrackerModel: UserDataTrackerModel) {
         val eventProperties = when (eventName) {
             EventName.EXAMPLE -> {
                 if (eventProperty is ExampleModel) {
@@ -33,14 +35,29 @@ object TrackerUseCase {
                         "content_title" to eventProperty.contentTitle,
                         "content_categories" to eventProperty.contentCategories,
                         "content_type" to eventProperty.contentType,
-                        "user_type" to eventProperty.userType,
-                        "subscription_status" to eventProperty.subscriptionStatus,
-                        "metered_wall_type" to eventProperty.meteredWallType,
-                        "metered_wall_balance" to eventProperty.meteredWallBalance,
-                        "page_domain" to eventProperty.pageDomain
+                        "user_type" to userDataTrackerModel.user_type,
+                        "subscription_status" to userDataTrackerModel.subscription_status,
+                        "metered_wall_type" to userDataTrackerModel.metered_wall_type,
+                        "metered_wall_balance" to userDataTrackerModel.metered_wall_balance,
+                        "page_domain" to userDataTrackerModel.page_domain
                     )
                 } else {
                     throw IllegalArgumentException("Invalid model for EventName.SIGN_UP_STARTED")
+                }
+            }
+
+            EventName.PAGE_VIEWED -> {
+                if (eventProperty is AboutHarianKompasModel) {
+                    mapOf(
+                        "page_title" to eventProperty.page_title,
+                        "user_type" to userDataTrackerModel.user_type,
+                        "subscription_status" to userDataTrackerModel.subscription_status,
+                        "metered_wall_type" to userDataTrackerModel.metered_wall_type,
+                        "metered_wall_balance" to userDataTrackerModel.metered_wall_balance,
+                        "page_domain" to userDataTrackerModel.page_domain
+                    )
+                } else {
+                    throw IllegalArgumentException("Invalid model for EventName.PAGE_VIEWED")
                 }
             }
         }

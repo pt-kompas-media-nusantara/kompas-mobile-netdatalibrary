@@ -1,6 +1,7 @@
 package com.kompasid.netdatalibrary.netData.domain.MyAccountDomain
 
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.UserDataHelper
 import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.EventName
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
@@ -13,7 +14,8 @@ import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStar
 
 class MyAccountUseCase(
     private val settingsUseCase: SettingsUseCase,
-    private var trackerUseCase: TrackerUseCase
+    private var trackerUseCase: TrackerUseCase,
+    private var userDataHelper: UserDataHelper,
 ) {
 
     suspend fun nativeTrackerDelegate() {
@@ -24,12 +26,8 @@ class MyAccountUseCase(
                 "",
                 "",
                 "",
-                "",
-                UserType.ANONYMOUS,
-                StateSubscriptionType.ACTIVE,
-                "",
-                "",
-                "" )
+                ""),
+            userDataHelper.userDataTracker()
         )
 
     }

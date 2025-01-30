@@ -15,7 +15,7 @@ enum class EventName(val value: String) {
 //    SIGN_UP_COMPLETED("sign_up_completed"),
 //    SIGN_IN_COMPLETED("sign_in_completed"),
 //    SIGN_OUT_COMPLETED("sign_out_completed"),
-//    PAGE_VIEWED("page_viewed"),
+    PAGE_VIEWED("page_viewed"),
 //    CONTENT_BOOKMARKED("content_bookmarked"),
 //    CONTENT_SHARED("content_shared"),
 //    COPY_LINK_CLICKED("copy_link_clicked"),

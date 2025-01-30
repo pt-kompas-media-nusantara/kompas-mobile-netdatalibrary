@@ -29,13 +29,6 @@ enum class AuthenticationEntryPoint(val value: String) {
     }
 }
 
-enum class UserType(val value: String) {
-    SUBSCRIBER("S"),
-    REGISTER("R"),
-    ANONYMOUS("G"),
-}
 
-enum class StateSubscriptionType(val value: String) {
-    ACTIVE("AC"),
-    IN_ACTIVE("IA"),
-}
+
+
