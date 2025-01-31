@@ -1,13 +1,14 @@
 import SwiftUI
 import Shared
+// import NetDataLibrary
 
 @main
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     init() {
-        KoinInitializerKt.doInitKoin()
-//         Shared.KoinInitializerKt.doInitKoin()
+//        KoinInitializerKt.doInitKoin()
+         Shared.KoinInitializerKt.doInitKoin()
     }
     
 	var body: some Scene {

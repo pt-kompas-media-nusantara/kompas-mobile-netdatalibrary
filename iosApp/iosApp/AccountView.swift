@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Shared
+// import NetDataLibrary
 
 
 struct AccountView: View {
@@ -225,3 +226,5 @@ struct DestinationView: View {
 
 
 
+//cd "$SRCROOT/.."
+//./gradlew :shared:embedAndSignAppleFrameworkForXcode

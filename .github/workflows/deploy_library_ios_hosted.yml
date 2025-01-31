@@ -75,31 +75,6 @@ jobs:
           fi
         shell: bash
 
-      - name: Upload XCFramework ZIP as Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Shared.xcframework.zip
-          path: Shared.xcframework.zip
-
-      - name: Push Git Tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git config --global user.name "${{ vars.CONFIG_USER_NAME }}"
-          git config --global user.email "${{ vars.CONFIG_USER_EMAIL }}"
-          git tag -a ${{ inputs.github_version }} -m "Release ${{ inputs.github_version }}"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.github_version }}
-
-      - name: Create or Update Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release create ${{ inputs.github_version }} \
-            Shared.xcframework.zip \
-            --generate-notes \
-            --latest
-
-
       - name: Logging for Debugging
         run: |
           echo "Checking repository..."
@@ -109,6 +84,14 @@ jobs:
         run: |
           ls -R
 
+      - name: Push Git Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "${{ vars.CONFIG_USER_NAME }}"
+          git config --global user.email "${{ vars.CONFIG_USER_EMAIL }}"
+          git tag -a ${{ inputs.github_version }} -m "Release ${{ inputs.github_version }}"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.github_version }}
         
       - name: Commit and Push Changes
         env:
@@ -128,6 +111,21 @@ jobs:
             # Push changes to the same branch
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           fi
+
+      - name: Create or Update Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create ${{ inputs.github_version }} \
+            Shared.xcframework.zip \
+            --generate-notes \
+            --latest
+
+      - name: Upload XCFramework ZIP as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Shared.xcframework.zip
+          path: Shared.xcframework.zip
 
       - name: Setup Github State
         id: id_setup_github_state

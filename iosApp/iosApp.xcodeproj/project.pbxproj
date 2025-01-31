@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		232639632D4CCC2C0097D86B /* NetDataLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 232639622D4CCC2C0097D86B /* NetDataLibrary */; };
 		2363F2F82D4B69E000B5D070 /* TrackerVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */; };
 		2363F2FB2D4BBFD400B5D070 /* OpenFromType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2FA2D4BBFD400B5D070 /* OpenFromType.swift */; };
 		2363F2FD2D4C7D2900B5D070 /* EventNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2FC2D4C7D2900B5D070 /* EventNameType.swift */; };
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				232639632D4CCC2C0097D86B /* NetDataLibrary in Frameworks */,
 				F855F855535CA9E04F8EB949 /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,7 +153,6 @@
 			buildConfigurationList = 7555FFA5242A565B00829871 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
 				8B61701ECD6F32285A6A1FFB /* [CP] Check Pods Manifest.lock */,
-				7555FFB5242A651A00829871 /* ShellScript */,
 				7555FF77242A565900829871 /* Sources */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
@@ -162,6 +163,9 @@
 			dependencies = (
 			);
 			name = iosApp;
+			packageProductDependencies = (
+				232639622D4CCC2C0097D86B /* NetDataLibrary */,
+			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
 			productType = "com.apple.product-type.application";
@@ -190,6 +194,9 @@
 				Base,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				23740FA42D4CC94000C502EF /* XCRemoteSwiftPackageReference "kompas-mobile-netdatalibrary" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -212,23 +219,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		7555FFB5242A651A00829871 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
-		};
 		8B61701ECD6F32285A6A1FFB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -471,6 +461,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23740FA42D4CC94000C502EF /* XCRemoteSwiftPackageReference "kompas-mobile-netdatalibrary" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.50;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		232639622D4CCC2C0097D86B /* NetDataLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23740FA42D4CC94000C502EF /* XCRemoteSwiftPackageReference "kompas-mobile-netdatalibrary" */;
+			productName = NetDataLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }
