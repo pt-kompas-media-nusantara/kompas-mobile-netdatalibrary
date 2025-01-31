@@ -48,4 +48,5 @@ enum OpenFromType {
     case NotificationInfo
     case NotificationContent
     case KompasBrief
+    case BookmarkPage
 }

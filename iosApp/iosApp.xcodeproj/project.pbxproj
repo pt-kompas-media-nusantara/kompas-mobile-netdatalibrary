@@ -12,6 +12,7 @@
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		2363F2F82D4B69E000B5D070 /* TrackerVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */; };
 		2363F2FB2D4BBFD400B5D070 /* OpenFromType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2FA2D4BBFD400B5D070 /* OpenFromType.swift */; };
+		2363F2FD2D4C7D2900B5D070 /* EventNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2FC2D4C7D2900B5D070 /* EventNameType.swift */; };
 		23AB2F232D3E3F45007AFEE9 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB2F222D3E3F45007AFEE9 /* AccountView.swift */; };
 		23EBD8582D3F458A00222B4E /* AuthVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD8572D3F458900222B4E /* AuthVMWrapper.swift */; };
 		23EBD85A2D3F45A800222B4E /* AccountVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EBD8592D3F45A800222B4E /* AccountVMWrapper.swift */; };
@@ -40,6 +41,7 @@
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerVMWrapper.swift; sourceTree = "<group>"; };
 		2363F2FA2D4BBFD400B5D070 /* OpenFromType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFromType.swift; sourceTree = "<group>"; };
+		2363F2FC2D4C7D2900B5D070 /* EventNameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameType.swift; sourceTree = "<group>"; };
 		23AB2F222D3E3F45007AFEE9 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		23EBD8572D3F458900222B4E /* AuthVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVMWrapper.swift; sourceTree = "<group>"; };
 		23EBD8592D3F45A800222B4E /* AccountVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVMWrapper.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				2363F2FA2D4BBFD400B5D070 /* OpenFromType.swift */,
+				2363F2FC2D4C7D2900B5D070 /* EventNameType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2363F2FD2D4C7D2900B5D070 /* EventNameType.swift in Sources */,
 				2363F2F82D4B69E000B5D070 /* TrackerVMWrapper.swift in Sources */,
 				23EBD85A2D3F45A800222B4E /* AccountVMWrapper.swift in Sources */,
 				23EBD85C2D3F45DB00222B4E /* SettingsVMWrapper.swift in Sources */,

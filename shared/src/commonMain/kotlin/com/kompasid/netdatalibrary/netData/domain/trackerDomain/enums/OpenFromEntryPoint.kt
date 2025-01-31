@@ -1,58 +1,10 @@
 package com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums
 
-//enum class OpenFromEntryPoint(val description: String) {
-//    Empty("Empty"),
-//    HotTopicSection("Section Topik Hangat"),
-//    UtamaSection("Section Berita Utama"),
-//    TerbaruSection("Section Terbaru"),
-//    TerpopulerSection("Section Terpopuler"),
-//    FavpemSection("Section Favorit Pembaca"),
-//    PilihankuSection("Section Pilihanku"),
-//    RelatedArticleSection("Section Artikel Terkait"),
-//    OtherArticleSection("Section Artikel Lainnya"),
-//    ReadLaterSection("Section Baca Lainnya"),
-//    LandingSearch("Search Page"),
-//    SearchResult("Search Result Page"),
-//    MyAccount("Akun Saya Page"),
-//    SubscriptionStatus("Status Langganan Page"),
-//    PromoPage("Promo Page"),
-//    SettingPage("Pengaturan Page"),
-//    HelpPage("Bantuan Page"),
-//    AboutAppPage("Tentang Aplikasi Page"),
-//    AllEditionEpaperPage("Semua Edisi Page"),
-//    MyEpaperPage("Epaper Saya Page"),
-//    DetailEpaperPage("Detail Epaper Page"),
-//    SettingEpaperPage("Atur Epaper Page"),
-//    AllBooksPage("Semua Buku Page"),
-//    MyBooksPage("Buku Saya Page"),
-//    DetailBookPage("Detail Buku Page"),
-//    SettingBookPage("Atur Buku Page"),
-//    ExternalLink("External Link"),
-//    AudioArticlePage("Audio Artikel Page"),
-//    ContactUsPage("Hubungi Kami Page"),
-//    QuestionAnswerPage("Tanya Jawab Page"),
-//    AboutKompasDailyPage("Tentang Harian Kompas Page"),
-//    FullPlayerAudioArticlePage("Full Player Audio Artikel"),
-//    Onboarding("Onboarding Page"),
-//    ReadAlso("Baca Juga"),
-//    TranslatorMark("Translator Mark"),
-//    NotificationPage("Notifikasi Page"),
-//    NotificationInfo("Notification Info"),
-//    NotificationContent("Notification Content"),
-//    KompasBrief("Section Kompas Brief");
-//
-//    companion object {
-//        fun fromString(value: String): OpenFromEntryPoint {
-//            return entries.find { it.name.equals(value, ignoreCase = true) } ?: Empty
-//        }
-//    }
-//}
-
-
 sealed class OpenFromEntryPoint(val description: String) {
 
     // Enum-like objects
     object Empty : OpenFromEntryPoint("Empty")
+    object BookmarkPage : OpenFromEntryPoint("Baca Nanti Page")
     object HotTopicSection : OpenFromEntryPoint("Section Topik Hangat")
     object UtamaSection : OpenFromEntryPoint("Section Berita Utama")
     object TerbaruSection : OpenFromEntryPoint("Section Terbaru")
@@ -100,6 +52,7 @@ sealed class OpenFromEntryPoint(val description: String) {
         fun fromString(value: String): OpenFromEntryPoint? {
             return when (value.uppercase()) {
                 "" -> Empty
+                "BOOKMARK_PAGE" -> BookmarkPage
                 "HOT_TOPIC_SECTION" -> HotTopicSection
                 "UTAMA_SECTION" -> UtamaSection
                 "TERBARU_SECTION" -> TerbaruSection

@@ -115,31 +115,31 @@ struct AccountView: View {
                                 .onTapGesture {
                                     switch account.navigation {
                                     case .nothing:
-                                        print("cek, di native, kalau misalnya anon pindah ke login. selain itu normal. pakai kode di KMP aja")
+                                        self.openFrom = .Empty
                                     case .login:
-                                        print("")
+                                        self.openFrom = .Empty
                                     case .register:
-                                        print("")
+                                        self.openFrom = .Empty
                                     case .manageAccount:
-                                        print("manageAccount")
+                                        self.openFrom = .Empty
                                     case .subscription:
-                                        print("")
+                                        self.openFrom = .Empty
                                     case .bookmark:
-                                        print("")
+                                        self.openFrom = .BookmarkPage
                                     case .reward:
-                                        print("")
+                                        self.openFrom = .Empty // beda event type
                                     case .settings:
-                                        print("")
+                                        self.openFrom = .SettingPage
                                     case .contactUs:
-                                        print("")
+                                        self.openFrom = .ContactUsPage
                                     case .qna:
-                                        print("")
+                                        self.openFrom = .QuestionAnswerPage
                                     case .aboutApp:
-                                        print("aboutApp")
+                                        self.openFrom = .AboutAppPage
                                     case .aboutHarianKompas:
                                         self.openFrom = .AboutKompasDailyPage
-                                        self.navigationTo = true
                                     }
+                                    self.navigationTo = true
                                 }
                         }
                         
@@ -154,7 +154,7 @@ struct AccountView: View {
 }
 
 
-struct PageViewedView: View {
+struct asdasd: View {
     let openFrom: OpenFromType
     let handler: () -> Void
     
@@ -168,7 +168,7 @@ struct PageViewedView: View {
             Task {
                 // Pastikan menunggu task selesai sebelum memanggil handler
                 do {
-                    try await self.trackerVM.send(openFrom: self.openFrom)
+                    try await self.trackerVM.send(eventName: .pageViewed(self.openFrom))
                     self.handler()
                 } catch {
                     // Handle error jika terjadi masalah dengan send()
@@ -179,11 +179,41 @@ struct PageViewedView: View {
     }
 }
 
+struct PageViewedView<Content: View>: View {
+    let openFrom: OpenFromType
+    let content: () -> Content
+    
+    @StateObject private var trackerVM = TrackerVMWrapper()
+    
+    init(openFrom: OpenFromType, @ViewBuilder content: @escaping () -> Content) {
+        self.openFrom = openFrom
+        self.content = content
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            content()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .onAppear {
+                    Task {
+                        // Pastikan menunggu task selesai sebelum memanggil handler
+                        do {
+                            try await self.trackerVM.send(eventName: .pageViewed(self.openFrom))
+                        } catch {
+                            // Handle error jika terjadi masalah dengan send()
+                            print("Error sending tracker: \(error)")
+                        }
+                    }
+                }
+        }
+    }
+}
+
 struct DestinationView: View {
     let openFrom: OpenFromType
     
     var body: some View {
-        PageViewedView(openFrom: openFrom) {
+        PageViewedView(openFrom: self.openFrom) {
             VStack {
                 Text("\(self.openFrom)")
             }
