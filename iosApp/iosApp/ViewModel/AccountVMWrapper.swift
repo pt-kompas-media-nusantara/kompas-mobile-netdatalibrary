@@ -14,6 +14,7 @@ import Shared
 class AccountVMWrapper: ObservableObject {
     
     @Published var accountData: [AccountModel] = []
+    @Published var myAccountInformationData: MyAccountInformationModel?
     
     private let myAccountUseCase: MyAccountUseCase
     
@@ -27,7 +28,8 @@ class AccountVMWrapper: ObservableObject {
     
     func getTracker() async throws {
         do {
-            try await self.myAccountUseCase.nativeTrackerDelegate()
+            try await self.myAccountUseCase.stateUserType()
+//            try await self.myAccountUseCase.nativeTrackerDelegate()
         } catch {
             print("Unexpected error: \(error.localizedDescription)")
         }
@@ -52,6 +54,13 @@ class AccountVMWrapper: ObservableObject {
     func myAccountInformation() async throws {
         do {
             let result = try await self.myAccountUseCase.myAccountInformation()
+            self.myAccountInformationData = MyAccountInformationModel(
+                idUserName: result.idUserName,
+                firstName: result.firstName,
+                lastName: result.lastName,
+                dateExpired: result.dateExpired,
+                stateMembership: result.stateMembership
+            )
             print(result)
         } catch {
             print("Unexpected error: \(error.localizedDescription)")
@@ -142,4 +151,13 @@ class AccountVMWrapper: ObservableObject {
         default: return .nothing
         }
     }
+}
+
+
+struct MyAccountInformationModel {
+    let idUserName: String
+    let firstName: String
+    let lastName: String
+    let dateExpired: String
+    let stateMembership: String
 }

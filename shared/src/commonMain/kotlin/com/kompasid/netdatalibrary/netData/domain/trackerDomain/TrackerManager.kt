@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.netData.domain.trackerDomain
 
+import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.AboutKompasDailyModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStartedModel
@@ -16,6 +17,10 @@ object TrackerManager {
 
     // Posting event dengan logika konversi berdasarkan model
     fun post(eventName: EventName, eventProperty: Any, userDataTrackerModel: UserDataTrackerModel) {
+        Logger.debug { eventName.toString() }
+        Logger.debug { eventProperty.toString() }
+        Logger.debug { userDataTrackerModel.toString() }
+
         val eventProperties = when (eventName) {
             EventName.EXAMPLE -> {
                 if (eventProperty is ExampleModel) {

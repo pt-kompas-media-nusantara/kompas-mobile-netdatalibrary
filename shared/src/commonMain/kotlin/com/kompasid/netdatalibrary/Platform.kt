@@ -1,5 +1,7 @@
 package com.kompasid.netdatalibrary
 
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.OpenFromEntryPoint
+
 expect class Platform {
     val osName: String
     val osVersion: String
@@ -7,3 +9,4 @@ expect class Platform {
     val density: Int
     fun logSystemInfo()
 }
+

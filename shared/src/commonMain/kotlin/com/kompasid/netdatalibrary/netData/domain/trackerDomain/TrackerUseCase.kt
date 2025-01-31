@@ -12,6 +12,10 @@ class TrackerUseCase(
     private var userDataHelper: UserDataHelper,
 ) {
 
+    suspend fun coba() {
+
+    }
+
     suspend fun pageViewed(openFromEntryPoint: OpenFromEntryPoint) {
         trackerManager.post(
             EventName.PAGE_VIEWED,
@@ -68,6 +72,8 @@ class TrackerUseCase(
             is OpenFromEntryPoint.TerpopulerSection -> ExampleModel(openFromEntryPoint.description)
             is OpenFromEntryPoint.TranslatorMark -> ExampleModel(openFromEntryPoint.description)
             is OpenFromEntryPoint.UtamaSection -> ExampleModel(openFromEntryPoint.description)
+
+            is OpenFromEntryPoint.Empty -> ExampleModel(openFromEntryPoint.description)
         }
     }
 }
@@ -79,3 +85,21 @@ class TrackerUseCase(
 //All	metered_wall_balance	Metered Wall Balance	The balance of their metered wall	Number	Number	Number	Number	5,4,3,2,1,0 (default 0)
 //All	page_domain	Page Domain	Page Domain	String	String	String	String	Kompas.id
 //All	subscription_package	Kompas.id Subscription Product	The name of Kompas.id subscription package	String	String	String	String	cash - app - kdd 1 - reguler (default "")
+
+//suspend fun pageViewedTracker(openFromEntryPoint: OpenFromEntryPoint) {
+//    trackerUseCase.pageViewed(openFromEntryPoint)
+//}
+//
+//suspend fun nativeTrackerDelegate() {
+//    trackerManager.post(
+//        EventName.SIGN_UP_STARTED,
+//        SignUpStartedModel(
+//            AuthenticationEntryPoint.ONBOARDING,
+//            "",
+//            "",
+//            "",
+//            ""),
+//        userDataHelper.userDataTracker()
+//    )
+//
+//}

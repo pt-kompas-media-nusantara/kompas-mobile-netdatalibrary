@@ -15,26 +15,7 @@ class MyAccountUseCase(
     private val settingsUseCase: SettingsUseCase,
     private var trackerManager: TrackerManager,
     private var userDataHelper: UserDataHelper,
-    private var trackerUseCase: TrackerUseCase,
 ) {
-
-    suspend fun pageViewedTracker(openFromEntryPoint: OpenFromEntryPoint) {
-        trackerUseCase.pageViewed(openFromEntryPoint)
-    }
-
-    suspend fun nativeTrackerDelegate() {
-        trackerManager.post(
-            EventName.SIGN_UP_STARTED,
-            SignUpStartedModel(
-                AuthenticationEntryPoint.ONBOARDING,
-                "",
-                "",
-                "",
-                ""),
-            userDataHelper.userDataTracker()
-        )
-
-    }
 
     suspend fun stateUserType(): StateUserType {
         val email =

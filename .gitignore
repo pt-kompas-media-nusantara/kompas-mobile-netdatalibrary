@@ -29,3 +29,4 @@ shared/build/xcode-frameworks
 shared-release.aar
 iosApp/Podfile.lock
 iosApp/Pods
+shared/build
