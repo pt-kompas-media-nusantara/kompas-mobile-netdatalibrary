@@ -73,6 +73,7 @@ class TrackerUseCase(
             is OpenFromEntryPoint.TranslatorMark -> ExampleModel(openFromEntryPoint.description)
             is OpenFromEntryPoint.UtamaSection -> ExampleModel(openFromEntryPoint.description)
 
+            is OpenFromEntryPoint.BookmarkPage -> ExampleModel(openFromEntryPoint.description)
             is OpenFromEntryPoint.Empty -> ExampleModel(openFromEntryPoint.description)
         }
     }
