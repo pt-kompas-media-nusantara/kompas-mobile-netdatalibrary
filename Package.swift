@@ -15,8 +15,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "Shared",
-            url: "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.51/Shared.xcframework.zip",
-            checksum: "b4a75f5725a0f5b735c0bbc28af0fc509992f9407b93ab1f9ef399806affdd21"
+            url: "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.52/Shared.xcframework.zip",
+            checksum: "d9cbb0686f65f582da9361eb0667c1b572440d302e0971be7f50705903fd7520"
         ),
         .target(
             name: "Dummy",
