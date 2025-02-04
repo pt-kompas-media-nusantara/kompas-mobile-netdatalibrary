@@ -8,6 +8,12 @@ import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralConte
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.GeneralContentInterceptor
 import com.kompasid.netdatalibrary.core.domain.generalContent.repository.IGeneralContentRepository
 
+// nurirppan__
+// ini nggak pakai interface untuk di unit test?
+// btw gue setuju yu data transform di taruh di repository. namun untuk usecase sendiri kita pakai ini ya
+//✅ Menggabungkan beberapa repository
+//✅ Menjalankan operasi paralel, serial, atau concurrency jika diperlukan
+
 class GeneralContentRepository(
     private val generalContentServices: GeneralContentApiService
 ) : IGeneralContentRepository {
