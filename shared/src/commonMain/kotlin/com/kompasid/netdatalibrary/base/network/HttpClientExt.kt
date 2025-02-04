@@ -9,6 +9,12 @@ import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
 import kotlin.coroutines.coroutineContext
 
+// nurirppan__
+// kalau safecall nya mau gue pake buat yang lain gimana ? apakah kode di bawah ini harus di pindahin di base code atau di jadikan base kode?
+
+
+// nurirppan__
+// maksud kode ini jalannya gimana ya ?. gue bingung kode return responseToResult(response) kapan jalannya
 suspend inline fun <reified T> safeCall(
     execute: () -> HttpResponse
 ): ApiResults<T, NetworkError> {
@@ -26,12 +32,17 @@ suspend inline fun <reified T> safeCall(
     return responseToResult(response)
 }
 
+// nurirppan__
+// eh ini langsung pake status code ? gue sengaja buat masih pakai response code biar cepet, tapi nggak apa
+// biar kita push aja temen temen BE untuk perbaiki
 suspend inline fun <reified T> responseToResult(response: HttpResponse): ApiResults<T, NetworkError> {
     return when (response.status.value) {
         in 200..299 -> {
             try {
                 ApiResults.Success(response.body<T>())
             } catch (e: NoTransformationFoundException) {
+                // nurirppan__
+                // masuk kesini ketika apa aja yu ?
                 ApiResults.Error(NetworkError.ServerError)
             }
         }
