@@ -1,7 +1,0 @@
-{
-  "code": 401,
-  "message": {
-    "message": "Token is expired"
-  },
-  "result": []
-}

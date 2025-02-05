@@ -1,1 +1,0 @@
-curl --location 'https://api.kompas.id/account/api/v2/users/detail?=null'
