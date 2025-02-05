@@ -6,7 +6,7 @@ import com.kompasid.netdatalibrary.base.network.onError
 import com.kompasid.netdatalibrary.base.network.onSuccess
 import com.kompasid.netdatalibrary.core.data.generalContent.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.generalContent.model.dto.GeneralContentResponse
-import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
+import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.sampleData.generalContent.JsonDataGeneralContent
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +32,7 @@ class GeneralContentRepositoryTest : KoinTest {
     private lateinit var repository: GeneralContentRepository
 
     private val testModule = module {
-        single<GeneralContentApiService> { FakeGeneralContentApiService() }
+        single<IGeneralContentApiService> { FakeIGeneralContentApiService() }
         single { GeneralContentRepository(get()) }
     }
 
@@ -87,7 +87,7 @@ class GeneralContentRepositoryTest : KoinTest {
             Json.decodeFromString<GeneralContentResponse>(JsonDataGeneralContent.successWithoutData)
                 .toInterceptor()
 
-        (get<GeneralContentApiService>() as FakeGeneralContentApiService).setShouldReturnEmpty(true)
+        (get<IGeneralContentApiService>() as FakeIGeneralContentApiService).setShouldReturnEmpty(true)
 
         repository.getGeneralData().apply {
             runCurrent()
@@ -99,7 +99,7 @@ class GeneralContentRepositoryTest : KoinTest {
     @Test
     fun test_generalContent_returnFailed() = runTest {
 
-        (get<GeneralContentApiService>() as FakeGeneralContentApiService).setShouldReturnError(true)
+        (get<IGeneralContentApiService>() as FakeIGeneralContentApiService).setShouldReturnError(true)
 
         repository.getGeneralData().apply {
             runCurrent()
@@ -115,7 +115,7 @@ class GeneralContentRepositoryTest : KoinTest {
         }
     }
 
-    class FakeGeneralContentApiService : GeneralContentApiService {
+    class FakeIGeneralContentApiService : IGeneralContentApiService {
         private var shouldReturnError = false
         private var shouldReturnEmpty = false
 

@@ -6,12 +6,6 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.Genera
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.IOSRes
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.LogoRes
 
-// nurirppan__
-// ini penggunaan extension ya ? bagus sih bisa langsung panggil result.data.toInterceptor() dan hanya
-// bisa dipanggil di GeneralContentResponse. selama responsenya terisolasi dengan api yang lain harusnya ini aman ya
-// maksudnya responsenya jangan di pakai dengan api yang lain
-
-// TODO: Wahyu - Betul ini khusus untuk response general content aja mas
 fun GeneralContentResponse.toInterceptor(): GeneralContentInterceptor {
     val androidLogoResList = this.result?.android?.logo?.mapNotNull { logo ->
         logo?.let {

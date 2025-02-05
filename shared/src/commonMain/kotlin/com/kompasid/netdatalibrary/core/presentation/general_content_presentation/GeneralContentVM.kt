@@ -5,14 +5,14 @@ import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.GeneralContentInterceptor
-import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
+import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class GeneralContentVM(
-    private val useCase: GeneralContentUseCase,
+    private val useCase: IGeneralContentUseCase,
     private val networkVM: NetworkVM
 ) : BaseVM() {
 

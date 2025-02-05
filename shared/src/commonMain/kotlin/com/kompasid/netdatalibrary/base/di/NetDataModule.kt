@@ -5,7 +5,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiSer
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
-import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiServiceImpl
+import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiService
 import com.kompasid.netdatalibrary.core.data.loginEmail.models.local.LoginEmailDataSource
@@ -23,14 +23,14 @@ import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiSer
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userMembershipHistory.network.UserMembershipHistoryApiService
 import com.kompasid.netdatalibrary.core.data.userMembershipHistory.model.local.UserMembershipHistoryDataSource
-import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
-import com.kompasid.netdatalibrary.core.data.generalContent.usecase.GeneralContentUseCaseImpl
+import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralContentApiService
+import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
-import com.kompasid.netdatalibrary.core.domain.generalContent.repository.IGeneralContentRepository
+import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCase
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
-import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
+import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.usecase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.presentation.general_content_presentation.GeneralContentVM
 import com.kompasid.netdatalibrary.core.presentation.authPresentation.AuthVM
@@ -96,10 +96,10 @@ val netDataModule = module {
      */
     singleOf(::GeneralContentVM) { bind<GeneralContentVM>() }
 
-    singleOf(::GeneralContentUseCaseImpl) { bind<GeneralContentUseCase>() }
+    singleOf(::GeneralContentUseCase) { bind<IGeneralContentUseCase>() }
 
     singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
-    singleOf(::GeneralContentApiServiceImpl) { bind<GeneralContentApiService>() }
+    singleOf(::GeneralContentApiService) { bind<IGeneralContentApiService>() }
 
     singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
     singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
