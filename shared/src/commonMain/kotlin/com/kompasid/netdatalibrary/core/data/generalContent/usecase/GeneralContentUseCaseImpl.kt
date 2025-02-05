@@ -8,6 +8,9 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralCon
 
 // nurirppan__
 // ini kayanya harus di taruh di domain yu, kalau di taruh di data terlalu jauh
+
+// TODO: Wahyu - Implementasi itu selalu di data mas domain hanya berupa abstraksi jadi beda responsibility,
+//  biar komunikasi datanya jelas
 class GeneralContentUseCaseImpl(val repository: IGeneralContentRepository) : GeneralContentUseCase {
     override suspend fun getGeneralData(): Results<GeneralContentInterceptor, NetworkError> {
         return repository.getGeneralData()

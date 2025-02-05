@@ -14,6 +14,8 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.repository.IGenera
 //✅ Menggabungkan beberapa repository
 //✅ Menjalankan operasi paralel, serial, atau concurrency jika diperlukan
 
+// TODO: Wahyu - Ini interface semua mas, buat yang use case iya nanti bisa di define ulang,
+//  karena general content ini sifatnya standalone gaada bergantung yang lain jadi usecasenya cuma jadi jembatan
 class GeneralContentRepository(
     private val generalContentServices: GeneralContentApiService
 ) : IGeneralContentRepository {
