@@ -21,6 +21,25 @@ object TrackerManager {
         Logger.debug { eventProperty.toString() }
         Logger.debug { userDataTrackerModel.toString() }
 
+        // TODO: Wahyu - Fungsi ini bakal panjang banget karena tracker itu ada banyak, untuk mappingnya
+        //  gimana kalau misalkan di masing-masing data classnya aja contoh untuk event SIGN_UP_STARTED & EXAMPLE jadinya gini
+
+//        val eventPropertiesSample = try {
+//            when(eventName) {
+//                EventName.SIGN_UP_STARTED -> {
+//                    (eventProperty as SignUpStartedModel).getTrackerProperties(userDataTrackerModel)
+//                }
+//                EventName.EXAMPLE -> {
+//                    (eventProperty as ExampleModel).getTrackerProperties()
+//                }
+//                else -> {
+//                    mapOf()
+//                }
+//            }
+//        }catch (e: Exception){
+//            throw IllegalArgumentException("Invalid model for $eventName")
+//        }
+
         val eventProperties = when (eventName) {
             EventName.EXAMPLE -> {
                 if (eventProperty is ExampleModel) {

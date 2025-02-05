@@ -7,6 +7,20 @@ package com.kompasid.netdatalibrary.netData.domain.trackerDomain
 
 
 
+// TODO: Wahyu - Kalau bisa penggunaan enum ini dikurangin untuk list data yang banyak mas,
+//  karena banyak boilerplate yang sebenernya gadipake untuk case ini,
+//  alternatif bisa pake constant atau sealed class
+
+//object TrackerEventName {
+//    const val EXAMPLE = "example"
+//}
+//
+//sealed class TrackerName(val name: String){
+//    data object LoginSuccess : TrackerName("login_success")
+//    data object Example : TrackerName("example")
+//
+//    data class CustomEvent(val customName: String) : TrackerName(customName)
+//}
 
 enum class EventName(val value: String) {
     EXAMPLE("EXAMPLE"),
