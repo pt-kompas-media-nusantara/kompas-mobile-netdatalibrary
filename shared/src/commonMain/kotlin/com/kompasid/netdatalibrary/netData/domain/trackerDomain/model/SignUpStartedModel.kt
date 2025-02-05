@@ -10,7 +10,6 @@ data class SignUpStartedModel(
     val contentCategories: String,
     val contentType: String,
 ) {
-    // TODO: Wahyu - Ini sample mapper trackernya
     fun getTrackerProperties(userDataTrackerModel: UserDataTrackerModel): Map<String, Any> {
         return mapOf(
             "sign_up_trigger" to signUpTrigger,
