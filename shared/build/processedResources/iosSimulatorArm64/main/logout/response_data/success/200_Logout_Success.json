@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "code": 200,
+  "message": "Logout berhasil",
+  "meta": {
+    "cache": false,
+    "time": 1729666673
+  },
+  "data": null
+}

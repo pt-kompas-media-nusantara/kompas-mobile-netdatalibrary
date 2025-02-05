@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "code": 400,
+  "message": "Kata Sandi wajib diisi.",
+  "meta": {
+    "cache": false,
+    "time": 1729155896
+  },
+  "data": null
+}

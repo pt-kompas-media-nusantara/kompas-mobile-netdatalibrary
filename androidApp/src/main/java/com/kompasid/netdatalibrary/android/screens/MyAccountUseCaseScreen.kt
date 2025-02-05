@@ -10,29 +10,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.netData.presentation.MyAccountVM
 import org.koin.compose.viewmodel.koinViewModel
 
-
-@Composable
-fun MyAccountUseCaseScreen(
-    vm: MyAccountVM = koinViewModel(),
-    onBackClick: () -> Unit,
-) {
-
-    Column(
-        modifier = Modifier
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        AppBackBar(onBackClick)
-
-        Text("AuthUseCaseScreen")
-        HorizontalDivider()
-
-        FilledButton("All", {
-            vm.accountList()
-        })
-
-    }
-}
+//
+//@Composable
+//fun MyAccountUseCaseScreen(
+//    vm: MyAccountVM = koinViewModel(),
+//    onBackClick: () -> Unit,
+//) {
+//
+//    Column(
+//        modifier = Modifier
+//            .padding(16.dp)
+//            .verticalScroll(rememberScrollState())
+//    ) {
+//        AppBackBar(onBackClick)
+//
+//        Text("AuthUseCaseScreen")
+//        HorizontalDivider()
+//
+//        FilledButton("All", {
+//            vm.accountList()
+//        })
+//
+//    }
+//}

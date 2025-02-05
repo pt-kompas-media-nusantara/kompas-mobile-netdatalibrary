@@ -1,40 +1,37 @@
 package com.kompasid.netdatalibrary.base.di
 
-import com.kompasid.app.netdatamodule.Example.Data.UserDetailData.UserDetailDataSource
+import com.kompasid.netdatalibrary.core.data.userDetail.model.local.UserDetailDataSource
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
-import com.kompasid.netdatalibrary.helper.UserDataHelper
-import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconApiService
-import com.kompasid.netdatalibrary.netData.data.appIconData.AppIconRepository
-import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailApiService
-import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailDataSource
-import com.kompasid.netdatalibrary.netData.data.loginEmailData.LoginEmailRepository
-import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestApiService
-import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestDataSource
-import com.kompasid.netdatalibrary.netData.data.loginGuestData.LoginGuestRepository
-import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutApiService
-import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutDatasource
-import com.kompasid.netdatalibrary.netData.data.logoutData.LogoutRepository
-import com.kompasid.netdatalibrary.netData.data.refreshTokenData.RefreshTokenDataSource
-import com.kompasid.netdatalibrary.netData.data.refreshTokenData.RefreshTokenApiService
-import com.kompasid.netdatalibrary.netData.data.refreshTokenData.RefreshTokenRepository
-import com.kompasid.netdatalibrary.netData.data.userDetailData.UserDetailApiService
-import com.kompasid.netdatalibrary.netData.data.userDetailData.UserDetailRepository
-import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryApiService
-import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryDataSource
-import com.kompasid.netdatalibrary.netData.data.userMembershipHistoryData.UserMembershipHistoryRepository
-import com.kompasid.netdatalibrary.netData.domain.MyAccountDomain.MyAccountUseCase
-import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
-import com.kompasid.netdatalibrary.netData.domain.appIconDomain.AppIconUseCase
-import com.kompasid.netdatalibrary.netData.domain.authDomain.AuthUseCase
-import com.kompasid.netdatalibrary.netData.domain.personalInfoDomain.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.netData.presentation.AppIconVM
-import com.kompasid.netdatalibrary.netData.presentation.AuthVM
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
-import com.kompasid.netdatalibrary.netData.presentation.MyAccountVM
+import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
+import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
+import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiService
+import com.kompasid.netdatalibrary.core.data.loginEmail.models.local.LoginEmailDataSource
+import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
+import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
+import com.kompasid.netdatalibrary.core.data.loginGuest.model.local.LoginGuestDataSource
+import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
+import com.kompasid.netdatalibrary.core.data.logout.network.LogoutApiService
+import com.kompasid.netdatalibrary.core.data.logout.model.local.LogoutDataSource
+import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
+import com.kompasid.netdatalibrary.core.data.refreshToken.model.local.RefreshTokenDataSource
+import com.kompasid.netdatalibrary.core.data.refreshToken.network.RefreshTokenApiService
+import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshTokenRepository
+import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
+import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
+import com.kompasid.netdatalibrary.core.data.userMembershipHistory.network.UserMembershipHistoryApiService
+import com.kompasid.netdatalibrary.core.data.userMembershipHistory.model.local.UserMembershipHistoryDataSource
+import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralContentApiService
+import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
+import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
+import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCase
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
+import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.usecase.PersonalInfoUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -57,7 +54,6 @@ val netDataModule = module {
     Refresh Token
     Logout
      */
-    singleOf(::AuthVM) { bind<AuthVM>() }
 
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
@@ -74,7 +70,7 @@ val netDataModule = module {
     singleOf(::LoginEmailApiService) { bind<LoginEmailApiService>() }
 
     singleOf(::LogoutRepository) { bind<LogoutRepository>() }
-    singleOf(::LogoutDatasource) { bind<LogoutDatasource>() }
+    singleOf(::LogoutDataSource) { bind<LogoutDataSource>() }
     singleOf(::LogoutApiService) { bind<LogoutApiService>() }
 
     // Personal Info
@@ -93,23 +89,13 @@ val netDataModule = module {
     singleOf(::UserMembershipHistoryApiService) { bind<UserMembershipHistoryApiService>() }
 
     /**
-    App Icon
+    General Content
      */
-    singleOf(::AppIconVM) { bind<AppIconVM>() }
+    singleOf(::GeneralContentUseCase) { bind<IGeneralContentUseCase>() }
 
-    singleOf(::AppIconUseCase) { bind<AppIconUseCase>() }
+    singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
+    singleOf(::GeneralContentApiService) { bind<IGeneralContentApiService>() }
 
-    singleOf(::AppIconRepository) { bind<AppIconRepository>() }
-    singleOf(::AppIconApiService) { bind<AppIconApiService>() }
-
-
-    singleOf(::MyAccountVM) { bind<MyAccountVM>() }
     singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
     singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
-
-    singleOf(::TrackerUseCase) { bind<TrackerUseCase>() }
-    single { TrackerManager }
-    singleOf(::UserDataHelper) { bind<UserDataHelper>() }
-
-
 }

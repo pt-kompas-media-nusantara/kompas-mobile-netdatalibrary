@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.helper
 
-import com.kompasid.netdatalibrary.netData.domain.SettingsDomain.SettingsUseCase
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.userData.MeteredWallType
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.userData.StateSubscriptionType
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.userData.UserType
