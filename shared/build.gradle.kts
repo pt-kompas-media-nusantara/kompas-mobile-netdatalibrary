@@ -103,23 +103,19 @@ kotlin {
 publishing {
     publications {
         create<MavenPublication>("default") {
-            from(components["kotlin"]) // This includes all targets
+            from(components["kotlin"])
             groupId = "com.kompasid.netdatalibrary"
             artifactId = "shared"
             version = project.findProperty("VERSION") as String? ?: "1.0.0"
         }
     }
     repositories {
-        maven { url = uri("https://dl.bintray.com/kodein-framework/maven") }
         maven {
             name = "GitHubPackages"
-            url =
-                uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary") // Replace with your info
+            url = uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary")
             credentials {
-                // sample
                 username = "oauth2"
-                password =
-                    System.getenv("GITHUB_TOKEN") ?: ""
+                password = System.getenv("GITHUB_TOKEN") ?: ""
             }
         }
     }
