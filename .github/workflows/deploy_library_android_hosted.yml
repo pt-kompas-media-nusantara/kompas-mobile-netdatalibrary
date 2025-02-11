@@ -44,6 +44,15 @@ jobs:
             **/*.gradle*
             **/gradle-wrapper.properties
 
+      - name: 🧑🏻‍🔧 Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: 🧑🏻‍🔧 Add Local properties
+        run: |
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+
       - name: 🧑🏻‍💻 Make gradlew executable
         id: gradlew
         run: chmod +x ./gradlew
