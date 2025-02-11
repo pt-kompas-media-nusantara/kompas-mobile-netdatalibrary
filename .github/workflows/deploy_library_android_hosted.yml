@@ -10,7 +10,7 @@ on:
 jobs:
   deploy_library:
     name: Deploy Package
-    runs-on: mk-mac-ios-01
+    runs-on: node20-cloud
     timeout-minutes: 100
 
     steps:
