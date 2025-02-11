@@ -21,4 +21,9 @@ jobs:
     uses: ./.github/workflows/deploy_library_ios_hosted.yml
     with:
       github_version: "${{ github.event.inputs.version }}"
+
+  deploy_library_android:
+    uses: ./.github/workflows/deploy_library_android_hosted.yml
+    with:
+      github_version: "${{ github.event.inputs.version }}"
       

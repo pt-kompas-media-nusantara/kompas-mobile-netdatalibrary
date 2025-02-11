@@ -106,7 +106,7 @@ publishing {
             from(components["kotlin"]) // This includes all targets
             groupId = "com.kompasid.netdatalibrary"
             artifactId = "shared"
-            version = "0.0.3"
+            version = project.findProperty("VERSION") as String? ?: "1.0.0"
         }
     }
     repositories {
@@ -117,10 +117,9 @@ publishing {
                 uri("https://maven.pkg.github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary") // Replace with your info
             credentials {
                 // sample
-                username =
-                    System.getenv("GITHUB_ACTOR") // Or your preferred method to provide credentials.
+                username = "oauth2"
                 password =
-                    System.getenv("GITHUB_TOKEN") // Create a token in github and give it read/write permission
+                    System.getenv("GITHUB_TOKEN") ?: ""
             }
         }
     }

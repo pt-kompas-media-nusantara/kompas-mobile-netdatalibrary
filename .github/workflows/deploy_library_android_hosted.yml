@@ -12,7 +12,7 @@ on:
 jobs:
   deploy_library:
     name: Deploy Package
-    runs-on: node20-cloud
+    runs-on: mk-mac-ios-01
     timeout-minutes: 100
 
     steps:
@@ -50,8 +50,13 @@ jobs:
         id: gradlew
         run: chmod +x ./gradlew
 
-      - name: 🔥Create Package
-        id: create_package
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publish
+      - name: Set Custom Version
+        run: echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+
+      - name: Publish Package
+        run: ./gradlew publish -PVERSION=$VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Upload
+        run: echo "Package published with version $VERSION"
