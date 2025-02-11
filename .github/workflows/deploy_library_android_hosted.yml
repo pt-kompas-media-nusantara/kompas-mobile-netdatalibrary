@@ -3,10 +3,8 @@ name: Deploy Package Github
 on:
   workflow_call:
     inputs:
-      version:
-        description: "Version : "
+      github_version:
         required: true
-        default: ""
         type: string
 
 jobs:
