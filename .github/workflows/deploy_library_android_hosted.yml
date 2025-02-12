@@ -1,12 +1,10 @@
 name: Deploy Package Github
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      version:
-        description: "Version : "
+      github_version:
         required: true
-        default: ""
         type: string
 
 jobs:
@@ -46,12 +44,26 @@ jobs:
             **/*.gradle*
             **/gradle-wrapper.properties
 
+      - name: 🧑🏻‍🔧 Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: 🧑🏻‍🔧 Add Local properties
+        run: |
+          echo "sdk.dir=${ANDROID_HOME}" > local.properties
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+
       - name: 🧑🏻‍💻 Make gradlew executable
         id: gradlew
         run: chmod +x ./gradlew
 
-      - name: 🔥Create Package
-        id: create_package
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: publish
+      - name: Set Custom Version
+        run: echo "VERSION=${{ inputs.version }}" >> $GITHUB_ENV
+
+      - name: Publish Package
+        run: ./gradlew publish -PVERSION=$VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Upload
+        run: echo "Package published with version $VERSION"
