@@ -2,6 +2,8 @@ package com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor
 
 
 data class UserDetailResInterceptor(
+    val idGender: Int,
+    val gender: String,
     val userId: String,
     val firstName: String,
     val lastName: String,

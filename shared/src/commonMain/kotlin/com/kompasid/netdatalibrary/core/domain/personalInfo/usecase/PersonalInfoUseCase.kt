@@ -41,35 +41,7 @@ class PersonalInfoUseCase(
     }
 
     private suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
-        when (val response = userDetailRepository.getUserDetail()) {
-            is Results.Success -> {
-                val userDetail = response.data
-                val userDetailResInterceptor = UserDetailResInterceptor(
-                    userId = userDetail.userId ?: "",
-                    firstName = userDetail.firstName ?: "",
-                    lastName = userDetail.lastName ?: "",
-                    email = userDetail.email ?: "",
-                    userGuid = userDetail.userGuid ?: "",
-                    isActive = userDetail.isActive ?: false,
-                    userStatus = UserStatus(
-                        isVerified = userDetail.userStatus?.isVerified ?: false,
-                        phoneVerified = userDetail.userStatus?.phoneVerified ?: false
-                    ),
-                    phoneNumber = userDetail.phoneNumber ?: "",
-                    countryCode = userDetail.countryCode ?: "",
-                    dateBirth = userDetail.dateBirth ?: "",
-                    country = userDetail.country ?: "",
-                    province = userDetail.province ?: "",
-                    city = userDetail.city ?: ""
-                )
-                return Results.Success(userDetailResInterceptor)
-            }
-
-            is Results.Error -> {
-                return Results.Error(response.error)
-            }
-        }
-
+        return userDetailRepository.getUserDetailOld()
     }
 
     private suspend fun historyMembersip(): Results<UserMembershipHistoryResInterceptor, NetworkError> {
