@@ -133,4 +133,4 @@ val deleteAccountData = AccountModel(
     "Ketahui cara menghapus akun dan data pribadi Anda.",
     AccountNavigationType.DELETE_ACCOUNT
 )
-val signOutData = AccountModel("icSignOutData", "Keluar", "", AccountNavigationType.SIGN_OUT)
+val signOutData = AccountModel("icSignOutData", "Keluar", "Seluruh data akun dan preferensi tersimpan akan terhapus.", AccountNavigationType.SIGN_OUT)
