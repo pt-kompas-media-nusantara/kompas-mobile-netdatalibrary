@@ -19,6 +19,7 @@ struct AccountView: View {
     @StateObject private var myAccountVM = AccountVMWrapper()
     @StateObject private var authVM = AuthVMWrapper()
     @StateObject private var settingsVM = SettingsVMWrapper()
+    @StateObject private var personalInfoVM = PersonalInfoVMWrapper()
     
     
     var body: some View {
@@ -154,77 +155,3 @@ struct AccountView: View {
     }
 }
 
-
-struct asdasd: View {
-    let openFrom: OpenFromType
-    let handler: () -> Void
-    
-    @StateObject private var trackerVM = TrackerVMWrapper()
-
-    var body: some View {
-        ZStack {
-            Text("\(self.openFrom)")
-        }
-        .onAppear {
-            Task {
-                // Pastikan menunggu task selesai sebelum memanggil handler
-                do {
-                    try await self.trackerVM.send(eventName: .pageViewed(self.openFrom))
-                    self.handler()
-                } catch {
-                    // Handle error jika terjadi masalah dengan send()
-                    print("Error sending tracker: \(error)")
-                }
-            }
-        }
-    }
-}
-
-struct PageViewedView<Content: View>: View {
-    let openFrom: OpenFromType
-    let content: () -> Content
-    
-    @StateObject private var trackerVM = TrackerVMWrapper()
-    
-    init(openFrom: OpenFromType, @ViewBuilder content: @escaping () -> Content) {
-        self.openFrom = openFrom
-        self.content = content
-    }
-    
-    var body: some View {
-        GeometryReader { geometry in
-            content()
-                .frame(width: geometry.size.width, height: geometry.size.height)
-                .onAppear {
-                    Task {
-                        // Pastikan menunggu task selesai sebelum memanggil handler
-                        do {
-                            try await self.trackerVM.send(eventName: .pageViewed(self.openFrom))
-                        } catch {
-                            // Handle error jika terjadi masalah dengan send()
-                            print("Error sending tracker: \(error)")
-                        }
-                    }
-                }
-        }
-    }
-}
-
-struct DestinationView: View {
-    let openFrom: OpenFromType
-    
-    var body: some View {
-        PageViewedView(openFrom: self.openFrom) {
-            VStack {
-                Text("\(self.openFrom)")
-            }
-        }
-    }
-}
-
-
-
-
-
-//cd "$SRCROOT/.."
-//./gradlew :shared:embedAndSignAppleFrameworkForXcode
