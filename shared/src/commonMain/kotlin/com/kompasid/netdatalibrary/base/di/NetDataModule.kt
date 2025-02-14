@@ -31,7 +31,8 @@ import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCas
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
-import com.kompasid.netdatalibrary.core.domain.personalInfo.usecase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -80,6 +81,7 @@ val netDataModule = module {
      */
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
+    singleOf(::UserDetailState) { bind<UserDetailState>() }
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }

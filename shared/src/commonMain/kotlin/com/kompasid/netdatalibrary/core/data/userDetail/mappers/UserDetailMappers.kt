@@ -2,7 +2,7 @@ package com.kompasid.netdatalibrary.core.data.mappers
 
 import com.kompasid.netdatalibrary.core.data.userDetailData.dto.OldUserDetailResponse
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserStatus
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserStatusInterceptor
 
 
 fun OldUserDetailResponse.toInterceptor(): UserDetailResInterceptor {
@@ -15,7 +15,7 @@ fun OldUserDetailResponse.toInterceptor(): UserDetailResInterceptor {
         email = email ?: "",
         userGuid = userGuid ?: "",
         isActive = isActive ?: false,
-        userStatus = UserStatus(
+        userStatus = UserStatusInterceptor(
             isVerified = userStatus?.isVerified ?: false,
             phoneVerified = userStatus?.phoneVerified ?: false
         ),

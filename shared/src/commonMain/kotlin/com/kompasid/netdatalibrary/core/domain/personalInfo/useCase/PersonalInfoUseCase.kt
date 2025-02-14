@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.domain.personalInfo.usecase
+package com.kompasid.netdatalibrary.core.domain.personalInfo.useCase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
@@ -7,7 +7,6 @@ import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRep
 import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserMembershipHistoryResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserStatus
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 

@@ -10,7 +10,7 @@ data class UserDetailResInterceptor(
     val email: String,
     val userGuid: String,
     val isActive: Boolean,
-    val userStatus: UserStatus,
+    val userStatus: UserStatusInterceptor,
     val phoneNumber: String,
     val countryCode: String,
     val dateBirth: String,
@@ -19,7 +19,7 @@ data class UserDetailResInterceptor(
     val city: String,
 )
 
-data class UserStatus(
+data class UserStatusInterceptor(
     val isVerified: Boolean,
     val phoneVerified: Boolean
 )

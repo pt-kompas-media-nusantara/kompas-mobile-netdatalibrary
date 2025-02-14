@@ -2,12 +2,11 @@ package com.kompasid.netdatalibrary.core.domain.auth.usecase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import kotlinx.coroutines.coroutineScope
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
 import com.kompasid.netdatalibrary.core.data.loginEmail.models.dto.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
-import com.kompasid.netdatalibrary.core.domain.personalInfo.usecase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserMembershipHistoryResInterceptor
 
