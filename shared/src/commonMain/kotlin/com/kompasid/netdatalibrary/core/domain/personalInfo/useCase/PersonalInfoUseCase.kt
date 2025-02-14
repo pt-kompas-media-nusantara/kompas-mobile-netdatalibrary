@@ -7,14 +7,15 @@ import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRep
 import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserMembershipHistoryResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 
-
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
-    private val historyRepository: UserMembershipHistoryRepository
+    private val historyRepository: UserMembershipHistoryRepository,
+    private val userDetailState: UserDetailState
 ) : IPersonalInfoUseCase {
 
     suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserMembershipHistoryResInterceptor>, NetworkError> {
@@ -43,7 +44,15 @@ class PersonalInfoUseCase(
     }
 
     override suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
-        return userDetailRepository.getUserDetailOld()
+        val result = userDetailRepository.getUserDetailOld()
+
+        if (result is Results.Success) {
+            val newDetail = result.data
+            if (userDetailState.userDetails.value != newDetail) {
+                userDetailState.updateUserDetails(newDetail)
+            }
+        }
+        return result
     }
 
     suspend fun historyMembersip(): Results<UserMembershipHistoryResInterceptor, NetworkError> {

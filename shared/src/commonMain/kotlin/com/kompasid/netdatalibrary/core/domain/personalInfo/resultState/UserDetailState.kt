@@ -10,33 +10,14 @@ class UserDetailState(
     private val userDetailDataSource: UserDetailDataSource
 ) {
     private val _userDetails = MutableStateFlow<UserDetailResInterceptor?>(null)
-    val userDetails: StateFlow<UserDetailResInterceptor?> = _userDetails.asStateFlow()
+    var userDetails: StateFlow<UserDetailResInterceptor?> = _userDetails.asStateFlow()
 
     fun updateUserDetails(data: UserDetailResInterceptor) {
         _userDetails.value = data
-
-        userDetailDataSource.save(
-            data.idGender,
-            data.gender,
-            data.dateBirth,
-            data.userGuid,
-            data.firstName,
-            data.lastName,
-            data.email,
-            data.userGuid,
-            data.phoneNumber,
-            data.countryCode,
-            data.country,
-            data.province,
-            data.city,
-            data.isActive,
-            data.userStatus.isVerified,
-            data.userStatus.phoneVerified,
-        )
     }
 
-    fun clearUserDetails() {
-        _userDetails.value = null
-        userDetailDataSource.remove()
-    }
+//    fun clearUserDetails() {
+//        _userDetails.value = null
+//        userDetailDataSource.remove()
+//    }
 }
