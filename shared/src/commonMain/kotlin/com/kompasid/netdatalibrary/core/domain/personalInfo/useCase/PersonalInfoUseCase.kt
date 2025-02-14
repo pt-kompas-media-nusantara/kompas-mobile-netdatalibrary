@@ -4,21 +4,23 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipHistoryRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserMembershipHistoryResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
-    private val historyRepository: UserMembershipHistoryRepository,
-    private val userDetailState: UserDetailState
+    private val userMembershipHistoryRepository: UserMembershipHistoryRepository,
+    private val userDetailState: UserDetailState,
+    private val userHistoryMembershipState: UserHistoryMembershipState,
 ) : IPersonalInfoUseCase {
 
-    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserMembershipHistoryResInterceptor>, NetworkError> {
+    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> {
         return try {
             coroutineScope {
                 val userDetailDeferred = async { userDetail() }
@@ -49,31 +51,20 @@ class PersonalInfoUseCase(
         if (result is Results.Success) {
             val newDetail = result.data
             if (userDetailState.userDetails.value != newDetail) {
-                userDetailState.updateUserDetails(newDetail)
+                userDetailState.update(newDetail)
             }
         }
         return result
     }
 
-    suspend fun historyMembersip(): Results<UserMembershipHistoryResInterceptor, NetworkError> {
-        when (val response = historyRepository.getUserMembershipHistory()) {
-            is Results.Success -> {
-                val userDetail = response.data
-                val userMembershipHistoryResInterceptor = UserMembershipHistoryResInterceptor(
-                    expired = userDetail.result?.user?.expired ?: "",
-                    isActive = userDetail.result?.user?.isActive ?: "",
-                    startDate = userDetail.result?.user?.startDate ?: "",
-                    endDate = userDetail.result?.user?.endDate ?: "",
-                    totalGracePeriod = userDetail.result?.user?.totalGracePeriod ?: 0,
-                    gracePeriod = userDetail.result?.user?.gracePeriod ?: false,
-
-                    )
-                return Results.Success(userMembershipHistoryResInterceptor)
-            }
-
-            is Results.Error -> {
-                return Results.Error(response.error)
+    suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+        val result = userMembershipHistoryRepository.getUserMembershipHistory()
+        if (result is Results.Success) {
+            val interceptor = result.data
+            if (userHistoryMembershipState.historyMembership.value != interceptor) {
+                userHistoryMembershipState.update(interceptor)
             }
         }
+        return result
     }
 }

@@ -5,4 +5,5 @@ object ApiConfig {
     private const val KID_URL = "https://api.kompas.id"
     const val GENERAL_URL = "$CDN_URL/mobile/json/generalContent.json"
     const val USER_DETAIL_URL = "$KID_URL/account/api/v2/users/detail"
+    const val USER_HISTORY_MEMBERSHIP_URL = "$KID_URL/account/api/v2/users/membership"
 }

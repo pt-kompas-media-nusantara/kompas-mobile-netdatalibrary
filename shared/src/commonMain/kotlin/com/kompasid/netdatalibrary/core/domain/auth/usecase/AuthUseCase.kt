@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRep
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserMembershipHistoryResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
 
 interface LoginGuestRepositoryContoh {
     suspend fun postLoginGuest(): Results<Unit, NetworkError>
@@ -36,7 +36,7 @@ class AuthUseCase(
         return result
     }
 
-    suspend fun loginByEmail(request: LoginEmailRequest): Results<Pair<Unit, Pair<UserDetailResInterceptor, UserMembershipHistoryResInterceptor>>, NetworkError> {
+    suspend fun loginByEmail(request: LoginEmailRequest): Results<Pair<Unit, Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>>, NetworkError> {
         // Menjalankan login email terlebih dahulu
         val loginResult = loginEmailRepository.postLoginEmail(request)
 

@@ -96,32 +96,32 @@
 //        .stateIn(scope, SharingStarted.WhileSubscribed(), "")
 //
 //    val membershipExpired: StateFlow<String?> =
-//        settings.getStringFlow(KeySettingsType.MEMBERSHIP_EXPIRED)
+//        settings.getStringFlow(KeySettingsType.EXPIRED_MEMBERSHIP)
 //            .map { it ?: "" }
 //            .stateIn(scope, SharingStarted.WhileSubscribed(), "")
 //
 //    val membershipActive: StateFlow<String?> =
-//        settings.getStringFlow(KeySettingsType.MEMBERSHIP_ACTIVE)
+//        settings.getStringFlow(KeySettingsType.ACTIVE_MEMBERSHIP)
 //            .map { it ?: "" }
 //            .stateIn(scope, SharingStarted.WhileSubscribed(), "")
 //
 //    val membershipStartDate: StateFlow<String?> =
-//        settings.getStringFlow(KeySettingsType.MEMBERSHIP_START_DATE)
+//        settings.getStringFlow(KeySettingsType.START_DATE_MEMBERSHIP)
 //            .map { it ?: "" }
 //            .stateIn(scope, SharingStarted.WhileSubscribed(), "")
 //
 //    val membershipEndDate: StateFlow<String?> =
-//        settings.getStringFlow(KeySettingsType.MEMBERSHIP_END_DATE)
+//        settings.getStringFlow(KeySettingsType.END_DATE_MEMBERSHIP)
 //            .map { it ?: "" }
 //            .stateIn(scope, SharingStarted.WhileSubscribed(), "")
 //
 //    val membershipTotalGracePeriod: StateFlow<Int?> =
-//        settings.getIntFlow(KeySettingsType.MEMBERSHIP_TOTAL_GRACE_PERIOD)
+//        settings.getIntFlow(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP)
 //            .map { it ?: 0 }
 //            .stateIn(scope, SharingStarted.WhileSubscribed(), 0)
 //
 //    val membershipGracePeriode: StateFlow<Boolean?> =
-//        settings.getBooleanFlow(KeySettingsType.MEMBERSHIP_GRACE_PERIOD)
+//        settings.getBooleanFlow(KeySettingsType.GRACE_PERIOD_MEMBERSHIP)
 //            .map { it ?: false }
 //            .stateIn(scope, SharingStarted.WhileSubscribed(), false)
 //

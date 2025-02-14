@@ -5,5 +5,5 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.core.data.userDetailData.dto.OldUserDetailResponse
 
 interface IUserDetailApiService {
-    suspend fun getUserDetailOld(): ApiResults<OldUserDetailResponse, NetworkError>
+    suspend fun getUserDetail(): ApiResults<OldUserDetailResponse, NetworkError>
 }

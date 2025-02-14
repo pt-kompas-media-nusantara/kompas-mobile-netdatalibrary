@@ -6,8 +6,6 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
-import com.kompasid.netdatalibrary.core.data.userDetailData.dto.OldUserDetailResponse
-import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.GeneralContentInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
 
 
@@ -16,7 +14,7 @@ class UserDetailRepository(
     private val userDetailDataSource: UserDetailDataSource
 ) : IUserDetailRepository {
     override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> {
-        when (val result = userDetailApiService.getUserDetailOld()) {
+        when (val result = userDetailApiService.getUserDetail()) {
             is ApiResults.Success -> {
                 val response = result.data
 

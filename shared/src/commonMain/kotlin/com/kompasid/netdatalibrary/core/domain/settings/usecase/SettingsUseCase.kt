@@ -38,12 +38,12 @@ class SettingsUseCase(
             KeySettingsType.COUNTRY,
             KeySettingsType.PROVINCE,
             KeySettingsType.CITY,
-            KeySettingsType.MEMBERSHIP_EXPIRED,
-            KeySettingsType.MEMBERSHIP_ACTIVE,
-            KeySettingsType.MEMBERSHIP_START_DATE,
-            KeySettingsType.MEMBERSHIP_END_DATE,
-            KeySettingsType.MEMBERSHIP_TOTAL_GRACE_PERIOD,
-            KeySettingsType.MEMBERSHIP_GRACE_PERIOD,
+            KeySettingsType.EXPIRED_MEMBERSHIP,
+            KeySettingsType.ACTIVE_MEMBERSHIP,
+            KeySettingsType.START_DATE_MEMBERSHIP,
+            KeySettingsType.END_DATE_MEMBERSHIP,
+            KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP,
+            KeySettingsType.GRACE_PERIOD_MEMBERSHIP,
             KeySettingsType.RUBRIK_PILIHANKU
         )
 

@@ -1,23 +1,18 @@
 package com.kompasid.netdatalibrary.core.domain.personalInfo.resultState
 
-import com.kompasid.netdatalibrary.core.data.userDetail.model.local.UserDetailDataSource
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class UserDetailState(
-    private val userDetailDataSource: UserDetailDataSource
-) {
+class UserDetailState() {
     private val _userDetails = MutableStateFlow<UserDetailResInterceptor?>(null)
     var userDetails: StateFlow<UserDetailResInterceptor?> = _userDetails.asStateFlow()
 
-    fun updateUserDetails(data: UserDetailResInterceptor) {
+    fun update(data: UserDetailResInterceptor) {
         _userDetails.value = data
     }
 
-//    fun clearUserDetails() {
-//        _userDetails.value = null
-//        userDetailDataSource.remove()
-//    }
 }
+

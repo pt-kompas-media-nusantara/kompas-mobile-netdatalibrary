@@ -33,8 +33,8 @@ class MyAccountUseCase(
 
     suspend fun stateUserType(): StateUserType {
         val email = settingsUseCase.getStringDataSource(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
-        val stateMembership = settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_ACTIVE) // Aktif Berlangganan
-        // val stateGracePeriod = settingsUseCase.getBooleanDataSource(KeySettingsType.MEMBERSHIP_GRACE_PERIOD) // false
+        val stateMembership = settingsUseCase.getStringDataSource(KeySettingsType.ACTIVE_MEMBERSHIP) // Aktif Berlangganan
+        // val stateGracePeriod = settingsUseCase.getBooleanDataSource(KeySettingsType.GRACE_PERIOD_MEMBERSHIP) // false
 
         if (email.isEmpty()) {
             return StateUserType.ANON
@@ -49,9 +49,9 @@ class MyAccountUseCase(
         val firstName = settingsUseCase.getStringDataSource(KeySettingsType.FIRST_NAME) // Nurirp
         val lastName = settingsUseCase.getStringDataSource(KeySettingsType.LAST_NAME) // Pangestu
         val dateExpired =
-            settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_EXPIRED) // 21 Jan 2022 - 18 Feb 2038
+            settingsUseCase.getStringDataSource(KeySettingsType.EXPIRED_MEMBERSHIP) // 21 Jan 2022 - 18 Feb 2038
         val stateMembership =
-            settingsUseCase.getStringDataSource(KeySettingsType.MEMBERSHIP_ACTIVE) // Aktif Berlangganan
+            settingsUseCase.getStringDataSource(KeySettingsType.ACTIVE_MEMBERSHIP) // Aktif Berlangganan
 
         val strings = listOf(firstName, lastName) // Output: "NP"
         val idUserName = strings.joinToString(separator = "") { it.firstOrNull()?.toString() ?: "" }

@@ -29,5 +29,6 @@ class KoinInjector : KoinComponent {
     val trackerUseCase: TrackerUseCase by inject()
     val personalInfoUseCase: PersonalInfoUseCase by inject()
     val userDetailState: UserDetailState by inject()
+    val userHistoryMembershipState: UserHistoryMembershipState by inject()
     val trackerManager: TrackerManager by inject()
 }

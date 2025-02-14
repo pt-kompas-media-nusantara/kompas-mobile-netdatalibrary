@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 
 
 @Serializable
-data class UserMembershipHistoryResponse(
+data class OldUserHistoryMembershipResponse(
     @SerialName("result")
     val result: Result? = null,
 )
@@ -15,15 +15,15 @@ data class UserMembershipHistoryResponse(
 @Serializable
 data class Result(
     @SerialName("active")
-    val active: List<Active>? = null,
+    val active: List<OldActive>? = null,
     @SerialName("expired")
-    val expired: List<Expired>? = null,
+    val expired: List<OldExpired>? = null,
     @SerialName("user")
-    val user: User? = null,
+    val user: OldUser? = null,
 )
 
 @Serializable
-data class Active(
+data class OldActive(
     @SerialName("endDate")
     val endDate: String? = null,
     @SerialName("membershipSlug")
@@ -35,7 +35,7 @@ data class Active(
 )
 
 @Serializable
-data class Expired(
+data class OldExpired(
     @SerialName("endDate")
     val endDate: String? = null,
     @SerialName("membershipSlug")
@@ -47,7 +47,7 @@ data class Expired(
 )
 
 @Serializable
-data class User(
+data class OldUser(
     @SerialName("email")
     val email: String? = null,
     @SerialName("endDate")

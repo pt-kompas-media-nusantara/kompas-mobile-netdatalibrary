@@ -21,17 +21,18 @@ import com.kompasid.netdatalibrary.core.data.refreshToken.network.RefreshTokenAp
 import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshTokenRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.network.UserMembershipHistoryApiService
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.model.local.UserMembershipHistoryDataSource
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserHistoryMembershipApiService
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.local.UserHistoryMembershipDataSource
 import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralContentApiService
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipHistoryRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCase
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -86,9 +87,10 @@ val netDataModule = module {
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
+    singleOf(::UserHistoryMembershipState) { bind<UserHistoryMembershipState>() }
     singleOf(::UserMembershipHistoryRepository) { bind<UserMembershipHistoryRepository>() }
-    singleOf(::UserMembershipHistoryDataSource) { bind<UserMembershipHistoryDataSource>() }
-    singleOf(::UserMembershipHistoryApiService) { bind<UserMembershipHistoryApiService>() }
+    singleOf(::UserHistoryMembershipDataSource) { bind<UserHistoryMembershipDataSource>() }
+    singleOf(::UserHistoryMembershipApiService) { bind<UserHistoryMembershipApiService>() }
 
     /**
     General Content
