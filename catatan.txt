@@ -1,22 +1,22 @@
 catatan build xcframework
 
 ./gradlew :shared:assembleSharedXCFramework
-/Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/Shared.xcframework
+/Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibary.xcframework
 
 
-mv /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/Shared.xcframework /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/
+mv /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibary.xcframework /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/
 change to
-mv shared/build/XCFrameworks/release/Shared.xcframework .
+mv shared/build/XCFrameworks/release/KompasIdLibary.xcframework .
 atau
 mv shared/build/XCFrameworks .
 
 ZIP
 cd /Users/kompasdigital/Documents/project/kmp/NetDataLibrary
-zip -r Shared.xcframework.zip Shared.xcframework
+zip -r KompasIdLibary.xcframework.zip KompasIdLibary.xcframework
 atau
-zip -r Shared.xcframework.zip XCFrameworks/debug/Shared.xcframework
+zip -r KompasIdLibary.xcframework.zip XCFrameworks/debug/KompasIdLibary.xcframework
 
 
 CHECKSUM
-swift package compute-checksum Shared.xcframework.zip
+swift package compute-checksum KompasIdLibary.xcframework.zip
 output : d4327feecf677cfed99d5ffe3f8299e932dc6a5e982f9fb03025821acbe7fda1

@@ -10,17 +10,6 @@ plugins {
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
-//group = "com.example"
-//version = "1.0"
-//
-//publishing {
-//    repositories {
-//        maven {
-//            //...
-//        }
-//    }
-//}
-
 kotlin {
 //    withSourcesJar(publish = true)
     androidTarget {
@@ -34,7 +23,8 @@ kotlin {
         }
     }
 
-    val xcframeworkName = "Shared"
+//    val xcframeworkName = "Shared"
+    val xcframeworkName = "KompasIdLibary"
     val xcf = XCFramework(xcframeworkName)
     listOf(
         iosX64(),
@@ -45,9 +35,9 @@ kotlin {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
             // ./gradlew :shared:assembleSharedXCFramework
             // output :
-            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/Shared.xcframework
-            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/Shared.xcframework
-            // swift package compute-checksum Shared.xcframework.zip
+            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibary.xcframework
+            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/KompasIdLibary.xcframework
+            // swift package compute-checksum KompasIdLibary.xcframework.zip
 
             baseName = xcframeworkName
 

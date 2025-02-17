@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Shared
+import KompasIdLibary
 // import NetDataLibrary
 
 @MainActor
@@ -23,7 +23,7 @@ class SettingsVMWrapper: ObservableObject {
         do {
             try await self.settingsUseCase.loadAllSettings()
         } catch {
-            Shared.Logger().debug(tag: nil) {
+            KompasIdLibary.Logger().debug(tag: nil) {
                 error.localizedDescription
             }
         }
@@ -33,7 +33,7 @@ class SettingsVMWrapper: ObservableObject {
         do {
             try await self.settingsUseCase.loadAccessToken()
         } catch {
-            Shared.Logger().debug(tag: nil) {
+            KompasIdLibary.Logger().debug(tag: nil) {
                 error.localizedDescription
             }
         }

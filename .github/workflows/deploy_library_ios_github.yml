@@ -90,7 +90,7 @@ jobs:
 
       - name: Verify XCFramework Build
         run: |
-          if [ ! -f "Shared.xcframework.zip" ]; then
+          if [ ! -f "KompasIdLibary.xcframework.zip" ]; then
             echo "XCFramework ZIP not found!"
             exit 1
           fi
@@ -99,8 +99,8 @@ jobs:
       - name: Upload XCFramework ZIP as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Shared.xcframework.zip
-          path: Shared.xcframework.zip
+          name: KompasIdLibary.xcframework.zip
+          path: KompasIdLibary.xcframework.zip
 
       - name: Push Git Tag
         env:
@@ -116,7 +116,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ github.event.inputs.version }} \
-            Shared.xcframework.zip \
+            KompasIdLibary.xcframework.zip \
             --notes "XCFramework for version ${{ github.event.inputs.version }}." \
             --latest
 
@@ -129,7 +129,7 @@ jobs:
         run: |
           ls -R
 
-        # Shared.xcframework.zip tidak di perlukan di taruh di master, karna sudah bisa. contoh tag versi 1.0.18
+        # KompasIdLibary.xcframework.zip tidak di perlukan di taruh di master, karna sudah bisa. contoh tag versi 1.0.18
       - name: Commit and Push Changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -144,7 +144,7 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "No changes to commit."
           else
-            git commit -m "Update Package.swift and Shared.xcframework.zip for version ${{ github.event.inputs.version }}"
+            git commit -m "Update Package.swift and KompasIdLibary.xcframework.zip for version ${{ github.event.inputs.version }}"
             # Push changes to the same branch
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           fi

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Shared
+import KompasIdLibary
 // import NetDataLibrary
 
 @MainActor

@@ -142,7 +142,7 @@ Pod::Spec.new do |spec|
   # ――― Framework built by Kotlin Multiplatform - Public Pods ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   # spec.vendored_frameworks = "build/c"
   # spec.vendored_frameworks = "build/bin/ios/releaseFramework/NetDataLibrary.xcframework"
-  # spec.vendored_frameworks = "shared/build/XCFrameworks/release/Shared.xcframework"
+  # spec.vendored_frameworks = "shared/build/XCFrameworks/release/KompasIdLibary.xcframework"
 
   # pod spec create NetDataLibrary
   # pod spec lint NetDataLibrary.podspec
