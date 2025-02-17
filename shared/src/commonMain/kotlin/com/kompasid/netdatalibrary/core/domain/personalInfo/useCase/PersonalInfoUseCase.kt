@@ -57,7 +57,7 @@ class PersonalInfoUseCase(
         return result
     }
 
-    suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+    override suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         val result = userMembershipHistoryRepository.getUserMembershipHistory()
         if (result is Results.Success) {
             val interceptor = result.data
