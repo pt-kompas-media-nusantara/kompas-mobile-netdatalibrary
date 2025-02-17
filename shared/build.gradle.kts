@@ -41,7 +41,7 @@ kotlin {
 
             baseName = xcframeworkName
 
-            binaryOption("bundleId", "org.example.${xcframeworkName}")
+            binaryOption("bundleId", "org.kompasid.${xcframeworkName}")
             xcf.add(this)
             isStatic = true
         }
