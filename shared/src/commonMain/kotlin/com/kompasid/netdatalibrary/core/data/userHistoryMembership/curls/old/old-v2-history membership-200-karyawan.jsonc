@@ -1,0 +1,82 @@
+// curl --location 'https://api.kompas.id/account/api/v2/users/membership?=null' \
+// --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzYxMjc5MTU1LCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTcyOTc0NDA1NSwiaWF0IjoxNzI5NzQzMTU1LCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.GQg5fggkwul5e5U88eDe93gr5d2Hvyf3uQZqZd5psgNXDbjSN2UUf4ulJ87rfSa7hXwMIAEOTjvAn9YTnD1R4lQ9Na0zQf008wAr34SxJGIRwLPx9rAD-o2ha7RBPqcAtOP0htp9tcyM2swyqJI9LfgsPVPQGfC60p8SOjOOROk'
+// 200
+// old-v2-history membership-200-karyawan
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil mendapatkan data membership",
+    "meta": {
+        "cache": false,
+        "time": 1729743261
+    },
+    "data": {
+        "result": {
+            "user": {
+                "firstName": "Nurirp",
+                "lastName": "Pangestu",
+                "email": "nur.irfan@kompas.com",
+                "expired": "21 Jan 2022 - 18 Feb 2038",
+                "isActive": "Aktif Berlangganan",
+                "startDate": "2022-01-21 00:0:0",
+                "endDate": "2038-02-18 00:0:0",
+                "totalGracePeriod": 0,
+                "gracePeriod": false,
+                "updateMembership": null
+            },
+            "active": [
+                {
+                    "membershipTitle": "Benefit-Loyalty-Automatic-Karyawan KG_2024-KDP 12",
+                    "membershipSlug": "benefit-loyalty-automatic-karyawan-kg_2024-kdp-12",
+                    "startDate": "2024-02-16 17:11:57",
+                    "endDate": "2025-02-15 17:11:57"
+                },
+                {
+                    "membershipTitle": "Benefit-Loyalty-Gravity Form-Karyawan KG-KDP Long",
+                    "membershipSlug": "karyawan-kg",
+                    "startDate": "2022-01-21 00:0:0",
+                    "endDate": "2038-02-18 00:0:0"
+                }
+            ],
+            "expired": [
+                {
+                    "membershipTitle": "Benefit-Loyalty-Gravity Form-Karyawan KG-KDP 12",
+                    "membershipSlug": "benefit-loyalty-kdp-12-karyawan-kg",
+                    "startDate": "2022-02-15 22:17:29",
+                    "endDate": "2023-03-18 06:17:29"
+                },
+                {
+                    "membershipTitle": "Benefit-Loyalty-Gravity Form-Karyawan KG-KDP 12",
+                    "membershipSlug": "benefit-loyalty-kdp-12-karyawan-kg",
+                    "startDate": "2022-02-15 22:17:29",
+                    "endDate": "2023-03-18 06:17:29"
+                },
+                {
+                    "membershipTitle": "Cash-B2C-iOS App-Reguler_Digital-KDP 1",
+                    "membershipSlug": "apps-ios-digital-premium-1-bulan",
+                    "startDate": "2023-02-22 06:4:26",
+                    "endDate": "2023-03-24 06:4:26"
+                },
+                {
+                    "membershipTitle": "Benefit-Loyalty-Automatic-Karyawan KG_2023-KDP 12",
+                    "membershipSlug": "benefit-loyalty-automatic-karyawan-kg_2023-kdp-12",
+                    "startDate": "2023-02-25 14:53:4",
+                    "endDate": "2024-02-20 14:53:4"
+                },
+                {
+                    "membershipTitle": "Cash-B2C-iOS App-Reguler_Digital-KDP 1",
+                    "membershipSlug": "apps-ios-digital-premium-1-bulan",
+                    "startDate": "2023-03-13 14:17:6",
+                    "endDate": "2023-04-12 14:17:6"
+                },
+                {
+                    "membershipTitle": "Benefit-Loyalty-Automatic-Karyawan KG_2023-KDP 12",
+                    "membershipSlug": "benefit-loyalty-automatic-karyawan-kg_2023-kdp-12",
+                    "startDate": "2023-02-25 06:53:4",
+                    "endDate": "2024-02-25 14:53:4"
+                }
+            ]
+        }
+    }
+}
