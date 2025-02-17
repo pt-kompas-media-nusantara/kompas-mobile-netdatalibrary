@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class ManageAccountState() {
     private val _myRubriks = MutableStateFlow<List<MyRubriksResInterceptor>>(emptyList())
-    var myRubriks: StateFlow<List<MyRubriksResInterceptor>?> = _myRubriks.asStateFlow()
+    var myRubriks: StateFlow<List<MyRubriksResInterceptor>> = _myRubriks.asStateFlow()
 
     fun updateMyRubriks(data: List<MyRubriksResInterceptor>) {
         _myRubriks.value = data
