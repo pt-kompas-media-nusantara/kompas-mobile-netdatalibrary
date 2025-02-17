@@ -1,9 +1,9 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers
 
 import com.kompasid.netdatalibrary.core.data.userMembershipHistoryData.dto.OldUserHistoryMembershipResponse
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.HistoryMembershipResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipObjResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipObjResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 
 fun OldUserHistoryMembershipResponse.toInterceptor(): UserHistoryMembershipResInterceptor {
     return UserHistoryMembershipResInterceptor(

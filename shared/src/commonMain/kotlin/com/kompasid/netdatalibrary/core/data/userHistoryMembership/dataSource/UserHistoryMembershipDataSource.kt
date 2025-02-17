@@ -1,8 +1,8 @@
-package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.local
+package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 
 class UserHistoryMembershipDataSource(
     private val settingsDataSource: SettingsDataSource

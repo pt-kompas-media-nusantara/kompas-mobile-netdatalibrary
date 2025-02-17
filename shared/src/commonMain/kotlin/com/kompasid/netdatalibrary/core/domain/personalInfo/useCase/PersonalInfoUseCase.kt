@@ -4,9 +4,9 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState
 import kotlinx.coroutines.async
@@ -15,7 +15,7 @@ import kotlinx.coroutines.coroutineScope
 
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
-    private val userMembershipHistoryRepository: UserMembershipHistoryRepository,
+    private val userHistoryMembershipRepository: UserHistoryMembershipRepository,
     private val userDetailState: UserDetailState,
     private val userHistoryMembershipState: UserHistoryMembershipState,
 ) : IPersonalInfoUseCase {
@@ -58,7 +58,7 @@ class PersonalInfoUseCase(
     }
 
     override suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
-        val result = userMembershipHistoryRepository.getUserMembershipHistory()
+        val result = userHistoryMembershipRepository.getUserMembershipHistory()
         if (result is Results.Success) {
             val interceptor = result.data
             if (userHistoryMembershipState.historyMembership.value != interceptor) {

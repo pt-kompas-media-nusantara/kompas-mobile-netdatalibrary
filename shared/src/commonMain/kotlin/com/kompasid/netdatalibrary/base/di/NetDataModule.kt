@@ -22,10 +22,10 @@ import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshToke
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserHistoryMembershipApiService
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.local.UserHistoryMembershipDataSource
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserHistoryMembershipDataSource
 import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralContentApiService
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCase
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
@@ -88,7 +88,7 @@ val netDataModule = module {
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
     singleOf(::UserHistoryMembershipState) { bind<UserHistoryMembershipState>() }
-    singleOf(::UserMembershipHistoryRepository) { bind<UserMembershipHistoryRepository>() }
+    singleOf(::UserHistoryMembershipRepository) { bind<UserHistoryMembershipRepository>() }
     singleOf(::UserHistoryMembershipDataSource) { bind<UserHistoryMembershipDataSource>() }
     singleOf(::UserHistoryMembershipApiService) { bind<UserHistoryMembershipApiService>() }
 

@@ -33,37 +33,4 @@ class UserDetailRepository(
             is ApiResults.Error -> Results.Error(result.error)
         }
     }
-
-//    override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> {
-//        when (val result = userDetailApiService.getUserDetail()) {
-//            is ApiResults.Success -> {
-//                val response = result.data
-//
-//                userDetailDataSource.save(
-//                    response.gender ?: 0,
-//                    response.genderType ?: "",
-//                    response.dateBirth ?: "",
-//                    response.userId ?: "",
-//                    response.firstName ?: "",
-//                    response.lastName ?: "",
-//                    response.email ?: "",
-//                    response.userGuid ?: "",
-//                    response.phoneNumber ?: "",
-//                    response.countryCode ?: "",
-//                    response.country ?: "",
-//                    response.province ?: "",
-//                    response.city ?: "",
-//                    response.isActive ?: false,
-//                    response.userStatus?.isVerified ?: false,
-//                    response.userStatus?.phoneVerified ?: false,
-//                )
-//                userDetailResultState
-//                return Results.Success(response.toInterceptor())
-//            }
-//            // Jika terjadi error
-//            is ApiResults.Error -> {
-//                return Results.Error(result.error)
-//            }
-//        }
-//    }
 }

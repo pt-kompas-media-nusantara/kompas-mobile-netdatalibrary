@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRep
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 
 interface LoginGuestRepositoryContoh {
     suspend fun postLoginGuest(): Results<Unit, NetworkError>
