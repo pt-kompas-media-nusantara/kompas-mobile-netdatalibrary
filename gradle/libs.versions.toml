@@ -1,5 +1,9 @@
 [versions]
-agp = "8.7.3"
+# 17 Feb 2025, maksimal
+# gradle 8.5.0,
+# AS: Android Studio Ladybug Feature Drop | 2024.2.2 Patch 1
+# xcode : ?
+agp = "8.5.0"
 koinAnnotations = "2.0.0-Beta2"
 kotlin = "2.0.20"
 compose = "1.7.8"
