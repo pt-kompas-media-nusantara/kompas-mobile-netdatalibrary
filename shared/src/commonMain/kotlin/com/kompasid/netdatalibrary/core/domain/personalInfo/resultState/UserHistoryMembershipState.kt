@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class UserHistoryMembershipState() {
+class UserHistoryMembershipState {
 
     private val _historyMembership = MutableStateFlow<UserHistoryMembershipResInterceptor?>(null)
     var historyMembership: StateFlow<UserHistoryMembershipResInterceptor?> =

@@ -33,7 +33,8 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
-            // ./gradlew :shared:assembleSharedXCFramework
+            // ./gradlew :shared:assembleSharedXCFramework -> sudah tidak terpakai karna sudah ganti ke KompasIdLibary
+            // ./gradlew :shared:assembleKompasIdLibaryXCFramework
             // output :
             // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibary.xcframework
             // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/KompasIdLibary.xcframework

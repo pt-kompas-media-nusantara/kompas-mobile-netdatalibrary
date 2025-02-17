@@ -7,6 +7,7 @@ import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCas
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

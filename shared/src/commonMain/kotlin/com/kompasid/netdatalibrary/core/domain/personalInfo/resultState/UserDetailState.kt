@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class UserDetailState() {
+class UserDetailState {
     private val _userDetails = MutableStateFlow<UserDetailResInterceptor?>(null)
     var userDetails: StateFlow<UserDetailResInterceptor?> = _userDetails.asStateFlow()
 

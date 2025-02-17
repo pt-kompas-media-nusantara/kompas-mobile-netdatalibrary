@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class ManageAccountState() {
+class ManageAccountState {
     private val _myRubriks = MutableStateFlow<List<MyRubriksResInterceptor>>(emptyList())
     var myRubriks: StateFlow<List<MyRubriksResInterceptor>> = _myRubriks.asStateFlow()
 
