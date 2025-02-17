@@ -1,0 +1,13 @@
+// curl --location 'https://api.kompas.id/account/api/v2/users/rubrik'
+// old-v2-my rubrik-401-karyawan
+
+{
+    "success": false,
+    "code": 401,
+    "message": "Harus memberikan header otorisasi dengan format `Bearer {token}`",
+    "meta": {
+        "cache": false,
+        "time": 1729750254
+    },
+    "data": null
+}
