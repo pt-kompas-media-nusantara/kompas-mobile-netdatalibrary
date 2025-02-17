@@ -1,7 +1,6 @@
 package com.kompasid.netdatalibrary.core.domain.personalInfo.resultState
 
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -5,7 +5,7 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipHistoryRepository
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState

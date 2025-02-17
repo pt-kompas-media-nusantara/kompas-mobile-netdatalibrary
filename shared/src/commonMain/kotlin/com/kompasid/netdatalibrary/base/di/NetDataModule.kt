@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.base.di
 
-import com.kompasid.netdatalibrary.core.data.userDetail.model.local.UserDetailDataSource
+import com.kompasid.netdatalibrary.core.data.userDetail.dataSource.UserDetailDataSource
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM

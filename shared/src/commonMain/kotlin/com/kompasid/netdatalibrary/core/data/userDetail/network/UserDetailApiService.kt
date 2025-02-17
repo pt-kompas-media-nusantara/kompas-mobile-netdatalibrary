@@ -6,7 +6,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
-import com.kompasid.netdatalibrary.core.data.userDetailData.dto.OldUserDetailResponse
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.response.OldUserDetailResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.bearerAuth

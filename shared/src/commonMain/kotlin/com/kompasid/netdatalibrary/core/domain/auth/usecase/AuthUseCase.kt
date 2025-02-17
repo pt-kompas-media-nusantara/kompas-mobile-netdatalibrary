@@ -7,7 +7,7 @@ import com.kompasid.netdatalibrary.core.data.loginEmail.models.dto.LoginEmailReq
 import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.UserHistoryMembershipResInterceptor
 
 interface LoginGuestRepositoryContoh {

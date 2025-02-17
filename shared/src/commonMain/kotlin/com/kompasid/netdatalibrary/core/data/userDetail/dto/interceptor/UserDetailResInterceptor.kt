@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor
+package com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor
 
 
 data class UserDetailResInterceptor(

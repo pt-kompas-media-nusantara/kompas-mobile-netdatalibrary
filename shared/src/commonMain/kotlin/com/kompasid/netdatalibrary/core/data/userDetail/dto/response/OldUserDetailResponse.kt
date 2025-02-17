@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.userDetailData.dto
+package com.kompasid.netdatalibrary.core.data.userDetail.dto.response
 
 import kotlinx.serialization.Serializable
 
