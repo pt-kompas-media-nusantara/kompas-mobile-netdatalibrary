@@ -29,7 +29,7 @@ else
 fi
 
 # 3. Jalankan assemble task
-./gradlew :shared:assembleSharedXCFramework || { echo "Gagal membuat XCFramework"; exit 1; }
+./gradlew :shared:assembleKompasIdLibaryXCFramework || { echo "Gagal membuat XCFramework"; exit 1; }
 
 # 4. Path ke XCFramework
 XCFRAMEWORK_PATH="shared/build/XCFrameworks"

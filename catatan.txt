@@ -1,6 +1,6 @@
 catatan build xcframework
 
-./gradlew :shared:assembleSharedXCFramework
+./gradlew :shared:assembleKompasIdLibarySharedXCFramework
 /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibary.xcframework
 
 
