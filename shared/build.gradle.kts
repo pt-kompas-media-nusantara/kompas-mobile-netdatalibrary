@@ -24,7 +24,7 @@ kotlin {
     }
 
 //    val xcframeworkName = "Shared"
-    val xcframeworkName = "KompasIdLibary"
+    val xcframeworkName = "KompasIdLibrary"
     val xcf = XCFramework(xcframeworkName)
     listOf(
         iosX64(),
@@ -33,12 +33,12 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
-            // ./gradlew :shared:assembleSharedXCFramework -> sudah tidak terpakai karna sudah ganti ke KompasIdLibary
-            // ./gradlew :shared:assembleKompasIdLibaryXCFramework
+            // ./gradlew :shared:assembleSharedXCFramework -> sudah tidak terpakai karna sudah ganti ke KompasIdLibrary
+            // ./gradlew :shared:assembleKompasIdLibraryXCFramework
             // output :
-            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibary.xcframework
-            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/KompasIdLibary.xcframework
-            // swift package compute-checksum KompasIdLibary.xcframework.zip
+            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibrary.xcframework
+            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/KompasIdLibrary.xcframework
+            // swift package compute-checksum KompasIdLibrary.xcframework.zip
 
             baseName = xcframeworkName
 

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import KompasIdLibary
+import KompasIdLibrary
 // import NetDataLibrary
 
 

@@ -1,5 +1,5 @@
 import SwiftUI
-import KompasIdLibary
+import KompasIdLibrary
 // import NetDataLibrary
 
 @main
@@ -8,7 +8,7 @@ struct iOSApp: App {
     
     init() {
         KoinInitializerKt.doInitKoin()
-//         KompasIdLibary.KoinInitializerKt.doInitKoin()
+//         KompasIdLibrary.KoinInitializerKt.doInitKoin()
     }
     
 	var body: some Scene {

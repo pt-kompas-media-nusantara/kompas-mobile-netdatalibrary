@@ -8,7 +8,7 @@ captures
 local.properties
 xcuserdata
 .kotlin
-KompasIdLibary.xcframework.zip
+KompasIdLibrary.xcframework.zip
 androidApp/build/intermediates
 androidApp/build/kotlin
 androidApp/build/outputs/logs

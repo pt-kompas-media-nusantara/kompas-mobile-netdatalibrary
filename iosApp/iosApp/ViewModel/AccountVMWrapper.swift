@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import KompasIdLibary
+import KompasIdLibrary
 // import NetDataLibrary
 
 

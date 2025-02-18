@@ -19,7 +19,7 @@ fi
 # 4. Path ke aar
 AAR_PATH="shared/build/outputs/aar"
 TARGET_PATH="."
-ZIP_NAME="KompasIdLibary.xcframework.zip"
+ZIP_NAME="KompasIdLibrary.xcframework.zip"
 
 # 5. Pindahkan AAR ke root proyek
 if [ -d "$AAR_PATH" ]; then
@@ -31,8 +31,8 @@ else
 fi
 
 # 6. Buat ZIP dari file XCFramework
-SOURCE_ZIP="XCFrameworks/debug/KompasIdLibary.xcframework"
-ZIP_NAME="KompasIdLibary.xcframework.zip"
+SOURCE_ZIP="XCFrameworks/debug/KompasIdLibrary.xcframework"
+ZIP_NAME="KompasIdLibrary.xcframework.zip"
 if [ -d "$SOURCE_ZIP" ]; then
     zip -r "$ZIP_NAME" "$SOURCE_ZIP"
     echo "File ZIP berhasil dibuat: $ZIP_NAME"

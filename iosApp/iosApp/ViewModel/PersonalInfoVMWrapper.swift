@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import KompasIdLibary
+import KompasIdLibrary
 
 @MainActor
 class PersonalInfoVMWrapper: ObservableObject {
@@ -22,7 +22,7 @@ class PersonalInfoVMWrapper: ObservableObject {
         do {
             try await self.personalInfoUseCase.userDetail()
         } catch {
-            KompasIdLibary.Logger().debug(tag: nil) {
+            KompasIdLibrary.Logger().debug(tag: nil) {
                 error.localizedDescription
             }
         }

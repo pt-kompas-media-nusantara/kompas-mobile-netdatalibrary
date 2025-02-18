@@ -69,7 +69,7 @@ jobs:
 
       - name: Verify XCFramework Build
         run: |
-          if [ ! -f "KompasIdLibary.xcframework.zip" ]; then
+          if [ ! -f "KompasIdLibrary.xcframework.zip" ]; then
             echo "XCFramework ZIP not found!"
             exit 1
           fi
@@ -98,7 +98,7 @@ jobs:
           if git diff-index --quiet HEAD --; then
             echo "No changes to commit."
           else
-            git commit -m "Update Package.swift and KompasIdLibary.xcframework.zip for version ${{ inputs.github_version }}"
+            git commit -m "Update Package.swift and KompasIdLibrary.xcframework.zip for version ${{ inputs.github_version }}"
             # Push changes to the same branch
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           fi
@@ -117,15 +117,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create ${{ inputs.github_version }} \
-            KompasIdLibary.xcframework.zip \
+            KompasIdLibrary.xcframework.zip \
             --generate-notes \
             --latest
 
       - name: Upload XCFramework ZIP as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: KompasIdLibary.xcframework.zip
-          path: KompasIdLibary.xcframework.zip
+          name: KompasIdLibrary.xcframework.zip
+          path: KompasIdLibrary.xcframework.zip
 
       - name: Setup Github State
         id: id_setup_github_state
