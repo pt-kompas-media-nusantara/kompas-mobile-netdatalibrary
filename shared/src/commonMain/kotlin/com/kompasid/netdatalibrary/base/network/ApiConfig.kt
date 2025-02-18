@@ -10,4 +10,5 @@ object ApiConfig {
     const val COUNTRIES_URL = "$KID_URL/account/api/v1/countries"
     const val LOGIN_GUEST_URL = "$KID_URL/account/api/v2/login/guest"
     const val REFRESH_TOKEN_URL = "$KID_URL/account/api/v1/tokens/refresh"
+    const val LOGOUT_URL = "$KID_URL/account/api/v2/logout"
 }
