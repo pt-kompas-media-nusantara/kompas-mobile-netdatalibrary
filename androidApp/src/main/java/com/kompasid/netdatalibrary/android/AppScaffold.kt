@@ -13,7 +13,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.kompasid.netdatalibrary.android.screens.MainScreen
+import com.kompasid.netdatalibrary.android.screens.enums.Screens
+import com.kompasid.netdatalibrary.android.screens.AccountScreen
 
 @Composable
 fun AppScaffold() {
@@ -34,26 +39,34 @@ fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-//    NavHost(
-//        navController = navController,
-//        startDestination = Screens.LIST_APISERVICE_VIEW.route,
-//        modifier = modifier,
-//    ) {
-//        composable(Screens.LIST_APISERVICE_VIEW.route) {
-//            MainScreen(
-//                onAccountClick = { navController.navigate(Screens.ACCOUNT_VIEW.route) },
-//                onArticleListClick = { navController.navigate(Screens.ARTICLE_LIST_VIEW.route) },
-//                onSettinsClick = { navController.navigate(Screens.SETTINGS_VIEW.route) },
-//                onAuthUseCaseClick = { navController.navigate(Screens.AUTH_USECASE_VIEW.route) },
-//                onAppIconUseCaseClick = { navController.navigate(Screens.APPICON_USECASE_VIEW.route) },
-//                onMyAccountUseCaseScreenClick = { navController.navigate(Screens.MY_ACCOUNT_VIEW.route) },
-//            )
-//        }
-////        composable(Screens.ARTICLES_EXAMPLE.route) {
-////            ArticlesScreen(
-////                onAboutButtonClick = { navController.navigate(Screens.ABOUT_DEVICE_EXAMPLE.route) },
-////            )
-////        }
+    NavHost(
+        navController = navController,
+        startDestination = Screens.MAIN_SCREEN.route,
+        modifier = modifier,
+    ) {
+
+        composable(Screens.MAIN_SCREEN.route) {
+            MainScreen(
+                onAuthFlowClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
+                onManageAccountClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onBookmarksClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onRewardClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onSettingsClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onContactUsClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onQnAClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onAboutAppClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onAboutHarianKompasClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+            )
+        }
+
+        composable(Screens.ACCOUNT_SCREEN.route) {
+            AccountScreen(
+                onBackClick = { navController.popBackStack() },
+            )
+        }
+
+
 //
 //        composable(Screens.ABOUT_DEVICE_EXAMPLE.route) {
 //            AboutScreen(
@@ -90,7 +103,7 @@ fun AppNavHost(
 //                onBackClick = { navController.popBackStack() },
 //            )
 //        }
-//    }
+    }
 }
 
 

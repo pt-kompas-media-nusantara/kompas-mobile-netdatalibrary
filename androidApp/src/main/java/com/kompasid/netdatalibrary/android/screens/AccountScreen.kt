@@ -13,8 +13,6 @@ import androidx.compose.ui.unit.dp
 // import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
 import com.kompasid.netdatalibrary.android.AppBackBar
 
-import org.koin.compose.viewmodel.koinViewModel
-
 
 @Composable
 fun AccountScreen(

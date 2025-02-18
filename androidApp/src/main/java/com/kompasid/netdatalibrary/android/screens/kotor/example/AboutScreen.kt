@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.android.screens.example
+package com.kompasid.netdatalibrary.android.screens.kotor.example
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

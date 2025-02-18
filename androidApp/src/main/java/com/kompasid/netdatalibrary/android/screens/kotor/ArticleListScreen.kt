@@ -1,4 +1,4 @@
-//package com.kompasid.netdatalibrary.android.screens
+package com.kompasid.netdatalibrary.android.screens.kotor//package com.kompasid.netdatalibrary.android.screens
 //
 //import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.padding

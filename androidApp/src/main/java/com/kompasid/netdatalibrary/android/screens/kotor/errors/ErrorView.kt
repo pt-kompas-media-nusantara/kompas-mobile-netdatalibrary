@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.android.screens.errors
+package com.kompasid.netdatalibrary.android.screens.kotor.errors
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
