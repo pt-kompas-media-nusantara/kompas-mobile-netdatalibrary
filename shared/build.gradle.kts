@@ -102,7 +102,7 @@ kotlin {
 
 publishing {
     publications {
-        create<MavenPublication>("android") {
+        create<MavenPublication>("default") {
             from(components["kotlin"])
             groupId = "com.kompasid.netdatalibrary"
             artifactId = "shared"

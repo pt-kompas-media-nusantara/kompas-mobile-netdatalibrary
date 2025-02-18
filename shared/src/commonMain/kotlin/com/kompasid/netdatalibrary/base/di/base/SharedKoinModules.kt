@@ -8,5 +8,4 @@ val sharedKoinModules = listOf(
     networkModule,
     netDataModule,
     settingsModule
-
 )
