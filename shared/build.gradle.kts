@@ -79,8 +79,8 @@ kotlin {
 
         }
         androidMain.dependencies {
-            implementation(libs.androidx.lifecycle.viewmodel.ktx)
-            implementation(libs.ktor.client.okhttp) // http client for android
+            api(libs.androidx.lifecycle.viewmodel.ktx)
+            api(libs.ktor.client.okhttp) // http client for android
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin) // http client for ios
