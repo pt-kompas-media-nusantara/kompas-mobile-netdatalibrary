@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.loginGuest.model.local
+package com.kompasid.netdatalibrary.core.data.loginGuest.dataSource
 
 import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource

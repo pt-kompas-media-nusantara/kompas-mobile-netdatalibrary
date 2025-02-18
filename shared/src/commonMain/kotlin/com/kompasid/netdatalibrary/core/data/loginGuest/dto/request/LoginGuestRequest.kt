@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.loginGuest.model.dto
+package com.kompasid.netdatalibrary.core.data.loginGuest.dto.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

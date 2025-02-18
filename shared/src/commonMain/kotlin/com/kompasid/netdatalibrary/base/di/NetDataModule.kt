@@ -11,7 +11,7 @@ import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiSer
 import com.kompasid.netdatalibrary.core.data.loginEmail.models.local.LoginEmailDataSource
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
 import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
-import com.kompasid.netdatalibrary.core.data.loginGuest.model.local.LoginGuestDataSource
+import com.kompasid.netdatalibrary.core.data.loginGuest.dataSource.LoginGuestDataSource
 import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
 import com.kompasid.netdatalibrary.core.data.logout.network.LogoutApiService
 import com.kompasid.netdatalibrary.core.data.logout.model.local.LogoutDataSource

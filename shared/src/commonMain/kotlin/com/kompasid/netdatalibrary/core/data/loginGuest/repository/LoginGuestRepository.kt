@@ -3,45 +3,24 @@ package com.kompasid.netdatalibrary.core.data.loginGuest.repository
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.loginGuest.model.local.LoginGuestDataSource
+import com.kompasid.netdatalibrary.core.data.loginGuest.dataSource.LoginGuestDataSource
 import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
 
-
 class LoginGuestRepository(
-    private val service: LoginGuestApiService,
-    private val dataSource: LoginGuestDataSource,
-) {
+    private val loginGuestApiService: LoginGuestApiService,
+    private val loginGuestDataSource: LoginGuestDataSource
+) : ILoginGuestRepository {
 
-    suspend fun postLoginGuest(): Results<Unit, NetworkError> {
-        when (val result = service.postLoginGuest()) {
+    override suspend fun postLoginGuest(): Results<Unit, NetworkError> {
+        return when (val result = loginGuestApiService.postLoginGuest()) {
             is ApiResults.Success -> {
-                val response = result.data
+                val result = result.data
 
-                dataSource.save(response.accessToken ?: "", response.refreshToken ?: "")
+                loginGuestDataSource.save(result.accessToken ?: "", result.refreshToken ?: "")
                 return Results.Success(Unit)
             }
-            // Jika terjadi error
-            is ApiResults.Error -> {
-                return Results.Error(result.error)
-            }
+
+            is ApiResults.Error -> Results.Error(result.error)
         }
     }
 }
-
-/*
-PENGGUNAAN USE CASE
-val loginGuestRepository = LoginGuestRepository(service, dataSource)
-
-val result = loginGuestRepository.postLoginGuest()
-
-result.onSuccess { success ->
-    println("Success: ${success.result}")
-}.onError { error ->
-    when (error) {
-        is FailedInterceptor.RequestTimeout -> println("Request timeout!")
-        is FailedInterceptor.Unauthorized -> println("Unauthorized access!")
-        else -> println("Unknown error occurred.")
-    }
-}
-
-*/

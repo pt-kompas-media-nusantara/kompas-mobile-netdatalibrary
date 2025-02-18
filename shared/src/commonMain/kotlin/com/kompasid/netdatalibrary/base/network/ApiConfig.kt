@@ -8,4 +8,5 @@ object ApiConfig {
     const val USER_HISTORY_MEMBERSHIP_URL = "$KID_URL/account/api/v2/users/membership"
     const val MY_RUBRIKS_URL = "$KID_URL/account/api/v2/users/rubrik"
     const val COUNTRIES_URL = "$KID_URL/account/api/v1/countries"
+    const val LOGIN_GUEST_URL = "$KID_URL/account/api/v2/login/guest"
 }
