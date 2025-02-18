@@ -1,0 +1,23 @@
+// curl --location 'https://api.kompas.id/account/api/v1/tokens/refresh' \
+// --header 'Content-Type: application/json' \
+// --header 'Accept: application/json' \
+// --data '{
+//   "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzYxMTI4MDQ0LCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.o6tek34YQ6p_abhaZuk-vMpqIo1naSdoDN1qFOYe2pKIImFNGXpBfzmkgKdzR7qjP_SbUjB-jvJF0ihtsgbC6zLrFtetrYdOFm4LWszHX6fzTYTaujWG7ThGNwogbhJDaSgfa8hEBW8ga-NH49l5iknn6SQIJeaT8ktq1UuVx60"
+// }'
+// old-v2-refresh token-200-karyawan
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil mendapatkan token akses.",
+    "meta": {
+        "cache": false,
+        "time": 1729742537
+    },
+    "data": {
+        "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzYxMTI4MDQ0LCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTcyOTc0MzQzNywiaWF0IjoxNzI5NzQyNTM3LCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.LC--3bcYjCjamXdQKBqtvUFQTNwO4Df-drPHD87Urla4gHS9d70Es4MKFGc4ggUOFIK9ejylaEUCqZ5PCSWLJX8z8MZePgx3IsEZJeHBbQCiCWKFXEN3-IyG6UXlDQ27KqYuRX-pRfEEG7IrqFFc0ZbjGhVfH-Vp8zhFlTzKrKw",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzYxMTI4MDQ0LCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.o6tek34YQ6p_abhaZuk-vMpqIo1naSdoDN1qFOYe2pKIImFNGXpBfzmkgKdzR7qjP_SbUjB-jvJF0ihtsgbC6zLrFtetrYdOFm4LWszHX6fzTYTaujWG7ThGNwogbhJDaSgfa8hEBW8ga-NH49l5iknn6SQIJeaT8ktq1UuVx60",
+        "isVerified": true,
+        "deviceKeyId": "jNEWzVVOX3U72HX40TcrC+fskQcneJ78Tub0WXWagzpRq4/6zbbYzP/wuxb+WNc9nO9TZfMvgTy/WNSTwvl+NPzfIQCm"
+    }
+}

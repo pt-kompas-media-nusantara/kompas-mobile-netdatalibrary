@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.refreshToken.model.dto
+package com.kompasid.netdatalibrary.core.data.refreshToken.dto.request
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

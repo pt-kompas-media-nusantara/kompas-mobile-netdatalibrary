@@ -16,7 +16,7 @@ import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRep
 import com.kompasid.netdatalibrary.core.data.logout.network.LogoutApiService
 import com.kompasid.netdatalibrary.core.data.logout.model.local.LogoutDataSource
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
-import com.kompasid.netdatalibrary.core.data.refreshToken.model.local.RefreshTokenDataSource
+import com.kompasid.netdatalibrary.core.data.refreshToken.dataSource.RefreshTokenDataSource
 import com.kompasid.netdatalibrary.core.data.refreshToken.network.RefreshTokenApiService
 import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshTokenRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
