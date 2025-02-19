@@ -4,6 +4,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
+import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
@@ -31,27 +32,28 @@ class ManageAccountUseCase(
         return myRubriksRepository.getMyRubriks()
     }
 
+    suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> {
+        return myRubriksRepository.saveMyRubriks(request)
+    }
+
     suspend fun fetchAllManageAccount(): Triple<
             Results<UserDetailResInterceptor, NetworkError>,
             Results<UserHistoryMembershipResInterceptor, NetworkError>,
             Results<List<MyRubriksResInterceptor>, NetworkError>
-            > = coroutineScope {
-        val userDetailDeferred = async {
-            userDetailRepository.getUserDetailOld()
-        }
-        val historyMembershipDeferred = async {
-            historyMembershipRepository.getUserMembershipHistory()
-        }
-        val myRubriksDeferred = async {
-            myRubriksRepository.getMyRubriks()
+            > =
+        coroutineScope {
+
+            val userDetailDeferred = async { userDetail() }
+            val historyMembershipDeferred = async { historyMembership() }
+            val myRubrikListDeferred = async { myRubrikList() }
+
+            val userDetailResult = userDetailDeferred.await()
+            val historyMembershipResult = historyMembershipDeferred.await()
+            val myRubrikListResult = myRubrikListDeferred.await()
+
+            Triple(userDetailResult, historyMembershipResult, myRubrikListResult)
         }
 
-        Triple(
-            userDetailDeferred.await(),
-            historyMembershipDeferred.await(),
-            myRubriksDeferred.await()
-        )
-    }
 }
 
 //contoh pemanggilan fetchAllManageAccount

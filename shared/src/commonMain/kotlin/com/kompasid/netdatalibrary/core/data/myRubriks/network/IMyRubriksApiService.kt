@@ -5,5 +5,5 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.OldMyRubriksResponse
 
 interface IMyRubriksApiService {
-    suspend fun getMyRubriks(): ApiResults<OldMyRubriksResponse, NetworkError>
+    suspend fun getRubrikList(): ApiResults<OldMyRubriksResponse, NetworkError>
 }

@@ -3,24 +3,23 @@ package com.kompasid.netdatalibrary.core.data.myRubriks.repository
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
+import com.kompasid.netdatalibrary.base.network.map
 import com.kompasid.netdatalibrary.core.data.myRubriks.mappers.toInterceptor
-import com.kompasid.netdatalibrary.core.data.myRubriks.dataSource.MyRubriksDataSource
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
 import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksResultState
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
+import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
 
 
 class MyRubriksRepository(
     private val myRubriksApiService: MyRubriksApiService,
-    private val myRubriksDataSource: MyRubriksDataSource,
     private val myRubriksResultState: MyRubriksResultState
 ) : IMyRubriksRepository {
 
     override suspend fun getMyRubriks(): Results<List<MyRubriksResInterceptor>, NetworkError> {
-        return when (val result = myRubriksApiService.getMyRubriks()) {
+        return when (val result = myRubriksApiService.getRubrikList()) {
             is ApiResults.Success -> {
                 result.data.toInterceptor().also { resultInterceptor ->
-                    myRubriksDataSource.save(resultInterceptor)
 
                     myRubriksResultState.apply {
                         if (allRubriks.value != resultInterceptor) updateAllRubriks(
@@ -37,6 +36,21 @@ class MyRubriksRepository(
             is ApiResults.Error -> Results.Error(result.error)
         }
     }
+
+    override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> {
+        return when (val result = myRubriksApiService.saveMyRubriks(request)) {
+            is ApiResults.Success -> {
+                when (val refreshResult = getMyRubriks()) {
+                    is Results.Success -> Results.Success(Unit) // Jika update berhasil, return success
+                    is Results.Error -> Results.Error(refreshResult.error) // Ambil error langsung dari getMyRubriks()
+                }
+            }
+
+            is ApiResults.Error -> Results.Error(result.error) // Jika penyimpanan gagal, return error dari save API
+        }
+    }
+
+
 }
 
 //Perbaikan yang Dilakukan:
