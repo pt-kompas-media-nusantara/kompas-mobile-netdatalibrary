@@ -5,5 +5,5 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 
 interface IManageAccountUseCase {
-    suspend fun myRubriks(): Results<List<MyRubriksResInterceptor>, NetworkError>
+
 }
