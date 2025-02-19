@@ -10,7 +10,6 @@ import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.IManageAccou
 
 
 class ManageAccountUseCase(
-    private val manageAccountState: ManageAccountState,
     private val myRubriksRepository: MyRubriksRepository,
     private val userHistoryMembershipRepository: UserHistoryMembershipRepository,
 ) : IManageAccountUseCase {

@@ -4,6 +4,8 @@ object ApiConfig {
     private const val CDN_URL = "https://cdn-content.kompas.id"
     private const val KID_URL = "https://api.kompas.id"
     const val GENERAL_URL = "$CDN_URL/mobile/json/generalContent.json"
+
+
     const val USER_DETAIL_URL = "$KID_URL/account/api/v2/users/detail"
     const val USER_HISTORY_MEMBERSHIP_URL = "$KID_URL/account/api/v2/users/membership"
     const val MY_RUBRIKS_URL = "$KID_URL/account/api/v2/users/rubrik"
@@ -11,4 +13,5 @@ object ApiConfig {
     const val LOGIN_GUEST_URL = "$KID_URL/account/api/v2/login/guest"
     const val REFRESH_TOKEN_URL = "$KID_URL/account/api/v1/tokens/refresh"
     const val LOGOUT_URL = "$KID_URL/account/api/v2/logout"
+    const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"
 }

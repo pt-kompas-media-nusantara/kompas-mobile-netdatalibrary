@@ -27,12 +27,10 @@ import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralCont
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
-import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCase
+import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -82,12 +80,10 @@ val netDataModule = module {
      */
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
-    singleOf(::UserDetailState) { bind<UserDetailState>() }
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
-    singleOf(::UserHistoryMembershipState) { bind<UserHistoryMembershipState>() }
     singleOf(::UserHistoryMembershipRepository) { bind<UserHistoryMembershipRepository>() }
     singleOf(::UserHistoryMembershipDataSource) { bind<UserHistoryMembershipDataSource>() }
     singleOf(::UserHistoryMembershipApiService) { bind<UserHistoryMembershipApiService>() }
@@ -100,6 +96,6 @@ val netDataModule = module {
     singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
     singleOf(::GeneralContentApiService) { bind<IGeneralContentApiService>() }
 
-    singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
+    singleOf(::AccountUseCase) { bind<AccountUseCase>() }
     singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
 }

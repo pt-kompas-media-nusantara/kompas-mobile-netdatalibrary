@@ -7,8 +7,6 @@ import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRep
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserDetailState
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.UserHistoryMembershipState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
@@ -16,8 +14,6 @@ import kotlinx.coroutines.coroutineScope
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
     private val userHistoryMembershipRepository: UserHistoryMembershipRepository,
-    private val userDetailState: UserDetailState,
-    private val userHistoryMembershipState: UserHistoryMembershipState,
 ) : IPersonalInfoUseCase {
 
     suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> {
@@ -48,23 +44,11 @@ class PersonalInfoUseCase(
     override suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         val result = userDetailRepository.getUserDetailOld()
 
-        if (result is Results.Success) {
-            val newDetail = result.data
-            if (userDetailState.userDetails.value != newDetail) {
-                userDetailState.update(newDetail)
-            }
-        }
         return result
     }
 
     override suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         val result = userHistoryMembershipRepository.getUserMembershipHistory()
-        if (result is Results.Success) {
-            val interceptor = result.data
-            if (userHistoryMembershipState.historyMembership.value != interceptor) {
-                userHistoryMembershipState.update(interceptor)
-            }
-        }
         return result
     }
 }

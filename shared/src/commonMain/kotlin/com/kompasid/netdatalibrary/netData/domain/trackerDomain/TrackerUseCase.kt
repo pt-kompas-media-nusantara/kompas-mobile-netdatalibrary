@@ -12,9 +12,6 @@ class TrackerUseCase(
     private var userDataHelper: UserDataHelper,
 ) {
 
-    suspend fun coba() {
-
-    }
 
     suspend fun pageViewed(openFromEntryPoint: OpenFromEntryPoint) {
         trackerManager.post(

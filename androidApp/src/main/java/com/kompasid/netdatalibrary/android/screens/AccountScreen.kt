@@ -12,10 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 // import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
 import com.kompasid.netdatalibrary.android.AppBackBar
+import com.kompasid.netdatalibrary.core.presentation.AccountVM
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
 fun AccountScreen(
+    vm: AccountVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
 
