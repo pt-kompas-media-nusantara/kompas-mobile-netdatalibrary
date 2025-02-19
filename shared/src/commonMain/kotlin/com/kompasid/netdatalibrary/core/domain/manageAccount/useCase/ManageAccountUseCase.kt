@@ -5,6 +5,8 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
+import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
+import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
@@ -17,8 +19,39 @@ import kotlinx.coroutines.coroutineScope
 class ManageAccountUseCase(
     private val userDetailRepository: UserDetailRepository,
     private val historyMembershipRepository: UserHistoryMembershipRepository,
-    private val myRubriksRepository: MyRubriksRepository
+    private val myRubriksRepository: MyRubriksRepository,
+    private val updateProfileRepository: UpdateProfileRepository
 ) : IManageAccountUseCase {
+
+//    data class User(val name: String, val age: Int)
+//
+//    fun main() {
+//        val userA = User("Alice", 25)
+//        val userB = userA.copy(age = 26)  // Membuat salinan dengan nilai yang diubah
+//
+//        println(userA)  // Output: User(name=Alice, age=25)
+//        println(userB)  // Output: User(name=Alice, age=26)
+//    }
+
+    suspend fun updateProfile(request: UpdateProfileRequest): Results<Unit, NetworkError> =
+        coroutineScope {
+            val updateProfileDeferred = async { updateProfileRepository.updateProfile(request) }
+
+            // Tunggu hasil update profile terlebih dahulu
+            when (val updateResult = updateProfileDeferred.await()) {
+                is Results.Success -> {
+                    val userDetailDeferred =
+                        async { userDetail() } // Jalankan userDetail() setelah update berhasil
+
+                    when (val userDetailResult = userDetailDeferred.await()) {
+                        is Results.Success -> Results.Success(Unit) // Jika kedua proses sukses, kembalikan Success(Unit)
+                        is Results.Error -> Results.Error(userDetailResult.error) // Jika userDetail gagal, return error dari userDetail
+                    }
+                }
+
+                is Results.Error -> Results.Error(updateResult.error) // Jika updateProfile gagal, langsung return error dari updateProfile
+            }
+        }
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return userDetailRepository.getUserDetailOld()
