@@ -34,12 +34,12 @@ class AccountUseCase(
     private val personalInfoResultState: PersonalInfoResultState
 ) {
 
-    init {
+
+    suspend fun onAppear() {
         personalInfoResultState.myAccountInformation()
         personalInfoResultState.userType()
     }
-
-
+    
     suspend fun accountMenus(): List<AccountModel> {
         return listOf(
             manageAccountData,
