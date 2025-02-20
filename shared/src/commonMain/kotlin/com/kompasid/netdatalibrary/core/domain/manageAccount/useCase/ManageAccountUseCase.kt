@@ -70,8 +70,6 @@ class ManageAccountUseCase(
         }
     }
 
-
-    // nurirppan_ : blm selesai
     suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
 
         coroutineScope {
