@@ -36,6 +36,24 @@ class PersonalInfoResultState(
     private val _username = MutableStateFlow("")
     val username: StateFlow<String> = _username.asStateFlow()
 
+    private val _city = MutableStateFlow("")
+    val city: StateFlow<String> = _city.asStateFlow()
+
+    private val _country = MutableStateFlow("")
+    val country: StateFlow<String> = _country.asStateFlow()
+
+    private val _dateBirth = MutableStateFlow("")
+    val dateBirth: StateFlow<String> = _dateBirth.asStateFlow()
+
+    private val _idGender = MutableStateFlow(0)
+    val idGender: StateFlow<Int> = _idGender.asStateFlow()
+
+    private val _phoneNumber = MutableStateFlow("")
+    val phoneNumber: StateFlow<String> = _phoneNumber.asStateFlow()
+
+    private val _province = MutableStateFlow("")
+    val province: StateFlow<String> = _province.asStateFlow()
+
     suspend fun update(data: List<PersonalInfoType>) {
         data.forEach { type ->
             when (type) {

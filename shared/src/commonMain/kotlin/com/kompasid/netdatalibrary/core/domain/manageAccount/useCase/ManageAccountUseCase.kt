@@ -6,12 +6,14 @@ import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepos
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
+import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileType
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.IManageAccountUseCase
+import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.PersonalInfoResultState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
@@ -20,25 +22,63 @@ class ManageAccountUseCase(
     private val userDetailRepository: UserDetailRepository, // buat usecase sendiri
     private val historyMembershipRepository: UserHistoryMembershipRepository,
     private val myRubriksRepository: MyRubriksRepository,
-    private val updateProfileRepository: UpdateProfileRepository
+    private val updateProfileRepository: UpdateProfileRepository,
+    private val personalInfoResultState: PersonalInfoResultState
 ) : IManageAccountUseCase {
 
-//    data class User(val name: String, val age: Int)
-//
-//    fun main() {
-//        val userA = User("Alice", 25)
-//        val userB = userA.copy(age = 26)  // Membuat salinan dengan nilai yang diubah
-//
-//        println(userA)  // Output: User(name=Alice, age=25)
-//        println(userB)  // Output: User(name=Alice, age=26)
-//    }
+    private suspend fun updateProfileRequest(type: UpdateProfileType): UpdateProfileRequest {
+        val defaultRequest = UpdateProfileRequest(
+            city = personalInfoResultState.city.value,
+            country = personalInfoResultState.country.value,
+            dateBirth = personalInfoResultState.dateBirth.value,
+            firstName = personalInfoResultState.firstName.value,
+            gender = personalInfoResultState.idGender.value,
+            lastName = personalInfoResultState.lastName.value,
+            phoneNumber = personalInfoResultState.phoneNumber.value,
+            province = personalInfoResultState.province.value,
+            userName = personalInfoResultState.username.value
+        )
+
+        // Gunakan copy untuk hanya mengubah field yang diperlukan
+        return when (type) {
+            is UpdateProfileType.Fullname -> defaultRequest.copy(
+                firstName = type.firstName,
+                lastName = type.lastName
+            )
+
+            is UpdateProfileType.Gender -> defaultRequest.copy(
+                gender = type.gender
+            )
+
+            is UpdateProfileType.DateBirth -> defaultRequest.copy(
+                dateBirth = type.dateBirth
+            )
+
+            is UpdateProfileType.Domicile -> defaultRequest.copy(
+                city = type.city,
+                province = type.province,
+                country = type.country
+            )
+
+            is UpdateProfileType.Email -> defaultRequest.copy(
+                userName = type.email
+            )
+
+            is UpdateProfileType.PhoneNumber -> defaultRequest.copy(
+                phoneNumber = type.phoneNumber
+            )
+        }
+    }
+
 
     // nurirppan_ : blm selesai
-    suspend fun updateProfile(request: UpdateProfileRequest): Results<Unit, NetworkError> =
+    suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
+
         coroutineScope {
+            val request = updateProfileRequest(type)
+
             val updateProfileDeferred = async { updateProfileRepository.updateProfile(request) }
 
-            // Tunggu hasil update profile terlebih dahulu
             when (val updateResult = updateProfileDeferred.await()) {
                 is Results.Success -> {
                     val userDetailDeferred =
@@ -104,3 +144,5 @@ class ManageAccountUseCase(
 //    println("History Membership: $historyMembership")
 //    println("My Rubriks: $myRubriks")
 //}
+
+
