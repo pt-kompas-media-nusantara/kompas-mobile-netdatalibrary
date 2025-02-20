@@ -21,6 +21,7 @@ import com.kompasid.netdatalibrary.core.domain.account.data.qnaData
 import com.kompasid.netdatalibrary.core.domain.account.data.rewardData
 import com.kompasid.netdatalibrary.core.domain.account.data.settingData
 import com.kompasid.netdatalibrary.core.domain.account.data.signOutData
+import com.kompasid.netdatalibrary.core.domain.account.data.subcriptionData
 import com.kompasid.netdatalibrary.core.domain.account.data.termsConditionsData
 import com.kompasid.netdatalibrary.core.domain.account.data.themeData
 import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
@@ -29,21 +30,33 @@ import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.Personal
 import kotlinx.coroutines.coroutineScope
 
 
-class AccountUseCase {
+class AccountUseCase(
+    private val personalInfoResultState: PersonalInfoResultState
+) {
 
 
     suspend fun accountMenus(): List<AccountModel> {
-        return listOf(
-            manageAccountData,
-            bookmarkData,
-            rewardData,
-            settingData,
-            contactUsData,
-            qnaData,
-            aboutAppData,
-            aboutHarianKompasData,
-        )
+        return buildList {
+            add(manageAccountData)
+
+            if (personalInfoResultState.userType.value != StateUserType.SUBER) {
+                add(subcriptionData)
+            }
+
+            addAll(
+                listOf(
+                    bookmarkData,
+                    rewardData,
+                    settingData,
+                    contactUsData,
+                    qnaData,
+                    aboutAppData,
+                    aboutHarianKompasData
+                )
+            )
+        }
     }
+
 
     suspend fun aboutHarianKompasMenus(): List<AccountModel> {
         return listOf(

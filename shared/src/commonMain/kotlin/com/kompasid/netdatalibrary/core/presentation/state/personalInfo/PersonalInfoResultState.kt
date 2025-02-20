@@ -138,3 +138,27 @@ class PersonalInfoResultState(
     }
 }
 
+class DeviceInfoResultState(
+    private val settingsUseCase: SettingsUseCase
+) {
+    private var _originalIdTransaksi = MutableStateFlow("")
+    val originalIdTransaksi: StateFlow<String> = _originalIdTransaksi.asStateFlow()
+
+    private var _idTransaksi = MutableStateFlow("")
+    val idTransaksi: StateFlow<String> = _idTransaksi.asStateFlow()
+
+    private var _deviceType = MutableStateFlow("")
+    val deviceType: StateFlow<String> = _deviceType.asStateFlow()
+
+    private var _osVersion = MutableStateFlow("")
+    val osVersion: StateFlow<String> = _osVersion.asStateFlow()
+
+    private var _currentAppVersion = MutableStateFlow("")
+    val currentAppVersion: StateFlow<String> = _currentAppVersion.asStateFlow()
+
+    private var _newAppVersion = MutableStateFlow("")
+    val newAppVersion: StateFlow<String> = _newAppVersion.asStateFlow()
+
+    private var _historyTransaction = MutableStateFlow("")
+    val historyTransaction: StateFlow<String> = _historyTransaction.asStateFlow()
+}
