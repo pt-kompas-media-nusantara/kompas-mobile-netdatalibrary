@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SaveMyRubrikRequest(
-    @SerialName("type")
+    @SerialName("type") // nurirppan_ : ini hardcode aja dari kmp
     val type: String,
     @SerialName("userRubriks")
     val userRubriks: List<UserRubrikRequest>

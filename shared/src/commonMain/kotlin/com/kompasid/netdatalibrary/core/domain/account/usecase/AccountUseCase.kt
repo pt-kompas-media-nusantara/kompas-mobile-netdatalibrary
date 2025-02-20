@@ -25,45 +25,20 @@ import com.kompasid.netdatalibrary.core.domain.account.data.termsConditionsData
 import com.kompasid.netdatalibrary.core.domain.account.data.themeData
 import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.PersonalInfoResultState
+import kotlinx.coroutines.coroutineScope
 
 
 class AccountUseCase(
-    private val settingsUseCase: SettingsUseCase
+    private val settingsUseCase: SettingsUseCase,
+    private val personalInfoResultState: PersonalInfoResultState
 ) {
 
-    suspend fun userType(): StateUserType {
-        val email = settingsUseCase.getStringDataSource(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
-        val stateMembership = settingsUseCase.getStringDataSource(KeySettingsType.ACTIVE_MEMBERSHIP) // Aktif Berlangganan
-        // val stateGracePeriod = settingsUseCase.getBooleanDataSource(KeySettingsType.GRACE_PERIOD_MEMBERSHIP) // false | nurirppan_: kalau grace periode >0 harusnya apa ?
-
-        if (email.isEmpty()) {
-            return StateUserType.ANON
-        } else if (email.isNotEmpty() && stateMembership.lowercase() == "tidak berlangganan") {
-            return StateUserType.REGON
-        } else {
-            return StateUserType.SUBER
-        }
+    init {
+        personalInfoResultState.myAccountInformation()
+        personalInfoResultState.userType()
     }
 
-    suspend fun myAccountInformation(): MyAccountInformationModel {
-        val firstName = settingsUseCase.getStringDataSource(KeySettingsType.FIRST_NAME) // Nurirp
-        val lastName = settingsUseCase.getStringDataSource(KeySettingsType.LAST_NAME) // Pangestu
-        val dateExpired =
-            settingsUseCase.getStringDataSource(KeySettingsType.EXPIRED_MEMBERSHIP) // 21 Jan 2022 - 18 Feb 2038
-        val stateMembership =
-            settingsUseCase.getStringDataSource(KeySettingsType.ACTIVE_MEMBERSHIP) // Aktif Berlangganan
-
-        val strings = listOf(firstName, lastName) // Output: "NP"
-        val idUserName = strings.joinToString(separator = "") { it.firstOrNull()?.toString() ?: "" }
-
-        return MyAccountInformationModel(
-            idUserName,
-            firstName,
-            lastName,
-            dateExpired,
-            stateMembership
-        )
-    }
 
     suspend fun accountMenus(): List<AccountModel> {
         return listOf(

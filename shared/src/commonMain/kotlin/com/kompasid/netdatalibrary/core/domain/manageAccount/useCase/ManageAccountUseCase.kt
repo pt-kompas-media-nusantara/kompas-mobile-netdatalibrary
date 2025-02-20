@@ -17,7 +17,7 @@ import kotlinx.coroutines.coroutineScope
 
 
 class ManageAccountUseCase(
-    private val userDetailRepository: UserDetailRepository,
+    private val userDetailRepository: UserDetailRepository, // buat usecase sendiri
     private val historyMembershipRepository: UserHistoryMembershipRepository,
     private val myRubriksRepository: MyRubriksRepository,
     private val updateProfileRepository: UpdateProfileRepository
@@ -33,6 +33,7 @@ class ManageAccountUseCase(
 //        println(userB)  // Output: User(name=Alice, age=26)
 //    }
 
+    // nurirppan_ : blm selesai
     suspend fun updateProfile(request: UpdateProfileRequest): Results<Unit, NetworkError> =
         coroutineScope {
             val updateProfileDeferred = async { updateProfileRepository.updateProfile(request) }

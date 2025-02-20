@@ -37,6 +37,7 @@ class MyRubriksRepository(
         }
     }
 
+    // nurirppan_ : harus concurency, reza langsung ubah di model existing native yang di tampilkan di list (bukan pakai variable penampung)
     override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> {
         return when (val result = myRubriksApiService.saveMyRubriks(request)) {
             is ApiResults.Success -> {
