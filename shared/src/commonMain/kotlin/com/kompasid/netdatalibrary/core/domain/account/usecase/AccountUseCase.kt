@@ -29,17 +29,9 @@ import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.Personal
 import kotlinx.coroutines.coroutineScope
 
 
-class AccountUseCase(
-    private val settingsUseCase: SettingsUseCase,
-    private val personalInfoResultState: PersonalInfoResultState
-) {
+class AccountUseCase {
 
 
-    suspend fun onAppear() {
-        personalInfoResultState.myAccountInformation()
-        personalInfoResultState.userType()
-    }
-    
     suspend fun accountMenus(): List<AccountModel> {
         return listOf(
             manageAccountData,

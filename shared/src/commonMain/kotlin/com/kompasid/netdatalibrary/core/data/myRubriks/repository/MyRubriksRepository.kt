@@ -9,6 +9,9 @@ import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiServi
 import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksResultState
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
+import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 
 
 class MyRubriksRepository(
@@ -37,19 +40,22 @@ class MyRubriksRepository(
         }
     }
 
-    // nurirppan_ : harus concurency, reza langsung ubah di model existing native yang di tampilkan di list (bukan pakai variable penampung)
-    override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> {
-        return when (val result = myRubriksApiService.saveMyRubriks(request)) {
-            is ApiResults.Success -> {
-                when (val refreshResult = getMyRubriks()) {
-                    is Results.Success -> Results.Success(Unit) // Jika update berhasil, return success
-                    is Results.Error -> Results.Error(refreshResult.error) // Ambil error langsung dari getMyRubriks()
-                }
-            }
+    override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> =
+        coroutineScope {
+            val saveResult = myRubriksApiService.saveMyRubriks(request)
 
-            is ApiResults.Error -> Results.Error(result.error) // Jika penyimpanan gagal, return error dari save API
+            when (saveResult) {
+                is ApiResults.Success -> {
+                    val refreshDeferred = async { getMyRubriks() }
+                    when (val refreshResult = refreshDeferred.await()) {
+                        is Results.Success -> Results.Success(Unit) // Jika keduanya sukses
+                        is Results.Error -> Results.Error(refreshResult.error) // Jika refresh gagal, return error dari getMyRubriks()
+                    }
+                }
+
+                is ApiResults.Error -> Results.Error(saveResult.error) // Jika penyimpanan gagal, langsung return error
+            }
         }
-    }
 
 
 }

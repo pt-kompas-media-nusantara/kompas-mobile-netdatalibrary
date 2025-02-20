@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+// nurirpppan_ : ini harusnya reactive
+//settingsUseCase.getStringDataSource(KeySettingsType.EXPIRED_MEMBERSHIP) pakai didset untuk langsung set ke property
 class PersonalInfoResultState(
     private val settingsUseCase: SettingsUseCase
 ) {
