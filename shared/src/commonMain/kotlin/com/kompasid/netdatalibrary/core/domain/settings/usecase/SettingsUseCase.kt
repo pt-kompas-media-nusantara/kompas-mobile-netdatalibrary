@@ -2,32 +2,35 @@ package com.kompasid.netdatalibrary.core.domain.settings.usecase
 
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class SettingsUseCase(
     private val settingsHelper: SettingsHelper
 ) {
 
-    suspend fun <T> save(key: KeySettingsType, value: T) {
-        val result = settingsHelper.save(key, value)
+    fun <T> save(key: KeySettingsType, value: T) {
+        settingsHelper.save(key, value)
     }
 
-    private suspend fun <T> getValue(type: KeySettingsType, default: T): T {
+    private fun <T> getValue(type: KeySettingsType, default: T): T {
         return settingsHelper.load(type, default)
     }
 
-    suspend fun remove(key: KeySettingsType) {
+    fun remove(key: KeySettingsType) {
         settingsHelper.remove(key)
     }
 
-    suspend fun removeAll() {
+    fun removeAll() {
         settingsHelper.removeAll()
     }
 
-    suspend fun getString(type: KeySettingsType): String = getValue(type, "")
-    suspend fun getBoolean(type: KeySettingsType): Boolean = getValue(type, false)
-    suspend fun getInt(type: KeySettingsType): Int = getValue(type, 0)
+    fun getString(type: KeySettingsType): String = getValue(type, "")
+    fun getBoolean(type: KeySettingsType): Boolean = getValue(type, false)
+    fun getInt(type: KeySettingsType): Int = getValue(type, 0)
 
-    suspend fun loadAllSettings() {
+
+    fun loadAllSettings() {
         val keySettings = listOf(
             KeySettingsType.ACCESS_TOKEN,
             KeySettingsType.REFRESH_TOKEN,
@@ -57,5 +60,12 @@ class SettingsUseCase(
             settingsHelper.load(key, "")
         }
     }
+
+
+    // Public StateFlow untuk pemantauan perubahan
+    fun observeString(key: KeySettingsType): StateFlow<String?> {
+        return settingsHelper.observeString(key)
+    }
 }
+
 

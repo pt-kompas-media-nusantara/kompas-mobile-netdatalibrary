@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 class LaunchAppUseCase(
     private val settingsUseCase: SettingsUseCase
 ) {
-    suspend fun execute(data: LaunchAppModel) {
+    fun execute(data: LaunchAppModel) {
         settingsUseCase.save(KeySettingsType.FLAVORS, data.flavors)
         settingsUseCase.save(KeySettingsType.ORIGINAL_TRANSACTION_ID, data.originalTransactionId)
         settingsUseCase.save(KeySettingsType.TRANSACTION_ID, data.transactionId)

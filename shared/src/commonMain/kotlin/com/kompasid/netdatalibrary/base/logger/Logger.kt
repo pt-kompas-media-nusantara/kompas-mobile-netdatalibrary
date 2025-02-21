@@ -8,39 +8,39 @@ import kotlinx.datetime.toLocalDateTime
 // Logger object untuk mencetak log dengan kategori yang disederhanakan
 object Logger {
 
-    suspend fun info(tag: String? = null, message: () -> String) {
+    fun info(tag: String? = null, message: () -> String) {
         Napier.i(tag = tag) { formatMessage(LoggerType.INFO, message()) }
     }
 
-    suspend fun error(tag: String? = null, message: () -> String) {
+    fun error(tag: String? = null, message: () -> String) {
         Napier.e(tag = tag) { formatMessage(LoggerType.ERROR, message()) }
     }
 
-    suspend fun warning(tag: String? = null, message: () -> String) {
+    fun warning(tag: String? = null, message: () -> String) {
         Napier.w(tag = tag) { formatMessage(LoggerType.WARNING, message()) }
     }
 
-    suspend fun debug(tag: String? = null, message: () -> String) {
+    fun debug(tag: String? = null, message: () -> String) {
         Napier.d(tag = tag) { formatMessage(LoggerType.DEBUG, message()) }
     }
 
-    suspend fun notification(tag: String? = null, message: () -> String) {
+    fun notification(tag: String? = null, message: () -> String) {
         Napier.i(tag = tag) { formatMessage(LoggerType.NOTIFICATION, message()) }
     }
 
-    suspend fun url(tag: String? = null, message: () -> String) {
+    fun url(tag: String? = null, message: () -> String) {
         Napier.d(tag = tag) { formatMessage(LoggerType.URL, message()) }
     }
 
-    suspend fun response(tag: String? = null, message: () -> String) {
+    fun response(tag: String? = null, message: () -> String) {
         Napier.d(tag = tag) { formatMessage(LoggerType.RESPONSE, message()) }
     }
 
-    private suspend fun formatMessage(type: LoggerType, message: String): String {
+    private fun formatMessage(type: LoggerType, message: String): String {
         return "[${getCurrentTime()}] ${type.label} : $message"
     }
 
-    private suspend fun getCurrentTime(): String {
+    private fun getCurrentTime(): String {
         val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         return "${now.year}-${now.monthNumber}-${now.dayOfMonth} ${now.hour}:${now.minute}:${now.second}"
     }

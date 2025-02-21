@@ -2,7 +2,6 @@ package com.kompasid.netdatalibrary.core.domain.aboutApp.resultState
 
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AboutAppModel
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AppInfoModel
-import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.DeviceInfoResultState
 import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
 import com.kompasid.netdatalibrary.utilities.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,8 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class AboutAppResultState(
-    private val personalInfoResultState: PersonalInfoResultState,
-    private val deviceInfoResultState: DeviceInfoResultState
+    private val personalInfoResultState: PersonalInfoResultState
 ) {
     private val _guid = MutableStateFlow<String>("")
     var guid: StateFlow<String> = _guid.asStateFlow()

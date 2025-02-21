@@ -10,8 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.android.LaunchAppVM
-import com.kompasid.netdatalibrary.core.presentation.AccountVM
+import com.kompasid.netdatalibrary.core.presentation.LaunchAppVM
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -34,9 +33,17 @@ fun LaunchAppScreen(
         HorizontalDivider()
 
         FilledButton("execute", {
-            vm.scope.launch {
-                vm.execute()
-            }
+            vm.execute()
+//            vm.scope.launch {
+//                vm.execute()
+//            }
+        })
+
+        FilledButton("load execute", {
+            vm.load()
+//            vm.scope.launch {
+//                vm.load()
+//            }
         })
 
     }
