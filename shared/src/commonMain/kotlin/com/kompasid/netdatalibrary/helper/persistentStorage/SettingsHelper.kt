@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.base.persistentStorage
+package com.kompasid.netdatalibrary.helper.persistentStorage
 
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.russhwolf.settings.Settings
@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 @Suppress("UNCHECKED_CAST")
-class SettingsDataSource(private val settings: Settings) {
+class SettingsHelper(private val settings: Settings) {
 
     // StateFlow untuk data reaktif
     private val _stringFlowMap: MutableMap<String, MutableStateFlow<String?>> = mutableMapOf()
@@ -16,7 +16,7 @@ class SettingsDataSource(private val settings: Settings) {
         mutableMapOf()
 
     // Function to save generic value with StateFlow update
-    fun <T> save(key: KeySettingsType, value: T) {
+    suspend fun <T> save(key: KeySettingsType, value: T) {
         when (value) {
             is String -> {
                 settings.putString(key.key, value)
@@ -65,7 +65,7 @@ class SettingsDataSource(private val settings: Settings) {
     }
 
     // Function to load generic value
-    fun <T> load(key: KeySettingsType, defaultValue: T): T {
+    suspend fun <T> load(key: KeySettingsType, defaultValue: T): T {
         return when (defaultValue) {
             is String -> {
                 val flow = getStringFlow(key)
@@ -117,7 +117,7 @@ class SettingsDataSource(private val settings: Settings) {
     }
 
     // Function to remove a value
-    fun remove(key: KeySettingsType) {
+    suspend fun remove(key: KeySettingsType) {
         settings.remove(key.key)
         // Mengupdate StateFlow dengan null
         _stringFlowMap[key.key]?.update {
@@ -135,7 +135,7 @@ class SettingsDataSource(private val settings: Settings) {
     }
 
     // Function to remove all values
-    fun removeAll() {
+    suspend fun removeAll() {
         settings.clear()
         _stringFlowMap.values.forEach {
             it.update {
@@ -158,7 +158,7 @@ class SettingsDataSource(private val settings: Settings) {
     }
 
     // Mengambil StateFlow untuk String
-    fun getStringFlow(key: KeySettingsType): MutableStateFlow<String?> {
+    private suspend fun getStringFlow(key: KeySettingsType): MutableStateFlow<String?> {
         return _stringFlowMap.getOrPut(key.key) {
             val value = settings.getStringOrNull(key.key)
             Logger.debug { "Initialized ${key.key} with: $value" }
@@ -167,7 +167,7 @@ class SettingsDataSource(private val settings: Settings) {
     }
 
     // Mengambil StateFlow untuk Int
-    fun getIntFlow(key: KeySettingsType): MutableStateFlow<Int?> {
+    private suspend fun getIntFlow(key: KeySettingsType): MutableStateFlow<Int?> {
         return _intFlowMap.getOrPut(key.key) {
             val value = settings.getIntOrNull(key.key)
             Logger.debug { "Initialized ${key.key} with: $value" }
@@ -176,7 +176,7 @@ class SettingsDataSource(private val settings: Settings) {
     }
 
     // Mengambil StateFlow untuk Boolean
-    fun getBooleanFlow(key: KeySettingsType): MutableStateFlow<Boolean?> {
+    private suspend fun getBooleanFlow(key: KeySettingsType): MutableStateFlow<Boolean?> {
         return _booleanFlowMap.getOrPut(key.key) {
             val value = settings.getBooleanOrNull(key.key)
             Logger.debug { "Initialized ${key.key} with: $value" }
@@ -184,7 +184,7 @@ class SettingsDataSource(private val settings: Settings) {
         }
     }
 
-    fun getStringListFlow(key: KeySettingsType): MutableStateFlow<List<String>?> {
+    private suspend fun getStringListFlow(key: KeySettingsType): MutableStateFlow<List<String>?> {
         return _stringListFlowMap.getOrPut(key.key) {
             // Ambil string yang dipisahkan koma dari settings
             val value = settings.getString(key.key, "")
@@ -198,3 +198,4 @@ class SettingsDataSource(private val settings: Settings) {
         }
     }
 }
+

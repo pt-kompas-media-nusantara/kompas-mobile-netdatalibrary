@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.base.persistentStorage
+package com.kompasid.netdatalibrary.helper.persistentStorage
 
 enum class KeySettingsType(val key: String) {
     ACCESS_TOKEN("ACCESS_TOKEN"),
@@ -31,4 +31,13 @@ enum class KeySettingsType(val key: String) {
     EXPIRED_MEMBERSHIPS("EXPIRED_MEMBERSHIPS"),
     ACTIVE_MEMBERSHIPS("ACTIVE_MEMBERSHIPS"),
     MY_RUBRIKS("MY_RUBRIKS"),
+    FLAVORS("FLAVORS"),
+    ORIGINAL_TRANSACTION_ID("ORIGINAL_TRANSACTION_ID"),
+    TRANSACTION_ID("TRANSACTION_ID"),
+    DEVICE_TYPE("DEVICE_TYPE"),
+    OS_VERSION("OS_VERSION"),
+    CURRENT_VERSION_APP("CURRENT_VERSION_APP"),
+    NEW_VERSION_APP("NEW_VERSION_APP"),
+    HISTORY_TRANSACTION("HISTORY_TRANSACTION"),
+    IS_DEBUG("IS_DEBUG"),
 }

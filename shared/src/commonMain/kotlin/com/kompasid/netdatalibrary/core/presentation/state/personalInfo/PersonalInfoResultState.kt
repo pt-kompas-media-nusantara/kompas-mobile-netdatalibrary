@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.core.presentation.state.personalInfo
 
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 import com.kompasid.netdatalibrary.core.domain.account.model.MyAccountInformationModel
 import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 // nurirpppan_ : ini harusnya reactive
-//settingsUseCase.getStringDataSource(KeySettingsType.EXPIRED_MEMBERSHIP) pakai didset untuk langsung set ke property
+//settingsUseCase.getString(KeySettingsType.EXPIRED_MEMBERSHIP) pakai didset untuk langsung set ke property
 class PersonalInfoResultState(
     private val settingsUseCase: SettingsUseCase
 ) {
@@ -59,7 +59,7 @@ class PersonalInfoResultState(
             when (type) {
                 PersonalInfoType.EMAIL -> {
                     val value =
-                        settingsUseCase.getStringDataSource(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
+                        settingsUseCase.getString(KeySettingsType.EMAIL) // kompastesting16@yopmail.com
                     if (value != _email.value) {
                         _email.value = value
                     }
@@ -67,7 +67,7 @@ class PersonalInfoResultState(
 
                 PersonalInfoType.ACTIVE_MEMBERSHIP -> {
                     val value =
-                        settingsUseCase.getStringDataSource(KeySettingsType.ACTIVE_MEMBERSHIP) // Aktif Berlangganan
+                        settingsUseCase.getString(KeySettingsType.ACTIVE_MEMBERSHIP) // Aktif Berlangganan
                     if (value != _stateMembership.value) {
                         _stateMembership.value = value
                     }
@@ -75,7 +75,7 @@ class PersonalInfoResultState(
 
                 PersonalInfoType.FIRST_NAME -> {
                     val value =
-                        settingsUseCase.getStringDataSource(KeySettingsType.FIRST_NAME) // Nurirp
+                        settingsUseCase.getString(KeySettingsType.FIRST_NAME) // Nurirp
                     if (value != _firstName.value) {
                         _firstName.value = value
                     }
@@ -83,7 +83,7 @@ class PersonalInfoResultState(
 
                 PersonalInfoType.LAST_NAME -> {
                     val value =
-                        settingsUseCase.getStringDataSource(KeySettingsType.LAST_NAME) // Pangestu
+                        settingsUseCase.getString(KeySettingsType.LAST_NAME) // Pangestu
                     if (value != _lastName.value) {
                         _lastName.value = value
                     }
@@ -91,7 +91,7 @@ class PersonalInfoResultState(
 
                 PersonalInfoType.EXPIRED_MEMBERSHIP -> {
                     val value =
-                        settingsUseCase.getStringDataSource(KeySettingsType.EXPIRED_MEMBERSHIP) // 21 Jan 2022 - 18 Feb 2038
+                        settingsUseCase.getString(KeySettingsType.EXPIRED_MEMBERSHIP) // 21 Jan 2022 - 18 Feb 2038
                     if (value != _dateExpired.value) {
                         _dateExpired.value = value
                     }

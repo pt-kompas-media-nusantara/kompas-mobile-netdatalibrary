@@ -1,25 +1,31 @@
 package com.kompasid.netdatalibrary.core.domain.settings.usecase
 
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 class SettingsUseCase(
-    private val settingsDataSource: SettingsDataSource
+    private val settingsHelper: SettingsHelper
 ) {
 
-    suspend fun getStringDataSource(type: KeySettingsType): String {
-        val result = settingsDataSource.load(type, "")
-        return result
+    suspend fun <T> save(key: KeySettingsType, value: T) {
+        val result = settingsHelper.save(key, value)
     }
 
-    suspend fun getBooleanDataSource(type: KeySettingsType): Boolean {
-        val result = settingsDataSource.load(type, false)
-        return result
+    suspend fun <T> getValue(type: KeySettingsType, default: T): T {
+        return settingsHelper.load(type, default)
     }
 
-    suspend fun loadAccessToken() {
-        settingsDataSource.load(KeySettingsType.ACCESS_TOKEN, "")
+    suspend fun remove(key: KeySettingsType) {
+        settingsHelper.remove(key)
     }
+
+    suspend fun removeAll() {
+        settingsHelper.removeAll()
+    }
+
+    suspend fun getString(type: KeySettingsType): String = getValue(type, "")
+    suspend fun getBoolean(type: KeySettingsType): Boolean = getValue(type, false)
+    suspend fun getInt(type: KeySettingsType): Int = getValue(type, 0)
 
     suspend fun loadAllSettings() {
         val keySettings = listOf(
@@ -48,7 +54,7 @@ class SettingsUseCase(
         )
 
         keySettings.forEach { key ->
-            settingsDataSource.load(key, "")
+            settingsHelper.load(key, "")
         }
     }
 }

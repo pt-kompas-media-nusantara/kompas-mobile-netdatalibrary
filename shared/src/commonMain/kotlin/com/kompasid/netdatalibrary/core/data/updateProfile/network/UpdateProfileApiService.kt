@@ -4,19 +4,14 @@ import com.kompasid.netdatalibrary.base.network.ApiConfig
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
-import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
-import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.OldMyRubriksResponse
-import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.SaveMyRubrikResponse
-import com.kompasid.netdatalibrary.core.data.myRubriks.network.IMyRubriksApiService
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.response.UpdateProfileResponse
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.bearerAuth
-import io.ktor.client.request.get
-import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
@@ -26,7 +21,7 @@ import io.ktor.http.contentType
 
 class UpdateProfileApiService(
     private val httpClient: HttpClient,
-    private val settingsDataSource: SettingsDataSource
+    private val settingsUseCase: SettingsUseCase
 ) : IUpdateProfileApiService {
 
     override suspend fun updateProfile(request: UpdateProfileRequest): ApiResults<UpdateProfileResponse, NetworkError> {
@@ -36,7 +31,7 @@ class UpdateProfileApiService(
                 accept(ContentType.Application.Json)
                 setBody(request)
                 bearerAuth(
-                    settingsDataSource.getStringFlow(KeySettingsType.ACCESS_TOKEN).value ?: ""
+                    settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
                 )
             }
         }

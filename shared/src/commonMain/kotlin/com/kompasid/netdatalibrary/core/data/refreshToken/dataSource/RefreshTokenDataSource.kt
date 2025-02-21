@@ -1,23 +1,24 @@
 package com.kompasid.netdatalibrary.core.data.refreshToken.dataSource
 
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 class RefreshTokenDataSource(
-    private val settingsDataSource: SettingsDataSource
+    private val settingsUseCase: SettingsUseCase
 ) {
-    fun save(
+    suspend fun save(
         accessToken: String,
         refreshToken: String,
         isVerified: Boolean,
         deviceKeyId: String,
         isSocial: Boolean
     ) {
-        settingsDataSource.save(KeySettingsType.ACCESS_TOKEN, accessToken)
-        settingsDataSource.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
-        settingsDataSource.save(KeySettingsType.IS_VERIFIED, isVerified)
-        settingsDataSource.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
-        settingsDataSource.save(KeySettingsType.IS_SOCIAL, isSocial)
+        settingsUseCase.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+        settingsUseCase.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+        settingsUseCase.save(KeySettingsType.IS_VERIFIED, isVerified)
+        settingsUseCase.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
+        settingsUseCase.save(KeySettingsType.IS_SOCIAL, isSocial)
 
     }
 }

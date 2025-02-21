@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.core.domain.account.usecase
 
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.core.domain.account.model.AccountModel
 import com.kompasid.netdatalibrary.core.domain.account.model.MyAccountInformationModel
 import com.kompasid.netdatalibrary.core.domain.account.data.aboutAppData

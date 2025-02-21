@@ -1,13 +1,14 @@
 package com.kompasid.netdatalibrary.core.data.loginGuest.dataSource
 
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 class LoginGuestDataSource(
-    private val settingsDataSource: SettingsDataSource
+    private val settingsUseCase: SettingsUseCase
 ) {
-    fun save(accessToken: String, refreshToken: String) {
-        settingsDataSource.save(KeySettingsType.ACCESS_TOKEN, accessToken)
-        settingsDataSource.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+    suspend fun save(accessToken: String, refreshToken: String) {
+        settingsUseCase.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+        settingsUseCase.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
     }
 }

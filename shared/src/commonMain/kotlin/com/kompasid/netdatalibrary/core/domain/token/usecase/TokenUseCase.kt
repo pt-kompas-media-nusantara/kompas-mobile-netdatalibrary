@@ -4,31 +4,31 @@ import com.kompasid.netdatalibrary.base.DecodeJWT
 import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshTokenRepository
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 
 class TokenUseCase(
-    private val settingsDataSource: SettingsDataSource,
+    private val settingsUseCase: SettingsUseCase,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val loginGuestRepository: LoginGuestRepository,
     private val jwt: DecodeJWT,
 ) {
 
     suspend fun getValidToken(): Results<String, NetworkError> {
-        var accessToken = loadAccessToken()
+        var accessToken = settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
 
         if (accessToken.isEmpty()) {
             val loginResult = handleLoginGuest()
             if (loginResult is Results.Error) return loginResult
-            accessToken = loadAccessToken()
+            accessToken = settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
         }
 
         // Cek apakah token sudah kedaluwarsa
         if (jwt.isTokenExpired(accessToken)) {
             val refreshResult = handleRefreshToken()
             if (refreshResult is Results.Error) return refreshResult
-            accessToken = loadAccessToken()
+            accessToken = settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
         }
 
         // Kembalikan token yang valid
@@ -50,7 +50,7 @@ class TokenUseCase(
         return when (val result = refreshTokenRepository.postRefreshToken()) {
             is Results.Error -> {
                 handleError(result.error)
-                settingsDataSource.removeAll()
+                settingsUseCase.removeAll()
                 Results.Error(result.error)
             }
 
@@ -58,12 +58,8 @@ class TokenUseCase(
         }
     }
 
-    private suspend fun loadAccessToken(): String {
-        return settingsDataSource.load(KeySettingsType.ACCESS_TOKEN, "")
-    }
-
     private suspend fun handleError(error: NetworkError): Results.Error<NetworkError> {
-        settingsDataSource.removeAll()
+        settingsUseCase.removeAll()
         return Results.Error(error)
     }
 

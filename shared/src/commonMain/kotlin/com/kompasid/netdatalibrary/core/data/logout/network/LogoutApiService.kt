@@ -5,8 +5,9 @@ import com.kompasid.netdatalibrary.core.data.logout.dto.request.LogoutRequest
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.post
@@ -17,13 +18,13 @@ import io.ktor.http.contentType
 
 class LogoutApiService(
     private val httpClient: HttpClient,
-    private val settingsDataSource: SettingsDataSource,
+    private val settingsUseCase: SettingsUseCase,
 ) : ILogoutApiService {
     override suspend fun postLogout(): ApiResults<Unit, NetworkError> {
         return safeCall<Unit> {
 
             val request = LogoutRequest(
-                settingsDataSource.load(KeySettingsType.REFRESH_TOKEN, "")
+                settingsUseCase.getString(KeySettingsType.REFRESH_TOKEN)
             )
 
             httpClient.post(ApiConfig.LOGOUT_URL) {

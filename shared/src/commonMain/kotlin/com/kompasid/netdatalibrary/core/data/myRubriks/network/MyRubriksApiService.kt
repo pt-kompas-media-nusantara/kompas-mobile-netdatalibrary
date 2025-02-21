@@ -4,11 +4,12 @@ import com.kompasid.netdatalibrary.base.network.ApiConfig
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
-import com.kompasid.netdatalibrary.base.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.OldMyRubriksResponse
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.SaveMyRubrikResponse
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.bearerAuth
@@ -21,7 +22,7 @@ import io.ktor.http.contentType
 
 class MyRubriksApiService(
     private val httpClient: HttpClient,
-    private val settingsDataSource: SettingsDataSource
+    private val settingsUseCase: SettingsUseCase
 ) : IMyRubriksApiService {
     override suspend fun getRubrikList(): ApiResults<OldMyRubriksResponse, NetworkError> {
         return safeCall<OldMyRubriksResponse> {
@@ -29,7 +30,7 @@ class MyRubriksApiService(
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
                 bearerAuth(
-                    settingsDataSource.getStringFlow(KeySettingsType.ACCESS_TOKEN).value ?: ""
+                    settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
                 )
             }
         }
@@ -42,7 +43,7 @@ class MyRubriksApiService(
                 accept(ContentType.Application.Json)
                 setBody(request)
                 bearerAuth(
-                    settingsDataSource.getStringFlow(KeySettingsType.ACCESS_TOKEN).value ?: ""
+                    settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
                 )
             }
         }

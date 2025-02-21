@@ -1,12 +1,13 @@
 package com.kompasid.netdatalibrary.core.data.logout.dataSource
 
-import com.kompasid.netdatalibrary.base.persistentStorage.SettingsDataSource
+import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 
 class LogoutDataSource(
-    private val settingsDataSource: SettingsDataSource
+    private val settingsUseCase: SettingsUseCase
 ) {
-    fun logout() {
-        settingsDataSource.removeAll()
+    suspend fun logout() {
+        settingsUseCase.removeAll()
     }
 }
