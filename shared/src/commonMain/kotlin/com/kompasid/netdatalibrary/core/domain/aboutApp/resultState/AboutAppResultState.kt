@@ -2,8 +2,8 @@ package com.kompasid.netdatalibrary.core.domain.aboutApp.resultState
 
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AboutAppModel
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AppInfoModel
-import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.DeviceInfoResultState
-import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.PersonalInfoResultState
+import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.DeviceInfoResultState
+import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
 import com.kompasid.netdatalibrary.utilities.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -78,7 +78,7 @@ class AboutAppResultState(
     private val _flavors = MutableStateFlow<String>("")
     var flavors: StateFlow<String> = _flavors.asStateFlow()
 
-    fun onAppear(): AboutAppModel {
+    suspend fun execute(): AboutAppModel {
         return AboutAppModel(
             "${currentVersionApp.value} - Kompas.id ${flavors.value}",
             Constants.aboutAppContent,

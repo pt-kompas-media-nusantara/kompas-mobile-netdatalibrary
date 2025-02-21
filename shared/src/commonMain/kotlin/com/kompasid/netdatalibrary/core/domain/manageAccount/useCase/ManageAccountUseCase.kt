@@ -13,7 +13,7 @@ import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRep
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.IManageAccountUseCase
-import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.PersonalInfoResultState
+import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 

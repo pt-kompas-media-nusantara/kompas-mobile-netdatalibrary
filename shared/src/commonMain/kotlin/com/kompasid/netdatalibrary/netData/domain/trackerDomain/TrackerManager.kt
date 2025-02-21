@@ -11,12 +11,12 @@ object TrackerManager {
         mutableListOf<(eventName: EventName, eventProperty: Map<String, Any>) -> Unit>()
 
     // Mendaftarkan listener
-    fun register(listener: (eventName: EventName, eventProperty: Map<String, Any>) -> Unit) {
+    suspend fun register(listener: (eventName: EventName, eventProperty: Map<String, Any>) -> Unit) {
         listeners.add(listener)
     }
 
     // Posting event dengan logika konversi berdasarkan model
-    fun post(eventName: EventName, eventProperty: Any, userDataTrackerModel: UserDataTrackerModel) {
+    suspend fun post(eventName: EventName, eventProperty: Any, userDataTrackerModel: UserDataTrackerModel) {
         Logger.debug { eventName.toString() }
         Logger.debug { eventProperty.toString() }
         Logger.debug { userDataTrackerModel.toString() }

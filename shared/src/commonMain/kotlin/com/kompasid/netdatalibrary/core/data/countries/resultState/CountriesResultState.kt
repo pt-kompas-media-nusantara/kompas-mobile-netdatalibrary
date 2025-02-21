@@ -11,7 +11,7 @@ class CountriesResultState {
     private val _countries = MutableStateFlow<List<CountriesResInterceptor>>(emptyList())
     var countries: StateFlow<List<CountriesResInterceptor>> = _countries.asStateFlow()
 
-    fun update(data: List<CountriesResInterceptor>) {
+    suspend fun update(data: List<CountriesResInterceptor>) {
         _countries.value = data
     }
 }

@@ -19,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.enums.Screens
 import com.kompasid.netdatalibrary.android.screens.AccountScreen
+import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
 
 @Composable
 fun AppScaffold() {
@@ -47,6 +48,7 @@ fun AppNavHost(
 
         composable(Screens.MAIN_SCREEN.route) {
             MainScreen(
+                onLaunchAppFlowClick = { navController.navigate(Screens.LAUNCH_APP_SCREEN.route) },
                 onAuthFlowClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
                 onManageAccountClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
@@ -57,6 +59,12 @@ fun AppNavHost(
                 onQnAClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAboutAppClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAboutHarianKompasClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+            )
+        }
+
+        composable(Screens.LAUNCH_APP_SCREEN.route) {
+            LaunchAppScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
 

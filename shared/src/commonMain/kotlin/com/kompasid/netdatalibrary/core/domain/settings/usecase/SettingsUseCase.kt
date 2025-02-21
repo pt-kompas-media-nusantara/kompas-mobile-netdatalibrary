@@ -11,7 +11,7 @@ class SettingsUseCase(
         val result = settingsHelper.save(key, value)
     }
 
-    suspend fun <T> getValue(type: KeySettingsType, default: T): T {
+    private suspend fun <T> getValue(type: KeySettingsType, default: T): T {
         return settingsHelper.load(type, default)
     }
 

@@ -15,7 +15,7 @@ actual class Platform() {
     actual val density: Int
         get() = round(Resources.getSystem().displayMetrics.density).toInt()
 
-    actual fun logSystemInfo() {
+    actual suspend fun logSystemInfo() {
         Log.d(
             "Daily Pulse",
             "($osName, $osVersion, $deviceModel, $density)"

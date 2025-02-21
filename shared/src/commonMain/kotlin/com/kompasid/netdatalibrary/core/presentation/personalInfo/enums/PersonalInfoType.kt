@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.presentation.state.personalInfo
+package com.kompasid.netdatalibrary.core.presentation.personalInfo.enums
 
 enum class PersonalInfoType {
     EMAIL,

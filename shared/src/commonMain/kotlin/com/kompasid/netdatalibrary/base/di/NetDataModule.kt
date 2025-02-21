@@ -28,10 +28,11 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralCon
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
+import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -54,6 +55,8 @@ val netDataModule = module {
     Refresh Token
     Logout
      */
+
+    singleOf(::LaunchAppUseCase) { bind<LaunchAppUseCase>() }
 
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
@@ -97,5 +100,5 @@ val netDataModule = module {
     singleOf(::GeneralContentApiService) { bind<IGeneralContentApiService>() }
 
     singleOf(::AccountUseCase) { bind<AccountUseCase>() }
-    singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
+
 }

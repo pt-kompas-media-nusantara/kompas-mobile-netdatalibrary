@@ -4,6 +4,9 @@ import android.app.Application
 import com.kompasid.netdatalibrary.android.di.viewModelsModule
 import com.kompasid.netdatalibrary.base.di.base.sharedKoinModules
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -16,8 +19,10 @@ class KompasIdApp : Application() {
     }
 
     private fun initTracker() {
-        TrackerManager.register { eventName, eventProperty ->
-            println("Kelas B menerima: $eventName $eventProperty")
+        CoroutineScope(Dispatchers.IO).launch {
+            TrackerManager.register { eventName, eventProperty ->
+                println("Kelas B menerima: $eventName $eventProperty")
+            }
         }
     }
 

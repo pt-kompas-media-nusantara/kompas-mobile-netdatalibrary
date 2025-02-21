@@ -21,7 +21,7 @@ class TrackerUseCase(
         )
     }
 
-    private fun pageViewedMapping(openFromEntryPoint: OpenFromEntryPoint): Any {
+    private suspend fun pageViewedMapping(openFromEntryPoint: OpenFromEntryPoint): Any {
         return when (openFromEntryPoint) {
             is OpenFromEntryPoint.AboutAppPage -> ExampleModel(openFromEntryPoint.description)
             is OpenFromEntryPoint.AboutKompasDailyPage -> AboutKompasDailyModel(openFromEntryPoint.description)

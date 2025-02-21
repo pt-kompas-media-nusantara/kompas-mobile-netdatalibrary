@@ -1,8 +1,6 @@
 package com.kompasid.netdatalibrary.core.domain.account.usecase
 
-import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.core.domain.account.model.AccountModel
-import com.kompasid.netdatalibrary.core.domain.account.model.MyAccountInformationModel
 import com.kompasid.netdatalibrary.core.domain.account.data.aboutAppData
 import com.kompasid.netdatalibrary.core.domain.account.data.aboutAppSubMenuData
 import com.kompasid.netdatalibrary.core.domain.account.data.aboutHarianKompasData
@@ -25,9 +23,7 @@ import com.kompasid.netdatalibrary.core.domain.account.data.subcriptionData
 import com.kompasid.netdatalibrary.core.domain.account.data.termsConditionsData
 import com.kompasid.netdatalibrary.core.domain.account.data.themeData
 import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
-import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.PersonalInfoResultState
-import kotlinx.coroutines.coroutineScope
+import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
 
 
 class AccountUseCase(

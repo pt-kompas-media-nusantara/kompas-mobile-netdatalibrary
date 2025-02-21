@@ -1,6 +1,5 @@
 package com.kompasid.netdatalibrary.android.screens
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -10,15 +9,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-// import com.kompasid.netdatalibrary.netData.presentation.articlesPresentation.ArticlesVM
 import com.kompasid.netdatalibrary.android.AppBackBar
+import com.kompasid.netdatalibrary.android.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.AccountVM
+import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
-fun AccountScreen(
-    vm: AccountVM = koinViewModel(),
+fun LaunchAppScreen(
+    vm: LaunchAppVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
 
@@ -30,9 +30,14 @@ fun AccountScreen(
     ) {
         AppBackBar(onBackClick)
 
-        Text("AccountScreen")
+        Text("LaunchAppScreen")
         HorizontalDivider()
+
+        FilledButton("execute", {
+            vm.scope.launch {
+                vm.execute()
+            }
+        })
 
     }
 }
-

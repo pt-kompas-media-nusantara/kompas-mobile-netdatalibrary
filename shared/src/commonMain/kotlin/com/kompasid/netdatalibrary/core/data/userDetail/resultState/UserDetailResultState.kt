@@ -10,7 +10,7 @@ class UserDetailResultState {
     private val _userDetail = MutableStateFlow<UserDetailResInterceptor?>(null)
     var userDetail: StateFlow<UserDetailResInterceptor?> = _userDetail.asStateFlow()
 
-    fun updateUserDetail(data: UserDetailResInterceptor) {
+    suspend fun updateUserDetail(data: UserDetailResInterceptor) {
         _userDetail.value = data
     }
 

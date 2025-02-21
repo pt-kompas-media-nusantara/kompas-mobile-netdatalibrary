@@ -9,7 +9,7 @@ import com.kompasid.netdatalibrary.core.domain.articleList.interceptor.ArticleTy
 
 class ArticleListMapper {
 
-    fun mapArticleList(articleRaw: List<ArticleListResponse>): List<ArticleListResInterceptor> =
+    suspend fun mapArticleList(articleRaw: List<ArticleListResponse>): List<ArticleListResInterceptor> =
         articleRaw.map { raw ->
             ArticleListResInterceptor(
                 raw.title ?: "", // DONE | judul
@@ -45,11 +45,11 @@ class ArticleListMapper {
 //            )
 //        }
 
-    fun setPublishDate(publishedDate: String): String {
+    suspend fun setPublishDate(publishedDate: String): String {
         return RelativeTimeFormatter().getRelativeTime(publishedDate)
     }
 
-    fun setMultimediaType(category: List<Category?>?): ArticleType {
+    suspend fun setMultimediaType(category: List<Category?>?): ArticleType {
         return when {
             category?.any { it?.slug == "foto-cerita" || it?.slug == "galeri-foto" || it?.slug == "klinik-foto-kompas" || it?.slug == "foto" } == true -> ArticleType.FOTO
             category?.any { it?.slug == "video" || it?.slug == "berita-video" || it?.slug == "feature" || it?.slug == "dokumenter" || it?.slug == "videografik" } == true -> ArticleType.VIDEO
@@ -58,15 +58,15 @@ class ArticleListMapper {
         }
     }
 
-    fun setNameOfSlug(slug: List<Category?>?): String {
+    suspend fun setNameOfSlug(slug: List<Category?>?): String {
         return slug?.firstOrNull()?.name ?: "nurirppan setNameOfSlug" // Handle null or empty slug
     }
 
-    fun setSlugId(slug: List<Category?>?): String {
+    suspend fun setSlugId(slug: List<Category?>?): String {
         return slug?.firstOrNull()?.slug ?: "nurirppan setSlugId" // Handle null or empty slug
     }
 
-    fun setImgUrl(thumbnails: Thumbnails?): String {
+    suspend fun setImgUrl(thumbnails: Thumbnails?): String {
         return when {
             thumbnails?.sizes?.medium != null -> thumbnails.sizes.medium.permalink ?: ""
             thumbnails?.sizes?.large != null -> thumbnails.sizes.large.permalink ?: ""

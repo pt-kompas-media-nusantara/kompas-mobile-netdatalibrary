@@ -1,13 +1,5 @@
 package com.kompasid.netdatalibrary.utilities
 
-import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
-import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.DeviceInfoResultState
-import com.kompasid.netdatalibrary.core.presentation.state.personalInfo.PersonalInfoResultState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-
 
 object Constants {
     const val isUsinStatusCode = false

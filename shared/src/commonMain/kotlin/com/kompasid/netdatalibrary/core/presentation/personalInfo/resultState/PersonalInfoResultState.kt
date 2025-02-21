@@ -1,10 +1,9 @@
-package com.kompasid.netdatalibrary.core.presentation.state.personalInfo
+package com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState
 
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
-import com.kompasid.netdatalibrary.core.domain.account.model.MyAccountInformationModel
 import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.core.presentation.personalInfo.enums.PersonalInfoType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -138,27 +137,3 @@ class PersonalInfoResultState(
     }
 }
 
-class DeviceInfoResultState(
-    private val settingsUseCase: SettingsUseCase
-) {
-    private var _originalIdTransaksi = MutableStateFlow("")
-    val originalIdTransaksi: StateFlow<String> = _originalIdTransaksi.asStateFlow()
-
-    private var _idTransaksi = MutableStateFlow("")
-    val idTransaksi: StateFlow<String> = _idTransaksi.asStateFlow()
-
-    private var _deviceType = MutableStateFlow("")
-    val deviceType: StateFlow<String> = _deviceType.asStateFlow()
-
-    private var _osVersion = MutableStateFlow("")
-    val osVersion: StateFlow<String> = _osVersion.asStateFlow()
-
-    private var _currentAppVersion = MutableStateFlow("")
-    val currentAppVersion: StateFlow<String> = _currentAppVersion.asStateFlow()
-
-    private var _newAppVersion = MutableStateFlow("")
-    val newAppVersion: StateFlow<String> = _newAppVersion.asStateFlow()
-
-    private var _historyTransaction = MutableStateFlow("")
-    val historyTransaction: StateFlow<String> = _historyTransaction.asStateFlow()
-}

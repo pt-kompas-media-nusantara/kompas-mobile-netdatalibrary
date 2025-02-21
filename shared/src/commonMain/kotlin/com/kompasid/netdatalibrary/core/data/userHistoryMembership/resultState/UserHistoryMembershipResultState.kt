@@ -12,7 +12,7 @@ class UserHistoryMembershipResultState {
     var userHistoryMembership: StateFlow<UserHistoryMembershipResInterceptor?> =
         _userHistoryMembership.asStateFlow()
 
-    fun update(data: UserHistoryMembershipResInterceptor) {
+    suspend fun update(data: UserHistoryMembershipResInterceptor) {
         _userHistoryMembership.value = data
     }
 

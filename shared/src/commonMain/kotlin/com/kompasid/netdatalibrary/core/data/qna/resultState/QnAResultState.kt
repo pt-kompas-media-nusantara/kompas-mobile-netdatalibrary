@@ -9,7 +9,7 @@ class QnAResultState {
     private val _qna = MutableStateFlow<QnAResInterceptor?>(null)
     var qna: StateFlow<QnAResInterceptor?> = _qna.asStateFlow()
 
-    fun update(data: QnAResInterceptor) {
+    suspend fun update(data: QnAResInterceptor) {
         _qna.value = data
     }
 

@@ -5,7 +5,11 @@ import kotlinx.datetime.TimeZone
 
 class RelativeTimeFormatter {
 
-    fun getRelativeTime(dateTimeString: String): String {
+    suspend fun getCurrentTime(): String {
+        return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
+    }
+
+    suspend fun getRelativeTime(dateTimeString: String): String {
         // Parsing input string ke LocalDateTime
         val inputDateTime = LocalDateTime.parse(dateTimeString.replace(" ", "T"))
 

@@ -17,7 +17,7 @@ class MyRubriksResultState(
     private val _myRubriks = MutableStateFlow<List<MyRubriksResInterceptor>>(emptyList())
     var myRubriks: StateFlow<List<MyRubriksResInterceptor>> = _myRubriks.asStateFlow()
 
-    fun updateAllRubriks(data: List<MyRubriksResInterceptor>) {
+    suspend fun updateAllRubriks(data: List<MyRubriksResInterceptor>) {
         _allRubriks.value = data
     }
 
