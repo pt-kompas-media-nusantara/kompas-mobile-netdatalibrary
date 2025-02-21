@@ -42,3 +42,5 @@ class DeviceInfoResultState(
         settingsUseCase.getInt(type)
     }
 }
+// cari cara bagaimana caranya, ketika ada perubahan dari settingsUseCase bisa langsung disimpan ke
+// dalam variable tersebut dan perubahannya realtime
