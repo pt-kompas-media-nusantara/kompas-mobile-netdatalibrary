@@ -15,18 +15,23 @@ suspend inline fun <reified T> safeCall(
     val response = try {
         execute()
     } catch (e: SocketTimeoutException) {
+        println("Request Timeout: ${e.message}")
         return ApiResults.Error(NetworkError.RequestTimeout)
     } catch (e: UnresolvedAddressException) {
+        println("No Internet Connection: ${e.message}")
         return ApiResults.Error(NetworkError.NoInternet)
     } catch (e: Exception) {
         coroutineContext.ensureActive()
+        println("Unknown error: ${e.message}")
         return ApiResults.Error(NetworkError.Unknown)
     }
-
     return responseToResult(response)
 }
 
+
 suspend inline fun <reified T> responseToResult(response: HttpResponse): ApiResults<T, NetworkError> {
+    coroutineContext.ensureActive() // Pastikan coroutine masih aktif sebelum proses response
+
     return when (response.status.value) {
         in 200..299 -> {
             try {
