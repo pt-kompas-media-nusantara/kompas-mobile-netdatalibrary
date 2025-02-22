@@ -9,7 +9,7 @@ class SettingsUseCase(
     private val settingsHelper: SettingsHelper
 ) {
 
-    fun <T> save(key: KeySettingsType, value: T) {
+    suspend fun <T> save(key: KeySettingsType, value: T) {
         settingsHelper.save(key, value)
     }
 
@@ -63,9 +63,9 @@ class SettingsUseCase(
 
 
     // Public StateFlow untuk pemantauan perubahan
-    fun observeString(key: KeySettingsType): StateFlow<String?> {
-        return settingsHelper.observeString(key)
-    }
+//    fun observeString(key: KeySettingsType): StateFlow<String?> {
+//        return settingsHelper.observeString(key)
+//    }
 }
 
 

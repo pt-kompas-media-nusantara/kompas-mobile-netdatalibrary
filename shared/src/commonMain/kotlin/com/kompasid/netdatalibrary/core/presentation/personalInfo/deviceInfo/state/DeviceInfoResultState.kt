@@ -15,24 +15,38 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class DeviceInfoState(
-    val originalIdTransaksi: String = "--"
+    val deviceType: String = "",
+    val osVersion: String = "",
+    val currentVersionApp: String = "",
+    val newVersionApp: String = "",
+)
+
+data class DeviceSubcriptionState(
+    val originalTransactionId: String = "",
+    val transactionId: String = "",
+    val historyTransaction: String = "",
+)
+
+data class ConfigurationSystemState(
+    val flavors: String = "",
+    val isDebug: Boolean = true,
 )
 
 class DeviceInfoResultState(
     private val settingsUseCase: SettingsUseCase
 ) {
 
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            settingsUseCase.observeString(KeySettingsType.ORIGINAL_TRANSACTION_ID)
-                .filterNotNull()
-                .distinctUntilChanged() // Mencegah update jika value tidak berubah
-                .collect { newValue ->
-                    Logger.debug { "Updating originalIdTransaksi: $newValue" }
-                    _state.update { it.copy(originalIdTransaksi = newValue) }
-                }
-        }
-    }
+//    init {
+//        CoroutineScope(Dispatchers.IO).launch {
+//            settingsUseCase.observeString(KeySettingsType.ORIGINAL_TRANSACTION_ID)
+//                .filterNotNull()
+//                .distinctUntilChanged() // Mencegah update jika value tidak berubah
+//                .collect { newValue ->
+//                    Logger.debug { "Updating originalIdTransaksi: $newValue" }
+//                    _state.update { it.copy(originalIdTransaksi = newValue) }
+//                }
+//        }
+//    }
 
     private val _state = MutableStateFlow(DeviceInfoState())
     val state: StateFlow<DeviceInfoState> = _state.asStateFlow()
