@@ -27,13 +27,13 @@ class LaunchAppVM(
         try {
             val data = LaunchAppModel(
                 "flavors ${RelativeTimeFormatter().getCurrentTime()}",
-                "originalTransactionId ${RelativeTimeFormatter().getCurrentTime()}",
-                "transactionId ${RelativeTimeFormatter().getCurrentTime()}",
+                listOf("originalTransactionId ${RelativeTimeFormatter().getCurrentTime()}"), // nurirppan__ : ini list stringmasih ngebug
+                listOf("transactionId ${RelativeTimeFormatter().getCurrentTime()}"),
                 "deviceType ${RelativeTimeFormatter().getCurrentTime()}",
                 "osVersion ${RelativeTimeFormatter().getCurrentTime()}",
                 "currentVersionApp ${RelativeTimeFormatter().getCurrentTime()}",
                 "newVersionApp ${RelativeTimeFormatter().getCurrentTime()}",
-                "historyTransaction ${RelativeTimeFormatter().getCurrentTime()}",
+                listOf("historyTransaction ${RelativeTimeFormatter().getCurrentTime()}"),
                 true,
             )
 
