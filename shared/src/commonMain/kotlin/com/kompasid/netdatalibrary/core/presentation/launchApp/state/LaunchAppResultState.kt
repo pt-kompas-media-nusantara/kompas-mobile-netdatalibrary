@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.core.presentation.launchApp.state
 
+import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.ConfigurationSystemState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
@@ -18,10 +19,8 @@ import kotlinx.coroutines.flow.stateIn
 
 
 class LaunchAppResultState(
-    private val settingsHelper: SettingsHelper
-) {
-    // Coroutine scope untuk StateFlow
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val settingsHelper: SettingsHelper,
+) : BaseVM() {
 
     val deviceInfoState: StateFlow<DeviceInfoState> =
         combine(
@@ -38,7 +37,7 @@ class LaunchAppResultState(
             )
         }
             .distinctUntilChanged()
-            .stateIn(scope, SharingStarted.WhileSubscribed(), DeviceInfoState())
+            .stateIn(scope, SharingStarted.WhileSubscribed(replayExpirationMillis = 5000), DeviceInfoState())
 
     val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
         combine(
@@ -53,7 +52,7 @@ class LaunchAppResultState(
             )
         }
             .distinctUntilChanged()
-            .stateIn(scope, SharingStarted.WhileSubscribed(), DeviceSubcriptionState())
+            .stateIn(scope, SharingStarted.WhileSubscribed(replayExpirationMillis = 5000), DeviceSubcriptionState())
 
     val configurationSystemState: StateFlow<ConfigurationSystemState> =
         combine(
@@ -66,6 +65,6 @@ class LaunchAppResultState(
             )
         }
             .distinctUntilChanged()
-            .stateIn(scope, SharingStarted.WhileSubscribed(), ConfigurationSystemState())
+            .stateIn(scope, SharingStarted.WhileSubscribed(replayExpirationMillis = 5000), ConfigurationSystemState())
 }
 
