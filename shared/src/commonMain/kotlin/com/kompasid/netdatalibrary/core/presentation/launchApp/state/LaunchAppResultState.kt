@@ -37,22 +37,31 @@ class LaunchAppResultState(
             )
         }
             .distinctUntilChanged()
-            .stateIn(scope, SharingStarted.WhileSubscribed(replayExpirationMillis = 5000), DeviceInfoState())
+            .stateIn(
+                scope,
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 5000),
+                DeviceInfoState()
+            )
 
     val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
         combine(
-            settingsHelper.getStringFlow(KeySettingsType.ORIGINAL_TRANSACTION_ID).map { it ?: "" },
-            settingsHelper.getStringFlow(KeySettingsType.TRANSACTION_ID).map { it ?: "" },
-            settingsHelper.getStringFlow(KeySettingsType.HISTORY_TRANSACTION).map { it ?: "" },
+            settingsHelper.getStringListFlow(KeySettingsType.ORIGINAL_TRANSACTION_ID),
+            settingsHelper.getStringListFlow(KeySettingsType.TRANSACTION_ID),
+            settingsHelper.getStringListFlow(KeySettingsType.HISTORY_TRANSACTION),
         ) { originalTransactionId, transactionId, historyTransaction ->
             DeviceSubcriptionState(
-                originalTransactionId = originalTransactionId,
-                transactionId = transactionId,
-                historyTransaction = historyTransaction,
+                originalTransactionId = originalTransactionId ?: emptyList(),
+                transactionId = transactionId ?: emptyList(),
+                historyTransaction = historyTransaction ?: emptyList(),
             )
         }
             .distinctUntilChanged()
-            .stateIn(scope, SharingStarted.WhileSubscribed(replayExpirationMillis = 5000), DeviceSubcriptionState())
+            .stateIn(
+                scope,
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 5000),
+                DeviceSubcriptionState()
+            )
+
 
     val configurationSystemState: StateFlow<ConfigurationSystemState> =
         combine(
@@ -65,6 +74,10 @@ class LaunchAppResultState(
             )
         }
             .distinctUntilChanged()
-            .stateIn(scope, SharingStarted.WhileSubscribed(replayExpirationMillis = 5000), ConfigurationSystemState())
+            .stateIn(
+                scope,
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 5000),
+                ConfigurationSystemState()
+            )
 }
 
