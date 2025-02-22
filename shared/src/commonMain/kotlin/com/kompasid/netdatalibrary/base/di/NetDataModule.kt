@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.base.di
 
+import com.kompasid.netdatalibrary.base.DecodeJWT
 import com.kompasid.netdatalibrary.core.data.userDetail.dataSource.UserDetailDataSource
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
@@ -27,14 +28,21 @@ import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralCont
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
+import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailResultState
+import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
+import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
-import com.kompasid.netdatalibrary.core.presentation.launchApp.state.LaunchAppVM
-import com.kompasid.netdatalibrary.core.presentation.launchApp.state.LaunchAppResultState
+import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
+import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
+import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppResultState
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -85,10 +93,12 @@ val netDataModule = module {
      */
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
+    singleOf(::UserDetailResultState) { bind<UserDetailResultState>() }
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
+    singleOf(::UserHistoryMembershipResultState) { bind<UserHistoryMembershipResultState>() }
     singleOf(::UserHistoryMembershipRepository) { bind<UserHistoryMembershipRepository>() }
     singleOf(::UserHistoryMembershipDataSource) { bind<UserHistoryMembershipDataSource>() }
     singleOf(::UserHistoryMembershipApiService) { bind<UserHistoryMembershipApiService>() }
@@ -103,8 +113,14 @@ val netDataModule = module {
 
     singleOf(::AccountUseCase) { bind<AccountUseCase>() }
 
+    singleOf(::AuthVM) { bind<AuthVM>() }
     singleOf(::LaunchAppVM) { bind<LaunchAppVM>() }
     singleOf(::LaunchAppResultState) { bind<LaunchAppResultState>() }
     singleOf(::UpdateOSUseCase) { bind<UpdateOSUseCase>() }
+    singleOf(::TokenInterceptor) { bind<TokenInterceptor>() }
+    singleOf(::TokenUseCase) { bind<TokenUseCase>() }
+    singleOf(::SettingsHelper) { bind<SettingsHelper>() }
+    singleOf(::DecodeJWT) { bind<DecodeJWT>() }
+    singleOf(::LoginEmailResultState) { bind<LoginEmailResultState>() }
 
 }

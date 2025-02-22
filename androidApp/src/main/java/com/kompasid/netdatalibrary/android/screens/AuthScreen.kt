@@ -15,20 +15,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
+import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
-fun LaunchAppScreen(
-    vm: LaunchAppVM = koinViewModel(),
+fun AuthScreen(
+    vm: AuthVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-//    val originalTransactionId by vm.originalTransactionId.collectAsState()
-    val deviceInfoState by vm.deviceInfoState.collectAsState()
-    val deviceSubcriptionState by vm.deviceSubscriptionState.collectAsState() // Perbaikan
-    val configurationSystemState by vm.configurationSystemState.collectAsState() // Perbaikan
+    val loginInterceptor by vm.loginInterceptor.collectAsState()
+    val userDetailResInterceptor by vm.userDetailResInterceptor.collectAsState()
+    val userHistoryMembershipResInterceptor by vm.userHistoryMembershipResInterceptor.collectAsState()
 
     Column(
         modifier = Modifier
@@ -38,22 +37,23 @@ fun LaunchAppScreen(
     ) {
         AppBackBar(onBackClick)
 
-        Text("LaunchAppScreen")
+        Text("AuthScreen")
         HorizontalDivider()
 
         // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
-        Text(deviceInfoState.toString(), modifier = Modifier.padding(top = 8.dp))
         HorizontalDivider()
-        Text(deviceSubcriptionState.toString(), modifier = Modifier.padding(top = 8.dp))
+        Text(loginInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
         HorizontalDivider()
-        Text(configurationSystemState.toString(), modifier = Modifier.padding(top = 8.dp))
+        Text(userDetailResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
+        HorizontalDivider()
+        Text(userHistoryMembershipResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
         HorizontalDivider()
         // Membuat tombol lebih nyaman di-scroll
         Spacer(modifier = Modifier.height(16.dp))
 
         FilledButton("Execute") {
             vm.scope.launch {
-                vm.execute()
+                vm.loginByEmail()
             }
         }
 

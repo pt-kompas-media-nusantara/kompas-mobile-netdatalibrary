@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.presentation.launchApp.state
+package com.kompasid.netdatalibrary.core.presentation.launchApp.stateState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.ConfigurationSystemState
@@ -6,16 +6,16 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoS
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+
 
 
 class LaunchAppResultState(
@@ -36,10 +36,11 @@ class LaunchAppResultState(
                 newVersionApp = newVersionApp,
             )
         }
+            .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
             .stateIn(
                 scope,
-                SharingStarted.WhileSubscribed(replayExpirationMillis = 5000),
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
                 DeviceInfoState()
             )
 
@@ -55,10 +56,11 @@ class LaunchAppResultState(
                 historyTransaction = historyTransaction ?: emptyList(),
             )
         }
+            .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
             .stateIn(
                 scope,
-                SharingStarted.WhileSubscribed(replayExpirationMillis = 5000),
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
                 DeviceSubcriptionState()
             )
 
@@ -73,10 +75,11 @@ class LaunchAppResultState(
                 isDebug = isDebug
             )
         }
+            .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
             .stateIn(
                 scope,
-                SharingStarted.WhileSubscribed(replayExpirationMillis = 5000),
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
                 ConfigurationSystemState()
             )
 }

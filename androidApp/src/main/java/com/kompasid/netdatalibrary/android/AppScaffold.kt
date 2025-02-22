@@ -16,9 +16,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.kompasid.netdatalibrary.android.screens.AuthScreen
 import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.enums.Screens
-import com.kompasid.netdatalibrary.android.screens.AccountScreen
+import com.kompasid.netdatalibrary.android.screens.kotor.AccountScreen
 import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
 
 @Composable
@@ -49,7 +50,7 @@ fun AppNavHost(
         composable(Screens.MAIN_SCREEN.route) {
             MainScreen(
                 onLaunchAppFlowClick = { navController.navigate(Screens.LAUNCH_APP_SCREEN.route) },
-                onAuthFlowClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+                onAuthFlowClick = { navController.navigate(Screens.AUTH_SCREEN.route) },
                 onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
                 onManageAccountClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onBookmarksClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
@@ -68,11 +69,17 @@ fun AppNavHost(
             )
         }
 
-        composable(Screens.ACCOUNT_SCREEN.route) {
-            AccountScreen(
+        composable(Screens.AUTH_SCREEN.route) {
+            AuthScreen(
                 onBackClick = { navController.popBackStack() },
             )
         }
+
+//        composable(Screens.ACCOUNT_SCREEN.route) {
+//            AccountScreen(
+//                onBackClick = { navController.popBackStack() },
+//            )
+//        }
 
 
 //

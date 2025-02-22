@@ -41,14 +41,10 @@ class PersonalInfoUseCase(
         }
     }
 
-    override suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
-        val result = userDetailRepository.getUserDetailOld()
+    override suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> =
+        userDetailRepository.getUserDetailOld()
 
-        return result
-    }
+    override suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> =
+        userHistoryMembershipRepository.getUserMembershipHistory()
 
-    override suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
-        val result = userHistoryMembershipRepository.getUserMembershipHistory()
-        return result
-    }
 }

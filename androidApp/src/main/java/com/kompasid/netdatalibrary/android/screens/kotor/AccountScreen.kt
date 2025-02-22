@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.android.screens
+package com.kompasid.netdatalibrary.android.screens.kotor
 
 
 import androidx.compose.foundation.layout.Column

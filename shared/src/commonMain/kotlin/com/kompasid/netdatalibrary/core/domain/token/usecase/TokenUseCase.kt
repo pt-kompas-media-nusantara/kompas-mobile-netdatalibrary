@@ -7,28 +7,29 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshTokenRepository
 import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 class TokenUseCase(
-    private val settingsUseCase: SettingsUseCase,
+    private val settingsHelper: SettingsHelper,
     private val refreshTokenRepository: RefreshTokenRepository,
     private val loginGuestRepository: LoginGuestRepository,
     private val jwt: DecodeJWT,
 ) {
 
     suspend fun getValidToken(): Results<String, NetworkError> {
-        var accessToken = settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
+        var accessToken = loadAccessToken()
 
         if (accessToken.isEmpty()) {
             val loginResult = handleLoginGuest()
             if (loginResult is Results.Error) return loginResult
-            accessToken = settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
+            accessToken = loadAccessToken()
         }
 
         // Cek apakah token sudah kedaluwarsa
         if (jwt.isTokenExpired(accessToken)) {
             val refreshResult = handleRefreshToken()
             if (refreshResult is Results.Error) return refreshResult
-            accessToken = settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
+            accessToken = loadAccessToken()
         }
 
         // Kembalikan token yang valid
@@ -50,7 +51,7 @@ class TokenUseCase(
         return when (val result = refreshTokenRepository.postRefreshToken()) {
             is Results.Error -> {
                 handleError(result.error)
-                settingsUseCase.removeAll()
+                settingsHelper.removeAll()
                 Results.Error(result.error)
             }
 
@@ -58,10 +59,13 @@ class TokenUseCase(
         }
     }
 
+    private suspend fun loadAccessToken(): String {
+        return settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).value ?: ""
+    }
+
     private suspend fun handleError(error: NetworkError): Results.Error<NetworkError> {
-        settingsUseCase.removeAll()
+        settingsHelper.removeAll()
         return Results.Error(error)
     }
 
 }
-

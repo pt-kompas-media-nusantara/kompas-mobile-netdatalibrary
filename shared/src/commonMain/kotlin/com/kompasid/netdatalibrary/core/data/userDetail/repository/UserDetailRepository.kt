@@ -7,13 +7,11 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 
 
 class UserDetailRepository(
     private val userDetailApiService: UserDetailApiService,
-    private val userDetailDataSource: UserDetailDataSource,
-    private val userDetailResultState: UserDetailResultState
+    private val userDetailDataSource: UserDetailDataSource
 ) : IUserDetailRepository {
 
     override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> {
@@ -21,12 +19,6 @@ class UserDetailRepository(
             is ApiResults.Success -> {
                 result.data.toInterceptor().also { resultInterceptor ->
                     userDetailDataSource.save(resultInterceptor)
-
-                    userDetailResultState.apply {
-                        if (userDetail.value != resultInterceptor) updateUserDetail(
-                            resultInterceptor
-                        )
-                    }
                 }.let { Results.Success(it) }
             }
 

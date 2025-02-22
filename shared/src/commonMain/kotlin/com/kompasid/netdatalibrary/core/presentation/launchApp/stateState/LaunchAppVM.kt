@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.presentation.launchApp.state
+package com.kompasid.netdatalibrary.core.presentation.launchApp.stateState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger

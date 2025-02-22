@@ -18,20 +18,13 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.U
 
 class UserHistoryMembershipRepository(
     private val userHistoryMembershipApiService: UserHistoryMembershipApiService,
-    private val userHistoryMembershipDataSource: UserHistoryMembershipDataSource,
-    private val userHistoryMembershipResultState: UserHistoryMembershipResultState
+    private val userHistoryMembershipDataSource: UserHistoryMembershipDataSource
 ) : IUserMembershipHistoryRepository {
     override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return when (val result = userHistoryMembershipApiService.getUserHistoryMembership()) {
             is ApiResults.Success -> {
                 result.data.toInterceptor().also { resultInterceptor ->
                     userHistoryMembershipDataSource.save(resultInterceptor)
-
-                    userHistoryMembershipResultState.apply {
-                        if (userHistoryMembership.value != resultInterceptor) update(
-                            resultInterceptor
-                        )
-                    }
                 }.let { Results.Success(it) }
             }
 
