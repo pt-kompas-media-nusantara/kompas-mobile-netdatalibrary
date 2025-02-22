@@ -32,7 +32,8 @@ import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.core.presentation.LaunchAppVM
+import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
+import com.kompasid.netdatalibrary.core.presentation.launchApp.state.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.state.LaunchAppResultState
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
@@ -104,5 +105,6 @@ val netDataModule = module {
 
     singleOf(::LaunchAppVM) { bind<LaunchAppVM>() }
     singleOf(::LaunchAppResultState) { bind<LaunchAppResultState>() }
+    singleOf(::UpdateOSUseCase) { bind<UpdateOSUseCase>() }
 
 }

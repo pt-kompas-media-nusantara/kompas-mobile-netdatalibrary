@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.android.di
 
-import com.kompasid.netdatalibrary.core.presentation.LaunchAppVM
+import com.kompasid.netdatalibrary.core.presentation.launchApp.state.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.AccountVM
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module

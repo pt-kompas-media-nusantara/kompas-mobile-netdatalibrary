@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.presentation
+package com.kompasid.netdatalibrary.core.presentation.launchApp.state
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
@@ -7,7 +7,6 @@ import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCas
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.ConfigurationSystemState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
-import com.kompasid.netdatalibrary.core.presentation.launchApp.state.LaunchAppResultState
 import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
 import kotlinx.coroutines.flow.StateFlow
 
@@ -42,11 +41,6 @@ class LaunchAppVM(
             // Menangani error agar tidak crash
             Logger.error { "Error executing: ${e.message}" }
         }
-    }
-
-
-    fun load() {
-//        this.settingsUseCase.getString(KeySettingsType.ORIGINAL_TRANSACTION_ID).toString()
     }
 }
 
