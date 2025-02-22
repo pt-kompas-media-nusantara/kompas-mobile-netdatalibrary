@@ -25,7 +25,7 @@ fun LaunchAppScreen(
     vm: LaunchAppVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-    val originalTransactionId by vm.originalTransactionId.collectAsState()
+//    val originalTransactionId by vm.originalTransactionId.collectAsState()
     val deviceInfoState by vm.deviceInfoState.collectAsState()
     val deviceSubcriptionState by vm.deviceSubscriptionState.collectAsState() // Perbaikan
     val configurationSystemState by vm.configurationSystemState.collectAsState() // Perbaikan
@@ -42,8 +42,6 @@ fun LaunchAppScreen(
         HorizontalDivider()
 
         // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
-        Text(originalTransactionId.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
         Text(deviceInfoState.toString(), modifier = Modifier.padding(top = 8.dp))
         HorizontalDivider()
         Text(deviceSubcriptionState.toString(), modifier = Modifier.padding(top = 8.dp))
