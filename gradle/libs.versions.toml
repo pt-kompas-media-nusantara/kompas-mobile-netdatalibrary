@@ -21,6 +21,7 @@ navigationCompose = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 multiplatformSettings = "1.2.0"
 coilCompose = "2.7.0"
+runtimeAndroid = "1.7.8"
 #coreKtx = "1.15.0"
 #junit = "4.13.2"
 #junitVersion = "1.2.1"
@@ -84,6 +85,7 @@ mockmp = { module = "org.kodein.mock:mockmp", version.ref = "mockmp" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 konform = { module = "io.konform:konform", version.ref = "konform" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
+androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
 #androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 #junit = { group = "junit", name = "junit", version.ref = "junit" }
 #androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

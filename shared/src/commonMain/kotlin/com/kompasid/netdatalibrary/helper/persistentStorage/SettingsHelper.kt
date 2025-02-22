@@ -3,8 +3,6 @@ package com.kompasid.netdatalibrary.helper.persistentStorage
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 @Suppress("UNCHECKED_CAST")
@@ -17,54 +15,50 @@ class SettingsHelper(private val settings: Settings) {
     private val _stringListFlowMap: MutableMap<String, MutableStateFlow<List<String>?>> =
         mutableMapOf()
 
-    // Function to save generic value with StateFlow update
+
     suspend fun <T> save(key: KeySettingsType, value: T) {
         when (value) {
             is String -> {
-                settings.putString(key.key, value)
-                Logger.debug { "Saved ${key.key} with value: $value" }
-                getStringFlow(key).update {
-                    value
+                val flow = getStringFlow(key)
+                if (flow.value != value) { // Cek apakah nilai berubah
+                    settings.putString(key.key, value)
+                    flow.update { value }
                 }
             }
 
             is Int -> {
-                settings.putInt(key.key, value)
-                Logger.debug { "Saved ${key.key} with value: $value" }
-                getIntFlow(key).update {
-                    value
+                val flow = getIntFlow(key)
+                if (flow.value != value) {
+                    settings.putInt(key.key, value)
+                    flow.update { value }
                 }
             }
 
             is Boolean -> {
-                settings.putBoolean(key.key, value)
-                Logger.debug { "Saved ${key.key} with value: $value" }
-                getBooleanFlow(key).update {
-                    value
+                val flow = getBooleanFlow(key)
+                if (flow.value != value) {
+                    settings.putBoolean(key.key, value)
+                    flow.update { value }
                 }
             }
 
             is List<*> -> {
-                // Memeriksa jika List tersebut berisi String
                 if (value.all { it is String }) {
                     @Suppress("UNCHECKED_CAST")
                     val stringList = value as List<String>
-                    // Mengonversi List<String> menjadi string yang dipisahkan koma
                     val stringValue = stringList.joinToString(",")
-                    settings.putString(key.key, stringValue)
-                    Logger.debug { "Saved ${key.key} with value: $stringValue" }
-                    getStringListFlow(key).update {
-                        Logger.debug { "Updated ${key.key} to: $stringList" }
-                        stringList
+                    val flow = getStringListFlow(key)
+                    if (flow.value != stringList) {
+                        settings.putString(key.key, stringValue)
+                        flow.update { stringList }
                     }
                 } else {
                     throw IllegalArgumentException("Unsupported list type, must be a List<String>")
                 }
             }
-
-            else -> throw IllegalArgumentException("Unsupported type")
         }
     }
+
 
     // Function to load generic value
     fun <T> load(key: KeySettingsType, defaultValue: T): T {
@@ -121,43 +115,22 @@ class SettingsHelper(private val settings: Settings) {
     // Function to remove a value
     fun remove(key: KeySettingsType) {
         settings.remove(key.key)
-        // Mengupdate StateFlow dengan null
-        _stringFlowMap[key.key]?.update {
-            Logger.debug { "Removed ${key.key}" }
-            null
-        }
-        _intFlowMap[key.key]?.update {
-            Logger.debug { "Removed ${key.key}" }
-            null
-        }
-        _booleanFlowMap[key.key]?.update {
-            Logger.debug { "Removed ${key.key}" }
-            null
-        }
+        _stringFlowMap.remove(key.key)
+        _intFlowMap.remove(key.key)
+        _booleanFlowMap.remove(key.key)
+        _stringListFlowMap.remove(key.key)
     }
+
 
     // Function to remove all values
     fun removeAll() {
         settings.clear()
-        _stringFlowMap.values.forEach {
-            it.update {
-                Logger.debug { "Cleared String setting" }
-                null
-            }
-        }
-        _intFlowMap.values.forEach {
-            it.update {
-                Logger.debug { "Cleared Int setting" }
-                null
-            }
-        }
-        _booleanFlowMap.values.forEach {
-            it.update {
-                Logger.debug { "Cleared Boolean setting" }
-                null
-            }
-        }
+        _stringFlowMap.clear()
+        _intFlowMap.clear()
+        _booleanFlowMap.clear()
+        _stringListFlowMap.clear()
     }
+
 
     // Mengambil StateFlow untuk String
     fun getStringFlow(key: KeySettingsType): MutableStateFlow<String?> {

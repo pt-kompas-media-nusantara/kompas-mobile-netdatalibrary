@@ -128,6 +128,9 @@ android {
         }
     }
 }
+dependencies {
+    implementation(libs.androidx.runtime.android)
+}
 
 //// KSP Tasks
 //dependencies {
