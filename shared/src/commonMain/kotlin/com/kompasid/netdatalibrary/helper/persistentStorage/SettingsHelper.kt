@@ -25,24 +25,30 @@ class SettingsHelper(private val settings: Settings) {
             is String -> {
                 val flow = getStringFlow(key)
                 if (flow.value != value) { // Cek apakah nilai berubah
+                    Logger.debug { "Saving key: ${key.key}, oldValue: ${flow.value}, newValue: $value" }
                     settings.putString(key.key, value)
                     flow.update { value }
+                    Logger.debug { "Value for key: ${key.key} updated successfully to: $value" }
                 }
             }
 
             is Int -> {
                 val flow = getIntFlow(key)
                 if (flow.value != value) {
+                    Logger.debug { "Saving key: ${key.key}, oldValue: ${flow.value}, newValue: $value" }
                     settings.putInt(key.key, value)
                     flow.update { value }
+                    Logger.debug { "Value for key: ${key.key} updated successfully to: $value" }
                 }
             }
 
             is Boolean -> {
                 val flow = getBooleanFlow(key)
                 if (flow.value != value) {
+                    Logger.debug { "Saving key: ${key.key}, oldValue: ${flow.value}, newValue: $value" }
                     settings.putBoolean(key.key, value)
                     flow.update { value }
+                    Logger.debug { "Value for key: ${key.key} updated successfully to: $value" }
                 }
             }
 
@@ -119,6 +125,14 @@ class SettingsHelper(private val settings: Settings) {
     // Function to remove a value
     fun remove(key: KeySettingsType) {
         settings.remove(key.key)
+
+        // Perbarui nilai StateFlow sebelum menghapus dari map agar UI langsung mendapatkan update
+        _stringFlowMap[key.key]?.value = null
+        _intFlowMap[key.key]?.value = 0
+        _booleanFlowMap[key.key]?.value = false
+        _stringListFlowMap[key.key]?.value = emptyList()
+
+        // Hapus dari map setelah memperbarui nilai StateFlow
         _stringFlowMap.remove(key.key)
         _intFlowMap.remove(key.key)
         _booleanFlowMap.remove(key.key)
@@ -129,6 +143,14 @@ class SettingsHelper(private val settings: Settings) {
     // Function to remove all values
     fun removeAll() {
         settings.clear()
+
+        // Reset semua StateFlow dengan nilai default
+        _stringFlowMap.forEach { (_, flow) -> flow.value = null }
+        _intFlowMap.forEach { (_, flow) -> flow.value = 0 }
+        _booleanFlowMap.forEach { (_, flow) -> flow.value = false }
+        _stringListFlowMap.forEach { (_, flow) -> flow.value = emptyList() }
+
+        // Hapus isi map setelah nilainya diperbarui
         _stringFlowMap.clear()
         _intFlowMap.clear()
         _booleanFlowMap.clear()
