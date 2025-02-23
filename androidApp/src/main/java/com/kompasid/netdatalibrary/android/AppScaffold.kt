@@ -21,6 +21,7 @@ import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.enums.Screens
 import com.kompasid.netdatalibrary.android.screens.kotor.AccountScreen
 import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
+import com.kompasid.netdatalibrary.android.screens.example.ExampleSettingsScreen
 
 @Composable
 fun AppScaffold() {
@@ -43,7 +44,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.MAIN_SCREEN.route,
+        startDestination = Screens.EXAMPLE_SCREEN.route,
         modifier = modifier,
     ) {
 
@@ -60,6 +61,11 @@ fun AppNavHost(
                 onQnAClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAboutAppClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAboutHarianKompasClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+            )
+        }
+
+        composable(Screens.EXAMPLE_SCREEN.route) {
+            ExampleSettingsScreen(
             )
         }
 
