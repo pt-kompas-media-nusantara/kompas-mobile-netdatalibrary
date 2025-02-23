@@ -43,7 +43,7 @@ import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppResultState
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SettingsHelperV2
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.ExampleNoArgModuleSettingsHelper
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -120,7 +120,7 @@ val updateTokenModule = module {
 
 val helperModule = module {
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
-    singleOf(::SettingsHelperV2) { bind<SettingsHelperV2>() }
+    singleOf(::ExampleNoArgModuleSettingsHelper) { bind<ExampleNoArgModuleSettingsHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }
 }
 

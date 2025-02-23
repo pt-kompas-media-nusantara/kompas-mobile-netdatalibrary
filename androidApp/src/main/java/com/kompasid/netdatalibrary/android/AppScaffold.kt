@@ -19,9 +19,8 @@ import androidx.navigation.compose.rememberNavController
 import com.kompasid.netdatalibrary.android.screens.AuthScreen
 import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.enums.Screens
-import com.kompasid.netdatalibrary.android.screens.kotor.AccountScreen
 import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
-import com.kompasid.netdatalibrary.android.screens.example.ExampleSettingsScreen
+import com.kompasid.netdatalibrary.android.screens.example.ExampleNoArgModuleSettingsScreen
 
 @Composable
 fun AppScaffold() {
@@ -44,12 +43,13 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screens.EXAMPLE_SCREEN.route,
+        startDestination = Screens.MAIN_SCREEN.route,
         modifier = modifier,
     ) {
 
         composable(Screens.MAIN_SCREEN.route) {
             MainScreen(
+                onNoArgModuleSettingsClick = { navController.navigate(Screens.NO_ARG_MODULE_SETTINS.route) },
                 onLaunchAppFlowClick = { navController.navigate(Screens.LAUNCH_APP_SCREEN.route) },
                 onAuthFlowClick = { navController.navigate(Screens.AUTH_SCREEN.route) },
                 onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
@@ -64,8 +64,8 @@ fun AppNavHost(
             )
         }
 
-        composable(Screens.EXAMPLE_SCREEN.route) {
-            ExampleSettingsScreen(
+        composable(Screens.NO_ARG_MODULE_SETTINS.route) {
+            ExampleNoArgModuleSettingsScreen(
             )
         }
 

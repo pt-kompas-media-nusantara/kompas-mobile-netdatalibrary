@@ -3,7 +3,7 @@ package com.kompasid.netdatalibrary.android.di
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.AccountVM
 import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.ExampleSettingsViewModel
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.ExampleNoArgModuleSettingsVM
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -12,6 +12,6 @@ val viewModelsModule = module {
     viewModelOf(::AccountVM)
     viewModelOf(::LaunchAppVM)
     viewModelOf(::AuthVM)
-    viewModelOf(::ExampleSettingsViewModel)
+    viewModelOf(::ExampleNoArgModuleSettingsVM)
 }
 

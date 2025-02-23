@@ -14,6 +14,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
+    onNoArgModuleSettingsClick: () -> Unit,
     onLaunchAppFlowClick: () -> Unit,
     onAuthFlowClick: () -> Unit,
     onAccountClick: () -> Unit,
@@ -32,6 +33,10 @@ fun MainScreen(
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
+        FilledButton("onNoArgModuleSettingsClick", {
+            onNoArgModuleSettingsClick()
+        })
+
         FilledButton("onLaunchAppFlowClick", {
             onLaunchAppFlowClick()
         })

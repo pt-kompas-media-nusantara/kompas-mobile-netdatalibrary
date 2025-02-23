@@ -10,7 +10,7 @@ enum class ExampleSettingsKey(val value: String) {
     NOTIFICATION_ENABLED("NOTIFICATION_ENABLED")
 }
 
-class SettingsHelperV2(private val settings: Settings) {
+class ExampleNoArgModuleSettingsHelper(private val settings: Settings) {
 
     // Save Data with Generic Type
     fun <T> save(key: ExampleSettingsKey, value: T) {

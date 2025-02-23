@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class ExampleSettingsViewModel(private val settingsDataSource: SettingsHelperV2) : BaseVM() {
+class ExampleNoArgModuleSettingsVM(private val settingHelper: ExampleNoArgModuleSettingsHelper) : BaseVM() {
 
     private val _username = MutableStateFlow("")
     val username: StateFlow<String> = _username.asStateFlow()
@@ -16,13 +16,13 @@ class ExampleSettingsViewModel(private val settingsDataSource: SettingsHelperV2)
 
     init {
         // Load nilai awal saat ViewModel dibuat
-        _username.value = settingsDataSource.load(ExampleSettingsKey.USERNAME, "Guest")
-        _darkMode.value = settingsDataSource.load(ExampleSettingsKey.DARK_MODE, false)
+        _username.value = settingHelper.load(ExampleSettingsKey.USERNAME, "Guest")
+        _darkMode.value = settingHelper.load(ExampleSettingsKey.DARK_MODE, false)
     }
 
     fun updateUsername(newUsername: String) {
         scope.launch {
-            settingsDataSource.save(ExampleSettingsKey.USERNAME, newUsername)
+            settingHelper.save(ExampleSettingsKey.USERNAME, newUsername)
             _username.value = newUsername  // Update state agar UI ikut berubah
         }
     }
@@ -30,7 +30,7 @@ class ExampleSettingsViewModel(private val settingsDataSource: SettingsHelperV2)
     fun toggleDarkMode() {
         scope.launch {
             val newValue = !_darkMode.value
-            settingsDataSource.save(ExampleSettingsKey.DARK_MODE, newValue)
+            settingHelper.save(ExampleSettingsKey.DARK_MODE, newValue)
             _darkMode.value = newValue  // Update state agar UI ikut berubah
         }
     }
