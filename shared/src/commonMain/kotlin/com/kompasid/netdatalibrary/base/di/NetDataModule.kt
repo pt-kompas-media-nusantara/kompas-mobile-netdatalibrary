@@ -9,7 +9,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiService
-import com.kompasid.netdatalibrary.core.data.loginEmail.models.local.LoginEmailDataSource
+import com.kompasid.netdatalibrary.core.data.loginEmail.dataSource.LoginEmailDataSource
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
 import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
 import com.kompasid.netdatalibrary.core.data.loginGuest.dataSource.LoginGuestDataSource

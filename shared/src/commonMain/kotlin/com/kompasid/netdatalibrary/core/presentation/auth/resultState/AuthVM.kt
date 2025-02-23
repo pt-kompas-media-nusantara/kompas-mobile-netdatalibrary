@@ -2,9 +2,8 @@ package com.kompasid.netdatalibrary.core.presentation.auth.resultState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.loginEmail.models.dto.LoginEmailRequest
+import com.kompasid.netdatalibrary.core.data.loginEmail.dto.request.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginResultState
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
@@ -15,7 +14,6 @@ import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 
 class AuthVM(
     private val authUseCase: AuthUseCase,

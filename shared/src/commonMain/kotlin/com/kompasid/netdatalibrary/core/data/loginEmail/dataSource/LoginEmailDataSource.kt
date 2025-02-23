@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.loginEmail.models.local
+package com.kompasid.netdatalibrary.core.data.loginEmail.dataSource
 
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper

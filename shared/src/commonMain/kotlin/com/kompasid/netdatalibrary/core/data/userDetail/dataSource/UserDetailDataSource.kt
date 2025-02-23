@@ -8,11 +8,12 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 
+
 class UserDetailDataSource(
     private val settingsHelper: SettingsHelper
-) {
+) : IUserDetailDataSource {
 
-    suspend fun save(data: UserDetailResInterceptor) = coroutineScope {
+    override suspend fun save(data: UserDetailResInterceptor): Unit = coroutineScope {
         listOf(
             async {
                 if (settingsHelper.getIntFlow(KeySettingsType.ID_GENDER).value != data.idGender) {

@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.loginEmail.models.dto
+package com.kompasid.netdatalibrary.core.data.loginEmail.dto.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
