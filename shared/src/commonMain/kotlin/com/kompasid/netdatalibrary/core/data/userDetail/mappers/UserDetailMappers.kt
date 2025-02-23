@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.mappers
+package com.kompasid.netdatalibrary.core.data.userDetail.mappers
 
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.response.OldUserDetailResponse
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
@@ -7,24 +7,24 @@ import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserStat
 
 fun OldUserDetailResponse.toInterceptor(): UserDetailResInterceptor {
     return UserDetailResInterceptor(
-        idGender = gender ?: 0,
-        gender = genderType ?: "",
-        userId = userId ?: "",
-        firstName = firstName ?: "",
-        lastName = lastName ?: "",
-        email = email ?: "",
-        userGuid = userGuid ?: "",
-        isActive = isActive ?: false,
+        idGender = data?.gender ?: 0,
+        gender = data?.genderType ?: "",
+        userId = data?.userId ?: "",
+        firstName = data?.firstName ?: "",
+        lastName = data?.lastName ?: "",
+        email = data?.email ?: "",
+        userGuid = data?.userGuid ?: "",
+        isActive = data?.isActive ?: false,
         userStatus = UserStatusInterceptor(
-            isVerified = userStatus?.isVerified ?: false,
-            phoneVerified = userStatus?.phoneVerified ?: false
+            isVerified = data?.userStatus?.isVerified ?: false,
+            phoneVerified = data?.userStatus?.phoneVerified ?: false
         ),
-        phoneNumber = phoneNumber ?: "",
-        countryCode = countryCode ?: "",
-        dateBirth = dateBirth ?: "",
-        country = country ?: "",
-        province = province ?: "",
-        city = city ?: ""
+        phoneNumber = data?.phoneNumber ?: "",
+        countryCode = data?.countryCode ?: "",
+        dateBirth = data?.dateBirth ?: "",
+        country = data?.country ?: "",
+        province = data?.province ?: "",
+        city = data?.city ?: ""
     )
 }
 

@@ -9,6 +9,7 @@ import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDeta
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
 
 
 class PersonalInfoUseCase(
@@ -18,26 +19,36 @@ class PersonalInfoUseCase(
 
     suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> {
         return try {
-            coroutineScope {
+            supervisorScope {  // Memastikan coroutine dapat berjalan terpisah sebelum penanganan error
                 val userDetailDeferred = async { userDetail() }
                 val historyMembershipDeferred = async { historyMembersip() }
 
-                val userDetailResult = userDetailDeferred.await()
-                val historyMembershipResult = historyMembershipDeferred.await()
+                try {
+                    val userDetailResult = userDetailDeferred.await()
+                    val historyMembershipResult = historyMembershipDeferred.await()
 
-                when {
-                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
-                        Results.Success(Pair(userDetailResult.data, historyMembershipResult.data))
+                    when {
+                        userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
+                            Results.Success(Pair(userDetailResult.data, historyMembershipResult.data))
+                        }
+                        userDetailResult is Results.Error -> {
+                            historyMembershipDeferred.cancel() // Batalkan yang lain
+                            userDetailResult
+                        }
+                        historyMembershipResult is Results.Error -> {
+                            userDetailDeferred.cancel() // Batalkan yang lain
+                            historyMembershipResult
+                        }
+                        else -> Results.Error(NetworkError.ServerError) // Fallback error
                     }
-
-                    userDetailResult is Results.Error -> userDetailResult
-                    historyMembershipResult is Results.Error -> historyMembershipResult
-                    else -> Results.Error(NetworkError.ServerError) // Error fallback jika kondisi lain
+                } catch (e: Exception) {
+                    userDetailDeferred.cancel()
+                    historyMembershipDeferred.cancel()
+                    Results.Error(NetworkError.Error(e))
                 }
             }
         } catch (e: Exception) {
-            // Log atau handle error yang lebih spesifik di sini jika dibutuhkan
-            return Results.Error(NetworkError.Error(e))
+            Results.Error(NetworkError.Error(e))
         }
     }
 

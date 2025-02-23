@@ -1,6 +1,7 @@
 package com.kompasid.netdatalibrary.core.presentation.auth.resultState
 
 import com.kompasid.netdatalibrary.BaseVM
+import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.loginEmail.models.dto.LoginEmailRequest
@@ -11,13 +12,17 @@ import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailRe
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 
 class AuthVM(
     private val authUseCase: AuthUseCase,
     private val loginResultState: LoginResultState,
     private val userDetailResultState: UserDetailResultState,
     private val userHistoryMembershipResultState: UserHistoryMembershipResultState,
+    private val settingsHelper: SettingsHelper
 ) : BaseVM() {
     val loginInterceptor: StateFlow<LoginInterceptor> =
         loginResultState.loginInterceptor
@@ -26,6 +31,15 @@ class AuthVM(
     val userHistoryMembershipResInterceptor: StateFlow<UserHistoryMembershipResInterceptor> =
         userHistoryMembershipResultState.userHistoryMembershipResInterceptor
 
+    suspend fun removaAll() {
+        settingsHelper.removeAll()
+    }
+
+    suspend fun logger() {
+        Logger.debug {
+            settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).value.toString()
+        }
+    }
     suspend fun loginByEmail() {
         val result = authUseCase.loginByEmail(
             LoginEmailRequest(
@@ -35,49 +49,28 @@ class AuthVM(
                 "testKMP",
             )
         )
-
         when (result) {
-            is Results.Success -> {
-                println("Success")
-            }
-
             is Results.Error -> {
-                when (val error = result.error) {
-                    is NetworkError.RequestTimeout -> {
-                        println("Request timeout occurred")
-                    }
-
-                    is NetworkError.Unauthorized -> {
-                        println("Unauthorized access")
-                    }
-
-                    is NetworkError.NoInternet -> {
-                        println("No internet connection")
-                    }
-
-                    is NetworkError.ServerError -> {
-                        println("Server error occurred")
-                    }
-
-                    is NetworkError.NotFound -> {
-                        println("Resource not found")
-                    }
-
-                    is NetworkError.Technical -> {
-                        println("Technical error: Code ${error.code}, Message: ${error.message}")
-                    }
-
-                    is NetworkError.Error -> {
-                        println("Error: ${error.throwable.message}")
-                    }
-
-                    else -> {
-                        println("Unknown error occurred")
-                    }
+                Logger.error {
+                    result.error.toString()
                 }
             }
+            is Results.Success -> {
+                // Mendapatkan data dari Pair
+                val (unitData, userData) = result.data
+                val (userDetails, userHistory) = userData
 
-
+                Logger.debug {
+                    unitData.toString()
+                }
+                Logger.debug {
+                    userDetails.toString()
+                }
+                Logger.debug {
+                    userHistory.toString()
+                }
+            }
         }
+
     }
 }

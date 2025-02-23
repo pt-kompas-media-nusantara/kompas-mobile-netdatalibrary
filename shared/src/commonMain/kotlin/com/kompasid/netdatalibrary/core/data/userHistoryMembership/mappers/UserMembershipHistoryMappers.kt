@@ -8,27 +8,27 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interce
 fun OldUserHistoryMembershipResponse.toInterceptor(): UserHistoryMembershipResInterceptor {
     return UserHistoryMembershipResInterceptor(
         user = UserHistoryMembershipObjResInterceptor(
-            expired = result?.user?.expired ?: "",
-            isActive = result?.user?.isActive ?: "",
-            startDate = result?.user?.startDate ?: "",
-            endDate = result?.user?.endDate ?: "",
-            totalGracePeriod = result?.user?.totalGracePeriod ?: 0,
-            gracePeriod = result?.user?.gracePeriod ?: false,
+            expired = data?.result?.user?.expired ?: "",
+            isActive = data?.result?.user?.isActive ?: "",
+            startDate = data?.result?.user?.startDate ?: "",
+            endDate = data?.result?.user?.endDate ?: "",
+            totalGracePeriod = data?.result?.user?.totalGracePeriod ?: 0,
+            gracePeriod = data?.result?.user?.gracePeriod ?: false,
         ),
-        active = result?.active?.map {
+        active = data?.result?.active?.map {
             HistoryMembershipResInterceptor(
-                membershipTitle = it.membershipTitle ?: "",
-                membershipSlug = it.membershipSlug ?: "",
-                startDate = it.startDate ?: "",
-                endDate = it.endDate ?: ""
+                membershipTitle = it?.membershipTitle ?: "",
+                membershipSlug = it?.membershipSlug ?: "",
+                startDate = it?.startDate ?: "",
+                endDate = it?.endDate ?: ""
             )
         } ?: emptyList(),
-        expired = result?.expired?.map {
+        expired = data?.result?.expired?.map {
             HistoryMembershipResInterceptor(
-                membershipTitle = it.membershipTitle ?: "",
-                membershipSlug = it.membershipSlug ?: "",
-                startDate = it.startDate ?: "",
-                endDate = it.endDate ?: ""
+                membershipTitle = it?.membershipTitle ?: "",
+                membershipSlug = it?.membershipSlug ?: "",
+                startDate = it?.startDate ?: "",
+                endDate = it?.endDate ?: ""
             )
         } ?: emptyList()
     )

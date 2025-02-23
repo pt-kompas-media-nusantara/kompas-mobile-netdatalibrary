@@ -44,6 +44,16 @@ fun AuthScreen(
                 vm.loginByEmail()
             }
         }
+        FilledButton("removaAll") {
+            vm.scope.launch {
+                vm.removaAll()
+            }
+        }
+        FilledButton("logger") {
+            vm.scope.launch {
+                vm.logger()
+            }
+        }
         Spacer(modifier = Modifier.height(16.dp))
 
         // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()

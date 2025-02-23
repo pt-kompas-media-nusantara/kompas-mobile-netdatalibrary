@@ -4,26 +4,35 @@ import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.SerialName
 
-
 @Serializable
 data class OldUserHistoryMembershipResponse(
+    @SerialName("code")
+    val code: Int? = null,
+    @SerialName("data")
+    val data: OldUserHistoryMembershipResponseData? = null,
+    @SerialName("message")
+    val message: String? = null,
+)
+
+@Serializable
+data class OldUserHistoryMembershipResponseData(
     @SerialName("result")
-    val result: Result? = null,
+    val result: OldUserHistoryMembershipResponseDataResult? = null
 )
 
 
 @Serializable
-data class Result(
+data class OldUserHistoryMembershipResponseDataResult(
     @SerialName("active")
-    val active: List<OldActive>? = null,
+    val active: List<Active?>? = null,
     @SerialName("expired")
-    val expired: List<OldExpired>? = null,
+    val expired: List<Expired?>? = null,
     @SerialName("user")
-    val user: OldUser? = null,
+    val user: User? = null
 )
 
 @Serializable
-data class OldActive(
+data class Active(
     @SerialName("endDate")
     val endDate: String? = null,
     @SerialName("membershipSlug")
@@ -31,11 +40,11 @@ data class OldActive(
     @SerialName("membershipTitle")
     val membershipTitle: String? = null,
     @SerialName("startDate")
-    val startDate: String? = null,
+    val startDate: String? = null
 )
 
 @Serializable
-data class OldExpired(
+data class Expired(
     @SerialName("endDate")
     val endDate: String? = null,
     @SerialName("membershipSlug")
@@ -43,11 +52,11 @@ data class OldExpired(
     @SerialName("membershipTitle")
     val membershipTitle: String? = null,
     @SerialName("startDate")
-    val startDate: String? = null,
+    val startDate: String? = null
 )
 
 @Serializable
-data class OldUser(
+data class User(
     @SerialName("email")
     val email: String? = null,
     @SerialName("endDate")
@@ -66,9 +75,5 @@ data class OldUser(
     val startDate: String? = null,
     @SerialName("totalGracePeriod")
     val totalGracePeriod: Int? = null,
-//    @SerialName("updateMembership")
-//    val updateMembership: Any?
 )
-
-
 
