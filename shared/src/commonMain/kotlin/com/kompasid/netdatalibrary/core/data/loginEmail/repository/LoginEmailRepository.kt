@@ -50,7 +50,7 @@ data class LoginInterceptor(
     var refreshToken: String = "",
 )
 
-class LoginEmailResultState(
+class LoginResultState(
     private val settingsHelper: SettingsHelper,
 ) : BaseVM() {
     val loginInterceptor: StateFlow<LoginInterceptor> =

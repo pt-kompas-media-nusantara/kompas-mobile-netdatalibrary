@@ -4,7 +4,7 @@ import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.loginEmail.models.dto.LoginEmailRequest
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailResultState
+import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginResultState
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
@@ -15,12 +15,12 @@ import kotlinx.coroutines.flow.StateFlow
 
 class AuthVM(
     private val authUseCase: AuthUseCase,
-    private val loginEmailResultState: LoginEmailResultState,
+    private val loginResultState: LoginResultState,
     private val userDetailResultState: UserDetailResultState,
     private val userHistoryMembershipResultState: UserHistoryMembershipResultState,
 ) : BaseVM() {
     val loginInterceptor: StateFlow<LoginInterceptor> =
-        loginEmailResultState.loginInterceptor
+        loginResultState.loginInterceptor
     val userDetailResInterceptor: StateFlow<UserDetailResInterceptor> =
         userDetailResultState.userDetailState
     val userHistoryMembershipResInterceptor: StateFlow<UserHistoryMembershipResInterceptor> =

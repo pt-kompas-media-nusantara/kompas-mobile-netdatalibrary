@@ -28,7 +28,7 @@ import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralCont
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailResultState
+import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginResultState
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
@@ -48,79 +48,82 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val authModule = module {
-    singleOf(::LoginGuestApiService) { bind<LoginGuestApiService>() }
-}
-
-
-
-val netDataModule = module {
-
-    singleOf(::NetworkApiService) { bind<INetworkApiService>() }
-    singleOf(::NetworkVM) { bind<INetworkVM>() }
-
-    // Auth
-    /**
-    Login Email
-    Login by Guest
-    Refresh Token
-    Logout
-     */
-
-    singleOf(::LaunchAppUseCase) { bind<LaunchAppUseCase>() }
-
+    /// AuthInteractor
+    singleOf(::LoginResultState) { bind<LoginResultState>() }
+    singleOf(::AuthVM) { bind<AuthVM>() }
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
+    /// LoginGuest
     singleOf(::LoginGuestRepository) { bind<LoginGuestRepository>() }
     singleOf(::LoginGuestDataSource) { bind<LoginGuestDataSource>() }
     singleOf(::LoginGuestApiService) { bind<LoginGuestApiService>() }
 
+    /// RefreshToken
     singleOf(::RefreshTokenRepository) { bind<RefreshTokenRepository>() }
     singleOf(::RefreshTokenDataSource) { bind<RefreshTokenDataSource>() }
     singleOf(::RefreshTokenApiService) { bind<RefreshTokenApiService>() }
 
+    /// LoginEmail
     singleOf(::LoginEmailRepository) { bind<LoginEmailRepository>() }
     singleOf(::LoginEmailDataSource) { bind<LoginEmailDataSource>() }
     singleOf(::LoginEmailApiService) { bind<LoginEmailApiService>() }
 
+    /// Logout
     singleOf(::LogoutRepository) { bind<LogoutRepository>() }
     singleOf(::LogoutDataSource) { bind<LogoutDataSource>() }
     singleOf(::LogoutApiService) { bind<LogoutApiService>() }
+}
 
-    // Personal Info
-    /**
-    User Detail
-    User Membership History
-     */
+val personalInfoModule = module {
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
+    /// UserDetail
     singleOf(::UserDetailResultState) { bind<UserDetailResultState>() }
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
+    /// User History Membership
     singleOf(::UserHistoryMembershipResultState) { bind<UserHistoryMembershipResultState>() }
     singleOf(::UserHistoryMembershipRepository) { bind<UserHistoryMembershipRepository>() }
     singleOf(::UserHistoryMembershipDataSource) { bind<UserHistoryMembershipDataSource>() }
     singleOf(::UserHistoryMembershipApiService) { bind<UserHistoryMembershipApiService>() }
+}
 
-    /**
-    General Content
-     */
+val launchAppModule = module {
+    /// Launch App
+    singleOf(::LaunchAppResultState) { bind<LaunchAppResultState>() }
+    singleOf(::LaunchAppVM) { bind<LaunchAppVM>() }
+    singleOf(::LaunchAppUseCase) { bind<LaunchAppUseCase>() }
+
+    singleOf(::UpdateOSUseCase) { bind<UpdateOSUseCase>() }
+}
+
+val updateContentModule = module {
+    /// General Content
     singleOf(::GeneralContentUseCase) { bind<IGeneralContentUseCase>() }
 
     singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
     singleOf(::GeneralContentApiService) { bind<IGeneralContentApiService>() }
+}
 
+val accountModule = module {
+    /// Account Use Case
     singleOf(::AccountUseCase) { bind<AccountUseCase>() }
+}
 
-    singleOf(::AuthVM) { bind<AuthVM>() }
-    singleOf(::LaunchAppVM) { bind<LaunchAppVM>() }
-    singleOf(::LaunchAppResultState) { bind<LaunchAppResultState>() }
-    singleOf(::UpdateOSUseCase) { bind<UpdateOSUseCase>() }
+val updateTokenModule = module {
     singleOf(::TokenInterceptor) { bind<TokenInterceptor>() }
     singleOf(::TokenUseCase) { bind<TokenUseCase>() }
+}
+
+val helperModule = module {
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }
-    singleOf(::LoginEmailResultState) { bind<LoginEmailResultState>() }
+}
+
+val netDataModule = module {
+    singleOf(::NetworkApiService) { bind<INetworkApiService>() }
+    singleOf(::NetworkVM) { bind<INetworkVM>() }
 
 }
