@@ -8,7 +8,6 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.core.data.refreshToken.dto.request.RefreshTokenRequest
 import com.kompasid.netdatalibrary.core.data.refreshToken.dto.response.RefreshTokenResponse
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.post
@@ -19,12 +18,12 @@ import io.ktor.http.contentType
 
 class RefreshTokenApiService(
     private val httpClient: HttpClient,
-    private val settingsUseCase: SettingsUseCase
+    private val settingsHelper: SettingsHelper
 ) : IRefreshTokenApiService {
     override suspend fun postRefreshToken(): ApiResults<RefreshTokenResponse, NetworkError> {
         return safeCall<RefreshTokenResponse> {
             val request = RefreshTokenRequest(
-                settingsUseCase.getString(KeySettingsType.REFRESH_TOKEN)
+                settingsHelper.getStringFlow(KeySettingsType.REFRESH_TOKEN).value ?: ""
             )
 
             httpClient.post(ApiConfig.REFRESH_TOKEN_URL) {

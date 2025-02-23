@@ -1,38 +1,55 @@
 package com.kompasid.netdatalibrary.core.data.loginEmail.models.local
 
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
+
 class LoginEmailDataSource(
     private val settingsHelper: SettingsHelper
-) {
+) : ILoginEmailDataSource {
 
-    suspend fun save(
+    override suspend fun save(
         accessToken: String,
         refreshToken: String,
         isVerified: Boolean,
         deviceKeyId: String,
         isSocial: Boolean
-    ) = coroutineScope {
+    ): Unit = coroutineScope {
         listOf(
             async {
-                settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+                if ((settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).value) != accessToken
+                ) {
+                    settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+                }
+
             },
             async {
-                settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+                if ((settingsHelper.getStringFlow(KeySettingsType.REFRESH_TOKEN).value) != refreshToken
+                ) {
+                    settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+                }
             },
             async {
-                settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
+                if ((settingsHelper.getBooleanFlow(KeySettingsType.IS_VERIFIED).value) != isVerified
+                ) {
+                    settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
+                }
             },
             async {
-                settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
+                if ((settingsHelper.getStringFlow(KeySettingsType.DEVICE_KEY_ID).value) != deviceKeyId
+                ) {
+                    settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
+                }
             },
             async {
-                settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial)
+                if ((settingsHelper.getBooleanFlow(KeySettingsType.IS_SOCIAL).value) != isSocial
+                ) {
+                    settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial)
+                }
+
             },
         ).awaitAll()
     }

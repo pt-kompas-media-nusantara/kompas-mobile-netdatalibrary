@@ -1,49 +1,50 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
+
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class UserHistoryMembershipDataSource(
-    private val settingsUseCase: SettingsUseCase
+    private val settingsHelper: SettingsHelper
 ) {
 
     suspend fun save(data: UserHistoryMembershipResInterceptor) = coroutineScope {
         listOf(
             async {
-                if (settingsUseCase.getString(KeySettingsType.EXPIRED_MEMBERSHIP) != data.user.expired) {
-                    settingsUseCase.save(KeySettingsType.EXPIRED_MEMBERSHIP, data.user.expired)
+                if (settingsHelper.getStringFlow(KeySettingsType.EXPIRED_MEMBERSHIP).value != data.user.expired) {
+                    settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIP, data.user.expired)
                 }
             },
             async {
-                if (settingsUseCase.getString(KeySettingsType.ACTIVE_MEMBERSHIP) != data.user.isActive) {
-                    settingsUseCase.save(KeySettingsType.ACTIVE_MEMBERSHIP, data.user.isActive)
+                if (settingsHelper.getStringFlow(KeySettingsType.ACTIVE_MEMBERSHIP).value != data.user.isActive) {
+                    settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIP, data.user.isActive)
                 }
             },
             async {
-                if (settingsUseCase.getString(KeySettingsType.START_DATE_MEMBERSHIP) != data.user.startDate) {
-                    settingsUseCase.save(KeySettingsType.START_DATE_MEMBERSHIP, data.user.startDate)
+                if (settingsHelper.getStringFlow(KeySettingsType.START_DATE_MEMBERSHIP).value != data.user.startDate) {
+                    settingsHelper.save(KeySettingsType.START_DATE_MEMBERSHIP, data.user.startDate)
                 }
             },
             async {
-                if (settingsUseCase.getString(KeySettingsType.END_DATE_MEMBERSHIP) != data.user.endDate) {
-                    settingsUseCase.save(KeySettingsType.END_DATE_MEMBERSHIP, data.user.endDate)
+                if (settingsHelper.getStringFlow(KeySettingsType.END_DATE_MEMBERSHIP).value != data.user.endDate) {
+                    settingsHelper.save(KeySettingsType.END_DATE_MEMBERSHIP, data.user.endDate)
                 }
             },
             async {
-                if (settingsUseCase.getInt(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP) != data.user.totalGracePeriod) {
-                    settingsUseCase.save(
+                if (settingsHelper.getIntFlow(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP).value != data.user.totalGracePeriod) {
+                    settingsHelper.save(
                         KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP,
                         data.user.totalGracePeriod
                     )
                 }
             },
             async {
-                if (settingsUseCase.getBoolean(KeySettingsType.GRACE_PERIOD_MEMBERSHIP) != data.user.gracePeriod) {
-                    settingsUseCase.save(
+                if (settingsHelper.getBooleanFlow(KeySettingsType.GRACE_PERIOD_MEMBERSHIP).value != data.user.gracePeriod) {
+                    settingsHelper.save(
                         KeySettingsType.GRACE_PERIOD_MEMBERSHIP,
                         data.user.gracePeriod
                     )
@@ -51,11 +52,11 @@ class UserHistoryMembershipDataSource(
             },
             async {
                 // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
-                settingsUseCase.save(KeySettingsType.ACTIVE_MEMBERSHIPS, data.active)
+                settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIPS, data.active)
             },
             async {
                 // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
-                settingsUseCase.save(KeySettingsType.EXPIRED_MEMBERSHIPS, data.expired)
+                settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIPS, data.expired)
             }
         ).awaitAll()
     }

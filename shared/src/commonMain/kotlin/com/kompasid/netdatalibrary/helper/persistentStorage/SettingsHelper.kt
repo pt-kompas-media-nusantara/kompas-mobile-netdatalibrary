@@ -2,8 +2,12 @@ package com.kompasid.netdatalibrary.helper.persistentStorage
 
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.russhwolf.settings.Settings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 class SettingsHelper(private val settings: Settings) {
@@ -129,6 +133,39 @@ class SettingsHelper(private val settings: Settings) {
         _intFlowMap.clear()
         _booleanFlowMap.clear()
         _stringListFlowMap.clear()
+    }
+
+    fun loadAll() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val keySettings = listOf(
+                KeySettingsType.ACCESS_TOKEN,
+                KeySettingsType.REFRESH_TOKEN,
+                KeySettingsType.IS_VERIFIED,
+                KeySettingsType.DEVICE_KEY_ID,
+                KeySettingsType.IS_SOCIAL,
+                KeySettingsType.USER_ID,
+                KeySettingsType.FIRST_NAME,
+                KeySettingsType.LAST_NAME,
+                KeySettingsType.EMAIL,
+                KeySettingsType.USER_GUID,
+                KeySettingsType.PHONE_NUMBER,
+                KeySettingsType.COUNTRY_CODE,
+                KeySettingsType.COUNTRY,
+                KeySettingsType.PROVINCE,
+                KeySettingsType.CITY,
+                KeySettingsType.EXPIRED_MEMBERSHIP,
+                KeySettingsType.ACTIVE_MEMBERSHIP,
+                KeySettingsType.START_DATE_MEMBERSHIP,
+                KeySettingsType.END_DATE_MEMBERSHIP,
+                KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP,
+                KeySettingsType.GRACE_PERIOD_MEMBERSHIP,
+                KeySettingsType.RUBRIK_PILIHANKU
+            )
+
+            keySettings.forEach { key ->
+                load(key, "")
+            }
+        }
     }
 
 

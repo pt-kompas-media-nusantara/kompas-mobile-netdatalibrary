@@ -7,7 +7,6 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralCon
 import com.kompasid.netdatalibrary.core.domain.manageAccount.useCase.ManageAccountUseCase
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.OpenFromEntryPoint
@@ -15,12 +14,6 @@ import kotlinx.coroutines.launch
 
 class AccountVM(
     private val accountUseCase: AccountUseCase,
-    private val authUseCase: AuthUseCase,
-    private val generalContentUseCase: GeneralContentUseCase,
-    private val manageAccountUseCase: ManageAccountUseCase,
-    private val personalInfoUseCase: PersonalInfoUseCase,
-    private val settingsUseCase: SettingsUseCase,
-    private val tokenUseCase: TokenUseCase,
     private val trackerUseCase: TrackerUseCase
 ) : BaseVM() {
 

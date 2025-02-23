@@ -39,6 +39,12 @@ fun AuthScreen(
 
         Text("AuthScreen")
         HorizontalDivider()
+        FilledButton("Execute") {
+            vm.scope.launch {
+                vm.loginByEmail()
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
         HorizontalDivider()
@@ -51,11 +57,7 @@ fun AuthScreen(
         // Membuat tombol lebih nyaman di-scroll
         Spacer(modifier = Modifier.height(16.dp))
 
-        FilledButton("Execute") {
-            vm.scope.launch {
-                vm.loginByEmail()
-            }
-        }
+
 
     }
 }

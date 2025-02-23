@@ -28,15 +28,15 @@ class ManageAccountUseCase(
 
     private suspend fun updateProfileRequest(type: UpdateProfileType): UpdateProfileRequest {
         val defaultRequest = UpdateProfileRequest(
-            city = personalInfoResultState.city.value,
-            country = personalInfoResultState.country.value,
-            dateBirth = personalInfoResultState.dateBirth.value,
-            firstName = personalInfoResultState.firstName.value,
-            gender = personalInfoResultState.idGender.value,
-            lastName = personalInfoResultState.lastName.value,
-            phoneNumber = personalInfoResultState.phoneNumber.value,
-            province = personalInfoResultState.province.value,
-            userName = personalInfoResultState.username.value
+            city = "personalInfoResultState.city.value",
+            country = "personalInfoResultState.country.value",
+            dateBirth = "personalInfoResultState.dateBirth.value",
+            firstName = "personalInfoResultState.firstName.value",
+            gender = 0,
+            lastName = "personalInfoResultState.lastName.value",
+            phoneNumber = "personalInfoResultState.phoneNumber.value",
+            province = "personalInfoResultState.province.value",
+            userName = "personalInfoResultState.username.value"
         )
 
         // Gunakan copy untuk hanya mengubah field yang diperlukan

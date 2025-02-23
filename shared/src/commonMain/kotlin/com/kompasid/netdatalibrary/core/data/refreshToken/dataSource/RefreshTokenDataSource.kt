@@ -1,11 +1,10 @@
 package com.kompasid.netdatalibrary.core.data.refreshToken.dataSource
 
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 class RefreshTokenDataSource(
-    private val settingsUseCase: SettingsUseCase
+    private val settingsHelper: SettingsHelper
 ) {
     suspend fun save(
         accessToken: String,
@@ -14,11 +13,11 @@ class RefreshTokenDataSource(
         deviceKeyId: String,
         isSocial: Boolean
     ) {
-//        settingsUseCase.save(KeySettingsType.ACCESS_TOKEN, accessToken)
-//        settingsUseCase.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
-//        settingsUseCase.save(KeySettingsType.IS_VERIFIED, isVerified)
-//        settingsUseCase.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
-//        settingsUseCase.save(KeySettingsType.IS_SOCIAL, isSocial)
+//        settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+//        settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+//        settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
+//        settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
+//        settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial)
 
     }
 }

@@ -1,6 +1,5 @@
 package com.kompasid.netdatalibrary.core.domain.updateOS.useCase
 
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.model.UpdateStatusOSType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper

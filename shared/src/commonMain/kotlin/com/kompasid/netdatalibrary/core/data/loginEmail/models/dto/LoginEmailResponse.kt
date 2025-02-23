@@ -4,21 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
-//@Serializable
-//data class LoginEmailResponse(
-//    @SerialName("accessToken")
-//    val accessToken: String? = null? = null,
-//    @SerialName("deviceKeyId")
-//    val deviceKeyId: String? = null? = null,
-//    @SerialName("isPassEmpty")
-//    val isPassEmpty: Boolean? = null? = null,
-//    @SerialName("isSocial")
-//    val isSocial: Boolean? = null? = null,
-//    @SerialName("isVerified")
-//    val isVerified: Boolean? = null? = null,
-//    @SerialName("refreshToken")
-//    val refreshToken: String? = null
-//)
 @Serializable
 data class LoginEmailResponse(
     @SerialName("code")

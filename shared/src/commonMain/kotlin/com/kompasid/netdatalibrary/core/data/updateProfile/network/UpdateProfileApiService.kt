@@ -8,7 +8,6 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.response.UpdateProfileResponse
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.bearerAuth
@@ -21,7 +20,7 @@ import io.ktor.http.contentType
 
 class UpdateProfileApiService(
     private val httpClient: HttpClient,
-    private val settingsUseCase: SettingsUseCase
+    private val settingsHelper: SettingsHelper
 ) : IUpdateProfileApiService {
 
     override suspend fun updateProfile(request: UpdateProfileRequest): ApiResults<UpdateProfileResponse, NetworkError> {
@@ -31,7 +30,7 @@ class UpdateProfileApiService(
                 accept(ContentType.Application.Json)
                 setBody(request)
                 bearerAuth(
-                    settingsUseCase.getString(KeySettingsType.ACCESS_TOKEN)
+                    ""
                 )
             }
         }

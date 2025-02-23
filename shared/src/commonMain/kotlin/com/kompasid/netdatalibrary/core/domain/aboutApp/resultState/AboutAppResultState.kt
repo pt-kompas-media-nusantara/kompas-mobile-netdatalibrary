@@ -84,7 +84,7 @@ class AboutAppResultState(
             listOf(
                 AppInfoModel("GUID", guid.value),
                 AppInfoModel(
-                    "Status User", personalInfoResultState.userType.value.toString().lowercase()
+                    "Status User", "personalInfoResultState.userType.value.toString().lowercase()"
                 ),
                 AppInfoModel("Original ID Transaksi", originalTransactionId.value),
                 AppInfoModel("ID Transaksi", transactionId.value),
