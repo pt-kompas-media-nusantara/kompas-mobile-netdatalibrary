@@ -132,11 +132,6 @@ class SettingsHelper(private val settings: Settings) {
         _booleanFlowMap[key.key]?.value = false
         _stringListFlowMap[key.key]?.value = emptyList()
 
-        // Hapus dari map setelah memperbarui nilai StateFlow
-        _stringFlowMap.remove(key.key)
-        _intFlowMap.remove(key.key)
-        _booleanFlowMap.remove(key.key)
-        _stringListFlowMap.remove(key.key)
     }
 
 
@@ -150,11 +145,7 @@ class SettingsHelper(private val settings: Settings) {
         _booleanFlowMap.forEach { (_, flow) -> flow.value = false }
         _stringListFlowMap.forEach { (_, flow) -> flow.value = emptyList() }
 
-        // Hapus isi map setelah nilainya diperbarui
-        _stringFlowMap.clear()
-        _intFlowMap.clear()
-        _booleanFlowMap.clear()
-        _stringListFlowMap.clear()
+
     }
 
     fun loadAll() {
