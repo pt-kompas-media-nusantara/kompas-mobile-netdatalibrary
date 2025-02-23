@@ -28,7 +28,7 @@ import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralCont
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginResultState
+import com.kompasid.netdatalibrary.core.data.loginEmail.resultState.LoginResultState
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase

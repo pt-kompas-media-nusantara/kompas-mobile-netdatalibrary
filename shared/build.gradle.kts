@@ -63,6 +63,7 @@ kotlin {
             implementation(libs.napier) // logging
             implementation(libs.konform) // validation
             implementation(libs.multiplatform.settings.no.arg) // Storage for UserDefaults & SharedPreferences
+            implementation(libs.multiplatform.settings.serialization) // Storage for UserDefaults & SharedPreferences
 //            implementation(libs.jwtparser) // JWTDecode
 
 //            api(libs.koin.annotations) // sementara di komen

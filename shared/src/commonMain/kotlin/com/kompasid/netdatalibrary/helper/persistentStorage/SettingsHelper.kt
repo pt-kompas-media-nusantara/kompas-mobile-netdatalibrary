@@ -2,12 +2,21 @@ package com.kompasid.netdatalibrary.helper.persistentStorage
 
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.serialization.decodeValue
+import com.russhwolf.settings.serialization.decodeValueOrNull
+import com.russhwolf.settings.serialization.encodeValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Suppress("UNCHECKED_CAST")
 class SettingsHelper(private val settings: Settings) {
@@ -18,9 +27,9 @@ class SettingsHelper(private val settings: Settings) {
     private val _booleanFlowMap: MutableMap<String, MutableStateFlow<Boolean?>> = mutableMapOf()
     private val _stringListFlowMap: MutableMap<String, MutableStateFlow<List<String>?>> =
         mutableMapOf()
+    private val _serializableFlowMap: MutableMap<String, MutableStateFlow<Any?>> = mutableMapOf()
 
-
-    suspend fun <T> save(key: KeySettingsType, value: T) {
+    suspend fun <T> save(key: KeySettingsType, value: T, serializer: KSerializer<T>? = null) {
         when (value) {
             is String -> {
                 val flow = getStringFlow(key)
@@ -62,16 +71,29 @@ class SettingsHelper(private val settings: Settings) {
                         settings.putString(key.key, stringValue)
                         flow.update { stringList }
                     }
-                } else {
-                    throw IllegalArgumentException("Unsupported list type, must be a List<String>")
                 }
             }
+
+            else -> {
+                if (serializer != null) {
+                    Logger.debug { "Saving Serializable key: ${key.key}" }
+                    settings.encodeValue(serializer, key.key, value)
+
+                    val flow = getSerializableFlow<T>(key)
+                    flow.value = value
+
+                    Logger.debug { "Serializable value for key: ${key.key} saved successfully" }
+                } else {
+                    throw IllegalArgumentException("Unsupported data type for key: ${key.key}, please provide a serializer.")
+                }
+            }
+
         }
     }
 
 
     // Function to load generic value
-    fun <T> load(key: KeySettingsType, defaultValue: T): T {
+    fun <T> load(key: KeySettingsType, defaultValue: T, serializer: KSerializer<T>? = null): T {
         return when (defaultValue) {
             is String -> {
                 val flow = getStringFlow(key)
@@ -114,11 +136,24 @@ class SettingsHelper(private val settings: Settings) {
                         listDefaultValue // Mengembalikan defaultValue jika tidak ada data yang disimpan
                     }
                 } else {
-                    throw IllegalArgumentException("Unsupported list type, must be List<String>")
+                    throw IllegalArgumentException("Unsupported List type for key: ${key.key}, please provide a List.")
                 }
             }
 
-            else -> throw IllegalArgumentException("Unsupported type")
+            else -> {
+                if (serializer != null) {
+                    Logger.debug { "Fetching Serializable key: ${key.key}" }
+                    val value = settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
+
+                    val flow = getSerializableFlow<T>(key)
+                    flow.value = value
+
+                    Logger.debug { "Loaded Serializable ${key.key} with value: $value" }
+                    value
+                } else {
+                    throw IllegalArgumentException("Unsupported data type for key: ${key.key}, please provide a serializer.")
+                }
+            }
         } as T
     }
 
@@ -131,7 +166,7 @@ class SettingsHelper(private val settings: Settings) {
         _intFlowMap[key.key]?.value = 0
         _booleanFlowMap[key.key]?.value = false
         _stringListFlowMap[key.key]?.value = emptyList()
-
+        _serializableFlowMap[key.key]?.value = null
     }
 
 
@@ -144,7 +179,7 @@ class SettingsHelper(private val settings: Settings) {
         _intFlowMap.forEach { (_, flow) -> flow.value = 0 }
         _booleanFlowMap.forEach { (_, flow) -> flow.value = false }
         _stringListFlowMap.forEach { (_, flow) -> flow.value = emptyList() }
-
+        _serializableFlowMap.forEach { (_, flow) -> flow.value = null }
 
     }
 
@@ -222,4 +257,22 @@ class SettingsHelper(private val settings: Settings) {
             MutableStateFlow(stringList)
         }
     }
+
+
+    fun <T> getSerializableFlow(key: KeySettingsType): MutableStateFlow<T?> =
+        _serializableFlowMap.getOrPut(key.key) {
+            Logger.debug { "Initialized Serializable ${key.key}" }
+            MutableStateFlow(null)
+        } as MutableStateFlow<T?>
+
 }
+/*
+@Serializable
+data class UserProfile(val name: String, val age: Int)
+
+// Menyimpan objek UserProfile
+viewModel.save(KeySettingsType.USER_PROFILE, UserProfile("Irfan", 29), UserProfile.serializer())
+
+// Mengambil objek UserProfile
+val userProfile: UserProfile = viewModel.load(KeySettingsType.USER_PROFILE, UserProfile("Guest", 0), UserProfile.serializer())
+*/

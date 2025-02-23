@@ -1,8 +1,11 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor
 
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class UserHistoryMembershipResInterceptor(
-    val user: UserHistoryMembershipObjResInterceptor = UserHistoryMembershipObjResInterceptor(
+    var user: UserHistoryMembershipObjResInterceptor = UserHistoryMembershipObjResInterceptor(
         "",
         "",
         "",
@@ -10,22 +13,24 @@ data class UserHistoryMembershipResInterceptor(
         0,
         false,
     ),
-//    val active: List<HistoryMembershipResInterceptor> = emptyList(),
-//    val expired: List<HistoryMembershipResInterceptor> = emptyList(),
+    var active: List<HistoryMembershipResInterceptor> = mutableListOf(),
+    var expired: List<HistoryMembershipResInterceptor> = mutableListOf(),
 )
 
+@Serializable
 data class UserHistoryMembershipObjResInterceptor(
-    val expired: String = "",
-    val isActive: String = "",
-    val startDate: String = "",
-    val endDate: String = "",
-    val totalGracePeriod: Int = 0,
-    val gracePeriod: Boolean = false,
+    var expired: String = "",
+    var isActive: String = "",
+    var startDate: String = "",
+    var endDate: String = "",
+    var totalGracePeriod: Int = 0,
+    var gracePeriod: Boolean = false,
 )
 
+@Serializable
 data class HistoryMembershipResInterceptor(
-    val membershipTitle: String = "",
-    val membershipSlug: String = "",
-    val startDate: String = "",
-    val endDate: String = "",
+    var membershipTitle: String = "",
+    var membershipSlug: String = "",
+    var startDate: String = "",
+    var endDate: String = "",
 )

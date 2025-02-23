@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-
+import kotlinx.serialization.builtins.serializer
 
 
 class LaunchAppResultState(
@@ -46,7 +46,9 @@ class LaunchAppResultState(
 
     val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
         combine(
-            settingsHelper.getStringListFlow(KeySettingsType.ORIGINAL_TRANSACTION_ID),
+            settingsHelper.getStringListFlow(
+                KeySettingsType.ORIGINAL_TRANSACTION_ID
+            ),
             settingsHelper.getStringListFlow(KeySettingsType.TRANSACTION_ID),
             settingsHelper.getStringListFlow(KeySettingsType.HISTORY_TRANSACTION),
         ) { originalTransactionId, transactionId, historyTransaction ->

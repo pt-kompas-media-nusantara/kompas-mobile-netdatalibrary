@@ -3,9 +3,9 @@ package com.kompasid.netdatalibrary.core.presentation.auth.resultState
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.Results
+import com.kompasid.netdatalibrary.core.data.loginEmail.dto.interceptor.LoginInterceptor
 import com.kompasid.netdatalibrary.core.data.loginEmail.dto.request.LoginEmailRequest
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginResultState
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginInterceptor
+import com.kompasid.netdatalibrary.core.data.loginEmail.resultState.LoginResultState
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor

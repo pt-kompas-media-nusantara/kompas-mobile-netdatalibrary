@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
@@ -7,6 +8,8 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.serializer
 
 class UserHistoryMembershipDataSource(
     private val settingsHelper: SettingsHelper
@@ -50,14 +53,12 @@ class UserHistoryMembershipDataSource(
                     )
                 }
             },
-//            async {
-//                // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
-//                settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIPS, data.active)
-//            },
-//            async {
-//                // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
-//                settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIPS, data.expired)
-//            }
+            async {
+                settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIPS, data.active, ListSerializer(HistoryMembershipResInterceptor.serializer()))
+            },
+            async {
+                settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIPS, data.expired, ListSerializer(HistoryMembershipResInterceptor.serializer()))
+            }
         ).awaitAll()
     }
 }

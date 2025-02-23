@@ -2,24 +2,24 @@ package com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor
 
 
 data class UserDetailResInterceptor(
-    val idGender: Int = 0,
-    val gender: String = "",
-    val userId: String = "",
-    val firstName: String = "",
-    val lastName: String = "",
-    val email: String = "",
-    val userGuid: String = "",
-    val isActive: Boolean = false,
-    val userStatus: UserStatusInterceptor = UserStatusInterceptor(false, false),
-    val phoneNumber: String = "",
-    val countryCode: String = "",
-    val dateBirth: String = "",
-    val country: String = "",
-    val province: String = "",
-    val city: String = "",
+    var idGender: Int = 0,
+    var gender: String = "",
+    var userId: String = "",
+    var firstName: String = "",
+    var lastName: String = "",
+    var email: String = "",
+    var userGuid: String = "",
+    var isActive: Boolean = false,
+    var userStatus: UserStatusInterceptor = UserStatusInterceptor(false, false),
+    var phoneNumber: String = "",
+    var countryCode: String = "",
+    var dateBirth: String = "",
+    var country: String = "",
+    var province: String = "",
+    var city: String = "",
 )
 
 data class UserStatusInterceptor(
-    val isVerified: Boolean = false,
-    val phoneVerified: Boolean = false
+    var isVerified: Boolean = false,
+    var phoneVerified: Boolean = false
 )

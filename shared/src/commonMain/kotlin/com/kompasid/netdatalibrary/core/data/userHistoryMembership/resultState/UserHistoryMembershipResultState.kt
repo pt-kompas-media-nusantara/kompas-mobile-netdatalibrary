@@ -2,9 +2,11 @@ package com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipObjResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
+import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +21,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.serializer
 
 
 class UserHistoryMembershipResultState(
@@ -53,16 +57,29 @@ class UserHistoryMembershipResultState(
         )
     }
 
+//    private val listHistoryMembershipResInterceptor = combine(
+//        settingsHelper.load(KeySettingsType.ACTIVE_MEMBERSHIPS, "", List<HistoryMembershipResInterceptor>),
+//        settingsHelper.getSerializableFlow(KeySettingsType.EXPIRED_MEMBERSHIPS)
+//    ) { active, expired ->
+//        UserHistoryMembershipResInterceptor(
+//            active = active,
+//            expired = expired
+//        )
+//    }
+
     val userHistoryMembershipResInterceptor: StateFlow<UserHistoryMembershipResInterceptor> =
         combine(
             userHistoryFlow,
-            userHistorySecondFlow
+            userHistorySecondFlow,
+//            listHistoryMembershipResInterceptor
         ) { one, two ->
             one.copy(
                 user = one.user.copy(
                     totalGracePeriod = two.user.totalGracePeriod,
                     gracePeriod = two.user.gracePeriod
-                )
+                ),
+//                active = three.active,
+//                expired = three.expired,
             )
         }
             .flowOn(Dispatchers.IO)
