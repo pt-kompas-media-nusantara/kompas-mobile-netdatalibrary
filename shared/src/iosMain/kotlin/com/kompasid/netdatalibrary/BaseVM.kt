@@ -9,7 +9,4 @@ actual open class BaseVM {
 
     actual val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
-    fun clear() {
-        scope.cancel()
-    }
 }

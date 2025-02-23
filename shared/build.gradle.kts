@@ -131,6 +131,7 @@ android {
 }
 dependencies {
     implementation(libs.androidx.runtime.android)
+    implementation(libs.androidx.lifecycle.viewmodel.android)
 }
 
 //// KSP Tasks

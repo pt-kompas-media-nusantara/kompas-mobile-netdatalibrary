@@ -15,6 +15,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun MainScreen(
     onNoArgModuleSettingsClick: () -> Unit,
+    onListeneroArgModuleSettingsClick: () -> Unit,
     onLaunchAppFlowClick: () -> Unit,
     onAuthFlowClick: () -> Unit,
     onAccountClick: () -> Unit,
@@ -35,6 +36,10 @@ fun MainScreen(
     ) {
         FilledButton("onNoArgModuleSettingsClick", {
             onNoArgModuleSettingsClick()
+        })
+
+        FilledButton("onListeneroArgModuleSettingsClick", {
+            onListeneroArgModuleSettingsClick()
         })
 
         FilledButton("onLaunchAppFlowClick", {

@@ -21,6 +21,7 @@ import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.enums.Screens
 import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
 import com.kompasid.netdatalibrary.android.screens.example.ExampleNoArgModuleSettingsScreen
+import com.kompasid.netdatalibrary.android.screens.example.ListenerExampleNoArgModuleSettingsScreen
 
 @Composable
 fun AppScaffold() {
@@ -50,6 +51,7 @@ fun AppNavHost(
         composable(Screens.MAIN_SCREEN.route) {
             MainScreen(
                 onNoArgModuleSettingsClick = { navController.navigate(Screens.NO_ARG_MODULE_SETTINS.route) },
+                onListeneroArgModuleSettingsClick = { navController.navigate(Screens.LISTENER_NO_ARG_MODULE_SETTINS.route) },
                 onLaunchAppFlowClick = { navController.navigate(Screens.LAUNCH_APP_SCREEN.route) },
                 onAuthFlowClick = { navController.navigate(Screens.AUTH_SCREEN.route) },
                 onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
@@ -66,6 +68,12 @@ fun AppNavHost(
 
         composable(Screens.NO_ARG_MODULE_SETTINS.route) {
             ExampleNoArgModuleSettingsScreen(
+                onBackClick = { navController.popBackStack() },
+            )
+        }
+        composable(Screens.LISTENER_NO_ARG_MODULE_SETTINS.route) {
+            ListenerExampleNoArgModuleSettingsScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
 

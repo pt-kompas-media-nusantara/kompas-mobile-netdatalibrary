@@ -13,49 +13,33 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings.ExampleNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings.ListenerExampleNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ExampleNoArgModuleSettingsScreen(
-    viewModel: ExampleNoArgModuleSettingsVM = koinViewModel(),
+fun ListenerExampleNoArgModuleSettingsScreen(
+    viewModel: ListenerExampleNoArgModuleSettingsVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-    // Observasi data dari ViewModel secara real-time
     val username by viewModel.username.collectAsState()
     val darkMode by viewModel.darkMode.collectAsState()
 
-    var textState by remember { mutableStateOf(TextFieldValue(username)) }
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.close() // Hapus listener saat composable ini tidak digunakan lagi
+        }
+    }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    Column {
         AppBackBar(onBackClick)
 
-        Text("User Settings", style = MaterialTheme.typography.headlineMedium)
-
-        // Input untuk Username
-        BasicTextField(
-            value = textState,
-            onValueChange = { textState = it },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        // Tombol untuk Menyimpan Username
-        Button(onClick = {
-            viewModel.updateUsername(textState.text)
-        }) {
-            Text("Save Username")
+        Text("Username: $username")
+        Button(onClick = { viewModel.updateUsername("Test ${RelativeTimeFormatter().getCurrentTime()}") }) {
+            Text("Update Username")
         }
 
-        // Toggle untuk Dark Mode
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
+        Row {
             Text("Dark Mode")
             Switch(
                 checked = darkMode,
