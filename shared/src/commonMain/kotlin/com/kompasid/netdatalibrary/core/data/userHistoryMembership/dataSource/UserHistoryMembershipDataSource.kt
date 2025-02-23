@@ -50,14 +50,14 @@ class UserHistoryMembershipDataSource(
                     )
                 }
             },
-            async {
-                // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
-                settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIPS, data.active)
-            },
-            async {
-                // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
-                settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIPS, data.expired)
-            }
+//            async {
+//                // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
+//                settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIPS, data.active)
+//            },
+//            async {
+//                // nurirppan__ : ini blm bisa di handle karna bukan list string tetapi list model = val active: List<HistoryMembershipResInterceptor> = emptyList(),
+//                settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIPS, data.expired)
+//            }
         ).awaitAll()
     }
 }

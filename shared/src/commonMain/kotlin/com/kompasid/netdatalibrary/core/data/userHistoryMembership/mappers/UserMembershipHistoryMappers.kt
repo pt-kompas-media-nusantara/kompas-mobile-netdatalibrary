@@ -15,21 +15,21 @@ fun OldUserHistoryMembershipResponse.toInterceptor(): UserHistoryMembershipResIn
             totalGracePeriod = data?.result?.user?.totalGracePeriod ?: 0,
             gracePeriod = data?.result?.user?.gracePeriod ?: false,
         ),
-        active = data?.result?.active?.map {
-            HistoryMembershipResInterceptor(
-                membershipTitle = it?.membershipTitle ?: "",
-                membershipSlug = it?.membershipSlug ?: "",
-                startDate = it?.startDate ?: "",
-                endDate = it?.endDate ?: ""
-            )
-        } ?: emptyList(),
-        expired = data?.result?.expired?.map {
-            HistoryMembershipResInterceptor(
-                membershipTitle = it?.membershipTitle ?: "",
-                membershipSlug = it?.membershipSlug ?: "",
-                startDate = it?.startDate ?: "",
-                endDate = it?.endDate ?: ""
-            )
-        } ?: emptyList()
+//        active = data?.result?.active?.map {
+//            HistoryMembershipResInterceptor(
+//                membershipTitle = it?.membershipTitle ?: "",
+//                membershipSlug = it?.membershipSlug ?: "",
+//                startDate = it?.startDate ?: "",
+//                endDate = it?.endDate ?: ""
+//            )
+//        } ?: emptyList(),
+//        expired = data?.result?.expired?.map {
+//            HistoryMembershipResInterceptor(
+//                membershipTitle = it?.membershipTitle ?: "",
+//                membershipSlug = it?.membershipSlug ?: "",
+//                startDate = it?.startDate ?: "",
+//                endDate = it?.endDate ?: ""
+//            )
+//        } ?: emptyList()
     )
 }

@@ -55,18 +55,32 @@ fun AuthScreen(
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
         HorizontalDivider()
-        Text(loginInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
-        Text(userDetailResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
-        Text(userHistoryMembershipResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
-        // Membuat tombol lebih nyaman di-scroll
         Spacer(modifier = Modifier.height(16.dp))
 
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(loginInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(userDetailResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(userHistoryMembershipResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
 
 
     }

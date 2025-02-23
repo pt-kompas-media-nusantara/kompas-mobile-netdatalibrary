@@ -10,8 +10,8 @@ data class UserHistoryMembershipResInterceptor(
         0,
         false,
     ),
-    val active: List<HistoryMembershipResInterceptor> = emptyList(),
-    val expired: List<HistoryMembershipResInterceptor> = emptyList(),
+//    val active: List<HistoryMembershipResInterceptor> = emptyList(),
+//    val expired: List<HistoryMembershipResInterceptor> = emptyList(),
 )
 
 data class UserHistoryMembershipObjResInterceptor(

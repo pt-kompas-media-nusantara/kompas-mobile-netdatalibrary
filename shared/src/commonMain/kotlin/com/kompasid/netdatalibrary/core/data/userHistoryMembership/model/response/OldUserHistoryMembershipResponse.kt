@@ -3,77 +3,79 @@ package com.kompasid.netdatalibrary.core.data.userMembershipHistoryData.dto
 import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.SerialName
-
 @Serializable
 data class OldUserHistoryMembershipResponse(
     @SerialName("code")
-    val code: Int? = null,
+    var code: Int? = null,
     @SerialName("data")
-    val data: OldUserHistoryMembershipResponseData? = null,
+    var data: OldUserHistoryMembershipResponseData? = null,
     @SerialName("message")
-    val message: String? = null,
+    var message: String? = null,
 )
 
 @Serializable
 data class OldUserHistoryMembershipResponseData(
     @SerialName("result")
-    val result: OldUserHistoryMembershipResponseDataResult? = null
+    var result: Result? = null
 )
 
 
 @Serializable
-data class OldUserHistoryMembershipResponseDataResult(
+data class Result(
     @SerialName("active")
-    val active: List<Active?>? = null,
+    var active: List<Active?>? = null,
     @SerialName("expired")
-    val expired: List<Expired?>? = null,
+    var expired: List<Expired?>? = null,
+//    @SerialName("gracePeriod")
+//    var gracePeriod: Any? = null,
     @SerialName("user")
-    val user: User? = null
+    var user: User? = null
 )
 
 @Serializable
 data class Active(
     @SerialName("endDate")
-    val endDate: String? = null,
+    var endDate: String? = null,
     @SerialName("membershipSlug")
-    val membershipSlug: String? = null,
+    var membershipSlug: String? = null,
     @SerialName("membershipTitle")
-    val membershipTitle: String? = null,
+    var membershipTitle: String? = null,
     @SerialName("startDate")
-    val startDate: String? = null
+    var startDate: String? = null
 )
 
 @Serializable
 data class Expired(
     @SerialName("endDate")
-    val endDate: String? = null,
+    var endDate: String? = null,
     @SerialName("membershipSlug")
-    val membershipSlug: String? = null,
+    var membershipSlug: String? = null,
     @SerialName("membershipTitle")
-    val membershipTitle: String? = null,
+    var membershipTitle: String? = null,
     @SerialName("startDate")
-    val startDate: String? = null
+    var startDate: String? = null
 )
 
 @Serializable
 data class User(
     @SerialName("email")
-    val email: String? = null,
+    var email: String? = null,
     @SerialName("endDate")
-    val endDate: String? = null,
+    var endDate: String? = null,
     @SerialName("expired")
-    val expired: String? = null,
+    var expired: String? = null,
     @SerialName("firstName")
-    val firstName: String? = null,
+    var firstName: String? = null,
     @SerialName("gracePeriod")
-    val gracePeriod: Boolean? = null,
+    var gracePeriod: Boolean? = null,
     @SerialName("isActive")
-    val isActive: String? = null,
+    var isActive: String? = null,
     @SerialName("lastName")
-    val lastName: String? = null,
+    var lastName: String? = null,
     @SerialName("startDate")
-    val startDate: String? = null,
+    var startDate: String? = null,
     @SerialName("totalGracePeriod")
-    val totalGracePeriod: Int? = null,
+    var totalGracePeriod: Int? = null,
+//    @SerialName("updateMembership")
+//    var updateMembership: Any? = null
 )
-
