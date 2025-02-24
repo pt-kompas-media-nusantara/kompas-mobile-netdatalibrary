@@ -18,7 +18,14 @@ class SettingsHelper(
 //    private val settings: Settings,
     private val flowSettings: FlowSettings,
 ) {
-
+selanjutnya
+    set and get list : String, Int, Boolean, Float, serializer
+    satuan serializer
+    setelah itu menampilkan login result state
+    setelah itu menampilkan history user memberhip
+    setelah itu menampilkan serializer list active dan expired
+    save serializer UserDetailResInterceptor
+    load serializer UserDetailResInterceptor
     suspend fun <T> save(key: KeySettingsType, value: T, serializer: KSerializer<T>? = null) {
         when (value) {
 
