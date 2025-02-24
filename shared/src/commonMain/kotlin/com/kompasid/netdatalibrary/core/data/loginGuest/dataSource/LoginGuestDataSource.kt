@@ -7,7 +7,7 @@ class LoginGuestDataSource(
     private val settingsHelper: SettingsHelper
 ) {
     suspend fun save(accessToken: String, refreshToken: String) {
-//        settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
-//        settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+        settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+        settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
     }
 }

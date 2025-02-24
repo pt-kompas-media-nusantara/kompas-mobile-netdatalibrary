@@ -25,9 +25,6 @@ fun AuthScreen(
     vm: AuthVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-//    val loginInterceptor by vm.loginInterceptor.collectAsState()
-//    val userDetailResInterceptor by vm.userDetailResInterceptor.collectAsState()
-//    val userHistoryMembershipResInterceptor by vm.userHistoryMembershipResInterceptor.collectAsState()
 
     Column(
         modifier = Modifier
@@ -37,27 +34,27 @@ fun AuthScreen(
     ) {
         AppBackBar(onBackClick)
 
-//        Text("AuthScreen")
-//        HorizontalDivider()
-//        FilledButton("Execute") {
-//            vm.scope.launch {
-//                vm.loginByEmail()
-//            }
-//        }
-//        FilledButton("removaAll") {
-//            vm.scope.launch {
-//                vm.removaAll()
-//            }
-//        }
-//        FilledButton("logger") {
-//            vm.scope.launch {
-//                vm.logger()
-//            }
-//        }
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-//
+        Text("AuthScreen")
+        HorizontalDivider()
+        FilledButton("Execute") {
+            vm.scope.launch {
+                vm.loginByEmail()
+            }
+        }
+        FilledButton("removaAll") {
+            vm.scope.launch {
+                vm.removaAll()
+            }
+        }
+        FilledButton("logger") {
+            vm.scope.launch {
+                vm.logger()
+            }
+        }
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+
 //        Spacer(modifier = Modifier.height(16.dp))
 //        HorizontalDivider()
 //        Spacer(modifier = Modifier.height(16.dp))

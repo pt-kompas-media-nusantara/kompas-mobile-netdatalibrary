@@ -23,3 +23,4 @@ data class UserStatusInterceptor(
     var isVerified: Boolean = false,
     var phoneVerified: Boolean = false
 )
+

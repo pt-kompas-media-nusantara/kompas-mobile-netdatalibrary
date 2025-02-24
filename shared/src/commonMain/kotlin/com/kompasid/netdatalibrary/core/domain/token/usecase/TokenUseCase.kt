@@ -20,51 +20,55 @@ class TokenUseCase(
 
         if (accessToken.isEmpty()) {
             val loginResult = handleLoginGuest()
-            if (loginResult is Results.Error) return loginResult
-            accessToken = loadAccessToken()
+            when (loginResult) {
+                is Results.Error -> {
+                    Results.Error(loginResult.error)
+                }
+                is Results.Success -> {
+                    return Results.Success(accessToken)
+                }
+            }
         }
 
         // Cek apakah token sudah kedaluwarsa
         if (jwt.isTokenExpired(accessToken)) {
             val refreshResult = handleRefreshToken()
-            if (refreshResult is Results.Error) return refreshResult
-            accessToken = loadAccessToken()
+            when (refreshResult) {
+                is Results.Error -> {
+                    Results.Error(refreshResult.error)
+                }
+                is Results.Success -> {
+                    return Results.Success(accessToken)
+                }
+            }
         }
 
         // Kembalikan token yang valid
         return Results.Success(accessToken)
     }
 
-    private suspend fun handleLoginGuest(): Results<Unit, NetworkError> {
+    private suspend fun handleLoginGuest(): Results<String, NetworkError> {
         return when (val result = loginGuestRepository.postLoginGuest()) {
             is Results.Error -> {
-                handleError(result.error)
                 Results.Error(result.error)
             }
-
-            is Results.Success -> Results.Success(Unit)
+            is Results.Success -> Results.Success(result.data)
         }
     }
 
-    private suspend fun handleRefreshToken(): Results<Unit, NetworkError> {
+    private suspend fun handleRefreshToken(): Results<String, NetworkError> {
         return when (val result = refreshTokenRepository.postRefreshToken()) {
             is Results.Error -> {
-                handleError(result.error)
-                settingsHelper.removeAll()
                 Results.Error(result.error)
             }
 
-            is Results.Success -> Results.Success(Unit)
+            is Results.Success -> Results.Success(result.data)
         }
     }
 
     private suspend fun loadAccessToken(): String {
-        return ""
+        return settingsHelper.load(KeySettingsType.ACCESS_TOKEN)
     }
 
-    private suspend fun handleError(error: NetworkError): Results.Error<NetworkError> {
-        settingsHelper.removeAll()
-        return Results.Error(error)
-    }
 
 }

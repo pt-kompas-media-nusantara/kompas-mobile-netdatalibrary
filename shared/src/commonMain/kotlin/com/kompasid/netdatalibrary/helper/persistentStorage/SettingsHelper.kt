@@ -2,13 +2,18 @@ package com.kompasid.netdatalibrary.helper.persistentStorage
 
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.coroutines.FlowSettings
+import com.russhwolf.settings.coroutines.SuspendSettings
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.serialization.removeValue
 import kotlinx.serialization.KSerializer
 
 @Suppress("UNCHECKED_CAST")
-class SettingsHelper(private val settings: Settings) {
+class SettingsHelper(
+    private val settings: Settings,
+    private val flowSettings: FlowSettings,
+) {
 
     suspend fun <T> save(key: KeySettingsType, value: T, serializer: KSerializer<T>? = null) {
         when (value) {
@@ -17,7 +22,7 @@ class SettingsHelper(private val settings: Settings) {
                 val load = load(key, "")
                 if (load != value) {
                     Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
-                    settings.putString(key.key, value)
+                    flowSettings.putString(key.key, value)
                 }
             }
 
@@ -25,7 +30,7 @@ class SettingsHelper(private val settings: Settings) {
                 val load = load(key, 100)
                 if (load != value) {
                     Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
-                    settings.putInt(key.key, value)
+                    flowSettings.putInt(key.key, value)
                 }
             }
 
@@ -33,7 +38,7 @@ class SettingsHelper(private val settings: Settings) {
                 val load = load(key, false)
                 if (load != value) {
                     Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
-                    settings.putBoolean(key.key, value)
+                    flowSettings.putBoolean(key.key, value)
                 }
             }
 
@@ -41,7 +46,7 @@ class SettingsHelper(private val settings: Settings) {
                 val load = load(key, 0.0)
                 if (load != value) {
                     Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
-                    settings.putFloat(key.key, value)
+                    flowSettings.putFloat(key.key, value)
                 }
             }
 
@@ -66,19 +71,19 @@ class SettingsHelper(private val settings: Settings) {
     ): T {
         return when (defaultValue) {
             is String -> {
-                settings.getStringOrNull(key.key)
+                flowSettings.getStringOrNullFlow(key.key)
             }
 
             is Int -> {
-                settings.getIntOrNull(key.key)
+                flowSettings.getIntOrNullFlow(key.key)
             }
 
             is Boolean -> {
-                settings.getBooleanOrNull(key.key)
+                flowSettings.getBooleanOrNullFlow(key.key)
             }
 
             is Float -> {
-                settings.getFloatOrNull(key.key)
+                flowSettings.getFloatOrNullFlow(key.key)
             }
 
             else -> {
@@ -105,7 +110,7 @@ class SettingsHelper(private val settings: Settings) {
                 throw IllegalArgumentException("Serializer cannot be null when removing serialized value for key: ${key.key}")
             }
         } else {
-            settings.remove(key.key)
+            flowSettings.remove(key.key)
         }
     }
 
@@ -113,6 +118,7 @@ class SettingsHelper(private val settings: Settings) {
     // Function to remove all values
     suspend fun removeAll() {
         settings.clear()
+        flowSettings.clear()
     }
 
 

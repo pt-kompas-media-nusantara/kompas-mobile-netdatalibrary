@@ -22,9 +22,7 @@ class RefreshTokenApiService(
 ) : IRefreshTokenApiService {
     override suspend fun postRefreshToken(): ApiResults<RefreshTokenResponse, NetworkError> {
         return safeCall<RefreshTokenResponse> {
-            val request = RefreshTokenRequest(
-                ""
-            )
+            val request = RefreshTokenRequest(settingsHelper.load(KeySettingsType.REFRESH_TOKEN))
 
             httpClient.post(ApiConfig.REFRESH_TOKEN_URL) {
                 contentType(ContentType.Application.Json)

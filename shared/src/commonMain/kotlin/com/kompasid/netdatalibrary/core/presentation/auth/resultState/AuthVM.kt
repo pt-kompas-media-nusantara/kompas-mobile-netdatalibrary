@@ -22,12 +22,6 @@ class AuthVM(
     private val userHistoryMembershipResultState: UserHistoryMembershipResultState,
     private val settingsHelper: SettingsHelper
 ) : BaseVM() {
-//    val loginInterceptor: StateFlow<LoginInterceptor> =
-//        loginResultState.loginInterceptor
-//    val userDetailResInterceptor: StateFlow<UserDetailResInterceptor> =
-//        userDetailResultState.userDetailState
-//    val userHistoryMembershipResInterceptor: StateFlow<UserHistoryMembershipResInterceptor> =
-//        userHistoryMembershipResultState.userHistoryMembershipResInterceptor
 
     suspend fun removaAll() {
         settingsHelper.removeAll()

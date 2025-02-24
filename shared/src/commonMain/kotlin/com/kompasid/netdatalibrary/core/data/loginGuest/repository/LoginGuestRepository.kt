@@ -11,16 +11,18 @@ class LoginGuestRepository(
     private val loginGuestDataSource: LoginGuestDataSource
 ) : ILoginGuestRepository {
 
-    override suspend fun postLoginGuest(): Results<Unit, NetworkError> {
+    override suspend fun postLoginGuest(): Results<String, NetworkError> {
         return when (val result = loginGuestApiService.postLoginGuest()) {
             is ApiResults.Success -> {
-                val result = result.data
+                val accessToken = result.data.data?.accessToken.orEmpty()
+                val refreshToken = result.data.data?.refreshToken.orEmpty()
 
-                loginGuestDataSource.save(result.accessToken ?: "", result.refreshToken ?: "")
-                return Results.Success(Unit)
+                loginGuestDataSource.save(accessToken, refreshToken)
+                Results.Success(accessToken)
             }
 
             is ApiResults.Error -> Results.Error(result.error)
         }
     }
 }
+

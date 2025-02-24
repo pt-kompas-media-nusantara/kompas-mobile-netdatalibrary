@@ -17,11 +17,100 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 
 class UserDetailResultState(
     private val settingsHelper: SettingsHelper
 ) : BaseVM() {
+
+    private val _idGender = MutableStateFlow(0)
+    val idGender = _idGender.asStateFlow()
+
+    private val _gender = MutableStateFlow("")
+    val gender = _gender.asStateFlow()
+
+    private val _userId = MutableStateFlow("")
+    val userId = _userId.asStateFlow()
+
+    private val _firstName = MutableStateFlow("")
+    val firstName = _firstName.asStateFlow()
+
+    private val _lastName = MutableStateFlow("")
+    val lastName = _lastName.asStateFlow()
+
+    private val _email = MutableStateFlow("")
+    val email = _email.asStateFlow()
+
+    private val _userGuid = MutableStateFlow("")
+    val userGuid = _userGuid.asStateFlow()
+
+    private val _isActive = MutableStateFlow(false)
+    val isActive = _isActive.asStateFlow()
+
+    private val _isVerified = MutableStateFlow(false)
+    val isVerified = _isVerified.asStateFlow()
+
+    private val _phoneVerified = MutableStateFlow(false)
+    val phoneVerified = _phoneVerified.asStateFlow()
+
+    private val _phoneNumber = MutableStateFlow("")
+    val phoneNumber = _phoneNumber.asStateFlow()
+
+    private val _countryCode = MutableStateFlow("")
+    val countryCode = _countryCode.asStateFlow()
+
+    private val _dateBirth = MutableStateFlow("")
+    val dateBirth = _dateBirth.asStateFlow()
+
+    private val _country = MutableStateFlow("")
+    val country = _country.asStateFlow()
+
+    private val _province = MutableStateFlow("")
+    val province = _province.asStateFlow()
+
+    private val _city = MutableStateFlow("")
+    val city = _city.asStateFlow()
+
+    init {
+        scope.launch {
+            _idGender.value = settingsHelper.load(KeySettingsType.ID_GENDER)
+            _gender.value = settingsHelper.load(KeySettingsType.GENDER)
+            _userId.value = settingsHelper.load(KeySettingsType.USER_ID)
+            _firstName.value = settingsHelper.load(KeySettingsType.FIRST_NAME)
+            _lastName.value = settingsHelper.load(KeySettingsType.LAST_NAME)
+            _email.value = settingsHelper.load(KeySettingsType.EMAIL)
+            _userGuid.value = settingsHelper.load(KeySettingsType.USER_GUID)
+            _isActive.value = settingsHelper.load(KeySettingsType.IS_ACTIVE)
+            _phoneNumber.value = settingsHelper.load(KeySettingsType.PHONE_NUMBER)
+            _countryCode.value = settingsHelper.load(KeySettingsType.COUNTRY_CODE)
+            _dateBirth.value = settingsHelper.load(KeySettingsType.DATE_BIRTH)
+            _country.value = settingsHelper.load(KeySettingsType.COUNTRY)
+            _province.value = settingsHelper.load(KeySettingsType.PROVINCE)
+            _city.value = settingsHelper.load(KeySettingsType.CITY)
+            _isVerified.value = settingsHelper.load(KeySettingsType.IS_VERIFIED)
+            _phoneVerified.value = settingsHelper.load(KeySettingsType.PHONE_NUMBER)
+        }
+    }
+
+    fun updateUserDetails(userDetail: UserDetailResInterceptor) {
+        _idGender.value = userDetail.idGender
+        _gender.value = userDetail.gender
+        _userId.value = userDetail.userId
+        _firstName.value = userDetail.firstName
+        _lastName.value = userDetail.lastName
+        _email.value = userDetail.email
+        _userGuid.value = userDetail.userGuid
+        _isActive.value = userDetail.isActive
+        _isVerified.value = userDetail.userStatus.isVerified
+        _phoneVerified.value = userDetail.userStatus.phoneVerified
+        _phoneNumber.value = userDetail.phoneNumber
+        _countryCode.value = userDetail.countryCode
+        _dateBirth.value = userDetail.dateBirth
+        _country.value = userDetail.country
+        _province.value = userDetail.province
+        _city.value = userDetail.city
+    }
 
 //    private val userInfoFlow = combine(
 //        settingsHelper.getIntFlow(KeySettingsType.ID_GENDER).map { it ?: 0 },

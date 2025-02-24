@@ -11,13 +11,10 @@ class RefreshTokenDataSource(
         refreshToken: String,
         isVerified: Boolean,
         deviceKeyId: String,
-        isSocial: Boolean
     ) {
-//        settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
-//        settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
-//        settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
-//        settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
-//        settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial)
-
+        settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
+        settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
+        settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
+        settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
     }
 }

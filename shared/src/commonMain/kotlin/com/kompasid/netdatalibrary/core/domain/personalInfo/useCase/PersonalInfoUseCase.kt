@@ -29,17 +29,33 @@ class PersonalInfoUseCase(
 
                     when {
                         userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
-                            Results.Success(Pair(userDetailResult.data, historyMembershipResult.data))
+                            Results.Success(
+                                Pair(
+                                    userDetailResult.data,
+                                    historyMembershipResult.data
+                                )
+                            )
                         }
+
                         userDetailResult is Results.Error -> {
                             historyMembershipDeferred.cancel() // Batalkan yang lain
                             userDetailResult
                         }
+
                         historyMembershipResult is Results.Error -> {
                             userDetailDeferred.cancel() // Batalkan yang lain
                             historyMembershipResult
                         }
-                        else -> Results.Error(NetworkError.ServerError) // Fallback error
+
+                        else -> {
+                            // Ambil error dari salah satu jika keduanya gagal
+                            val error = when {
+                                userDetailResult is Results.Error -> userDetailResult.error
+                                historyMembershipResult is Results.Error -> historyMembershipResult.error
+                                else -> NetworkError.ServerError
+                            }
+                            Results.Error(error) // Gunakan error yang lebih spesifik
+                        }
                     }
                 } catch (e: Exception) {
                     userDetailDeferred.cancel()

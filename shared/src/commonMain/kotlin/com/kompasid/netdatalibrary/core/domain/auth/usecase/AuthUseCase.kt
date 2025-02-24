@@ -12,21 +12,12 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interce
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-interface LoginGuestRepositoryContoh {
-    suspend fun postLoginGuest(): Results<Unit, NetworkError>
-}
 
 class AuthUseCase(
-    private val loginGuestRepository: LoginGuestRepository,
     private val loginEmailRepository: LoginEmailRepository,
     private val logoutRepository: LogoutRepository,
     private val personalInfoUseCase: PersonalInfoUseCase
 ) {
-
-    suspend fun loginAnon(): Results<Unit, NetworkError> {
-        val result = loginGuestRepository.postLoginGuest()
-        return result
-    }
 
     suspend fun loginByEmail(request: LoginEmailRequest): Results<Pair<Unit, Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>>, NetworkError> {
         return try {
