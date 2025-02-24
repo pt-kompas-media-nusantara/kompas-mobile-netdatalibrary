@@ -17,7 +17,7 @@ class UserHistoryMembershipRepository(
         return when (val result = userHistoryMembershipApiService.getUserHistoryMembership()) {
             is ApiResults.Success -> {
                 result.data.toInterceptor().also { resultInterceptor ->
-                    userHistoryMembershipDataSource.save(resultInterceptor)
+//                    userHistoryMembershipDataSource.save(resultInterceptor)
                 }.let { Results.Success(it) }
             }
 

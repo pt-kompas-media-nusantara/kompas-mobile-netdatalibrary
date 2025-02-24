@@ -29,74 +29,65 @@ class UserHistoryMembershipResultState(
     private val settingsHelper: SettingsHelper,
 ) : BaseVM() {
 
-    private val userHistoryFlow = combine(
-        settingsHelper.getStringFlow(KeySettingsType.EXPIRED_MEMBERSHIP).map { it ?: "" },
-        settingsHelper.getStringFlow(KeySettingsType.ACTIVE_MEMBERSHIP).map { it ?: "" },
-        settingsHelper.getStringFlow(KeySettingsType.START_DATE_MEMBERSHIP).map { it ?: "" },
-        settingsHelper.getStringFlow(KeySettingsType.END_DATE_MEMBERSHIP).map { it ?: "" },
-    ) { expired, isActive, startDate, endDate ->
-        UserHistoryMembershipResInterceptor(
-            user = UserHistoryMembershipObjResInterceptor(
-                expired = expired,
-                isActive = isActive,
-                startDate = startDate,
-                endDate = endDate,
-            ),
-        )
-    }
-
-    private val userHistorySecondFlow = combine(
-        settingsHelper.getIntFlow(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP).map { it ?: 0 },
-        settingsHelper.getBooleanFlow(KeySettingsType.GRACE_PERIOD_MEMBERSHIP).map { it ?: false },
-    ) { totalGracePeriod, gracePeriod ->
-        UserHistoryMembershipResInterceptor(
-            user = UserHistoryMembershipObjResInterceptor(
-                totalGracePeriod = totalGracePeriod,
-                gracePeriod = gracePeriod,
-            ),
-        )
-    }
-
-//    private val listHistoryMembershipResInterceptor = combine(
-//        settingsHelper.load(KeySettingsType.ACTIVE_MEMBERSHIPS, "", List<HistoryMembershipResInterceptor>),
-//        settingsHelper.getSerializableFlow(KeySettingsType.EXPIRED_MEMBERSHIPS)
-//    ) { active, expired ->
+//    private val userHistoryFlow = combine(
+//        settingsHelper.getStringFlow(KeySettingsType.EXPIRED_MEMBERSHIP).map { it ?: "" },
+//        settingsHelper.getStringFlow(KeySettingsType.ACTIVE_MEMBERSHIP).map { it ?: "" },
+//        settingsHelper.getStringFlow(KeySettingsType.START_DATE_MEMBERSHIP).map { it ?: "" },
+//        settingsHelper.getStringFlow(KeySettingsType.END_DATE_MEMBERSHIP).map { it ?: "" },
+//    ) { expired, isActive, startDate, endDate ->
 //        UserHistoryMembershipResInterceptor(
-//            active = active,
-//            expired = expired
+//            user = UserHistoryMembershipObjResInterceptor(
+//                expired = expired,
+//                isActive = isActive,
+//                startDate = startDate,
+//                endDate = endDate,
+//            ),
 //        )
 //    }
-
-    val userHistoryMembershipResInterceptor: StateFlow<UserHistoryMembershipResInterceptor> =
-        combine(
-            userHistoryFlow,
-            userHistorySecondFlow,
-//            listHistoryMembershipResInterceptor
-        ) { one, two ->
-            one.copy(
-                user = one.user.copy(
-                    totalGracePeriod = two.user.totalGracePeriod,
-                    gracePeriod = two.user.gracePeriod
-                ),
-//                active = three.active,
-//                expired = three.expired,
-            )
-        }
-            .flowOn(Dispatchers.IO)
-            .distinctUntilChanged()
-            .stateIn(
-                scope,
-                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
-                UserHistoryMembershipResInterceptor()
-            )
+//
+//    private val userHistorySecondFlow = combine(
+//        settingsHelper.getIntFlow(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP).map { it ?: 0 },
+//        settingsHelper.getBooleanFlow(KeySettingsType.GRACE_PERIOD_MEMBERSHIP).map { it ?: false },
+//    ) { totalGracePeriod, gracePeriod ->
+//        UserHistoryMembershipResInterceptor(
+//            user = UserHistoryMembershipObjResInterceptor(
+//                totalGracePeriod = totalGracePeriod,
+//                gracePeriod = gracePeriod,
+//            ),
+//        )
+//    }
+//
+////    private val listHistoryMembershipResInterceptor = combine(
+////        settingsHelper.load(KeySettingsType.ACTIVE_MEMBERSHIPS, "", List<HistoryMembershipResInterceptor>),
+////        settingsHelper.getSerializableFlow(KeySettingsType.EXPIRED_MEMBERSHIPS)
+////    ) { active, expired ->
+////        UserHistoryMembershipResInterceptor(
+////            active = active,
+////            expired = expired
+////        )
+////    }
+//
+//    val userHistoryMembershipResInterceptor: StateFlow<UserHistoryMembershipResInterceptor> =
+//        combine(
+//            userHistoryFlow,
+//            userHistorySecondFlow,
+////            listHistoryMembershipResInterceptor
+//        ) { one, two ->
+//            one.copy(
+//                user = one.user.copy(
+//                    totalGracePeriod = two.user.totalGracePeriod,
+//                    gracePeriod = two.user.gracePeriod
+//                ),
+////                active = three.active,
+////                expired = three.expired,
+//            )
+//        }
+//            .flowOn(Dispatchers.IO)
+//            .distinctUntilChanged()
+//            .stateIn(
+//                scope,
+//                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
+//                UserHistoryMembershipResInterceptor()
+//            )
 }
 
-
-//private val _userHistoryMembership =
-//    MutableStateFlow<UserHistoryMembershipResInterceptor?>(null)
-//var userHistoryMembership: StateFlow<UserHistoryMembershipResInterceptor?> =
-//    _userHistoryMembership.asStateFlow()
-//
-//suspend fun update(data: UserHistoryMembershipResInterceptor) {
-//    _userHistoryMembership.value = data
-//}

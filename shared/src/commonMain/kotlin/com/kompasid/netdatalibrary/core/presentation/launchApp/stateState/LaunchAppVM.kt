@@ -15,11 +15,11 @@ class LaunchAppVM(
     private val launchAppResultState: LaunchAppResultState,
 ) : BaseVM() {
 
-    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
-    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
-        launchAppResultState.deviceSubscriptionState
-    val configurationSystemState: StateFlow<ConfigurationSystemState> =
-        launchAppResultState.configurationSystemState
+//    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
+//    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
+//        launchAppResultState.deviceSubscriptionState
+//    val configurationSystemState: StateFlow<ConfigurationSystemState> =
+//        launchAppResultState.configurationSystemState
 
 
     suspend fun execute() {

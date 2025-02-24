@@ -23,7 +23,7 @@ class LogoutApiService(
         return safeCall<Unit> {
 
             val request = LogoutRequest(
-                settingsHelper.getStringFlow(KeySettingsType.REFRESH_TOKEN).value ?: ""
+                ""
             )
 
             httpClient.post(ApiConfig.LOGOUT_URL) {

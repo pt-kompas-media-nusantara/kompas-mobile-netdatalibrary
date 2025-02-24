@@ -17,21 +17,21 @@ import kotlinx.coroutines.flow.stateIn
 class LoginResultState(
     private val settingsHelper: SettingsHelper,
 ) : BaseVM() {
-    val loginInterceptor: StateFlow<LoginInterceptor> =
-        combine(
-            settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).map { it ?: "" },
-            settingsHelper.getStringFlow(KeySettingsType.REFRESH_TOKEN).map { it ?: "" },
-        ) { accessToken, refreshToken ->
-            LoginInterceptor(
-                accessToken = accessToken,
-                refreshToken = refreshToken,
-            )
-        }
-            .flowOn(Dispatchers.IO)
-            .distinctUntilChanged()
-            .stateIn(
-                scope,
-                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
-                LoginInterceptor()
-            )
+//    val loginInterceptor: StateFlow<LoginInterceptor> =
+//        combine(
+//            settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).map { it ?: "" },
+//            settingsHelper.getStringFlow(KeySettingsType.REFRESH_TOKEN).map { it ?: "" },
+//        ) { accessToken, refreshToken ->
+//            LoginInterceptor(
+//                accessToken = accessToken,
+//                refreshToken = refreshToken,
+//            )
+//        }
+//            .flowOn(Dispatchers.IO)
+//            .distinctUntilChanged()
+//            .stateIn(
+//                scope,
+//                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
+//                LoginInterceptor()
+//            )
 }

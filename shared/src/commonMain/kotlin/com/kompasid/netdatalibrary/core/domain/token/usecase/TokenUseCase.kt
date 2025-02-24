@@ -59,7 +59,7 @@ class TokenUseCase(
     }
 
     private suspend fun loadAccessToken(): String {
-        return settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).value ?: ""
+        return ""
     }
 
     private suspend fun handleError(error: NetworkError): Results.Error<NetworkError> {

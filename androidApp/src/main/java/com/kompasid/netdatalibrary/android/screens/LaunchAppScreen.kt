@@ -26,9 +26,9 @@ fun LaunchAppScreen(
     onBackClick: () -> Unit,
 ) {
 //    val originalTransactionId by vm.originalTransactionId.collectAsState()
-    val deviceInfoState by vm.deviceInfoState.collectAsState()
-    val deviceSubcriptionState by vm.deviceSubscriptionState.collectAsState() // Perbaikan
-    val configurationSystemState by vm.configurationSystemState.collectAsState() // Perbaikan
+//    val deviceInfoState by vm.deviceInfoState.collectAsState()
+//    val deviceSubcriptionState by vm.deviceSubscriptionState.collectAsState() // Perbaikan
+//    val configurationSystemState by vm.configurationSystemState.collectAsState() // Perbaikan
 
     Column(
         modifier = Modifier
@@ -41,20 +41,20 @@ fun LaunchAppScreen(
         Text("LaunchAppScreen")
         HorizontalDivider()
 
-        // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
-        Text(deviceInfoState.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
-        Text(deviceSubcriptionState.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
-        Text(configurationSystemState.toString(), modifier = Modifier.padding(top = 8.dp))
-        HorizontalDivider()
-        Spacer(modifier = Modifier.height(16.dp))
-
-        FilledButton("Execute") {
-            vm.scope.launch {
-                vm.execute()
-            }
-        }
+//        // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
+//        Text(deviceInfoState.toString(), modifier = Modifier.padding(top = 8.dp))
+//        HorizontalDivider()
+//        Text(deviceSubcriptionState.toString(), modifier = Modifier.padding(top = 8.dp))
+//        HorizontalDivider()
+//        Text(configurationSystemState.toString(), modifier = Modifier.padding(top = 8.dp))
+//        HorizontalDivider()
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        FilledButton("Execute") {
+//            vm.scope.launch {
+//                vm.execute()
+//            }
+//        }
 
     }
 }

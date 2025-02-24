@@ -20,36 +20,19 @@ class LoginEmailDataSource(
     ): Unit = coroutineScope {
         listOf(
             async {
-                if ((settingsHelper.getStringFlow(KeySettingsType.ACCESS_TOKEN).value) != accessToken
-                ) {
-                    settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
-                }
-
+                settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken)
             },
             async {
-                if ((settingsHelper.getStringFlow(KeySettingsType.REFRESH_TOKEN).value) != refreshToken
-                ) {
-                    settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
-                }
+                settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken)
             },
             async {
-                if ((settingsHelper.getBooleanFlow(KeySettingsType.IS_VERIFIED).value) != isVerified
-                ) {
-                    settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
-                }
+                settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified)
             },
             async {
-                if ((settingsHelper.getStringFlow(KeySettingsType.DEVICE_KEY_ID).value) != deviceKeyId
-                ) {
-                    settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
-                }
+                settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId)
             },
             async {
-                if ((settingsHelper.getBooleanFlow(KeySettingsType.IS_SOCIAL).value) != isSocial
-                ) {
-                    settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial)
-                }
-
+                settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial)
             },
         ).awaitAll()
     }
