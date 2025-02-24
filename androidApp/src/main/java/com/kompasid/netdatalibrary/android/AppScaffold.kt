@@ -22,6 +22,7 @@ import com.kompasid.netdatalibrary.android.screens.enums.Screens
 import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
 import com.kompasid.netdatalibrary.android.screens.example.ExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.ListenerExampleNoArgModuleSettingsScreen
+import com.kompasid.netdatalibrary.android.screens.example.SerializationNoArgModuleSettingsScreen
 
 @Composable
 fun AppScaffold() {
@@ -52,6 +53,7 @@ fun AppNavHost(
             MainScreen(
                 onNoArgModuleSettingsClick = { navController.navigate(Screens.NO_ARG_MODULE_SETTINS.route) },
                 onListeneroArgModuleSettingsClick = { navController.navigate(Screens.LISTENER_NO_ARG_MODULE_SETTINS.route) },
+                onSerializationNoArgModuleSettingsClick = { navController.navigate(Screens.SERIALIZATION_NO_ARG_MODULE_SETTINS.route) },
                 onLaunchAppFlowClick = { navController.navigate(Screens.LAUNCH_APP_SCREEN.route) },
                 onAuthFlowClick = { navController.navigate(Screens.AUTH_SCREEN.route) },
                 onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
@@ -65,7 +67,11 @@ fun AppNavHost(
                 onAboutHarianKompasClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
             )
         }
-
+        composable(Screens.SERIALIZATION_NO_ARG_MODULE_SETTINS.route) {
+            SerializationNoArgModuleSettingsScreen(
+                onBackClick = { navController.popBackStack() },
+            )
+        }
         composable(Screens.NO_ARG_MODULE_SETTINS.route) {
             ExampleNoArgModuleSettingsScreen(
                 onBackClick = { navController.popBackStack() },

@@ -45,6 +45,7 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.Launch
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings.ListenerNoArgModuleSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings.ExampleNoArgModuleSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.SerializationNoArgModuleSettingsHelper
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
@@ -123,6 +124,7 @@ val helperModule = module {
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
     singleOf(::ExampleNoArgModuleSettingsHelper) { bind<ExampleNoArgModuleSettingsHelper>() }
     singleOf(::ListenerNoArgModuleSettingsHelper) { bind<ListenerNoArgModuleSettingsHelper>() }
+    singleOf(::SerializationNoArgModuleSettingsHelper) { bind<SerializationNoArgModuleSettingsHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }
 }
 

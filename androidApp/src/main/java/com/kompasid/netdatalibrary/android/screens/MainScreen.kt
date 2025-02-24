@@ -16,6 +16,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun MainScreen(
     onNoArgModuleSettingsClick: () -> Unit,
     onListeneroArgModuleSettingsClick: () -> Unit,
+    onSerializationNoArgModuleSettingsClick: () -> Unit,
     onLaunchAppFlowClick: () -> Unit,
     onAuthFlowClick: () -> Unit,
     onAccountClick: () -> Unit,
@@ -40,6 +41,10 @@ fun MainScreen(
 
         FilledButton("onListeneroArgModuleSettingsClick", {
             onListeneroArgModuleSettingsClick()
+        })
+
+        FilledButton("onSerializationNoArgModuleSettingsClick", {
+            onSerializationNoArgModuleSettingsClick()
         })
 
         FilledButton("onLaunchAppFlowClick", {

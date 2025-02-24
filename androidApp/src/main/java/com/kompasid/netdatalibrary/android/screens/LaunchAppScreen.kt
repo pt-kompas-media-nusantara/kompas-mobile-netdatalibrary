@@ -48,7 +48,6 @@ fun LaunchAppScreen(
         HorizontalDivider()
         Text(configurationSystemState.toString(), modifier = Modifier.padding(top = 8.dp))
         HorizontalDivider()
-        // Membuat tombol lebih nyaman di-scroll
         Spacer(modifier = Modifier.height(16.dp))
 
         FilledButton("Execute") {
