@@ -43,6 +43,7 @@ import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppResultState
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.CoroutineNoArgModuleSettings.CoroutineNoArgModuleSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings.ListenerNoArgModuleSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings.ExampleNoArgModuleSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.SerializationNoArgModuleSettingsHelper
@@ -125,6 +126,7 @@ val helperModule = module {
     singleOf(::ExampleNoArgModuleSettingsHelper) { bind<ExampleNoArgModuleSettingsHelper>() }
     singleOf(::ListenerNoArgModuleSettingsHelper) { bind<ListenerNoArgModuleSettingsHelper>() }
     singleOf(::SerializationNoArgModuleSettingsHelper) { bind<SerializationNoArgModuleSettingsHelper>() }
+    singleOf(::CoroutineNoArgModuleSettingsHelper) { bind<CoroutineNoArgModuleSettingsHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }
 }
 

@@ -17,6 +17,7 @@ fun MainScreen(
     onNoArgModuleSettingsClick: () -> Unit,
     onListeneroArgModuleSettingsClick: () -> Unit,
     onSerializationNoArgModuleSettingsClick: () -> Unit,
+    onCoroutineNoArgModuleSettingsClick: () -> Unit,
     onLaunchAppFlowClick: () -> Unit,
     onAuthFlowClick: () -> Unit,
     onAccountClick: () -> Unit,
@@ -45,6 +46,10 @@ fun MainScreen(
 
         FilledButton("onSerializationNoArgModuleSettingsClick", {
             onSerializationNoArgModuleSettingsClick()
+        })
+
+        FilledButton("onCoroutineNoArgModuleSettingsClick", {
+            onCoroutineNoArgModuleSettingsClick()
         })
 
         FilledButton("onLaunchAppFlowClick", {

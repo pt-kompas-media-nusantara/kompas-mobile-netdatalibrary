@@ -20,6 +20,7 @@ import com.kompasid.netdatalibrary.android.screens.AuthScreen
 import com.kompasid.netdatalibrary.android.screens.MainScreen
 import com.kompasid.netdatalibrary.android.screens.enums.Screens
 import com.kompasid.netdatalibrary.android.screens.LaunchAppScreen
+import com.kompasid.netdatalibrary.android.screens.example.CoroutineNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.ExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.ListenerExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.SerializationNoArgModuleSettingsScreen
@@ -54,6 +55,7 @@ fun AppNavHost(
                 onNoArgModuleSettingsClick = { navController.navigate(Screens.NO_ARG_MODULE_SETTINS.route) },
                 onListeneroArgModuleSettingsClick = { navController.navigate(Screens.LISTENER_NO_ARG_MODULE_SETTINS.route) },
                 onSerializationNoArgModuleSettingsClick = { navController.navigate(Screens.SERIALIZATION_NO_ARG_MODULE_SETTINS.route) },
+                onCoroutineNoArgModuleSettingsClick = { navController.navigate(Screens.COROUTINE_NO_ARG_MODULE_SETTINS.route) },
                 onLaunchAppFlowClick = { navController.navigate(Screens.LAUNCH_APP_SCREEN.route) },
                 onAuthFlowClick = { navController.navigate(Screens.AUTH_SCREEN.route) },
                 onAccountClick = { navController.navigate(Screens.ACCOUNT_SCREEN.route) },
@@ -65,6 +67,11 @@ fun AppNavHost(
                 onQnAClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAboutAppClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
                 onAboutHarianKompasClick = { navController.navigate(Screens.MAIN_SCREEN.route) },
+            )
+        }
+        composable(Screens.COROUTINE_NO_ARG_MODULE_SETTINS.route) {
+            CoroutineNoArgModuleSettingsScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
         composable(Screens.SERIALIZATION_NO_ARG_MODULE_SETTINS.route) {
