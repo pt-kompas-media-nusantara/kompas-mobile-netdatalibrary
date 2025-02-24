@@ -7,11 +7,15 @@ import com.russhwolf.settings.coroutines.SuspendSettings
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.serialization.removeValue
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.serialization.KSerializer
 
 @Suppress("UNCHECKED_CAST")
 class SettingsHelper(
-    private val settings: Settings,
+//    private val settings: Settings,
     private val flowSettings: FlowSettings,
 ) {
 
@@ -19,33 +23,33 @@ class SettingsHelper(
         when (value) {
 
             is String -> {
-                val load = load(key, "")
-                if (load != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
+                val current = get(key, "")
+                if (current != value) {
+                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putString(key.key, value)
                 }
             }
 
             is Int -> {
-                val load = load(key, 100)
-                if (load != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
+                val current = get(key, 100)
+                if (current != value) {
+                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putInt(key.key, value)
                 }
             }
 
             is Boolean -> {
-                val load = load(key, false)
-                if (load != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
+                val current = get(key, false)
+                if (current != value) {
+                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putBoolean(key.key, value)
                 }
             }
 
             is Float -> {
-                val load = load(key, 0.0)
-                if (load != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $load, newValue: $value" }
+                val current = get(key, 0.0)
+                if (current != value) {
+                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putFloat(key.key, value)
                 }
             }
@@ -53,7 +57,7 @@ class SettingsHelper(
             else -> {
                 if (serializer != null && serializer != value) {
                     Logger.debug { "Saving key: ${key.key}, oldValue: $serializer, newValue: $value" }
-                    settings.encodeValue(serializer, key.key, value)
+//                    settings.encodeValue(serializer, key.key, value)
                 } else {
                     throw IllegalArgumentException("Unsupported type for key: ${key.key}, value: $value")
                 }
@@ -64,38 +68,33 @@ class SettingsHelper(
 
 
     // Function to load generic value
-    suspend fun <T> load(
+    fun <T> load(
         key: KeySettingsType,
-        defaultValue: T? = null,
+        defaultValue: T,
+        serializer: KSerializer<T>? = null
+    ): Flow<T> {
+        val result = when (defaultValue) {
+            is String -> flowSettings.getStringFlow(key.key, defaultValue).map { it as T }
+            is Int -> flowSettings.getIntFlow(key.key, defaultValue).map { it as T }
+            is Boolean -> flowSettings.getBooleanFlow(key.key, defaultValue).map { it as T }
+            is Float -> flowSettings.getFloatFlow(key.key, defaultValue).map { it as T }
+            else -> throw IllegalArgumentException("Unsupported data type for key: ${key.key}")
+        }
+
+        // ✅ Logging nilai sebenarnya tanpa coroutine tambahan
+        result.onEach { value ->
+            Logger.debug { "Load key: ${key.key}, Value: $value" }
+        }
+
+        return result
+    }
+
+    suspend fun <T> get(
+        key: KeySettingsType,
+        defaultValue: T,
         serializer: KSerializer<T>? = null
     ): T {
-        return when (defaultValue) {
-            is String -> {
-                flowSettings.getStringOrNullFlow(key.key)
-            }
-
-            is Int -> {
-                flowSettings.getIntOrNullFlow(key.key)
-            }
-
-            is Boolean -> {
-                flowSettings.getBooleanOrNullFlow(key.key)
-            }
-
-            is Float -> {
-                flowSettings.getFloatOrNullFlow(key.key)
-            }
-
-            else -> {
-                if (serializer != null) {
-                    settings.decodeValueOrNull(serializer, key.key)
-                } else {
-                    Logger.error { "Unsupported data type for key: ${key.key}" }
-                    throw IllegalArgumentException("Unsupported data type for key: ${key.key}")
-                }
-
-            }
-        } as T
+        return load(key, defaultValue, serializer).first() // Ambil nilai pertama dari Flow
     }
 
     suspend fun <T> remove(
@@ -105,7 +104,7 @@ class SettingsHelper(
     ) {
         if (isSerialized) {
             if (serializer != null) {
-                settings.removeValue(serializer, key.key)
+//                settings.removeValue(serializer, key.key)
             } else {
                 throw IllegalArgumentException("Serializer cannot be null when removing serialized value for key: ${key.key}")
             }
@@ -117,7 +116,7 @@ class SettingsHelper(
 
     // Function to remove all values
     suspend fun removeAll() {
-        settings.clear()
+//        settings.clear()
         flowSettings.clear()
     }
 

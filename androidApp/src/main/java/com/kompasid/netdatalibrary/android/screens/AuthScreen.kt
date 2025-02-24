@@ -26,6 +26,8 @@ fun AuthScreen(
     onBackClick: () -> Unit,
 ) {
 
+    val userDetail by vm.userDetail.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize() // Menyebarkan layout ke seluruh layar
@@ -51,34 +53,28 @@ fun AuthScreen(
                 vm.logger()
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+
         HorizontalDivider()
         Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
 
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-//        Text(loginInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-//        Text(userDetailResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-//        Text(userHistoryMembershipResInterceptor.toString(), modifier = Modifier.padding(top = 8.dp))
-//        Spacer(modifier = Modifier.height(16.dp))
-//        HorizontalDivider()
-//        Spacer(modifier = Modifier.height(16.dp))
-
+        Text("userDetail")
+        Text("idGender: ${userDetail.idGender}")
+        Text("gender: ${userDetail.gender}")
+        Text("userId: ${userDetail.userId}")
+        Text("firstName: ${userDetail.firstName}")
+        Text("lastName: ${userDetail.lastName}")
+        Text("email: ${userDetail.email}")
+        Text("userGuid: ${userDetail.userGuid}")
+        Text("isActive: ${userDetail.isActive}")
+        Text("isVerified: ${userDetail.userStatus.isVerified}")
+        Text("phoneVerified: ${userDetail.userStatus.phoneVerified}")
+        Text("phoneNumber: ${userDetail.phoneNumber}")
+        Text("countryCode: ${userDetail.countryCode}")
+        Text("dateBirth: ${userDetail.dateBirth}")
+        Text("country: ${userDetail.country}")
+        Text("province: ${userDetail.province}")
+        Text("city: ${userDetail.city}")
 
     }
 }

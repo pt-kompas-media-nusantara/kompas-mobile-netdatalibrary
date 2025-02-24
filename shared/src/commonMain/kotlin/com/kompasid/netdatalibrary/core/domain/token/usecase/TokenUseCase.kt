@@ -67,7 +67,7 @@ class TokenUseCase(
     }
 
     private suspend fun loadAccessToken(): String {
-        return settingsHelper.load(KeySettingsType.ACCESS_TOKEN)
+        return settingsHelper.get(KeySettingsType.ACCESS_TOKEN, "")
     }
 
 

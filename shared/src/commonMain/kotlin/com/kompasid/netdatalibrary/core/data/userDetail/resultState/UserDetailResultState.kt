@@ -8,6 +8,7 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -24,206 +25,117 @@ class UserDetailResultState(
     private val settingsHelper: SettingsHelper
 ) : BaseVM() {
 
-    private val _idGender = MutableStateFlow(0)
-    val idGender = _idGender.asStateFlow()
+    val idGender: StateFlow<Int> = settingsHelper.load(KeySettingsType.ID_GENDER, 0)
+        .stateIn(scope, SharingStarted.Lazily, 0)
 
-    private val _gender = MutableStateFlow("")
-    val gender = _gender.asStateFlow()
+    val gender: StateFlow<String> = settingsHelper.load(KeySettingsType.GENDER, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _userId = MutableStateFlow("")
-    val userId = _userId.asStateFlow()
+    val userId: StateFlow<String> = settingsHelper.load(KeySettingsType.USER_ID, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _firstName = MutableStateFlow("")
-    val firstName = _firstName.asStateFlow()
+    val firstName: StateFlow<String> = settingsHelper.load(KeySettingsType.FIRST_NAME, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _lastName = MutableStateFlow("")
-    val lastName = _lastName.asStateFlow()
+    val lastName: StateFlow<String> = settingsHelper.load(KeySettingsType.LAST_NAME, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _email = MutableStateFlow("")
-    val email = _email.asStateFlow()
+    val email: StateFlow<String> = settingsHelper.load(KeySettingsType.EMAIL, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _userGuid = MutableStateFlow("")
-    val userGuid = _userGuid.asStateFlow()
+    val userGuid: StateFlow<String> = settingsHelper.load(KeySettingsType.USER_GUID, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _isActive = MutableStateFlow(false)
-    val isActive = _isActive.asStateFlow()
+    val isActive: StateFlow<Boolean> = settingsHelper.load(KeySettingsType.IS_ACTIVE, false)
+        .stateIn(scope, SharingStarted.Lazily, false)
 
-    private val _isVerified = MutableStateFlow(false)
-    val isVerified = _isVerified.asStateFlow()
+    val isVerified: StateFlow<Boolean> = settingsHelper.load(KeySettingsType.IS_VERIFIED, false)
+        .stateIn(scope, SharingStarted.Lazily, false)
 
-    private val _phoneVerified = MutableStateFlow(false)
-    val phoneVerified = _phoneVerified.asStateFlow()
+    val phoneVerified: StateFlow<Boolean> =
+        settingsHelper.load(KeySettingsType.PHONE_VERIFIED, false)
+            .stateIn(scope, SharingStarted.Lazily, false)
 
-    private val _phoneNumber = MutableStateFlow("")
-    val phoneNumber = _phoneNumber.asStateFlow()
+    val phoneNumber: StateFlow<String> = settingsHelper.load(KeySettingsType.PHONE_NUMBER, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _countryCode = MutableStateFlow("")
-    val countryCode = _countryCode.asStateFlow()
+    val countryCode: StateFlow<String> = settingsHelper.load(KeySettingsType.COUNTRY_CODE, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _dateBirth = MutableStateFlow("")
-    val dateBirth = _dateBirth.asStateFlow()
+    val dateBirth: StateFlow<String> = settingsHelper.load(KeySettingsType.DATE_BIRTH, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _country = MutableStateFlow("")
-    val country = _country.asStateFlow()
+    val country: StateFlow<String> = settingsHelper.load(KeySettingsType.COUNTRY, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _province = MutableStateFlow("")
-    val province = _province.asStateFlow()
+    val province: StateFlow<String> = settingsHelper.load(KeySettingsType.PROVINCE, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _city = MutableStateFlow("")
-    val city = _city.asStateFlow()
+    val city: StateFlow<String> = settingsHelper.load(KeySettingsType.CITY, "")
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    init {
-        scope.launch {
-            _idGender.value = settingsHelper.load(KeySettingsType.ID_GENDER)
-            _gender.value = settingsHelper.load(KeySettingsType.GENDER)
-            _userId.value = settingsHelper.load(KeySettingsType.USER_ID)
-            _firstName.value = settingsHelper.load(KeySettingsType.FIRST_NAME)
-            _lastName.value = settingsHelper.load(KeySettingsType.LAST_NAME)
-            _email.value = settingsHelper.load(KeySettingsType.EMAIL)
-            _userGuid.value = settingsHelper.load(KeySettingsType.USER_GUID)
-            _isActive.value = settingsHelper.load(KeySettingsType.IS_ACTIVE)
-            _phoneNumber.value = settingsHelper.load(KeySettingsType.PHONE_NUMBER)
-            _countryCode.value = settingsHelper.load(KeySettingsType.COUNTRY_CODE)
-            _dateBirth.value = settingsHelper.load(KeySettingsType.DATE_BIRTH)
-            _country.value = settingsHelper.load(KeySettingsType.COUNTRY)
-            _province.value = settingsHelper.load(KeySettingsType.PROVINCE)
-            _city.value = settingsHelper.load(KeySettingsType.CITY)
-            _isVerified.value = settingsHelper.load(KeySettingsType.IS_VERIFIED)
-            _phoneVerified.value = settingsHelper.load(KeySettingsType.PHONE_NUMBER)
-        }
+    private val combinePart1 = combine(
+        idGender, gender, userId, firstName, lastName
+    ) { idGender, gender, userId, firstName, lastName ->
+        UserDetailResInterceptor(
+            idGender = idGender,
+            gender = gender,
+            userId = userId,
+            firstName = firstName,
+            lastName = lastName
+        )
     }
 
-    fun updateUserDetails(userDetail: UserDetailResInterceptor) {
-        _idGender.value = userDetail.idGender
-        _gender.value = userDetail.gender
-        _userId.value = userDetail.userId
-        _firstName.value = userDetail.firstName
-        _lastName.value = userDetail.lastName
-        _email.value = userDetail.email
-        _userGuid.value = userDetail.userGuid
-        _isActive.value = userDetail.isActive
-        _isVerified.value = userDetail.userStatus.isVerified
-        _phoneVerified.value = userDetail.userStatus.phoneVerified
-        _phoneNumber.value = userDetail.phoneNumber
-        _countryCode.value = userDetail.countryCode
-        _dateBirth.value = userDetail.dateBirth
-        _country.value = userDetail.country
-        _province.value = userDetail.province
-        _city.value = userDetail.city
+    private val combinePart2 = combine(
+        email, userGuid, isActive, isVerified, phoneVerified
+    ) { email, userGuid, isActive, isVerified, phoneVerified ->
+        UserDetailResInterceptor(
+            email = email,
+            userGuid = userGuid,
+            isActive = isActive,
+            userStatus = UserStatusInterceptor(isVerified, phoneVerified)
+        )
     }
 
-//    private val userInfoFlow = combine(
-//        settingsHelper.getIntFlow(KeySettingsType.ID_GENDER).map { it ?: 0 },
-//        settingsHelper.getStringFlow(KeySettingsType.GENDER).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.DATE_BIRTH).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.USER_ID).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.FIRST_NAME).map { it ?: "" },
-//    ) { idGender, gender, dateBirth, userId, firstName ->
-//        UserDetailResInterceptor(
-//            idGender = idGender,
-//            gender = gender,
-//            dateBirth = dateBirth,
-//            userId = userId,
-//            firstName = firstName,
-//            lastName = "", // Tempatkan default value
-//            email = "",
-//            userGuid = "",
-//            phoneNumber = "",
-//            countryCode = "",
-//            country = "",
-//            province = "",
-//            city = "",
-//            isActive = false,
-//            userStatus = UserStatusInterceptor(isVerified = false, phoneVerified = false)
-//        )
-//    }
-//
-//    private val userAdditionalInfoFlow = combine(
-//        settingsHelper.getStringFlow(KeySettingsType.LAST_NAME).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.EMAIL).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.USER_GUID).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.PHONE_NUMBER).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.COUNTRY_CODE).map { it ?: "" }
-//    ) { lastName, email, userGuid, phoneNumber, countryCode ->
-//        UserDetailResInterceptor(
-//            idGender = 0,
-//            gender = "",
-//            dateBirth = "",
-//            userId = "",
-//            firstName = "",
-//            lastName = lastName,
-//            email = email,
-//            userGuid = userGuid,
-//            phoneNumber = phoneNumber,
-//            countryCode = countryCode,
-//            country = "",
-//            province = "",
-//            city = "",
-//            isActive = false,
-//            userStatus = UserStatusInterceptor(isVerified = false, phoneVerified = false)
-//        )
-//    }
-//
-//    private val userLocationFlow = combine(
-//        settingsHelper.getStringFlow(KeySettingsType.COUNTRY).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.PROVINCE).map { it ?: "" },
-//        settingsHelper.getStringFlow(KeySettingsType.CITY).map { it ?: "" }
-//    ) { country, province, city ->
-//        UserDetailResInterceptor(
-//            idGender = 0,
-//            gender = "",
-//            dateBirth = "",
-//            userId = "",
-//            firstName = "",
-//            lastName = "",
-//            email = "",
-//            userGuid = "",
-//            phoneNumber = "",
-//            countryCode = "",
-//            country = country,
-//            province = province,
-//            city = city,
-//            isActive = false,
-//            userStatus = UserStatusInterceptor(isVerified = false, phoneVerified = false)
-//        )
-//    }
-//
-//    private val userStatusFlow = combine(
-//        settingsHelper.getBooleanFlow(KeySettingsType.IS_ACTIVE).map { it ?: false },
-//        settingsHelper.getBooleanFlow(KeySettingsType.IS_VERIFIED).map { it ?: false },
-//        settingsHelper.getBooleanFlow(KeySettingsType.PHONE_VERIFIED).map { it ?: false }
-//    ) { isActive, isVerified, phoneVerified ->
-//        UserStatusInterceptor(
-//            isVerified = isVerified,
-//            phoneVerified = phoneVerified
-//        ) to isActive
-//    }
-//
-//    val userDetailState: StateFlow<UserDetailResInterceptor> =
-//        combine(
-//            userInfoFlow,
-//            userAdditionalInfoFlow,
-//            userLocationFlow,
-//            userStatusFlow
-//        ) { userInfo, userAdditionalInfo, userLocation, (userStatus, isActive) ->
-//            userInfo.copy(
-//                lastName = userAdditionalInfo.lastName,
-//                email = userAdditionalInfo.email,
-//                userGuid = userAdditionalInfo.userGuid,
-//                phoneNumber = userAdditionalInfo.phoneNumber,
-//                countryCode = userAdditionalInfo.countryCode,
-//                country = userLocation.country,
-//                province = userLocation.province,
-//                city = userLocation.city,
-//                isActive = isActive,
-//                userStatus = userStatus
-//            )
-//        }
-//            .flowOn(Dispatchers.IO) // Jalankan di thread yang tepat
-//            .distinctUntilChanged()
-//            .stateIn(
-//                scope,
-//                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
-//                UserDetailResInterceptor()
-//            )
+    private val combinePart3 = combine(
+        phoneNumber, countryCode, dateBirth, country
+    ) { phoneNumber, countryCode, dateBirth, country ->
+        UserDetailResInterceptor(
+            phoneNumber = phoneNumber,
+            countryCode = countryCode,
+            dateBirth = dateBirth,
+            country = country,
+
+            )
+    }
+
+    private val combinePart4 = combine(
+        province,
+        city
+    ) { province, city ->
+        UserDetailResInterceptor(
+            province = province,
+            city = city
+        )
+    }
+
+    // 🔹 Gabungkan semua hasil menjadi satu `UserDetailResInterceptor`
+    val userDetail: StateFlow<UserDetailResInterceptor> = combine(
+        combinePart1, combinePart2, combinePart3, combinePart4
+    ) { part1, part2, part3, part4 ->
+        part1.copy(
+            email = part2.email,
+            userGuid = part2.userGuid,
+            isActive = part2.isActive,
+            userStatus = part2.userStatus,
+            phoneNumber = part3.phoneNumber,
+            countryCode = part3.countryCode,
+            dateBirth = part3.dateBirth,
+            country = part3.country,
+            province = part4.province,
+            city = part4.city
+        )
+    }.stateIn(scope, SharingStarted.Lazily, UserDetailResInterceptor())
+
+
 }
