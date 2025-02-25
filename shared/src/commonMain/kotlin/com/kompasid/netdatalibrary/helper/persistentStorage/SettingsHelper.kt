@@ -9,23 +9,24 @@ import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.serialization.removeValue
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.serialization.KSerializer
 
 @Suppress("UNCHECKED_CAST")
 class SettingsHelper(
-//    private val settings: Settings,
+    private val settings: Settings,
     private val flowSettings: FlowSettings,
 ) {
-selanjutnya
-    set and get list : String, Int, Boolean, Float, serializer
-    satuan serializer
-    setelah itu menampilkan login result state
-    setelah itu menampilkan history user memberhip
-    setelah itu menampilkan serializer list active dan expired
-    save serializer UserDetailResInterceptor
-    load serializer UserDetailResInterceptor
+    //selanjutnya
+//    set and get list : String, Int, Boolean, Float, serializer
+//    satuan serializer
+//    setelah itu menampilkan login result state
+//    setelah itu menampilkan history user memberhip
+//    setelah itu menampilkan serializer list active dan expired
+//    save serializer UserDetailResInterceptor
+//    load serializer UserDetailResInterceptor
     suspend fun <T> save(key: KeySettingsType, value: T, serializer: KSerializer<T>? = null) {
         when (value) {
 
@@ -63,8 +64,11 @@ selanjutnya
 
             else -> {
                 if (serializer != null && serializer != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $serializer, newValue: $value" }
-//                    settings.encodeValue(serializer, key.key, value)
+                    val current = get(key, serializer)
+                    if (current != value) {
+                        Logger.debug { "Saving key: ${key.key}, oldValue: $serializer, newValue: $value" }
+                        settings.encodeValue(serializer, key.key, value)
+                    }
                 } else {
                     throw IllegalArgumentException("Unsupported type for key: ${key.key}, value: $value")
                 }
@@ -80,12 +84,23 @@ selanjutnya
         defaultValue: T,
         serializer: KSerializer<T>? = null
     ): Flow<T> {
-        val result = when (defaultValue) {
+        val result: Flow<T> = when (defaultValue) {
             is String -> flowSettings.getStringFlow(key.key, defaultValue).map { it as T }
             is Int -> flowSettings.getIntFlow(key.key, defaultValue).map { it as T }
             is Boolean -> flowSettings.getBooleanFlow(key.key, defaultValue).map { it as T }
             is Float -> flowSettings.getFloatFlow(key.key, defaultValue).map { it as T }
-            else -> throw IllegalArgumentException("Unsupported data type for key: ${key.key}")
+            else -> {
+                if (serializer != null) {
+                    flow {
+                        val decodedValue =
+                            settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
+                        emit(decodedValue)
+                    }
+                } else {
+                    throw IllegalArgumentException("Unsupported data type for key: ${key.key}")
+                }
+            }
+
         }
 
         // ✅ Logging nilai sebenarnya tanpa coroutine tambahan
@@ -111,7 +126,7 @@ selanjutnya
     ) {
         if (isSerialized) {
             if (serializer != null) {
-//                settings.removeValue(serializer, key.key)
+                settings.removeValue(serializer, key.key)
             } else {
                 throw IllegalArgumentException("Serializer cannot be null when removing serialized value for key: ${key.key}")
             }
@@ -123,9 +138,21 @@ selanjutnya
 
     // Function to remove all values
     suspend fun removeAll() {
-//        settings.clear()
+        settings.clear()
         flowSettings.clear()
     }
 
 
 }
+
+
+//// ✅ Menyimpan List<String>
+//viewModelScope.launch {
+//    settingsHelper.save(KeySettingsType.LIST_STRING, listOf("Apple", "Banana", "Cherry"), ListSerializer(String.serializer()))
+//}
+//
+//// ✅ Mengambil List<String>
+//viewModelScope.launch {
+//    val savedList = settingsHelper.get(KeySettingsType.LIST_STRING, emptyList(), ListSerializer(String.serializer()))
+//    Logger.debug { "Loaded List: $savedList" }
+//}
