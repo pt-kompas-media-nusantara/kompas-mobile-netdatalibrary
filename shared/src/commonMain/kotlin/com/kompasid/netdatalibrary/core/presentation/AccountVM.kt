@@ -19,7 +19,7 @@ class AccountVM(
     private val trackerUseCase: TrackerUseCase
 ) : BaseVM() {
 
-    val userDetail = userDetailResultState.userDetail
+    val userDetail = userDetailResultState.data
 
     fun onAppear() {
         scope.launch {

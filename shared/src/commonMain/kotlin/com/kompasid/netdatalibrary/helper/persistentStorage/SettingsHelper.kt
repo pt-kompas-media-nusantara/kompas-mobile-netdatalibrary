@@ -57,7 +57,7 @@ class SettingsHelper(
             }
 
             else -> {
-                if (serializer != null && serializer != value) {
+                if (serializer != null) {
                     val current = get(key, serializer)
                     if (current != value) {
                         Logger.debug { "Saving key: ${key.key}, oldValue: $serializer, newValue: $value" }

@@ -3,7 +3,6 @@ package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interc
 import kotlinx.serialization.Serializable
 
 
-@Serializable
 data class UserHistoryMembershipResInterceptor(
     var user: UserHistoryMembershipObjResInterceptor = UserHistoryMembershipObjResInterceptor(
         "",
@@ -14,7 +13,7 @@ data class UserHistoryMembershipResInterceptor(
         false,
     ),
     var active: List<HistoryMembershipResInterceptor> = mutableListOf(),
-    var expired: List<HistoryMembershipResInterceptor> = mutableListOf(),
+    var expired: List<HistoryMembershipResInterceptor> = emptyList(),
 )
 
 @Serializable

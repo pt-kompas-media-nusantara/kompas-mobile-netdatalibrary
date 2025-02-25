@@ -24,7 +24,8 @@ class AuthVM(
 ) : BaseVM() {
 
     val login = loginResultState.data
-    val userDetail = userDetailResultState.userDetail
+    val userDetail = userDetailResultState.data
+    val userHistoryMembership = userHistoryMembershipResultState.data
 
     suspend fun removaAll() {
         settingsHelper.removeAll()

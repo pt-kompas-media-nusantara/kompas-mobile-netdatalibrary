@@ -137,7 +137,7 @@ class UserDetailResultState(
     }
 
     // 🔹 Gabungkan semua hasil menjadi satu `UserDetailResInterceptor`
-    val userDetail: StateFlow<UserDetailResInterceptor> = combine(
+    val data: StateFlow<UserDetailResInterceptor> = combine(
         combinePart1, combinePart2, combinePart3, combinePart4
     ) { part1, part2, part3, part4 ->
         part1.copy(
@@ -156,6 +156,7 @@ class UserDetailResultState(
         .distinctUntilChanged()
         .debounce(300)
         .stateIn(scope, SharingStarted.WhileSubscribed(5000), UserDetailResInterceptor())
+
 
 
 }
