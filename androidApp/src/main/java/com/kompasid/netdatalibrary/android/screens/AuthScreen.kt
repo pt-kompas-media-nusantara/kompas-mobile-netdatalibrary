@@ -26,6 +26,7 @@ fun AuthScreen(
     onBackClick: () -> Unit,
 ) {
 
+    val login by vm.login.collectAsState()
     val userDetail by vm.userDetail.collectAsState()
 
     Column(
@@ -53,6 +54,14 @@ fun AuthScreen(
                 vm.logger()
             }
         }
+
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(16.dp))
+        HorizontalDivider()
+
+        Text("login")
+        Text("accessToken: ${login.accessToken}")
+        Text("refreshToken: ${login.refreshToken}")
 
         HorizontalDivider()
         Spacer(modifier = Modifier.height(16.dp))

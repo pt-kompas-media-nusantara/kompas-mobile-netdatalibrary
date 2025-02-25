@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -26,53 +27,69 @@ class UserDetailResultState(
 ) : BaseVM() {
 
     val idGender: StateFlow<Int> = settingsHelper.load(KeySettingsType.ID_GENDER, 0)
-        .stateIn(scope, SharingStarted.Lazily, 0)
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), 0)
 
     val gender: StateFlow<String> = settingsHelper.load(KeySettingsType.GENDER, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val userId: StateFlow<String> = settingsHelper.load(KeySettingsType.USER_ID, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val firstName: StateFlow<String> = settingsHelper.load(KeySettingsType.FIRST_NAME, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val lastName: StateFlow<String> = settingsHelper.load(KeySettingsType.LAST_NAME, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val email: StateFlow<String> = settingsHelper.load(KeySettingsType.EMAIL, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val userGuid: StateFlow<String> = settingsHelper.load(KeySettingsType.USER_GUID, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val isActive: StateFlow<Boolean> = settingsHelper.load(KeySettingsType.IS_ACTIVE, false)
-        .stateIn(scope, SharingStarted.Lazily, false)
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), false)
 
     val isVerified: StateFlow<Boolean> = settingsHelper.load(KeySettingsType.IS_VERIFIED, false)
-        .stateIn(scope, SharingStarted.Lazily, false)
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), false)
 
     val phoneVerified: StateFlow<Boolean> =
         settingsHelper.load(KeySettingsType.PHONE_VERIFIED, false)
-            .stateIn(scope, SharingStarted.Lazily, false)
+            .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), false)
 
     val phoneNumber: StateFlow<String> = settingsHelper.load(KeySettingsType.PHONE_NUMBER, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val countryCode: StateFlow<String> = settingsHelper.load(KeySettingsType.COUNTRY_CODE, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val dateBirth: StateFlow<String> = settingsHelper.load(KeySettingsType.DATE_BIRTH, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val country: StateFlow<String> = settingsHelper.load(KeySettingsType.COUNTRY, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val province: StateFlow<String> = settingsHelper.load(KeySettingsType.PROVINCE, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     val city: StateFlow<String> = settingsHelper.load(KeySettingsType.CITY, "")
-        .stateIn(scope, SharingStarted.Lazily, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
     private val combinePart1 = combine(
         idGender, gender, userId, firstName, lastName
@@ -135,7 +152,10 @@ class UserDetailResultState(
             province = part4.province,
             city = part4.city
         )
-    }.stateIn(scope, SharingStarted.Lazily, UserDetailResInterceptor())
+    }
+        .distinctUntilChanged()
+        .debounce(300)
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), UserDetailResInterceptor())
 
 
 }
