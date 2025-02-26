@@ -24,6 +24,7 @@ import com.kompasid.netdatalibrary.android.screens.example.CoroutineNoArgModuleS
 import com.kompasid.netdatalibrary.android.screens.example.ExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.ListenerExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.SerializationNoArgModuleSettingsScreen
+import com.kompasid.netdatalibrary.android.screens.kotor.AccountScreen
 
 @Composable
 fun AppScaffold() {
@@ -102,11 +103,11 @@ fun AppNavHost(
             )
         }
 
-//        composable(Screens.ACCOUNT_SCREEN.route) {
-//            AccountScreen(
-//                onBackClick = { navController.popBackStack() },
-//            )
-//        }
+        composable(Screens.ACCOUNT_SCREEN.route) {
+            AccountScreen(
+                onBackClick = { navController.popBackStack() },
+            )
+        }
 
 
 //

@@ -22,35 +22,47 @@ class LaunchAppResultState(
     private val settingsHelper: SettingsHelper,
 ) : BaseVM() {
 
-//    val deviceInfoState: StateFlow<DeviceInfoState> =
-//        combine(
-//            settingsHelper.getStringFlow(KeySettingsType.DEVICE_TYPE).map { it ?: "" },
-//            settingsHelper.getStringFlow(KeySettingsType.OS_VERSION).map { it ?: "" },
-//            settingsHelper.getStringFlow(KeySettingsType.CURRENT_VERSION_APP).map { it ?: "" },
-//            settingsHelper.getStringFlow(KeySettingsType.NEW_VERSION_APP).map { it ?: "" },
-//        ) { deviceType, osVersion, currentVersionApp, newVersionApp ->
-//            DeviceInfoState(
-//                deviceType = deviceType,
-//                osVersion = osVersion,
-//                currentVersionApp = currentVersionApp,
-//                newVersionApp = newVersionApp,
-//            )
-//        }
-//            .flowOn(Dispatchers.IO)
-//            .distinctUntilChanged()
-//            .stateIn(
-//                scope,
-//                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
-//                DeviceInfoState()
-//            )
-//
+//    data class LaunchAppInterceptor(
+//        val flavors: String,
+//        val originalTransactionId: String,
+//        val transactionId: List<String>,
+//        val deviceType: String,
+//        val osVersion: String,
+//        val currentVersionApp: String,
+//        val newVersionApp: String,
+//        val historyTransaction: List<String>,
+//        val isDebug: Boolean,
+//    )
+
+    val deviceInfoState: StateFlow<DeviceInfoState> =
+        combine(
+            settingsHelper.load(KeySettingsType.DEVICE_TYPE, "").map { it ?: "" },
+            settingsHelper.load(KeySettingsType.OS_VERSION, "").map { it ?: "" },
+            settingsHelper.load(KeySettingsType.CURRENT_VERSION_APP, "").map { it ?: "" },
+            settingsHelper.load(KeySettingsType.NEW_VERSION_APP, "").map { it ?: "" },
+        ) { deviceType, osVersion, currentVersionApp, newVersionApp ->
+            DeviceInfoState(
+                deviceType = deviceType,
+                osVersion = osVersion,
+                currentVersionApp = currentVersionApp,
+                newVersionApp = newVersionApp,
+            )
+        }
+            .flowOn(Dispatchers.IO)
+            .distinctUntilChanged()
+            .stateIn(
+                scope,
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
+                DeviceInfoState()
+            )
+
 //    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
 //        combine(
-//            settingsHelper.getStringListFlow(
-//                KeySettingsType.ORIGINAL_TRANSACTION_ID
+//            settingsHelper.load(
+//                KeySettingsType.ORIGINAL_TRANSACTION_ID, listOf()
 //            ),
-//            settingsHelper.getStringListFlow(KeySettingsType.TRANSACTION_ID),
-//            settingsHelper.getStringListFlow(KeySettingsType.HISTORY_TRANSACTION),
+//            settingsHelper.load(KeySettingsType.TRANSACTION_ID, ""),
+//            settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, ""),
 //        ) { originalTransactionId, transactionId, historyTransaction ->
 //            DeviceSubcriptionState(
 //                originalTransactionId = originalTransactionId ?: emptyList(),
@@ -65,8 +77,8 @@ class LaunchAppResultState(
 //                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
 //                DeviceSubcriptionState()
 //            )
-//
-//
+
+
 //    val configurationSystemState: StateFlow<ConfigurationSystemState> =
 //        combine(
 //            settingsHelper.getStringFlow(KeySettingsType.FLAVORS).map { it ?: "" },

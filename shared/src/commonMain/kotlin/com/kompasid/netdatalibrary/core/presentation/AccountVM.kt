@@ -3,6 +3,7 @@ package com.kompasid.netdatalibrary.core.presentation
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
+import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.manageAccount.useCase.ManageAccountUseCase
@@ -15,17 +16,10 @@ import kotlinx.coroutines.launch
 
 class AccountVM(
     private val accountUseCase: AccountUseCase,
-    private val userDetailResultState: UserDetailResultState,
-    private val trackerUseCase: TrackerUseCase
+    private val aboutAppResultState: AboutAppResultState,
 ) : BaseVM() {
 
-    val userDetail = userDetailResultState.data
-
-    fun onAppear() {
-        scope.launch {
-            trackerUseCase.pageViewed(OpenFromEntryPoint.MyAccount)
-        }
-    }
+    val aboutApp = aboutAppResultState.data
 
     fun accountMenus() {
         scope.launch {

@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.base.di
 
+import com.kompasid.netdatalibrary.helper.UserDataHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
@@ -21,4 +22,5 @@ val settingsModule = module {
 
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
 }
+
 

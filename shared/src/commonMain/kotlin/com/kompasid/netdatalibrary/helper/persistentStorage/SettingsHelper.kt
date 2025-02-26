@@ -13,14 +13,16 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.json.Json
 
 @Suppress("UNCHECKED_CAST")
 class SettingsHelper(
     private val settings: Settings,
     private val flowSettings: FlowSettings,
 ) {
-    //selanjutnya
-//    setelah itu menampilkan history user memberhip
+
     suspend fun <T> save(key: KeySettingsType, value: T, serializer: KSerializer<T>? = null) {
         when (value) {
 
@@ -56,6 +58,22 @@ class SettingsHelper(
                 }
             }
 
+            is List<*> -> {
+                if (value.isNotEmpty() && value.all { it is String }) {
+                    val listString = value as List<String>
+                    val json = Json.encodeToString(ListSerializer(String.serializer()), listString)
+
+                    val current = get(key, "[]")
+
+                    if (current != json) {
+                        Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                        flowSettings.putString(key.key, json)
+                    }
+                } else {
+                    throw IllegalArgumentException("Unsupported List type for key: ${key.key}, value: $value")
+                }
+            }
+
             else -> {
                 if (serializer != null) {
                     Logger.info { "serializer: ${value.toString()}" }
@@ -88,6 +106,26 @@ class SettingsHelper(
             is Int -> flowSettings.getIntFlow(key.key, defaultValue).map { it as T }
             is Boolean -> flowSettings.getBooleanFlow(key.key, defaultValue).map { it as T }
             is Float -> flowSettings.getFloatFlow(key.key, defaultValue).map { it as T }
+
+            is List<*> -> {
+                if (defaultValue.all { it is String }) {
+                    flowSettings.getStringFlow(key.key, "[]")
+                        .map { json ->
+                            try {
+                                Json.decodeFromString(
+                                    ListSerializer(String.serializer()),
+                                    json
+                                ) as T
+                            } catch (e: Exception) {
+                                Logger.error { "Error decoding list for key ${key.key}: ${e.message}" }
+                                defaultValue
+                            }
+                        }
+                } else {
+                    throw IllegalArgumentException("Unsupported List type for key: ${key.key}")
+                }
+            }
+
             else -> {
                 if (serializer != null) {
                     flow {
@@ -102,7 +140,6 @@ class SettingsHelper(
 
         }
 
-        // ✅ Logging nilai sebenarnya tanpa coroutine tambahan
         result.onEach { value ->
             Logger.debug { "Load key: ${key.key}, Value: $value" }
         }
@@ -115,7 +152,19 @@ class SettingsHelper(
         defaultValue: T,
         serializer: KSerializer<T>? = null
     ): T {
-        return load(key, defaultValue, serializer).first() // Ambil nilai pertama dari Flow
+        return when {
+            defaultValue is List<*> && defaultValue.all { it is String } -> {
+                val jsonString = settings.getStringOrNull(key.key) ?: "[]"
+                try {
+                    Json.decodeFromString(ListSerializer(String.serializer()), jsonString) as T
+                } catch (e: Exception) {
+                    Logger.error { "Error decoding list for key ${key.key}: ${e.message}" }
+                    defaultValue
+                }
+            }
+
+            else -> load(key, defaultValue, serializer).first()
+        }
     }
 
     suspend fun <T> remove(

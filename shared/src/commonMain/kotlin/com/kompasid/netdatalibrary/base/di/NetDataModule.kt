@@ -31,6 +31,7 @@ import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralC
 import com.kompasid.netdatalibrary.core.data.loginEmail.resultState.LoginResultState
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
+import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
@@ -39,9 +40,11 @@ import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfo
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
+import com.kompasid.netdatalibrary.core.presentation.AccountVM
 import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppResultState
+import com.kompasid.netdatalibrary.helper.UserDataHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.CoroutineNoArgModuleSettings.CoroutineNoArgModuleSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings.ListenerNoArgModuleSettingsHelper
@@ -113,6 +116,8 @@ val updateContentModule = module {
 
 val accountModule = module {
     /// Account Use Case
+    singleOf(::AboutAppResultState) { bind<AboutAppResultState>() }
+    singleOf(::AccountVM) { bind<AccountVM>() }
     singleOf(::AccountUseCase) { bind<AccountUseCase>() }
 }
 
@@ -123,11 +128,14 @@ val updateTokenModule = module {
 
 val helperModule = module {
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
+    singleOf(::UserDataHelper) { bind<UserDataHelper>() }
+    singleOf(::DecodeJWT) { bind<DecodeJWT>() }
+
+//    EXMAPLE
     singleOf(::ExampleNoArgModuleSettingsHelper) { bind<ExampleNoArgModuleSettingsHelper>() }
     singleOf(::ListenerNoArgModuleSettingsHelper) { bind<ListenerNoArgModuleSettingsHelper>() }
     singleOf(::SerializationNoArgModuleSettingsHelper) { bind<SerializationNoArgModuleSettingsHelper>() }
     singleOf(::CoroutineNoArgModuleSettingsHelper) { bind<CoroutineNoArgModuleSettingsHelper>() }
-    singleOf(::DecodeJWT) { bind<DecodeJWT>() }
 }
 
 val netDataModule = module {

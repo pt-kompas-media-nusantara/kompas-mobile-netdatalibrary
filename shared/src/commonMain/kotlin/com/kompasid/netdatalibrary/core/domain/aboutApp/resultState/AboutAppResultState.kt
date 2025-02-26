@@ -1,103 +1,133 @@
 package com.kompasid.netdatalibrary.core.domain.aboutApp.resultState
 
-import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AboutAppModel
+import com.kompasid.netdatalibrary.BaseVM
+import com.kompasid.netdatalibrary.core.data.loginEmail.dto.interceptor.LoginInterceptor
+import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AboutAppInterceptor
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AppInfoModel
-import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
+import com.kompasid.netdatalibrary.helper.UserDataHelper
+import com.kompasid.netdatalibrary.helper.enums.StateUserType
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.utilities.Constants
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 
 class AboutAppResultState(
-    private val personalInfoResultState: PersonalInfoResultState
-) {
-    private val _guid = MutableStateFlow<String>("")
-    var guid: StateFlow<String> = _guid.asStateFlow()
+    private val settingsHelper: SettingsHelper,
+    private val userDataHelper: UserDataHelper
+) : BaseVM() {
 
-    private val _userType = MutableStateFlow<String>("")
-    var userType: StateFlow<String> = _userType.asStateFlow()
+    val currentVersionApp: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.CURRENT_VERSION_APP, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _transactionId = MutableStateFlow<String>("")
-    var transactionId: StateFlow<String> = _transactionId.asStateFlow()
+    val flavors: StateFlow<String> = settingsHelper.load(KeySettingsType.FLAVORS, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _originalTransactionId = MutableStateFlow<String>("")
-    var originalTransactionId: StateFlow<String> = _originalTransactionId.asStateFlow()
+    val userGuid: StateFlow<String> = settingsHelper.load(KeySettingsType.USER_GUID, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _deviceType = MutableStateFlow<String>("")
-    var deviceType: StateFlow<String> = _deviceType.asStateFlow()
+    val email: StateFlow<String> = settingsHelper.load(KeySettingsType.EMAIL, "")
+        .distinctUntilChanged()
+        .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _osVersion = MutableStateFlow<String>("")
-    var osVersion: StateFlow<String> = _osVersion.asStateFlow()
+//    val originalTransactionId: StateFlow<String> =
+//        settingsHelper.load(KeySettingsType.ORIGINAL_TRANSACTION_ID, "")
+//            .distinctUntilChanged()
+//            .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _currentVersionApp = MutableStateFlow<String>("")
-    var currentVersionApp: StateFlow<String> = _currentVersionApp.asStateFlow()
+    // nurirppan__ : ini masih blm di save
+//    val transactionId: StateFlow<List<String>> =
+//        settingsHelper.load(KeySettingsType.TRANSACTION_ID, emptyList<String>())
+//            .distinctUntilChanged()
+//            .stateIn(scope, SharingStarted.Lazily, emptyList())
 
-    private val _newVersionApp = MutableStateFlow<String>("")
-    var newVersionApp: StateFlow<String> = _newVersionApp.asStateFlow()
+    val deviceType: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.DEVICE_TYPE, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _historyTransaction = MutableStateFlow<String>("")
-    var historyTransaction: StateFlow<String> = _historyTransaction.asStateFlow()
+    val osVersion: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.OS_VERSION, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.Lazily, "")
 
-    private val _isShowLog = MutableStateFlow<Boolean>(false)
-    var isHideLog: StateFlow<Boolean> = _isShowLog.asStateFlow()
+    val newVersionApp: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.NEW_VERSION_APP, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.Lazily, "")
 
-    // 0 : all prod,
-    // 1 : dev Apiary,
-    // 2 : dev Production,
-    // 3 : all cloud
-    private val _endPointType = MutableStateFlow<Int>(0)
-    var endPointType: StateFlow<Int> = _endPointType.asStateFlow()
+//    val historyTransaction: StateFlow<List<String>> =
+//        settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, emptyList<String>())
+//            .distinctUntilChanged()
+//            .stateIn(scope, SharingStarted.Lazily, emptyList())
 
-    private val _skuOneMonthData = MutableStateFlow<String>("")
-    var skuOneMonthData: StateFlow<String> = _skuOneMonthData.asStateFlow()
-
-    private val _skuOneYearData = MutableStateFlow<String>("")
-    var skuOneYearData: StateFlow<String> = _skuOneYearData.asStateFlow()
-
-    private val _subProductRemote = MutableStateFlow<String>("")
-    var subProductRemote: StateFlow<String> = _subProductRemote.asStateFlow()
-
-    private val _subProductDebug = MutableStateFlow<String>("")
-    var subProductDebug: StateFlow<String> = _subProductDebug.asStateFlow()
-
-    private val _subVerificationResultTransaction = MutableStateFlow<String>("")
-    var subVerificationResultTransaction: StateFlow<String> =
-        _subVerificationResultTransaction.asStateFlow()
-
-    private val _subEntitlement = MutableStateFlow<String>("")
-    var subEntitlement: StateFlow<String> = _subEntitlement.asStateFlow()
-
-    private val _subTransaction = MutableStateFlow<String>("")
-    var subTransaction: StateFlow<String> = _subTransaction.asStateFlow()
-
-    private val _storeKitLog = MutableStateFlow<String>("")
-    var storeKitLog: StateFlow<String> = _storeKitLog.asStateFlow()
-
-    private val _flavors = MutableStateFlow<String>("")
-    var flavors: StateFlow<String> = _flavors.asStateFlow()
-
-    suspend fun execute(): AboutAppModel {
-        return AboutAppModel(
-            "${currentVersionApp.value} - Kompas.id ${flavors.value}",
-            Constants.aboutAppContent,
-            "Informasi Perangkat",
-            listOf(
-                AppInfoModel("Email", guid.value),
-                AppInfoModel("GUID", guid.value),
-                AppInfoModel(
-                    "Status User", "personalInfoResultState.userType.value.toString().lowercase()"
-                ),
-                AppInfoModel("Original ID Transaksi", originalTransactionId.value),
-                AppInfoModel("ID Transaksi", transactionId.value),
-                AppInfoModel("Tipe Perangkat", deviceType.value),
-                AppInfoModel("Versi OS", osVersion.value),
-                AppInfoModel("Versi App Saat Ini", currentVersionApp.value),
-                AppInfoModel("Versi App Terbaru", newVersionApp.value),
-                AppInfoModel("Riwayat Langganan", historyTransaction.value),
-            ),
-
-            )
+    val userState: StateFlow<String> = flow {
+        emit(
+            when (userDataHelper.checkUserType()) {
+                StateUserType.ANON -> "Anonymous"
+                StateUserType.REGON -> "Register Only"
+                StateUserType.GRACE_PERIOD -> "Grace Period"
+                StateUserType.SUBER -> "Subscriber"
+            }
+        )
     }
+        .stateIn(scope, SharingStarted.Lazily, "Unknown")
+
+    // 🔹 Combine pertama (Maksimal 5 parameter)
+    private val combinePart1 = combine(
+        currentVersionApp, flavors, email, userGuid
+    ) { currentVersionApp, flavors, email, userGuid ->
+        AboutAppInterceptor(
+            appVersion = "$currentVersionApp - Kompas.id $flavors",
+            desc = Constants.aboutAppContent,
+            appInfoTitle = "Informasi Perangkat",
+            appInfo = listOf(
+                AppInfoModel("Email", email),
+                AppInfoModel("GUID", userGuid),
+                AppInfoModel("Original ID Transaksi", "originalTransactionId")
+            )
+        )
+    }
+
+    // 🔹 Combine kedua (Maksimal 5 parameter)
+    private val combinePart2 = combine(
+        deviceType, osVersion, newVersionApp
+    ) { deviceType, osVersion, newVersionApp ->
+        AboutAppInterceptor(
+            appInfo = listOf(
+                AppInfoModel("ID Transaksi", "transactionId"),
+                AppInfoModel("Tipe Perangkat", deviceType),
+                AppInfoModel("Versi OS", osVersion),
+                AppInfoModel("Versi App Saat Ini", newVersionApp),
+                AppInfoModel("Riwayat Langganan", "historyTransaction")
+            )
+        )
+    }
+
+    // 🔹 Combine hasil dari `combinePart1` dan `combinePart2`
+    val data: StateFlow<AboutAppInterceptor> = combine(
+        combinePart1, combinePart2, userState
+    ) { part1, part2, userState ->
+        part1.copy(
+            appInfo = part1.appInfo +
+                    listOf(AppInfoModel("Status User", userState)) +
+                    part2.appInfo
+        )
+    }
+        .distinctUntilChanged()
+        .debounce(300)
+        .stateIn(scope, SharingStarted.WhileSubscribed(5000), AboutAppInterceptor())
+
 }
 
 /*

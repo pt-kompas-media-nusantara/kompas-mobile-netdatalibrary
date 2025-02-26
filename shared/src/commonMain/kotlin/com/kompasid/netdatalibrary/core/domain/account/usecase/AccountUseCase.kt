@@ -30,7 +30,7 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 
 class AccountUseCase(
-    private val userDataHelper: UserDataHelper
+    private val userDataHelper: UserDataHelper,
 ) {
 
 
