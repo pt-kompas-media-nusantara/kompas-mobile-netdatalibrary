@@ -108,6 +108,13 @@ publishing {
             artifactId = "shared"
             version = project.findProperty("VERSION") as String? ?: "1.0.0"
         }
+
+        create<MavenPublication>("sharedAndroid") {
+            from(components["kotlin"])
+            groupId = "com.kompasid.netdatalibrary"
+            artifactId = "shared-android"
+            version = project.findProperty("VERSION") as String? ?: "1.0.0"
+        }
     }
     repositories {
         maven {
