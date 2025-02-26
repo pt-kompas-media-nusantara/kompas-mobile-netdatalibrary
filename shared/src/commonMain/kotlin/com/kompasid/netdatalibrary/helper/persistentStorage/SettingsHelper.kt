@@ -59,18 +59,57 @@ class SettingsHelper(
             }
 
             is List<*> -> {
-                if (value.isNotEmpty() && value.all { it is String }) {
-                    val listString = value as List<String>
-                    val json = Json.encodeToString(ListSerializer(String.serializer()), listString)
+                when {
+                    value.isNotEmpty() && value.all { it is String } -> {
+                        val listString = value as List<String>
+                        val json =
+                            Json.encodeToString(ListSerializer(String.serializer()), listString)
+                        val current = get(key, "[]")
 
-                    val current = get(key, "[]")
-
-                    if (current != json) {
-                        Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
-                        flowSettings.putString(key.key, json)
+                        if (current != json) {
+                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            flowSettings.putString(key.key, json)
+                        }
                     }
-                } else {
-                    throw IllegalArgumentException("Unsupported List type for key: ${key.key}, value: $value")
+
+                    value.isNotEmpty() && value.all { it is Boolean } -> {
+                        val listBoolean = value as List<Boolean>
+                        val json =
+                            Json.encodeToString(ListSerializer(Boolean.serializer()), listBoolean)
+                        val current = get(key, "[]")
+
+                        if (current != json) {
+                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            flowSettings.putString(key.key, json)
+                        }
+                    }
+
+                    value.isNotEmpty() && value.all { it is Int } -> {
+                        val listInt = value as List<Int>
+                        val json = Json.encodeToString(ListSerializer(Int.serializer()), listInt)
+                        val current = get(key, "[]")
+
+                        if (current != json) {
+                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            flowSettings.putString(key.key, json)
+                        }
+                    }
+
+                    value.isNotEmpty() && value.all { it is Float } -> {
+                        val listFloat = value as List<Float>
+                        val json =
+                            Json.encodeToString(ListSerializer(Float.serializer()), listFloat)
+                        val current = get(key, "[]")
+
+                        if (current != json) {
+                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            flowSettings.putString(key.key, json)
+                        }
+                    }
+
+                    else -> {
+                        throw IllegalArgumentException("Unsupported List type for key: ${key.key}, value: $value")
+                    }
                 }
             }
 
@@ -108,21 +147,54 @@ class SettingsHelper(
             is Float -> flowSettings.getFloatFlow(key.key, defaultValue).map { it as T }
 
             is List<*> -> {
-                if (defaultValue.all { it is String }) {
-                    flowSettings.getStringFlow(key.key, "[]")
-                        .map { json ->
+                when {
+                    defaultValue.all { it is String } ->
+                        flowSettings.getStringFlow(key.key, "[]").map { json ->
                             try {
                                 Json.decodeFromString(
                                     ListSerializer(String.serializer()),
                                     json
                                 ) as T
                             } catch (e: Exception) {
-                                Logger.error { "Error decoding list for key ${key.key}: ${e.message}" }
+                                Logger.error { "Error decoding List<String> for ${key.key}: ${e.message}" }
                                 defaultValue
                             }
                         }
-                } else {
-                    throw IllegalArgumentException("Unsupported List type for key: ${key.key}")
+
+                    defaultValue.all { it is Boolean } ->
+                        flowSettings.getStringFlow(key.key, "[]").map { json ->
+                            try {
+                                Json.decodeFromString(
+                                    ListSerializer(Boolean.serializer()),
+                                    json
+                                ) as T
+                            } catch (e: Exception) {
+                                Logger.error { "Error decoding List<Boolean> for ${key.key}: ${e.message}" }
+                                defaultValue
+                            }
+                        }
+
+                    defaultValue.all { it is Int } ->
+                        flowSettings.getStringFlow(key.key, "[]").map { json ->
+                            try {
+                                Json.decodeFromString(ListSerializer(Int.serializer()), json) as T
+                            } catch (e: Exception) {
+                                Logger.error { "Error decoding List<Int> for ${key.key}: ${e.message}" }
+                                defaultValue
+                            }
+                        }
+
+                    defaultValue.all { it is Float } ->
+                        flowSettings.getStringFlow(key.key, "[]").map { json ->
+                            try {
+                                Json.decodeFromString(ListSerializer(Float.serializer()), json) as T
+                            } catch (e: Exception) {
+                                Logger.error { "Error decoding List<Float> for ${key.key}: ${e.message}" }
+                                defaultValue
+                            }
+                        }
+
+                    else -> throw IllegalArgumentException("Unsupported List type for key: ${key.key}")
                 }
             }
 
@@ -154,17 +226,40 @@ class SettingsHelper(
     ): T {
         Logger.debug { "🔍 [GET] Key: ${key.key}, Default: $defaultValue" }
         return when {
-            defaultValue is List<*> && defaultValue.all { it is String } -> {
-
+            defaultValue is List<*> -> {
                 val jsonString = settings.getStringOrNull(key.key) ?: "[]"
                 Logger.debug { "📥 [GET] Raw JSON from Storage for ${key.key}: $jsonString" }
 
                 try {
-                    val result = Json.decodeFromString(ListSerializer(String.serializer()), jsonString) as T
+                    val result: T = when {
+                        defaultValue.all { it is String } ->
+                            Json.decodeFromString(
+                                ListSerializer(String.serializer()),
+                                jsonString
+                            ) as T
+
+                        defaultValue.all { it is Boolean } ->
+                            Json.decodeFromString(
+                                ListSerializer(Boolean.serializer()),
+                                jsonString
+                            ) as T
+
+                        defaultValue.all { it is Int } ->
+                            Json.decodeFromString(ListSerializer(Int.serializer()), jsonString) as T
+
+                        defaultValue.all { it is Float } ->
+                            Json.decodeFromString(
+                                ListSerializer(Float.serializer()),
+                                jsonString
+                            ) as T
+
+                        else -> throw IllegalArgumentException("Unsupported List type for key: ${key.key}")
+                    }
+
                     Logger.debug { "✅ [GET] Successfully decoded list for ${key.key}: $result" }
-                    return result
+                    result
                 } catch (e: Exception) {
-                    Logger.error { "Error decoding list for key ${key.key}: ${e.message}" }
+                    Logger.error { "❌ [GET] Error decoding list for key ${key.key}: ${e.message}" }
                     defaultValue
                 }
             }
