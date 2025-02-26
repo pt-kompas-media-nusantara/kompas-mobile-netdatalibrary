@@ -152,11 +152,17 @@ class SettingsHelper(
         defaultValue: T,
         serializer: KSerializer<T>? = null
     ): T {
+        Logger.debug { "🔍 [GET] Key: ${key.key}, Default: $defaultValue" }
         return when {
             defaultValue is List<*> && defaultValue.all { it is String } -> {
+
                 val jsonString = settings.getStringOrNull(key.key) ?: "[]"
+                Logger.debug { "📥 [GET] Raw JSON from Storage for ${key.key}: $jsonString" }
+
                 try {
-                    Json.decodeFromString(ListSerializer(String.serializer()), jsonString) as T
+                    val result = Json.decodeFromString(ListSerializer(String.serializer()), jsonString) as T
+                    Logger.debug { "✅ [GET] Successfully decoded list for ${key.key}: $result" }
+                    return result
                 } catch (e: Exception) {
                     Logger.error { "Error decoding list for key ${key.key}: ${e.message}" }
                     defaultValue

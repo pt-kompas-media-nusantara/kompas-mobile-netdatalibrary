@@ -63,9 +63,9 @@ class LaunchAppVM(
             val historyTransaction: List<String> =
                 settingsHelper.get(KeySettingsType.HISTORY_TRANSACTION, emptyList())
 
-            Logger.info { originalTransactionId.toString() }
-            Logger.info { transactionId.toString() }
-            Logger.info { historyTransaction.toString() }
+            Logger.debug { originalTransactionId.toString() }
+            Logger.debug { transactionId.toString() }
+            Logger.debug { historyTransaction.toString() }
 
         }
     }
