@@ -48,7 +48,6 @@ class LaunchAppResultState(
                 newVersionApp = newVersionApp,
             )
         }
-            .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
             .stateIn(
                 scope,

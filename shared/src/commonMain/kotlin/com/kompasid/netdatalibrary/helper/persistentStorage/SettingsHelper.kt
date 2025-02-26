@@ -29,7 +29,7 @@ class SettingsHelper(
             is String -> {
                 val current = get(key, "")
                 if (current != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putString(key.key, value)
                 }
             }
@@ -37,7 +37,7 @@ class SettingsHelper(
             is Int -> {
                 val current = get(key, 100)
                 if (current != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putInt(key.key, value)
                 }
             }
@@ -45,7 +45,7 @@ class SettingsHelper(
             is Boolean -> {
                 val current = get(key, false)
                 if (current != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putBoolean(key.key, value)
                 }
             }
@@ -53,7 +53,7 @@ class SettingsHelper(
             is Float -> {
                 val current = get(key, 0.0)
                 if (current != value) {
-                    Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putFloat(key.key, value)
                 }
             }
@@ -67,7 +67,7 @@ class SettingsHelper(
                         val current = get(key, "[]")
 
                         if (current != json) {
-                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -79,7 +79,7 @@ class SettingsHelper(
                         val current = get(key, "[]")
 
                         if (current != json) {
-                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -90,7 +90,7 @@ class SettingsHelper(
                         val current = get(key, "[]")
 
                         if (current != json) {
-                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -102,7 +102,7 @@ class SettingsHelper(
                         val current = get(key, "[]")
 
                         if (current != json) {
-                            Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -122,7 +122,7 @@ class SettingsHelper(
                     Logger.info { "current: ${current.toString()}" }
 
                     if (current.toString() != value.toString()) {
-                        Logger.debug { "Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                        Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
                         settings.encodeValue(serializer, key.key, value)
                     }
                 } else {
@@ -213,7 +213,7 @@ class SettingsHelper(
         }
 
         result.onEach { value ->
-            Logger.debug { "Load key: ${key.key}, Value: $value" }
+            Logger.debug { "📚 Load key: ${key.key}, Value: $value" }
         }
 
         return result

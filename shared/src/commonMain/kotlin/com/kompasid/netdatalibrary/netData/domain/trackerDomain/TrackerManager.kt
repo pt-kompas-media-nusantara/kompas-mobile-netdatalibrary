@@ -7,29 +7,30 @@ import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStar
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.base.UserDataTrackerModel
 
 object TrackerManager {
-    private val listeners =
-        mutableListOf<(eventName: EventName, eventProperty: Map<String, Any>) -> Unit>()
+    private val listeners = mutableSetOf<(EventName, Map<String, Any>) -> Unit>()
+    private val eventQueue =
+        mutableListOf<Pair<EventName, Map<String, Any>>>() // Buffer untuk event yang belum terkirim
 
-    // Mendaftarkan listener
-    suspend fun register(listener: (eventName: EventName, eventProperty: Map<String, Any>) -> Unit) {
-        listeners.add(listener)
+    fun register(listener: (eventName: EventName, eventProperty: Map<String, Any>) -> Unit) {
+        if (!listeners.contains(listener)) {
+            listeners.add(listener)
+        }
+
+        // Kirim event yang belum diproses sebelumnya
+        if (eventQueue.isNotEmpty()) {
+            eventQueue.forEach { (eventName, eventProperties) ->
+                listener(eventName, eventProperties)
+            }
+            eventQueue.clear() // Kosongkan event queue setelah dikirim
+        }
     }
 
-    // Posting event dengan logika konversi berdasarkan model
-    suspend fun post(eventName: EventName, eventProperty: Any, userDataTrackerModel: UserDataTrackerModel) {
-        Logger.debug { eventName.toString() }
-        Logger.debug { eventProperty.toString() }
-        Logger.debug { userDataTrackerModel.toString() }
-
+    fun post(eventName: EventName, eventProperty: Any, userDataTrackerModel: UserDataTrackerModel) {
         val eventProperties = when (eventName) {
             EventName.EXAMPLE -> {
                 if (eventProperty is ExampleModel) {
-                    mapOf(
-                        "example_id" to eventProperty.example
-                    )
-                } else {
-                    throw IllegalArgumentException("Invalid model for EventName.EXAMPLE")
-                }
+                    mapOf("example_id" to eventProperty.example)
+                } else throw IllegalArgumentException("Invalid model for EventName.EXAMPLE")
             }
 
             EventName.SIGN_UP_STARTED -> {
@@ -46,9 +47,7 @@ object TrackerManager {
                         "metered_wall_balance" to userDataTrackerModel.metered_wall_balance,
                         "page_domain" to userDataTrackerModel.page_domain
                     )
-                } else {
-                    throw IllegalArgumentException("Invalid model for EventName.SIGN_UP_STARTED")
-                }
+                } else throw IllegalArgumentException("Invalid model for EventName.SIGN_UP_STARTED")
             }
 
             EventName.PAGE_VIEWED -> {
@@ -61,13 +60,14 @@ object TrackerManager {
                         "metered_wall_balance" to userDataTrackerModel.metered_wall_balance,
                         "page_domain" to userDataTrackerModel.page_domain
                     )
-                } else {
-                    throw IllegalArgumentException("Invalid model for EventName.PAGE_VIEWED")
-                }
+                } else throw IllegalArgumentException("Invalid model for EventName.PAGE_VIEWED")
             }
         }
 
-        // Memanggil semua listener dengan properti event yang sudah diproses
-        listeners.forEach { it(eventName, eventProperties) }
+        if (listeners.isNotEmpty()) {
+            listeners.forEach { it(eventName, eventProperties) }
+        } else {
+            eventQueue.add(eventName to eventProperties) // Simpan event jika belum ada listener
+        }
     }
 }

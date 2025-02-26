@@ -10,3 +10,7 @@ expect class Platform {
     suspend fun logSystemInfo()
 }
 
+expect class LoggerWrapper {
+    fun initLogger()
+}
+

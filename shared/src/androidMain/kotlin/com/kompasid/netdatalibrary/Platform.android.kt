@@ -3,6 +3,8 @@ package com.kompasid.netdatalibrary
 import android.content.res.Resources
 import android.os.Build
 import android.util.Log
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import kotlin.math.round
 
 actual class Platform() {
@@ -20,5 +22,12 @@ actual class Platform() {
             "Daily Pulse",
             "($osName, $osVersion, $deviceModel, $density)"
         )
+    }
+}
+
+
+actual class LoggerWrapper {
+    actual fun initLogger() {
+        Napier.base(DebugAntilog())
     }
 }
