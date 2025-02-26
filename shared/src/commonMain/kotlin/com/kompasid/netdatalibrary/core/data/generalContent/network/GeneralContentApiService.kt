@@ -17,9 +17,9 @@ import io.ktor.http.contentType
 class GeneralContentApiService(
     private val httpClient: HttpClient
 ) : IGeneralContentApiService {
-    override suspend fun getGeneralContent(): ApiResults<GeneralContentResponse, NetworkError> {
+    override suspend fun getGeneralContent(customUrl: String): ApiResults<GeneralContentResponse, NetworkError> {
         return safeCall<GeneralContentResponse> {
-            httpClient.get(ApiConfig.GENERAL_URL) {
+            httpClient.get(customUrl.ifBlank { ApiConfig.GENERAL_URL }) {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
             }

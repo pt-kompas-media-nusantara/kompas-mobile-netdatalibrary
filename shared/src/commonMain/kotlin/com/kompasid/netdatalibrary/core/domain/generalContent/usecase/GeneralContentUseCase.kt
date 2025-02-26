@@ -6,7 +6,7 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.Genera
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 
 class GeneralContentUseCase(val repository: IGeneralContentRepository) : IGeneralContentUseCase {
-    override suspend fun getGeneralData(): Results<GeneralContentInterceptor, NetworkError> {
-        return repository.getGeneralData()
+    override suspend fun getGeneralData(customUrl: String): Results<GeneralContentInterceptor, NetworkError> {
+        return repository.getGeneralData(customUrl)
     }
 }

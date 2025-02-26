@@ -1,14 +1,15 @@
 package com.kompasid.netdatalibrary.core.data.generalContent.mappers
 
 import com.kompasid.netdatalibrary.core.data.generalContent.model.dto.GeneralContentResponse
-import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.AndroidRes
+import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.AndroidResponse
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.GeneralContentInterceptor
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.IOSRes
 import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.LogoRes
+import com.kompasid.netdatalibrary.core.domain.generalContent.interceptor.ReaderConfig
 
 fun GeneralContentResponse.toInterceptor(): GeneralContentInterceptor {
-    val androidLogoResList = this.result?.android?.logo?.mapNotNull { logo ->
-        logo?.let {
+    val androidLogoResList = this.result?.android?.logo?.map { logo ->
+        logo.let {
             LogoRes(
                 key = it.key.orEmpty(),
                 value = it.value.orEmpty()
@@ -23,7 +24,28 @@ fun GeneralContentResponse.toInterceptor(): GeneralContentInterceptor {
         )
     } ?: listOf()
 
-    val androidRes = AndroidRes(logo = androidLogoResList)
+    val androidEPaperConfig = this.result?.android?.ePaper?.let {
+        ReaderConfig(
+            trialTimerMode = it.trialTimerMode,
+            trialPageMode = it.trialPageMode,
+            isPercentageActive = it.isPercentageActive
+        )
+    } ?: ReaderConfig(0, 0, false)
+
+    val androidEBookConfig = this.result?.android?.eBook?.let {
+        ReaderConfig(
+            trialTimerMode = it.trialTimerMode,
+            trialPageMode = it.trialPageMode,
+            isPercentageActive = it.isPercentageActive
+        )
+    } ?: ReaderConfig(0, 0, false)
+
+    val androidRes = AndroidResponse(
+        logo = androidLogoResList,
+        ePaperConfig = androidEPaperConfig,
+        eBookConfig = androidEBookConfig
+    )
+
     val iOSRes = IOSRes(logo = iOSLogoResList)
 
     return GeneralContentInterceptor(
