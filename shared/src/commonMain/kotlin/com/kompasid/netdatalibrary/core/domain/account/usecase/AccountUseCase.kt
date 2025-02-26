@@ -22,29 +22,45 @@ import com.kompasid.netdatalibrary.core.domain.account.data.signOutData
 import com.kompasid.netdatalibrary.core.domain.account.data.subcriptionData
 import com.kompasid.netdatalibrary.core.domain.account.data.termsConditionsData
 import com.kompasid.netdatalibrary.core.domain.account.data.themeData
-import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
-import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
+import com.kompasid.netdatalibrary.core.domain.account.enums.AccountNavigationType
+import com.kompasid.netdatalibrary.helper.UserDataHelper
+import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
+import com.kompasid.netdatalibrary.helper.enums.StateUserType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 
 class AccountUseCase(
-    private val personalInfoResultState: PersonalInfoResultState
+    private val userDataHelper: UserDataHelper
 ) {
 
 
     suspend fun accountMenus(): List<AccountModel> {
-        return buildList {
-            add(manageAccountData)
+        val checkUserType = userDataHelper.checkUserType()
+        val checkAutoLogin = userDataHelper.checkAutoLogin()
 
-            // nurirppan__
-//            if (personalInfoResultState.userType.value != StateUserType.SUBER) {
-//                add(subcriptionData)
-//            }
+        fun AccountModel.applyUserType(): AccountModel {
+            return when {
+                checkUserType == StateUserType.ANON && checkAutoLogin == AuthFlowType.AUTO_LOGIN -> {
+                    copy(navigation = AccountNavigationType.AUTO_LOGIN)
+                }
+
+                checkUserType == StateUserType.ANON -> {
+                    copy(lockIcon = "ic_lock", navigation = AccountNavigationType.SUBSCRIPTION)
+                }
+
+                else -> this
+            }
+        }
+
+        return buildList {
+            add(manageAccountData.applyUserType())
+            add(subcriptionData.applyUserType())
+            add(bookmarkData.applyUserType())
+            add(rewardData) // Reward tetap sama tanpa perubahan
+            add(settingData.applyUserType())
 
             addAll(
                 listOf(
-                    bookmarkData,
-                    rewardData,
-                    settingData,
                     contactUsData,
                     qnaData,
                     aboutAppData,

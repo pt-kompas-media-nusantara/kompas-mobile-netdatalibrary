@@ -1,12 +1,6 @@
 package com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState
 
-import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.core.domain.account.model.StateUserType
-import com.kompasid.netdatalibrary.core.presentation.personalInfo.enums.PersonalInfoType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 // nurirpppan_ : ini harusnya reactive
 //settingsHelper.getStringFlow(KeySettingsType.EXPIRED_MEMBERSHIP) pakai didset untuk langsung set ke property

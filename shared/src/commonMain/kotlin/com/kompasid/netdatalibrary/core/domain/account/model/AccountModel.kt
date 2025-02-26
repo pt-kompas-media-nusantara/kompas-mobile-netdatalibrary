@@ -6,6 +6,7 @@ data class AccountModel(
     val menuIcon: String,
     val title: String,
     val desc: String,
+    val lockIcon: String,
     val navigation: AccountNavigationType
 )
 

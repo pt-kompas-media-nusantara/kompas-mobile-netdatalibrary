@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
+import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
@@ -53,5 +54,20 @@ class UserHistoryMembershipDataSource(
                 )
             }
         ).awaitAll()
+
+        val ACTIVE_ = settingsHelper.get(
+            KeySettingsType.ACTIVE_MEMBERSHIPS,
+            emptyList(),
+            ListSerializer(HistoryMembershipResInterceptor.serializer())
+        )
+
+        val EXPIRED_ = settingsHelper.get(
+            KeySettingsType.EXPIRED_MEMBERSHIPS,
+            emptyList(),
+            ListSerializer(HistoryMembershipResInterceptor.serializer())
+        )
+
+        Logger.info { ACTIVE_.toString() }
+        Logger.info { EXPIRED_.toString() }
     }
 }

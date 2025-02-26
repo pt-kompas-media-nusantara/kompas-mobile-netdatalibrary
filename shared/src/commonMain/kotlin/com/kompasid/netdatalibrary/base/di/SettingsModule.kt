@@ -21,3 +21,4 @@ val settingsModule = module {
 
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
 }
+
