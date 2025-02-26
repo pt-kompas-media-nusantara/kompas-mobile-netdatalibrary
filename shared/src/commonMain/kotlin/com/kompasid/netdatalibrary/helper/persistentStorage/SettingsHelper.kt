@@ -27,33 +27,33 @@ class SettingsHelper(
         when (value) {
 
             is String -> {
-                val current = get(key, "")
+                val current = get(key, "", isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving String key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putString(key.key, value)
                 }
             }
 
             is Int -> {
-                val current = get(key, 100)
+                val current = get(key, 100, isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving Int key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putInt(key.key, value)
                 }
             }
 
             is Boolean -> {
-                val current = get(key, false)
+                val current = get(key, false, isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving Boolean key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putBoolean(key.key, value)
                 }
             }
 
             is Float -> {
-                val current = get(key, 0.0)
+                val current = get(key, 0.0, isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "💽 Saving Float key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putFloat(key.key, value)
                 }
             }
@@ -64,10 +64,10 @@ class SettingsHelper(
                         val listString = value as List<String>
                         val json =
                             Json.encodeToString(ListSerializer(String.serializer()), listString)
-                        val current = get(key, "[]")
+                        val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving List<String> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -76,10 +76,10 @@ class SettingsHelper(
                         val listBoolean = value as List<Boolean>
                         val json =
                             Json.encodeToString(ListSerializer(Boolean.serializer()), listBoolean)
-                        val current = get(key, "[]")
+                        val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving List<Boolean> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -87,10 +87,10 @@ class SettingsHelper(
                     value.isNotEmpty() && value.all { it is Int } -> {
                         val listInt = value as List<Int>
                         val json = Json.encodeToString(ListSerializer(Int.serializer()), listInt)
-                        val current = get(key, "[]")
+                        val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving List<Int> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -99,10 +99,10 @@ class SettingsHelper(
                         val listFloat = value as List<Float>
                         val json =
                             Json.encodeToString(ListSerializer(Float.serializer()), listFloat)
-                        val current = get(key, "[]")
+                        val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "💽 Saving List<Float> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -115,16 +115,16 @@ class SettingsHelper(
 
             else -> {
                 if (serializer != null) {
-                    Logger.info { "serializer: ${value.toString()}" }
-
-                    val current = get(key, value, serializer)
-
-                    Logger.info { "current: ${current.toString()}" }
-
-                    if (current.toString() != value.toString()) {
-                        Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
-                        settings.encodeValue(serializer, key.key, value)
-                    }
+//                    tidak bisa menggunakan validasi di bawah, karna kotlin semuanya object reference
+//                    Logger.info { "serializer: ${value.toString()}" }
+//                    val current = get(key, value, serializer, isFromSave = true)
+//                    Logger.info { "current: ${current.toString()}" }
+//                    if (current.toString() != value.toString()) {
+//                        Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+//                        settings.encodeValue(serializer, key.key, value)
+//                    }
+                    Logger.debug { "💽 Saving Serializer key: ${key.key}, newValue: $value" }
+                    settings.encodeValue(serializer, key.key, value)
                 } else {
                     throw IllegalArgumentException("Unsupported type for key: ${key.key}, value: $value")
                 }
@@ -201,9 +201,14 @@ class SettingsHelper(
             else -> {
                 if (serializer != null) {
                     flow {
-                        val decodedValue =
-                            settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
-                        emit(decodedValue)
+                        try {
+                            val decodedValue =
+                                settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
+                            emit(decodedValue)
+                        } catch (e: Exception) {
+                            Logger.error { "❌ Error decoding object for ${key.key}: ${e.message}" }
+                            emit(defaultValue)
+                        }
                     }
                 } else {
                     throw IllegalArgumentException("Unsupported data type for key: ${key.key}")
@@ -213,7 +218,7 @@ class SettingsHelper(
         }
 
         result.onEach { value ->
-            Logger.debug { "📚 Load key: ${key.key}, Value: $value" }
+            Logger.debug { "📚 Load ${defaultValue.toString()} key: ${key.key}, Value: $value" }
         }
 
         return result
@@ -222,9 +227,14 @@ class SettingsHelper(
     suspend fun <T> get(
         key: KeySettingsType,
         defaultValue: T,
-        serializer: KSerializer<T>? = null
+        serializer: KSerializer<T>? = null,
+        isFromSave: Boolean = false
     ): T {
-        Logger.debug { "🔍 [GET] Key: ${key.key}, Default: $defaultValue" }
+        if (isFromSave) {
+            Logger.debug { "💽💽 Get ${defaultValue.toString()} Key: ${key.key}, Default: $defaultValue" }
+        } else {
+            Logger.debug { "🔍 Get ${defaultValue.toString()} Key: ${key.key}, Default: $defaultValue" }
+        }
         return when {
             defaultValue is List<*> -> {
                 val jsonString = settings.getStringOrNull(key.key) ?: "[]"
@@ -263,6 +273,22 @@ class SettingsHelper(
                     defaultValue
                 }
             }
+
+            serializer != null -> {
+                try {
+                    settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
+//                    val jsonString = settings.getStringOrNull(key.key)
+//                    if (jsonString != null) {
+//                        Json.decodeFromString(serializer, jsonString)
+//                    } else {
+//                        defaultValue
+//                    }
+                } catch (e: Exception) {
+                    Logger.error { "❌ [GET] Error decoding object for key ${key.key}: ${e.message}" }
+                    defaultValue
+                }
+            }
+
 
             else -> load(key, defaultValue, serializer).first()
         }

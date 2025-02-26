@@ -2,6 +2,7 @@ package com.kompasid.netdatalibrary.core.presentation.launchApp.stateState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.launchApp.model.LaunchAppInterceptor
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.ConfigurationSystemState
@@ -10,10 +11,12 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcr
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.serialization.builtins.ListSerializer
 
 class LaunchAppVM(
     private val launchAppUseCase: LaunchAppUseCase,
@@ -33,26 +36,34 @@ class LaunchAppVM(
         settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, emptyList<String>())
             .stateIn(scope, SharingStarted.Lazily, emptyList())
 
+    val trytry: StateFlow<DeviceSubcriptionState> =
+        settingsHelper.load(
+            KeySettingsType.TRYTRY,
+            DeviceSubcriptionState(),
+            DeviceSubcriptionState.serializer()
+        )
+            .stateIn(scope, SharingStarted.Lazily, DeviceSubcriptionState())
+
     fun saveList() {
         scope.launch {
             settingsHelper.save(
                 KeySettingsType.ORIGINAL_TRANSACTION_ID, listOf(
-                    "ORIGINAL_TRANSACTION_ID 1 : ${RelativeTimeFormatter().getCurrentTime()}",
-                    "ORIGINAL_TRANSACTION_ID 2 : ${RelativeTimeFormatter().getCurrentTime()}",
+                    "ORIGINAL_TRANSACTION_ID 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+                    "ORIGINAL_TRANSACTION_ID 2 - ${RelativeTimeFormatter().getCurrentTime()}",
                 )
             )
 
             settingsHelper.save(
                 KeySettingsType.TRANSACTION_ID, listOf(
-                    "TRANSACTION_ID 1 : ${RelativeTimeFormatter().getCurrentTime()}",
-                    "TRANSACTION_ID 2 : ${RelativeTimeFormatter().getCurrentTime()}",
+                    "TRANSACTION_ID 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+                    "TRANSACTION_ID 2 - ${RelativeTimeFormatter().getCurrentTime()}",
                 )
             )
 
             settingsHelper.save(
                 KeySettingsType.HISTORY_TRANSACTION, listOf(
-                    "HISTORY_TRANSACTION 1 : ${RelativeTimeFormatter().getCurrentTime()}",
-                    "HISTORY_TRANSACTION 2 : ${RelativeTimeFormatter().getCurrentTime()}",
+                    "HISTORY_TRANSACTION 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+                    "HISTORY_TRANSACTION 2 - ${RelativeTimeFormatter().getCurrentTime()}",
                 )
             )
 
@@ -62,29 +73,40 @@ class LaunchAppVM(
                 settingsHelper.get(KeySettingsType.TRANSACTION_ID, emptyList())
             val historyTransaction: List<String> =
                 settingsHelper.get(KeySettingsType.HISTORY_TRANSACTION, emptyList())
-
         }
     }
 
+    fun saveModel() {
+        scope.launch {
+            settingsHelper.save(
+                KeySettingsType.TRYTRY,
+                DeviceSubcriptionState(
+                    originalTransactionId = listOf(
+                        "originalTransactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+                        "originalTransactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+                    ),
+                    transactionId = listOf(
+                        "transactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+                        "transactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+                    ),
+                    historyTransaction = listOf(
+                        "historyTransaction 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+                        "historyTransaction 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+                    ),
+                ),
+                DeviceSubcriptionState.serializer()
+            )
 
-//            settingsHelper.save(
-//                KeySettingsType.TRY_DEVICE_SUBCRIPTION_STATE,
-//                DeviceSubcriptionState(
-//                    originalTransactionId = listOf(
-//                        "originalTransactionId 1 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                        "originalTransactionId 2 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                    ),
-//                    transactionId = listOf(
-//                        "transactionId 1 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                        "transactionId 2 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                    ),
-//                    historyTransaction = listOf(
-//                        "historyTransaction 1 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                        "historyTransaction 2 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                    ),
-//                ),
-//                serializer = DeviceSubcriptionState.serializer() // ✅ Tambahkan serializer
-//            )
+            delay(3000)
+            val result = settingsHelper.get(
+                KeySettingsType.TRYTRY,
+                DeviceSubcriptionState(),
+                DeviceSubcriptionState.serializer()
+            )
+            Logger.info { result.toString() }
+        }
+    }
+
 
 //    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
 //    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
