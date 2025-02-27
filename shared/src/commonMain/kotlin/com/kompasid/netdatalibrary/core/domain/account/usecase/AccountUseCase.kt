@@ -38,7 +38,22 @@ class AccountUseCase(
         val checkUserType = userDataHelper.checkUserType()
         val checkAutoLogin = userDataHelper.checkAutoLogin()
 
+        // ini aja di ganti jadi 2 tipe
         fun AccountModel.applyUserType(): AccountModel {
+            return when {
+                checkUserType == StateUserType.ANON && checkAutoLogin == AuthFlowType.AUTO_LOGIN -> {
+                    copy(navigation = AccountNavigationType.AUTO_LOGIN)
+                }
+
+                checkUserType == StateUserType.ANON -> {
+                    copy(lockIcon = "ic_lock", navigation = AccountNavigationType.REGISTER_WALL)
+                }
+
+                else -> this
+            }
+        }
+
+        fun AccountModel.applySubscriptionType(): AccountModel {
             return when {
                 checkUserType == StateUserType.ANON && checkAutoLogin == AuthFlowType.AUTO_LOGIN -> {
                     copy(navigation = AccountNavigationType.AUTO_LOGIN)
@@ -54,9 +69,11 @@ class AccountUseCase(
 
         return buildList {
             add(manageAccountData.applyUserType())
-            add(subcriptionData.applyUserType())
+            if (checkUserType != StateUserType.SUBER) {
+                add(subcriptionData.applySubscriptionType())
+            }
             add(bookmarkData.applyUserType())
-            add(rewardData) // Reward tetap sama tanpa perubahan
+            add(rewardData)
             add(settingData.applyUserType())
 
             addAll(

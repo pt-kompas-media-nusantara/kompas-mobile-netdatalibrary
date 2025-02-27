@@ -6,6 +6,7 @@ enum class AccountNavigationType(val value: String, navigationType: NavigationTy
     AUTO_LOGIN("AUTO_LOGIN", NavigationType.NATIVE),
     LOGIN("LOGIN", NavigationType.NATIVE),
     REGISTER("REGISTER", NavigationType.NATIVE),
+    REGISTER_WALL("REGISTER_WALL", NavigationType.NATIVE),
     MANAGE_ACCOUNT("MANAGE_ACCOUNT", NavigationType.NATIVE),
     SUBSCRIPTION("SUBSCRIPTION", NavigationType.NATIVE),
     BOOKMARK("BOOKMARK", NavigationType.NATIVE),
