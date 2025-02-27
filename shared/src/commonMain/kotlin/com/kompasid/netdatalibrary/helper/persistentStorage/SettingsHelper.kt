@@ -202,21 +202,23 @@ class SettingsHelper(
 
             else -> {
                 if (serializer != null) {
-                    flow {
-                        try {
-                            val decodedValue =
-                                settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
-                            emit(decodedValue)
-                        } catch (e: Exception) {
-                            Logger.error { "❌ Error decoding object for ${key.key}: ${e.message}" }
-                            emit(defaultValue)
+                    flowSettings.getStringFlow(key.key, "")
+                        .map { json ->
+                            try {
+                                if (json.isNotEmpty()) {
+                                    Json.decodeFromString(serializer, json)
+                                } else {
+                                    defaultValue
+                                }
+                            } catch (e: Exception) {
+                                Logger.error { "❌ Error decoding object for ${key.key}: ${e.message}" }
+                                defaultValue
+                            }
                         }
-                    }
                 } else {
                     throw IllegalArgumentException("Unsupported data type for key: ${key.key}")
                 }
             }
-
         }
 
         result.onEach { value ->

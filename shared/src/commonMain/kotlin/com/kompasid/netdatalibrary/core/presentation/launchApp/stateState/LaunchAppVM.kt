@@ -41,8 +41,7 @@ class LaunchAppVM(
             KeySettingsType.TRYTRY,
             DeviceSubcriptionState(),
             DeviceSubcriptionState.serializer()
-        )
-            .stateIn(scope, SharingStarted.Lazily, DeviceSubcriptionState())
+        ).stateIn(scope, SharingStarted.Lazily, DeviceSubcriptionState())
 
     fun saveList() {
         scope.launch {
