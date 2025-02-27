@@ -42,32 +42,15 @@ class UserHistoryMembershipDataSource(
             async {
                 settingsHelper.save(
                     KeySettingsType.ACTIVE_MEMBERSHIPS,
-                    data.active,
-                    ListSerializer(HistoryMembershipResInterceptor.serializer())
+                    data.active.toJson()
                 )
             },
             async {
                 settingsHelper.save(
                     KeySettingsType.EXPIRED_MEMBERSHIPS,
-                    data.expired,
-                    ListSerializer(HistoryMembershipResInterceptor.serializer())
+                    data.expired.toJson()
                 )
             }
         ).awaitAll()
-
-        val ACTIVE_ = settingsHelper.get(
-            KeySettingsType.ACTIVE_MEMBERSHIPS,
-            emptyList(),
-            ListSerializer(HistoryMembershipResInterceptor.serializer())
-        )
-
-        val EXPIRED_ = settingsHelper.get(
-            KeySettingsType.EXPIRED_MEMBERSHIPS,
-            emptyList(),
-            ListSerializer(HistoryMembershipResInterceptor.serializer())
-        )
-
-        Logger.info { ACTIVE_.toString() }
-        Logger.info { EXPIRED_.toString() }
     }
 }

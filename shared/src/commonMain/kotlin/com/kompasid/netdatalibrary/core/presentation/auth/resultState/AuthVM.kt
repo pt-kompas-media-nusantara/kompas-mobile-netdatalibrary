@@ -14,6 +14,7 @@ import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class AuthVM(
     private val authUseCase: AuthUseCase,
@@ -27,43 +28,45 @@ class AuthVM(
     val userDetail = userDetailResultState.data
     val userHistoryMembership = userHistoryMembershipResultState.data
 
-    suspend fun removaAll() {
-        settingsHelper.removeAll()
+    fun removaAllTest() {
+        scope.launch {
+            settingsHelper.removeAll()
+        }
     }
 
-    suspend fun logger() {
-    }
-    suspend fun loginByEmail() {
-        val result = authUseCase.loginByEmail(
-            LoginEmailRequest(
-                "nur.irfan@kompas.com",
-                "Nurirppankompas@28",
-                "testKMP",
-                "testKMP",
+    fun loginByEmailTest() {
+        scope.launch {
+            val result = authUseCase.loginByEmail(
+                LoginEmailRequest(
+                    "nur.irfan@kompas.com",
+                    "Nurirppankompas@28",
+                    "testKMP",
+                    "testKMP",
+                )
             )
-        )
-        when (result) {
-            is Results.Error -> {
-                Logger.error {
-                    result.error.toString()
+            when (result) {
+                is Results.Error -> {
+                    Logger.error {
+                        result.error.toString()
+                    }
                 }
-            }
-            is Results.Success -> {
-                // Mendapatkan data dari Pair
-                val (unitData, userData) = result.data
-                val (userDetails, userHistory) = userData
 
-                Logger.debug {
-                    unitData.toString()
-                }
-                Logger.debug {
-                    userDetails.toString()
-                }
-                Logger.debug {
-                    userHistory.toString()
+                is Results.Success -> {
+                    // Mendapatkan data dari Pair
+                    val (unitData, userData) = result.data
+                    val (userDetails, userHistory) = userData
+
+                    Logger.debug {
+                        unitData.toString()
+                    }
+                    Logger.debug {
+                        userDetails.toString()
+                    }
+                    Logger.debug {
+                        userHistory.toString()
+                    }
                 }
             }
         }
-
     }
 }

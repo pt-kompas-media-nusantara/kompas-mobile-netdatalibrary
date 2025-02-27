@@ -47,19 +47,10 @@ fun AuthScreen(
         Text("AuthScreen")
         HorizontalDivider()
         FilledButton("Execute") {
-            vm.scope.launch {
-                vm.loginByEmail()
-            }
+            vm.loginByEmailTest()
         }
         FilledButton("removaAll") {
-            vm.scope.launch {
-                vm.removaAll()
-            }
-        }
-        FilledButton("logger") {
-            vm.scope.launch {
-                vm.logger()
-            }
+            vm.removaAllTest()
         }
 
         HorizontalDivider()
