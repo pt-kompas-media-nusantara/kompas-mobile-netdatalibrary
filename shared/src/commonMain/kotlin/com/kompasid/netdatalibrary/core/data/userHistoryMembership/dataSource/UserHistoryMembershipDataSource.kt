@@ -2,6 +2,7 @@ package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipObjResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
@@ -39,18 +40,28 @@ class UserHistoryMembershipDataSource(
             async {
                 settingsHelper.save(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, data.user.gracePeriod)
             },
-            async {
-                settingsHelper.save(
-                    KeySettingsType.ACTIVE_MEMBERSHIPS,
-                    data.active.toJson()
-                )
-            },
-            async {
-                settingsHelper.save(
-                    KeySettingsType.EXPIRED_MEMBERSHIPS,
-                    data.expired.toJson()
-                )
-            }
+//            nurirppan__ : ini error, nggak bisa save list model
+//            async {
+//                settingsHelper.save(
+//                    KeySettingsType.ACTIVE_MEMBERSHIPS,
+//                    UserHistoryMembershipResInterceptor(active = data.active).toJson()
+//                )
+//
+////                settingsHelper.save(
+////                    KeySettingsType.ACTIVE_MEMBERSHIPS,
+////                    data.active[0].toJson()
+////                )
+//            },
+//            async {
+//                settingsHelper.save(
+//                    KeySettingsType.EXPIRED_MEMBERSHIPS,
+//                    UserHistoryMembershipResInterceptor(expired = data.expired).toJson()
+//                )
+////                settingsHelper.save(
+////                    KeySettingsType.EXPIRED_MEMBERSHIPS,
+////                    data.expired.toJson()
+////                )
+//            }
         ).awaitAll()
     }
 }

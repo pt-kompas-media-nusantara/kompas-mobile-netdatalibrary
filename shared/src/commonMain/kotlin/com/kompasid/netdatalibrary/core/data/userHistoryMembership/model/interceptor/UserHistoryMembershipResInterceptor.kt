@@ -1,6 +1,7 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Serializable
@@ -62,6 +63,8 @@ data class HistoryMembershipResInterceptor(
     var startDate: String = "",
     var endDate: String = "",
 ) {
+
+
     fun toJson(): String {
         return Json.encodeToString(
             serializer(), HistoryMembershipResInterceptor(

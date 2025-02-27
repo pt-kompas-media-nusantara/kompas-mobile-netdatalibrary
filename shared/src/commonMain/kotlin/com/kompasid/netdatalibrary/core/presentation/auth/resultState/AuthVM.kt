@@ -56,15 +56,15 @@ class AuthVM(
                     val (unitData, userData) = result.data
                     val (userDetails, userHistory) = userData
 
-                    Logger.debug {
-                        unitData.toString()
-                    }
-                    Logger.debug {
-                        userDetails.toString()
-                    }
-                    Logger.debug {
-                        userHistory.toString()
-                    }
+//                    Logger.debug {
+//                        unitData.toString()
+//                    }
+//                    Logger.debug {
+//                        userDetails.toString()
+//                    }
+//                    Logger.debug {
+//                        userHistory.toString()
+//                    }
                 }
             }
         }

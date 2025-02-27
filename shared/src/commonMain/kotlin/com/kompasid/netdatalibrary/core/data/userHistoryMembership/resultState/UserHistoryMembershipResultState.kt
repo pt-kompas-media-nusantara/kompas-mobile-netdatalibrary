@@ -31,72 +31,68 @@ class UserHistoryMembershipResultState(
     private val settingsHelper: SettingsHelper,
 ) : BaseVM() {
 
-    val expired: StateFlow<String> = settingsHelper.load(KeySettingsType.EXPIRED_MEMBERSHIP, "")
-        .distinctUntilChanged()
-        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
+    private val expired: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.EXPIRED_MEMBERSHIP, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
-    val isActive: StateFlow<String> = settingsHelper.load(KeySettingsType.ACTIVE_MEMBERSHIP, "")
-        .distinctUntilChanged()
-        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
+    private val isActive: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.ACTIVE_MEMBERSHIP, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
-    val startDate: StateFlow<String> =
+    private val startDate: StateFlow<String> =
         settingsHelper.load(KeySettingsType.START_DATE_MEMBERSHIP, "")
             .distinctUntilChanged()
             .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
-    val endDate: StateFlow<String> = settingsHelper.load(KeySettingsType.END_DATE_MEMBERSHIP, "")
-        .distinctUntilChanged()
-        .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
+    private val endDate: StateFlow<String> =
+        settingsHelper.load(KeySettingsType.END_DATE_MEMBERSHIP, "")
+            .distinctUntilChanged()
+            .stateIn(scope, SharingStarted.WhileSubscribed(5000), "")
 
-    val totalGracePeriod: StateFlow<Int> =
+    private val totalGracePeriod: StateFlow<Int> =
         settingsHelper.load(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, 0)
             .distinctUntilChanged()
             .stateIn(scope, SharingStarted.WhileSubscribed(5000), 0)
 
-    val gracePeriod: StateFlow<Boolean> =
+    private val gracePeriod: StateFlow<Boolean> =
         settingsHelper.load(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, false)
             .distinctUntilChanged()
             .stateIn(scope, SharingStarted.WhileSubscribed(5000), false)
 
-    val activeMemberships: StateFlow<List<HistoryMembershipResInterceptor>> = settingsHelper.load(
-        KeySettingsType.ACTIVE_MEMBERSHIPS,
-        emptyList(),
-        ListSerializer(HistoryMembershipResInterceptor.serializer())
-    )
-        .distinctUntilChanged()
-        .stateIn(scope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    val expiredMemberships: StateFlow<List<HistoryMembershipResInterceptor>> = settingsHelper.load(
-        KeySettingsType.EXPIRED_MEMBERSHIPS,
-        emptyList(),
-        ListSerializer(HistoryMembershipResInterceptor.serializer())
-    )
-        .distinctUntilChanged()
-        .stateIn(scope, SharingStarted.WhileSubscribed(5000), emptyList())
+//    private val activeMemberships: StateFlow<UserHistoryMembershipResInterceptor> = settingsHelper.load(KeySettingsType.ACTIVE_MEMBERSHIPS, UserHistoryMembershipResInterceptor())
+//        .distinctUntilChanged()
+//        .stateIn(scope, SharingStarted.WhileSubscribed(5000), UserHistoryMembershipResInterceptor())
+//
+//    private val expiredMemberships: StateFlow<UserHistoryMembershipResInterceptor> = settingsHelper.load(KeySettingsType.EXPIRED_MEMBERSHIPS, UserHistoryMembershipResInterceptor())
+//        .distinctUntilChanged()
+//        .stateIn(scope, SharingStarted.WhileSubscribed(5000), UserHistoryMembershipResInterceptor())
 
     private val combinePart1 = combine(
-        expired, isActive, startDate, endDate, totalGracePeriod
-    ) { expired, isActive, startDate, endDate, totalGracePeriod ->
+        expired, isActive, startDate, endDate
+    ) { expired, isActive, startDate, endDate ->
         UserHistoryMembershipResInterceptor(
             user = UserHistoryMembershipObjResInterceptor(
                 expired = expired,
                 isActive = isActive,
                 startDate = startDate,
                 endDate = endDate,
-                totalGracePeriod = totalGracePeriod
-            )
+
+                )
         )
     }
 
     private val combinePart2 = combine(
-        gracePeriod, activeMemberships, expiredMemberships
-    ) { gracePeriod, activeMemberships, expiredMemberships ->
+        totalGracePeriod, gracePeriod //, activeMemberships, expiredMemberships
+    ) { totalGracePeriod, gracePeriod -> // , activeMemberships, expiredMemberships
         UserHistoryMembershipResInterceptor(
             user = UserHistoryMembershipObjResInterceptor(
+                totalGracePeriod = totalGracePeriod,
                 gracePeriod = gracePeriod
-            ),
-            active = activeMemberships,
-            expired = expiredMemberships
+            )
+//            active = activeMemberships,
+//            expired = expiredMemberships
         )
     }
 
