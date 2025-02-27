@@ -1,9 +1,11 @@
 package com.kompasid.netdatalibrary.helper.persistentStorage
 
 import com.kompasid.netdatalibrary.base.logger.Logger
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.UserProfile
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.coroutines.SuspendSettings
+import com.russhwolf.settings.serialization.decodeValue
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.serialization.removeValue
@@ -276,7 +278,7 @@ class SettingsHelper(
 
             serializer != null -> {
                 try {
-                    settings.decodeValueOrNull(serializer, key.key) ?: defaultValue
+                    settings.decodeValue(serializer, key.key, defaultValue)
 //                    val jsonString = settings.getStringOrNull(key.key)
 //                    if (jsonString != null) {
 //                        Json.decodeFromString(serializer, jsonString)
