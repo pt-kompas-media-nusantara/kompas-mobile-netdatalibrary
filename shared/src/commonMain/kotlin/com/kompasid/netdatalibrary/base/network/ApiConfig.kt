@@ -15,6 +15,7 @@ object ApiConfig {
     const val LOGOUT_URL = "$KID_URL/account/api/v2/logout"
     const val UPDATE_PROFILE_URL = "$KID_URL/account/api/v1/users"
     const val LOGIN_BY_EMAIL_URL = "$KID_URL/account/api/v2/login/email"
+    const val CHECK_VERIFIED_USER_URL = "https://api.kompas.id/account/api/v2/users/check"
 
 
     const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"

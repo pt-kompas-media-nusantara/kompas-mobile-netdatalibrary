@@ -20,8 +20,7 @@ import io.ktor.http.contentType
 
 
 class MyRubriksApiService(
-    private val httpClient: HttpClient,
-    private val settingsHelper: SettingsHelper
+    private val httpClient: HttpClient
 ) : IMyRubriksApiService {
     override suspend fun getRubrikList(): ApiResults<OldMyRubriksResponse, NetworkError> {
         return safeCall<OldMyRubriksResponse> {

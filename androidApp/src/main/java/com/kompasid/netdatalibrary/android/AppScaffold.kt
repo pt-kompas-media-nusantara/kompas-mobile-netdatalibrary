@@ -24,7 +24,7 @@ import com.kompasid.netdatalibrary.android.screens.example.CoroutineNoArgModuleS
 import com.kompasid.netdatalibrary.android.screens.example.ExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.ListenerExampleNoArgModuleSettingsScreen
 import com.kompasid.netdatalibrary.android.screens.example.SerializationNoArgModuleSettingsScreen
-import com.kompasid.netdatalibrary.android.screens.kotor.AccountScreen
+import com.kompasid.netdatalibrary.android.screens.AccountScreen
 
 @Composable
 fun AppScaffold() {
