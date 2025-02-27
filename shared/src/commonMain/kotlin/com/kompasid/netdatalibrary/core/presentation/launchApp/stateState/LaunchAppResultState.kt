@@ -11,6 +11,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -21,18 +22,6 @@ import kotlinx.serialization.builtins.serializer
 class LaunchAppResultState(
     private val settingsHelper: SettingsHelper,
 ) : BaseVM() {
-
-//    data class LaunchAppInterceptor(
-//        val flavors: String,
-//        val originalTransactionId: String,
-//        val transactionId: List<String>,
-//        val deviceType: String,
-//        val osVersion: String,
-//        val currentVersionApp: String,
-//        val newVersionApp: String,
-//        val historyTransaction: List<String>,
-//        val isDebug: Boolean,
-//    )
 
     val deviceInfoState: StateFlow<DeviceInfoState> =
         combine(
@@ -49,51 +38,50 @@ class LaunchAppResultState(
             )
         }
             .distinctUntilChanged()
+            .debounce(300)
             .stateIn(
                 scope,
                 SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
                 DeviceInfoState()
             )
 
-//    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
-//        combine(
-//            settingsHelper.load(
-//                KeySettingsType.ORIGINAL_TRANSACTION_ID, listOf()
-//            ),
-//            settingsHelper.load(KeySettingsType.TRANSACTION_ID, ""),
-//            settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, ""),
-//        ) { originalTransactionId, transactionId, historyTransaction ->
-//            DeviceSubcriptionState(
-//                originalTransactionId = originalTransactionId ?: emptyList(),
-//                transactionId = transactionId ?: emptyList(),
-//                historyTransaction = historyTransaction ?: emptyList(),
-//            )
-//        }
-//            .flowOn(Dispatchers.IO)
-//            .distinctUntilChanged()
-//            .stateIn(
-//                scope,
-//                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
-//                DeviceSubcriptionState()
-//            )
+    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
+        combine(
+            settingsHelper.load(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList<String>()),
+            settingsHelper.load(KeySettingsType.TRANSACTION_ID, emptyList<String>()),
+            settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, emptyList<String>()),
+        ) { originalTransactionId, transactionId, historyTransaction ->
+            DeviceSubcriptionState(
+                originalTransactionId = originalTransactionId,
+                transactionId = transactionId,
+                historyTransaction = historyTransaction,
+            )
+        }
+            .distinctUntilChanged()
+            .debounce(300)
+            .stateIn(
+                scope,
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
+                DeviceSubcriptionState()
+            )
 
 
-//    val configurationSystemState: StateFlow<ConfigurationSystemState> =
-//        combine(
-//            settingsHelper.getStringFlow(KeySettingsType.FLAVORS).map { it ?: "" },
-//            settingsHelper.getBooleanFlow(KeySettingsType.IS_DEBUG).map { it ?: true }
-//        ) { flavors, isDebug ->
-//            ConfigurationSystemState(
-//                flavors = flavors,
-//                isDebug = isDebug
-//            )
-//        }
-//            .flowOn(Dispatchers.IO)
-//            .distinctUntilChanged()
-//            .stateIn(
-//                scope,
-//                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
-//                ConfigurationSystemState()
-//            )
+    val configurationSystemState: StateFlow<ConfigurationSystemState> =
+        combine(
+            settingsHelper.load(KeySettingsType.FLAVORS, "").map { it ?: "" },
+            settingsHelper.load(KeySettingsType.IS_DEBUG, false).map { it ?: true }
+        ) { flavors, isDebug ->
+            ConfigurationSystemState(
+                flavors = flavors,
+                isDebug = isDebug
+            )
+        }
+            .distinctUntilChanged()
+            .debounce(300)
+            .stateIn(
+                scope,
+                SharingStarted.WhileSubscribed(replayExpirationMillis = 9000),
+                ConfigurationSystemState()
+            )
 }
 

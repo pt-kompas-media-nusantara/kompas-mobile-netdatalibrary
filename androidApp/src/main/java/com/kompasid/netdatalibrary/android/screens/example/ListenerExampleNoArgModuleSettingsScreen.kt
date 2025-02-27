@@ -3,17 +3,11 @@ package com.kompasid.netdatalibrary.android.screens.example
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings.ListenerExampleNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.listenerNoArgModuleSettings.ListenerExampleNoArgModuleSettingsVM
 import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
 import org.koin.compose.viewmodel.koinViewModel
 

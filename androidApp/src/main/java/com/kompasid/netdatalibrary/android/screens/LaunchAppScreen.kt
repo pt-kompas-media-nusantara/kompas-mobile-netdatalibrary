@@ -23,15 +23,15 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.Launch
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
+
 @Composable
 fun LaunchAppScreen(
     vm: LaunchAppVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-    val trytry by vm.trytry.collectAsState()
-    val originalTransactionId by vm.originalTransactionId.collectAsState()
-    val transactionId by vm.transactionId.collectAsState()
-    val historyTransaction by vm.historyTransaction.collectAsState()
+    val originalTransactionId by vm.deviceInfoState.collectAsState()
+    val transactionId by vm.deviceSubscriptionState.collectAsState()
+    val historyTransaction by vm.configurationSystemState.collectAsState()
 
     LazyColumn(
         modifier = Modifier
@@ -44,135 +44,26 @@ fun LaunchAppScreen(
             HorizontalDivider()
             Spacer(modifier = Modifier.height(16.dp))
 
-            FilledButton("saveList") {
-                vm.saveList()
+            FilledButton("executeTest") {
+                vm.executeTest()
             }
 
-            FilledButton("saveModel") {
-                vm.saveModel()
-            }
-        }
-
-        item {
-            Text(text = "Model Original Transaction IDs:", fontWeight = FontWeight.Bold)
-            trytry.originalTransactionId.forEach { id ->
-                Text(text = id)
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(text = "Model Transaction IDs:", fontWeight = FontWeight.Bold)
-            trytry.transactionId.forEach { id ->
-                Text(text = id)
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(text = "Model History Transactions:", fontWeight = FontWeight.Bold)
-            trytry.historyTransaction.forEach { id ->
-                Text(text = id)
-            }
-        }
-
-        item {
-            Text("Original Transaction ID:")
-        }
-        items(originalTransactionId) { item ->
-            Text("- $item", fontSize = 16.sp)
-        }
-
-        item {
             Spacer(modifier = Modifier.height(16.dp))
-            Text("Transaction ID:")
-        }
-        items(transactionId) { item ->
-            Text("- $item", fontSize = 16.sp)
         }
 
         item {
+            Text(originalTransactionId.toString())
+            HorizontalDivider()
             Spacer(modifier = Modifier.height(16.dp))
-            Text("History Transaction:")
-        }
-        items(historyTransaction) { item ->
-            Text("- $item", fontSize = 16.sp)
+
+            Text(transactionId.toString())
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(historyTransaction.toString())
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
-
-
-//@Composable
-//fun LaunchAppScreen(
-//    vm: LaunchAppVM = koinViewModel(),
-//    onBackClick: () -> Unit,
-//) {
-////    val originalTransactionId by vm.originalTransactionId.collectAsState()
-////    val deviceInfoState by vm.deviceInfoState.collectAsState()
-////    val deviceSubcriptionState by vm.deviceSubscriptionState.collectAsState() // Perbaikan
-////    val configurationSystemState by vm.configurationSystemState.collectAsState() // Perbaikan
-//
-//    val originalTransactionId by vm.originalTransactionId.collectAsState()
-//    val transactionId by vm.transactionId.collectAsState()
-//    val historyTransaction by vm.historyTransaction.collectAsState()
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize() // Menyebarkan layout ke seluruh layar
-//            .padding(16.dp)
-//            .verticalScroll(rememberScrollState()) // Scroll agar bisa menggulir konten yang panjang
-//    ) {
-//        AppBackBar(onBackClick)
-//
-//        Text("LaunchAppScreen")
-//        HorizontalDivider()
-//
-//        Text("Original Transaction ID:")
-//        LazyColumn {
-//            items(originalTransactionId) { item ->
-//                Text("- $item", fontSize = 16.sp)
-//            }
-//        }
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Text("Transaction ID:")
-//        LazyColumn {
-//            items(transactionId) { item ->
-//                Text("- $item", fontSize = 16.sp)
-//            }
-//        }
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Text("History Transaction:")
-//        LazyColumn {
-//            items(historyTransaction) { item ->
-//                Text("- $item", fontSize = 16.sp)
-//            }
-//        }
-//
-////        // Menampilkan data dengan lebih rapi menggunakan Modifier.padding()
-////        Text(deviceInfoState.toString(), modifier = Modifier.padding(top = 8.dp))
-////        HorizontalDivider()
-////        Text(deviceSubcriptionState.toString(), modifier = Modifier.padding(top = 8.dp))
-////        HorizontalDivider()
-////        Text(configurationSystemState.toString(), modifier = Modifier.padding(top = 8.dp))
-////        HorizontalDivider()
-////        Spacer(modifier = Modifier.height(16.dp))
-////
-////        FilledButton("Execute") {
-////            vm.scope.launch {
-////                vm.execute()
-////            }
-////        }
-//
-//        FilledButton("Execute") {
-//            vm.saveList()
-//        }
-//
-//        FilledButton("Execute") {
-//            vm.getList()
-//        }
-//
-//    }
-//}
 

@@ -24,132 +24,58 @@ class LaunchAppVM(
     private val settingsHelper: SettingsHelper
 ) : BaseVM() {
 
-    val originalTransactionId: StateFlow<List<String>> =
-        settingsHelper.load(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList<String>())
-            .stateIn(scope, SharingStarted.Lazily, emptyList())
 
-    val transactionId: StateFlow<List<String>> =
-        settingsHelper.load(KeySettingsType.TRANSACTION_ID, emptyList<String>())
-            .stateIn(scope, SharingStarted.Lazily, emptyList<String>())
+    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
+    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
+        launchAppResultState.deviceSubscriptionState
+    val configurationSystemState: StateFlow<ConfigurationSystemState> =
+        launchAppResultState.configurationSystemState
 
-    val historyTransaction: StateFlow<List<String>> =
-        settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, emptyList<String>())
-            .stateIn(scope, SharingStarted.Lazily, emptyList())
-
-    val trytry: StateFlow<DeviceSubcriptionState> =
-        settingsHelper.load(
-            KeySettingsType.TRYTRY,
-            DeviceSubcriptionState(),
-            DeviceSubcriptionState.serializer()
-        ).stateIn(scope, SharingStarted.Lazily, DeviceSubcriptionState())
-
-    fun saveList() {
-        scope.launch {
-            settingsHelper.save(
-                KeySettingsType.ORIGINAL_TRANSACTION_ID, listOf(
-                    "ORIGINAL_TRANSACTION_ID 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "ORIGINAL_TRANSACTION_ID 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                )
-            )
-
-            settingsHelper.save(
-                KeySettingsType.TRANSACTION_ID, listOf(
-                    "TRANSACTION_ID 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "TRANSACTION_ID 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                )
-            )
-
-            settingsHelper.save(
-                KeySettingsType.HISTORY_TRANSACTION, listOf(
-                    "HISTORY_TRANSACTION 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "HISTORY_TRANSACTION 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                )
-            )
-
-            val originalTransactionId: List<String> =
-                settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
-            val transactionId: List<String> =
-                settingsHelper.get(KeySettingsType.TRANSACTION_ID, emptyList())
-            val historyTransaction: List<String> =
-                settingsHelper.get(KeySettingsType.HISTORY_TRANSACTION, emptyList())
+    suspend fun execute(data: LaunchAppInterceptor) {
+        try {
+            launchAppUseCase.execute(data)
+        } catch (e: Exception) {
+            // Menangani error agar tidak crash
+            Logger.error { "Error executing: ${e.message}" }
         }
     }
 
-    fun saveModel() {
+    fun executeTest() {
         scope.launch {
-            val data = DeviceSubcriptionState(
-                originalTransactionId = listOf(
-                    "originalTransactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "originalTransactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                ),
-                transactionId = listOf(
-                    "transactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "transactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                ),
-                historyTransaction = listOf(
-                    "historyTransaction 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "historyTransaction 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                ),
-            )
+            try {
+                val data = LaunchAppInterceptor(
+                    deviceInfoState = DeviceInfoState(
+                        deviceType = "deviceType ${RelativeTimeFormatter().getCurrentTime()}",
+                        osVersion = "osVersion ${RelativeTimeFormatter().getCurrentTime()}",
+                        currentVersionApp = "currentVersionApp ${RelativeTimeFormatter().getCurrentTime()}",
+                        newVersionApp = "newVersionApp ${RelativeTimeFormatter().getCurrentTime()}"
+                    ),
+                    deviceSubcriptionState = DeviceSubcriptionState(
+                        originalTransactionId = listOf(
+                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
+                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
+                        ),
+                        transactionId = listOf(
+                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
+                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
+                        ),
+                        historyTransaction = listOf(
+                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
+                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
+                        ),
+                    ),
+                    configurationSystemState = ConfigurationSystemState(
+                        flavors = "flavors ${RelativeTimeFormatter().getCurrentTime()}",
+                        isDebug = false
+                    )
+                )
 
-            settingsHelper.save(
-                KeySettingsType.TRYTRY,
-                data.toJson()
-            )
-
-            delay(3000)
-            val result = DeviceSubcriptionState.fromJSON(settingsHelper.get(
-                KeySettingsType.TRYTRY,
-                ""
-            ))
-
-            Logger.info { result.toString() }
+                launchAppUseCase.execute(data)
+            } catch (e: Exception) {
+                Logger.error { "Error executing: ${e.message}" }
+            }
         }
     }
-
-
-//    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
-//    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
-//        launchAppResultState.deviceSubscriptionState
-//    val configurationSystemState: StateFlow<ConfigurationSystemState> =
-//        launchAppResultState.configurationSystemState
-
-
-//    suspend fun execute() {
-//        try {
-//            val data = LaunchAppInterceptor(
-//                deviceInfoState = DeviceInfoState(
-//                    deviceType = "deviceType ${RelativeTimeFormatter().getCurrentTime()}",
-//                    osVersion = "osVersion ${RelativeTimeFormatter().getCurrentTime()}",
-//                    currentVersionApp = "currentVersionApp ${RelativeTimeFormatter().getCurrentTime()}",
-//                    newVersionApp = "newVersionApp ${RelativeTimeFormatter().getCurrentTime()}"
-//                ),
-//                deviceSubcriptionState = DeviceSubcriptionState(
-//                    originalTransactionId = listOf(
-//                        "1 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                        "2 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                    ),
-//                    transactionId = listOf(
-//                        "1 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                        "2 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                    ),
-//                    historyTransaction = listOf(
-//                        "1 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                        "2 : ${RelativeTimeFormatter().getCurrentTime()}",
-//                    ),
-//                ),
-//                configurationSystemState = ConfigurationSystemState(
-//                    flavors = "flavors ${RelativeTimeFormatter().getCurrentTime()}",
-//                    isDebug = false
-//                )
-//            )
-//
-//            launchAppUseCase.execute(data)
-//        } catch (e: Exception) {
-//            // Menangani error agar tidak crash
-//            Logger.error { "Error executing: ${e.message}" }
-//        }
-//    }
 }
 
 

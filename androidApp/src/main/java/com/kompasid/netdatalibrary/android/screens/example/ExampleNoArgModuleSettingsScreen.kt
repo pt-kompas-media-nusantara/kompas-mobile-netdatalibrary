@@ -13,7 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings.ExampleNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.noArgModuleSettings.ExampleNoArgModuleSettingsVM
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

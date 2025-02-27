@@ -1,6 +1,6 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.listenerNoArgModuleSettings
 
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings.ExampleSettingsKey
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.noArgModuleSettings.ExampleSettingsKey
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.SettingsListener
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.noArgModuleSettings
 
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.get

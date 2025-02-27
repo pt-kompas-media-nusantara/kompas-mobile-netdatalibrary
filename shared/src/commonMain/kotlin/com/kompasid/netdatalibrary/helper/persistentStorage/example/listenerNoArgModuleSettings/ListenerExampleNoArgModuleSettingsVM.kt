@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.listenerNoArgModuleSettings
 
 import com.kompasid.netdatalibrary.BaseVM
 import kotlinx.coroutines.flow.StateFlow

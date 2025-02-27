@@ -1,8 +1,8 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings
 
 import com.kompasid.netdatalibrary.BaseVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.Address
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.UserProfile
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.Address
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.UserProfile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

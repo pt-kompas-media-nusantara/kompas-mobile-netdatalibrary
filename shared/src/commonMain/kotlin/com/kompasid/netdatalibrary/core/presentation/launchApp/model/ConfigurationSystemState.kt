@@ -1,6 +1,24 @@
 package com.kompasid.netdatalibrary.core.presentation.launchApp.model
 
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+
+@Serializable
 data class ConfigurationSystemState(
     val flavors: String = "",
     val isDebug: Boolean = true,
-)
+) {
+    fun toJson(): String {
+        return Json.encodeToString(
+            serializer(), ConfigurationSystemState(
+                flavors, isDebug
+            )
+        )
+    }
+
+    companion object {
+        fun fromJSON(data: String): ConfigurationSystemState {
+            return Json.decodeFromString(data)
+        }
+    }
+}

@@ -3,10 +3,10 @@ package com.kompasid.netdatalibrary.android.di
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.AccountVM
 import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.CoroutineNoArgModuleSettings.CoroutineNoArgModuleSettingsVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.ListenerNoArgModuleSettings.ListenerExampleNoArgModuleSettingsVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings.ExampleNoArgModuleSettingsVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.SerializationNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.coroutineNoArgModuleSettings.CoroutineNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.listenerNoArgModuleSettings.ListenerExampleNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.noArgModuleSettings.ExampleNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.SerializationNoArgModuleSettingsVM
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 

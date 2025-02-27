@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.CoroutineNoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.coroutineNoArgModuleSettings
 
 import com.russhwolf.settings.coroutines.SuspendSettings
 

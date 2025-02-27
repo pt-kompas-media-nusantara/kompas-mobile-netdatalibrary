@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model
 
 import kotlinx.serialization.Serializable
 

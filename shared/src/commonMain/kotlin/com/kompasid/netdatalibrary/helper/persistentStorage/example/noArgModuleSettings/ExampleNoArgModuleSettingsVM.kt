@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.NoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.noArgModuleSettings
 
 import com.kompasid.netdatalibrary.BaseVM
 import kotlinx.coroutines.flow.MutableStateFlow

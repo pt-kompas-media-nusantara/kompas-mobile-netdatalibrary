@@ -6,9 +6,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.SerializationNoArgModuleSettingsVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.Address
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.UserProfile
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.SerializationNoArgModuleSettingsVM
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.Address
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.UserProfile
 import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
 import org.koin.compose.viewmodel.koinViewModel
 

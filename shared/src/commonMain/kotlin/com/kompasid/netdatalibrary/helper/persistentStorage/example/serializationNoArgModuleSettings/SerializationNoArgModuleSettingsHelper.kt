@@ -1,25 +1,15 @@
-package com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings
+package com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings
 
-import com.kompasid.netdatalibrary.BaseVM
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.Address
-import com.kompasid.netdatalibrary.helper.persistentStorage.example.SerializationNoArgModuleSettings.model.UserProfile
-import com.russhwolf.settings.ExperimentalSettingsApi
-import kotlinx.serialization.Serializable
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.Address
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.UserProfile
 
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.contains
-import com.russhwolf.settings.get
-import com.russhwolf.settings.set
 import com.russhwolf.settings.serialization.decodeValue
 import com.russhwolf.settings.serialization.decodeValueOrNull
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.serialization.removeValue
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.builtins.ListSerializer
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.json.Json
 
 class SerializationNoArgModuleSettingsHelper(private val settings: Settings) {
 
