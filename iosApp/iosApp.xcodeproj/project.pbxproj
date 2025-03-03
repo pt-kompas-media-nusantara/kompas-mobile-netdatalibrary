@@ -11,6 +11,7 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		2339F8402D5DFB3D00F2E5C0 /* PersonalInfoVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339F83F2D5DFB3C00F2E5C0 /* PersonalInfoVMWrapper.swift */; };
+		23602BED2D75B09D0030311A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23602BEC2D75B09D0030311A /* RootView.swift */; };
 		2363F2F82D4B69E000B5D070 /* TrackerVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */; };
 		2363F2FB2D4BBFD400B5D070 /* OpenFromType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2FA2D4BBFD400B5D070 /* OpenFromType.swift */; };
 		2363F2FD2D4C7D2900B5D070 /* EventNameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2FC2D4C7D2900B5D070 /* EventNameType.swift */; };
@@ -40,6 +41,7 @@
 		202016E6356C2C54576D4EB6 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		2339F83F2D5DFB3C00F2E5C0 /* PersonalInfoVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVMWrapper.swift; sourceTree = "<group>"; };
+		23602BEC2D75B09D0030311A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerVMWrapper.swift; sourceTree = "<group>"; };
 		2363F2FA2D4BBFD400B5D070 /* OpenFromType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFromType.swift; sourceTree = "<group>"; };
 		2363F2FC2D4C7D2900B5D070 /* EventNameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameType.swift; sourceTree = "<group>"; };
@@ -71,6 +73,15 @@
 				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		23602BEB2D75B08E0030311A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				23602BEC2D75B09D0030311A /* RootView.swift */,
+				23AB2F222D3E3F45007AFEE9 /* AccountView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2363F2F92D4BBFC500B5D070 /* Enums */ = {
@@ -124,10 +135,10 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				23602BEB2D75B08E0030311A /* View */,
 				2363F2F92D4BBFC500B5D070 /* Enums */,
 				23EBD8552D3F457300222B4E /* ViewModel */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				23AB2F222D3E3F45007AFEE9 /* AccountView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
@@ -267,6 +278,7 @@
 				2363F2F82D4B69E000B5D070 /* TrackerVMWrapper.swift in Sources */,
 				23EBD85A2D3F45A800222B4E /* AccountVMWrapper.swift in Sources */,
 				23EBD85C2D3F45DB00222B4E /* SettingsVMWrapper.swift in Sources */,
+				23602BED2D75B09D0030311A /* RootView.swift in Sources */,
 				23EBD8582D3F458A00222B4E /* AuthVMWrapper.swift in Sources */,
 				2339F8402D5DFB3D00F2E5C0 /* PersonalInfoVMWrapper.swift in Sources */,
 				23AB2F232D3E3F45007AFEE9 /* AccountView.swift in Sources */,
@@ -415,7 +427,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					shared,
+					KompasIdLibrary,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -445,7 +457,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					shared,
+					KompasIdLibrary,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = orgIdentifier.iosApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
