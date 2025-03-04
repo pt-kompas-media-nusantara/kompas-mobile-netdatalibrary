@@ -8,7 +8,6 @@
 
 import SwiftUI
 import KompasIdLibrary
-import Combine
 
 
 @MainActor
@@ -30,8 +29,11 @@ class PersonalInfoVMWrapper: ObservableObject {
     }
     
     private func observePersonalInfo() {
-        task = Task {
-            let iterator = personalInfoState.streamPersonalInfo().makeAsyncIterator()
+        self.task?.cancel() // Pastikan tidak ada task lama yang berjalan
+        
+        self.task = Task { [weak self] in
+            guard let self = self else { return }
+            let iterator = self.personalInfoState.streamPersonalInfo().makeAsyncIterator()
             
             while let newInfo = await iterator.next() {
                 DispatchQueue.main.async {
@@ -39,11 +41,14 @@ class PersonalInfoVMWrapper: ObservableObject {
                     print("Updated Personal Info: \(newInfo)")
                 }
             }
+            
+            print("Stream ended. Cancelling task.")
+            self.task?.cancel() // ini bisa untuk tidak di pakai karna sudah ada di deinit. sementara kita coba pakai dulu karna harus di coba
         }
     }
     
     deinit {
-        task?.cancel()
+        self.task?.cancel()
     }
     
     func getPersonalInfoState() async throws {
