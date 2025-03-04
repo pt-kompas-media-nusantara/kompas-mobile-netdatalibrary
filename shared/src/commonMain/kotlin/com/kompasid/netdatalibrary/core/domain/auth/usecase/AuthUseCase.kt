@@ -36,14 +36,11 @@ class AuthUseCase(
         }
 
 
-    suspend fun logout(): Results<Unit, NetworkError> {
-        val result = logoutRepository.postLogout()
-        return result
+    suspend fun logout(): Results<Unit, NetworkError> = runCatching {
+        logoutRepository.postLogout()
+    }.getOrElse { exception ->
+        Results.Error(NetworkError.Error(exception))
     }
 
 
 }
-
-data class LoginAnonResInterceptor(
-    val userId: String
-)

@@ -33,7 +33,6 @@ class AccountUseCase(
     private val userDataHelper: UserDataHelper,
 ) {
 
-
     suspend fun accountMenus(): List<AccountModel> {
         val checkUserType = userDataHelper.checkUserType()
         val checkAutoLogin = userDataHelper.checkAutoLogin()
