@@ -38,29 +38,17 @@ class AccountUseCase(
         val checkUserType = userDataHelper.checkUserType()
         val checkAutoLogin = userDataHelper.checkAutoLogin()
 
-        // ini aja di ganti jadi 2 tipe
-        fun AccountModel.applyUserType(): AccountModel {
+        fun AccountModel.applyAccountModification(isSubscription: Boolean = false): AccountModel {
             return when {
                 checkUserType == StateUserType.ANON && checkAutoLogin == AuthFlowType.AUTO_LOGIN -> {
                     copy(navigation = AccountNavigationType.AUTO_LOGIN)
                 }
 
                 checkUserType == StateUserType.ANON -> {
-                    copy(lockIcon = "ic_lock", navigation = AccountNavigationType.REGISTER_WALL)
-                }
-
-                else -> this
-            }
-        }
-
-        fun AccountModel.applySubscriptionType(): AccountModel {
-            return when {
-                checkUserType == StateUserType.ANON && checkAutoLogin == AuthFlowType.AUTO_LOGIN -> {
-                    copy(navigation = AccountNavigationType.AUTO_LOGIN)
-                }
-
-                checkUserType == StateUserType.ANON -> {
-                    copy(lockIcon = "ic_lock", navigation = AccountNavigationType.SUBSCRIPTION)
+                    copy(
+                        lockIcon = "ic_lock",
+                        navigation = if (isSubscription) AccountNavigationType.SUBSCRIPTION else AccountNavigationType.REGISTER_WALL
+                    )
                 }
 
                 else -> this
@@ -68,13 +56,13 @@ class AccountUseCase(
         }
 
         return buildList {
-            add(manageAccountData.applyUserType())
+            add(manageAccountData.applyAccountModification())
             if (checkUserType != StateUserType.SUBER) {
-                add(subcriptionData.applySubscriptionType())
+                add(subcriptionData.applyAccountModification(isSubscription = true))
             }
-            add(bookmarkData.applyUserType())
+            add(bookmarkData.applyAccountModification())
             add(rewardData)
-            add(settingData.applyUserType())
+            add(settingData.applyAccountModification())
 
             addAll(
                 listOf(
@@ -86,7 +74,6 @@ class AccountUseCase(
             )
         }
     }
-
 
     suspend fun aboutHarianKompasMenus(): List<AccountModel> {
         return listOf(
