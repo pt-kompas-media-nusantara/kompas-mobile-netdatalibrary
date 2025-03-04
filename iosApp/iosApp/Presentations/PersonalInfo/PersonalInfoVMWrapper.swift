@@ -28,37 +28,32 @@ class PersonalInfoVMWrapper: ObservableObject {
         observePersonalInfo()
     }
     
-    private func observePersonalInfo() {
-        self.task?.cancel() // Pastikan tidak ada task lama yang berjalan
+    func observePersonalInfo() {
+        // Pastikan hanya satu Task yang berjalan
+        task?.cancel()
         
-        self.task = Task { [weak self] in
+        task = Task.detached(priority: .background) { [weak self] in
             guard let self = self else { return }
-            let iterator = self.personalInfoState.streamPersonalInfo().makeAsyncIterator()
+            let iterator = await self.personalInfoState.streamPersonalInfo().makeAsyncIterator()
             
             while let newInfo = await iterator.next() {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.kmp = newInfo
                     print("Updated Personal Info: \(newInfo)")
                 }
             }
             
             print("Stream ended. Cancelling task.")
-            self.task?.cancel() // ini bisa untuk tidak di pakai karna sudah ada di deinit. sementara kita coba pakai dulu karna harus di coba
+            await self.task?.cancel()
         }
+    }
+    
+    func stopObserving() {
+        task?.cancel()
     }
     
     deinit {
-        self.task?.cancel()
-    }
-    
-    func getPersonalInfoState() async throws {
-        do {
-            let result = try await self.personalInfoState.getPersonalInfo()
-            print("getPersonalInfoState \(result)")
-            
-        } catch {
-            print("getPersonalInfoState \(error.localizedDescription)")
-        }
+        task?.cancel()
     }
     
     func getUserDetailsAndMembership() async throws {

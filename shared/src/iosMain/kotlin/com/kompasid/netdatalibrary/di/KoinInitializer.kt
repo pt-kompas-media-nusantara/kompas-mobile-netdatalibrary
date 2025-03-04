@@ -5,7 +5,7 @@ import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
-import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoState
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

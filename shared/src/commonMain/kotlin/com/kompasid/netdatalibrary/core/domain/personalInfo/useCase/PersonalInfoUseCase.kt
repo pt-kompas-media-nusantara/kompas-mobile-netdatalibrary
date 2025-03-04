@@ -9,6 +9,7 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.Us
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay

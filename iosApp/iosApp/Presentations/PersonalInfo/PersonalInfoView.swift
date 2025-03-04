@@ -27,13 +27,6 @@ struct PersonalInfoView: View {
                     }
                 }
                 .buttonStyle(.borderedProminent)
-                
-                Button("getPersonalInfoState") {
-                    Task {
-                        try await self.personalInfoVMWrapper.getPersonalInfoState()
-                    }
-                }
-                .buttonStyle(.borderedProminent)
             }
         }
     }
