@@ -1,17 +1,21 @@
 package com.kompasid.netdatalibrary.core.domain.personalInfo.useCase
 
 import com.kompasid.netdatalibrary.BaseVM
+import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.data.userDetail.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,8 +28,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 
 
-
-
 class PersonalInfoUseCase(
     private val personalInfoState: PersonalInfoState,
     private val userDetailRepository: UserDetailRepository,
@@ -33,69 +35,77 @@ class PersonalInfoUseCase(
 ) : IPersonalInfoUseCase {
 
 
-    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> {
-        return try {
-            supervisorScope {  // Memastikan coroutine dapat berjalan terpisah sebelum penanganan error
-                val userDetailDeferred = async { userDetail() }
-                val historyMembershipDeferred = async { historyMembersip() }
+    suspend fun getUserDetailsAndMembership(): Results<Unit, NetworkError> = coroutineScope {
+        runCatching {
+            val tasks = listOf(
+                async { userDetail() },
+                async { historyMembership() }
+            )
 
-                try {
-                    val userDetailResult = userDetailDeferred.await()
-                    val historyMembershipResult = historyMembershipDeferred.await()
+            val results = tasks.awaitAll()
 
-                    when {
-                        userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
+            when {
+                results.all { it is Results.Success } -> Results.Success(Unit)
+                else -> {
+                    // Batalkan semua task jika ada yang gagal
+                    tasks.forEach { it.cancel() }
 
-                            personalInfoState.updatePersonalInfo(
-                                PersonalInfoInterceptor(
-                                    userDetails = userDetailResult.data,
-                                    userHistoryMembership = historyMembershipResult.data
-                                )
-                            )
+                    // Ambil error pertama yang ditemukan
+                    val error =
+                        results.filterIsInstance<Results.Error<NetworkError>>().firstOrNull()?.error
+                            ?: NetworkError.ServerError
 
-                            Results.Success(
-                                Pair(
-                                    userDetailResult.data,
-                                    historyMembershipResult.data
-                                )
-                            )
-                        }
-
-                        userDetailResult is Results.Error -> {
-                            historyMembershipDeferred.cancel() // Batalkan yang lain
-                            userDetailResult
-                        }
-
-                        historyMembershipResult is Results.Error -> {
-                            userDetailDeferred.cancel() // Batalkan yang lain
-                            historyMembershipResult
-                        }
-
-                        else -> {
-                            // Ambil error dari salah satu jika keduanya gagal
-                            val error = when {
-                                userDetailResult is Results.Error -> userDetailResult.error
-                                historyMembershipResult is Results.Error -> historyMembershipResult.error
-                                else -> NetworkError.ServerError
-                            }
-                            Results.Error(error) // Gunakan error yang lebih spesifik
-                        }
-                    }
-                } catch (e: Exception) {
-                    userDetailDeferred.cancel()
-                    historyMembershipDeferred.cancel()
-                    Results.Error(NetworkError.Error(e))
+                    Results.Error(error)
                 }
             }
-        } catch (e: Exception) {
-            Results.Error(NetworkError.Error(e))
+        }.getOrElse { exception ->
+            Results.Error(NetworkError.Error(exception))
         }
     }
 
-    override suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> =
-        userDetailRepository.getUserDetailOld()
+    suspend fun userDetail(): Results<Unit, NetworkError> = coroutineScope {
+        runCatching {
+            userDetailRepository.getUserDetailOld()
+        }.fold(
+            onSuccess = { result ->
+                when (result) {
+                    is Results.Success -> {
+                        personalInfoState.updatePersonalInfo(
+                            PersonalInfoInterceptor(
+                                userDetails = result.data
+                            )
+                        )
+                        Results.Success(Unit)
+                    }
 
-    override suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError> =
-        userHistoryMembershipRepository.getUserMembershipHistory()
+                    is Results.Error -> Results.Error(result.error)
+                }
+            },
+            onFailure = { Results.Error(NetworkError.Error(it)) }
+        )
+    }
+
+    suspend fun historyMembership(): Results<Unit, NetworkError> = coroutineScope {
+        runCatching {
+            userHistoryMembershipRepository.getUserMembershipHistory()
+        }.fold(
+            onSuccess = { result ->
+                when (result) {
+                    is Results.Success -> {
+                        personalInfoState.updatePersonalInfo(
+                            PersonalInfoInterceptor(
+                                userHistoryMembership = result.data
+                            )
+                        )
+                        Results.Success(Unit)
+                    }
+
+                    is Results.Error -> Results.Error(result.error)
+                }
+            },
+            onFailure = { Results.Error(NetworkError.Error(it)) }
+        )
+    }
+
 
 }

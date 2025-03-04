@@ -6,6 +6,4 @@ import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDeta
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 
 interface IPersonalInfoUseCase {
-    suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError>
-    suspend fun historyMembersip(): Results<UserHistoryMembershipResInterceptor, NetworkError>
 }

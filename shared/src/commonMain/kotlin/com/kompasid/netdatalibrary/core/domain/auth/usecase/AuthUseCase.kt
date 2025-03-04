@@ -4,11 +4,8 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
 import com.kompasid.netdatalibrary.core.data.loginEmail.dto.request.LoginEmailRequest
-import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
@@ -19,45 +16,24 @@ class AuthUseCase(
     private val personalInfoUseCase: PersonalInfoUseCase
 ) {
 
-    suspend fun loginByEmail(request: LoginEmailRequest): Results<Pair<Unit, Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>>, NetworkError> {
-        return try {
+    suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> =
+        runCatching {
             val loginResult = loginEmailRepository.postLoginEmail(request)
 
-            when (loginResult) {
-                is Results.Success -> {
-                    coroutineScope {
-                        val userDetailsDeferred = async { personalInfoUseCase.getUserDetailsAndMembership() }
+            if (loginResult is Results.Error) return Results.Error(loginResult.error)
 
-                        try {
-                            val userDetailsAndMembershipResult = userDetailsDeferred.await()
+            coroutineScope {
+                val userDetailsAndMembershipResult =
+                    async { personalInfoUseCase.getUserDetailsAndMembership() }.await()
 
-                            when (userDetailsAndMembershipResult) {
-                                is Results.Success -> Results.Success(
-                                    Pair(
-                                        loginResult.data,
-                                        Pair(userDetailsAndMembershipResult.data.first, userDetailsAndMembershipResult.data.second)
-                                    )
-                                )
-                                is Results.Error -> {
-                                    userDetailsDeferred.cancel() // Batalkan jika gagal
-                                    Results.Error(userDetailsAndMembershipResult.error)
-                                }
-                            }
-                        } catch (e: Exception) {
-                            userDetailsDeferred.cancel()
-                            Results.Error(NetworkError.Error(e))
-                        }
-                    }
-                }
-
-                is Results.Error -> {
-                    Results.Error(loginResult.error)
+                when (userDetailsAndMembershipResult) {
+                    is Results.Success -> Results.Success(Unit)
+                    is Results.Error -> Results.Error(userDetailsAndMembershipResult.error)
                 }
             }
-        } catch (e: Exception) {
-            Results.Error(NetworkError.Error(e))
+        }.getOrElse { exception ->
+            Results.Error(NetworkError.Error(exception))
         }
-    }
 
 
     suspend fun logout(): Results<Unit, NetworkError> {

@@ -53,18 +53,6 @@ class AuthVM(
 
                 is Results.Success -> {
                     // Mendapatkan data dari Pair
-                    val (unitData, userData) = result.data
-                    val (userDetails, userHistory) = userData
-
-//                    Logger.debug {
-//                        unitData.toString()
-//                    }
-//                    Logger.debug {
-//                        userDetails.toString()
-//                    }
-//                    Logger.debug {
-//                        userHistory.toString()
-//                    }
                 }
             }
         }

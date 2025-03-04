@@ -6,62 +6,35 @@ import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDeta
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 
 class UserDetailDataSource(
     private val settingsHelper: SettingsHelper
 ) : IUserDetailDataSource {
 
-    override suspend fun save(data: UserDetailResInterceptor): Unit = coroutineScope {
+    override suspend fun save(data: UserDetailResInterceptor): Unit = supervisorScope {
         listOf(
-            async {
-                settingsHelper.save(KeySettingsType.ID_GENDER, data.idGender)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.GENDER, data.gender)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.DATE_BIRTH, data.dateBirth)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.USER_ID, data.userId)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.FIRST_NAME, data.firstName)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.LAST_NAME, data.lastName)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.EMAIL, data.email)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.USER_GUID, data.userGuid)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.PHONE_NUMBER, data.phoneNumber)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.COUNTRY_CODE, data.countryCode)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.COUNTRY, data.country)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.PROVINCE, data.province)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.CITY, data.city)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.IS_ACTIVE, data.isActive)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.IS_VERIFIED, data.userStatus.isVerified)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.PHONE_VERIFIED, data.userStatus.phoneVerified)
-            }
-        ).awaitAll()
+            KeySettingsType.ID_GENDER to data.idGender,
+            KeySettingsType.GENDER to data.gender,
+            KeySettingsType.DATE_BIRTH to data.dateBirth,
+            KeySettingsType.USER_ID to data.userId,
+            KeySettingsType.FIRST_NAME to data.firstName,
+            KeySettingsType.LAST_NAME to data.lastName,
+            KeySettingsType.EMAIL to data.email,
+            KeySettingsType.USER_GUID to data.userGuid,
+            KeySettingsType.PHONE_NUMBER to data.phoneNumber,
+            KeySettingsType.COUNTRY_CODE to data.countryCode,
+            KeySettingsType.COUNTRY to data.country,
+            KeySettingsType.PROVINCE to data.province,
+            KeySettingsType.CITY to data.city,
+            KeySettingsType.IS_ACTIVE to data.isActive,
+            KeySettingsType.IS_VERIFIED to data.userStatus.isVerified,
+            KeySettingsType.PHONE_VERIFIED to data.userStatus.phoneVerified
+        ).forEach { (key, value) ->
+            launch { runCatching { settingsHelper.save(key, value) } }
+        }
     }
+
 }
