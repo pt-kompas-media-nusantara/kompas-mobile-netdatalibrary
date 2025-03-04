@@ -22,9 +22,9 @@ class LogoutApiService(
     override suspend fun postLogout(): ApiResults<Unit, NetworkError> {
         return safeCall<Unit> {
 
-            val request = LogoutRequest(
-                ""
-            )
+            val refreshToken = settingsHelper.get(KeySettingsType.REFRESH_TOKEN, "")
+
+            val request = LogoutRequest(refreshToken)
 
             httpClient.post(ApiConfig.LOGOUT_URL) {
                 contentType(ContentType.Application.Json)

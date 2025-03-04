@@ -36,6 +36,7 @@ import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
@@ -82,6 +83,7 @@ val authModule = module {
 }
 
 val personalInfoModule = module {
+    singleOf(::PersonalInfoState) { bind<PersonalInfoState>() }
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
     /// UserDetail

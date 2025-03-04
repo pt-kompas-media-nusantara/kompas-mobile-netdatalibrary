@@ -7,15 +7,35 @@ import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRep
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.supervisorScope
+
+class PersonalInfoState {
+    private val _state: MutableStateFlow<PersonalInfoInterceptor> =
+        MutableStateFlow(PersonalInfoInterceptor())
+
+    private val state: StateFlow<PersonalInfoInterceptor> = _state.asStateFlow()
+
+    suspend fun updatePersonalInfo(newData: PersonalInfoInterceptor) {
+        _state.value = newData
+    }
+
+    suspend fun getPersonalInfo(): PersonalInfoInterceptor {
+        return state.value
+    }
+}
 
 
 class PersonalInfoUseCase(
+    private val personalInfoState: PersonalInfoState,
     private val userDetailRepository: UserDetailRepository,
     private val userHistoryMembershipRepository: UserHistoryMembershipRepository,
 ) : IPersonalInfoUseCase {
+
 
     suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> {
         return try {
@@ -29,6 +49,14 @@ class PersonalInfoUseCase(
 
                     when {
                         userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
+
+                            personalInfoState.updatePersonalInfo(
+                                PersonalInfoInterceptor(
+                                    userDetails = userDetailResult.data,
+                                    userHistoryMembership = historyMembershipResult.data
+                                )
+                            )
+
                             Results.Success(
                                 Pair(
                                     userDetailResult.data,

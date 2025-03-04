@@ -1,5 +1,8 @@
 package com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor
 
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+
 
 data class UserDetailResInterceptor(
     var idGender: Int = 0,
@@ -10,7 +13,7 @@ data class UserDetailResInterceptor(
     var email: String = "",
     var userGuid: String = "",
     var isActive: Boolean = false,
-    var userStatus: UserStatusInterceptor = UserStatusInterceptor(false, false),
+    var userStatus: UserStatusInterceptor = UserStatusInterceptor(),
     var phoneNumber: String = "",
     var countryCode: String = "",
     var dateBirth: String = "",

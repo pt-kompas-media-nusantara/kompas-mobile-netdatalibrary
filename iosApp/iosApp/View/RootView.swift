@@ -8,45 +8,23 @@
 
 import SwiftUI
 
+
 struct RootView: View {
-    
-    @State private var navigationTo = false
-    @State private var destination: DestinationViewType = .none
-    
     var body: some View {
         NavigationStack {
             ScrollView {
-                Button("Settings") {
-                    
-                }
-                
-                Button("Auth") {
-                    
-                }
-                
-                Button("Account") {
-                    self.destination = .Account
-                    self.navigationTo = true
-                }
-            }
-            .navigationDestination(isPresented: $navigationTo) {
-                switch self.destination {
-                case .none:
-                    AccountView()
-                case .Auth:
-                    AccountView()
-                case .Account:
-                    AccountView()
+                VStack(spacing: 16) {
+                    NavigationLink("Settings", destination: AuthView())
 
+                    NavigationLink("Auth", destination: AuthView())
+                    
+                    NavigationLink("Personal Info", destination: PersonalInfoView())
+
+                    NavigationLink("Account", destination: AccountView())
                 }
+                .padding()
             }
+            .navigationTitle("RootView")
         }
     }
-    
-}
-
-enum DestinationViewType {
-    case none
-    case Auth
-    case Account
 }
