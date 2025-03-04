@@ -8,6 +8,7 @@
 
 import SwiftUI
 import KompasIdLibrary
+import Combine
 
 
 @MainActor
@@ -15,11 +16,35 @@ class PersonalInfoVMWrapper: ObservableObject {
     private let personalInfoUseCase: PersonalInfoUseCase
     private let personalInfoState: PersonalInfoState
     
+    @Published var kmp: PersonalInfoInterceptor
+    
+    private var task: Task<Void, Never>?
+    
     init() {
         self.personalInfoUseCase = KoinInjector().personalInfoUseCase
         self.personalInfoState = KoinInjector().personalInfoState
+        
+        self.kmp = personalInfoState.state.value // Set nilai awal
+        
+        observePersonalInfo()
     }
     
+    private func observePersonalInfo() {
+        task = Task {
+            let iterator = personalInfoState.streamPersonalInfo().makeAsyncIterator()
+            
+            while let newInfo = await iterator.next() {
+                DispatchQueue.main.async {
+                    self.kmp = newInfo
+                    print("Updated Personal Info: \(newInfo)")
+                }
+            }
+        }
+    }
+    
+    deinit {
+        task?.cancel()
+    }
     
     func getPersonalInfoState() async throws {
         do {

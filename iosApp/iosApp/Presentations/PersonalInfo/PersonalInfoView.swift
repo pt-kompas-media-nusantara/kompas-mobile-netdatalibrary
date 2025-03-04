@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct PersonalInfoView: View {
-        @StateObject private var personalInfoVMWrapper = PersonalInfoVMWrapper()
+    @StateObject private var authVM = AuthVMWrapper()
+    @StateObject private var personalInfoVMWrapper = PersonalInfoVMWrapper()
     
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                Button("Login") {
+                    Task {
+                        try await self.authVM.loginByEmail(type: .suberByEmail)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                
                 Button("getPersonalInfo") {
                     Task {
                         try await self.personalInfoVMWrapper.getUserDetailsAndMembership()

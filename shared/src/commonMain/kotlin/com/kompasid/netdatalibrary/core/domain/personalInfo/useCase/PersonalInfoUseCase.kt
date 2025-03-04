@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.core.domain.personalInfo.useCase
 
+import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
@@ -9,25 +10,19 @@ import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDeta
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
 import kotlinx.coroutines.async
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 
-class PersonalInfoState {
-    private val _state: MutableStateFlow<PersonalInfoInterceptor> =
-        MutableStateFlow(PersonalInfoInterceptor())
 
-    private val state: StateFlow<PersonalInfoInterceptor> = _state.asStateFlow()
-
-    suspend fun updatePersonalInfo(newData: PersonalInfoInterceptor) {
-        _state.value = newData
-    }
-
-    suspend fun getPersonalInfo(): PersonalInfoInterceptor {
-        return state.value
-    }
-}
 
 
 class PersonalInfoUseCase(
