@@ -15,7 +15,7 @@ class PersonalInfoState {
     private val _state: MutableStateFlow<PersonalInfoInterceptor> =
         MutableStateFlow(PersonalInfoInterceptor())
 
-    val state: StateFlow<PersonalInfoInterceptor> = _state.asStateFlow()
+    private val state: StateFlow<PersonalInfoInterceptor> = _state.asStateFlow()
 
     fun streamPersonalInfo(): Flow<PersonalInfoInterceptor> = channelFlow {
         val job = launch {

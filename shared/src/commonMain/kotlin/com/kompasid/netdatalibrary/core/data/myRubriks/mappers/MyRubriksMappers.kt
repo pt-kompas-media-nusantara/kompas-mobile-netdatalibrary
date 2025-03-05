@@ -4,14 +4,15 @@ import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.OldMyRubriks
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 
 fun OldMyRubriksResponse.toInterceptor(): List<MyRubriksResInterceptor> {
-    return data?.map {
-        MyRubriksResInterceptor(
-            it.banner ?: "",
-            it.desc ?: "",
-            it.isChoosen ?: false,
-            it.text ?: "",
-            it.value ?: "",
-        )
-    } ?: emptyList()
-
+    return data.orEmpty().mapNotNull { item ->
+        item?.let {
+            MyRubriksResInterceptor(
+                banner = it.banner ?: "",
+                desc = it.desc ?: "",
+                isChoosen = it.isChoosen ?: false,
+                text = it.text ?: "",
+                value = it.value ?: ""
+            )
+        }
+    }
 }

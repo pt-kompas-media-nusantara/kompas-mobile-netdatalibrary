@@ -8,6 +8,8 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.OldMyRubriksResponse
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.response.SaveMyRubrikResponse
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.response.OldUserDetailResponse
+import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
@@ -20,31 +22,32 @@ import io.ktor.http.contentType
 
 
 class MyRubriksApiService(
-    private val httpClient: HttpClient
+    private val httpClient: HttpClient,
+    private val tokenInterceptor: TokenInterceptor,
 ) : IMyRubriksApiService {
     override suspend fun getRubrikList(): ApiResults<OldMyRubriksResponse, NetworkError> {
-        return safeCall<OldMyRubriksResponse> {
-            httpClient.get(ApiConfig.MY_RUBRIKS_URL) {
-                contentType(ContentType.Application.Json)
-                accept(ContentType.Application.Json)
-                bearerAuth(
-                    ""
-                )
+        return tokenInterceptor.withValidToken { validToken ->
+            safeCall<OldMyRubriksResponse> {
+                httpClient.get(ApiConfig.MY_RUBRIKS_URL) {
+                    contentType(ContentType.Application.Json)
+                    accept(ContentType.Application.Json)
+                    bearerAuth(validToken)
+                }
             }
         }
     }
 
     suspend fun saveMyRubriks(request: SaveMyRubrikRequest): ApiResults<SaveMyRubrikResponse, NetworkError> {
-        return safeCall<SaveMyRubrikResponse> {
-            httpClient.post(ApiConfig.MY_RUBRIKS_URL) {
-                contentType(ContentType.Application.Json)
-                accept(ContentType.Application.Json)
-                setBody(request)
-                bearerAuth(
-                    ""
-                )
+        return tokenInterceptor.withValidToken { validToken ->
+            safeCall<SaveMyRubrikResponse> {
+                httpClient.post(ApiConfig.MY_RUBRIKS_URL) {
+                    contentType(ContentType.Application.Json)
+                    accept(ContentType.Application.Json)
+                    bearerAuth(validToken)
+                }
             }
         }
+
     }
 }
 

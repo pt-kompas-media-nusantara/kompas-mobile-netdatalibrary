@@ -3,42 +3,51 @@ package com.kompasid.netdatalibrary.core.data.myRubriks.repository
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.base.network.map
 import com.kompasid.netdatalibrary.core.data.myRubriks.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
-import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksResultState
+import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
-import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class MyRubriksRepository(
     private val myRubriksApiService: MyRubriksApiService,
-    private val myRubriksResultState: MyRubriksResultState
+    private val myRubriksState: MyRubriksState
 ) : IMyRubriksRepository {
 
-    override suspend fun getMyRubriks(): Results<List<MyRubriksResInterceptor>, NetworkError> {
-        return when (val result = myRubriksApiService.getRubrikList()) {
-            is ApiResults.Success -> {
-                result.data.toInterceptor().also { resultInterceptor ->
+    override suspend fun getMyRubriks(): Results<List<MyRubriksResInterceptor>, NetworkError> =
+        runCatching {
+            myRubriksApiService.getRubrikList()
+        }.fold(
+            onSuccess = { result ->
+                when (result) {
+                    is ApiResults.Success -> {
+                        val resultInterceptor = result.data.toInterceptor()
 
-                    myRubriksResultState.apply {
-                        if (allRubriks.value != resultInterceptor) updateAllRubriks(
-                            resultInterceptor
-                        )
-                        if (myRubriks.value != resultInterceptor) {
-                            val resultMyRubriks = resultInterceptor.filter { it.isChoosen }
-                            updateMyRubriks(resultMyRubriks)
+                        coroutineScope {
+                            launch {
+                                myRubriksState.updateAllRubriks(resultInterceptor)
+                            }
+                            launch {
+                                val resultMyRubriks = resultInterceptor.filter { it.isChoosen }
+                                myRubriksState.updateMyRubriks(resultMyRubriks)
+                            }
                         }
-                    }
-                }.let { Results.Success(it) }
-            }
 
-            is ApiResults.Error -> Results.Error(result.error)
-        }
-    }
+                        Results.Success(resultInterceptor)
+                    }
+
+                    is ApiResults.Error -> Results.Error(result.error)
+                }
+            },
+            onFailure = { exception ->
+                Results.Error(NetworkError.Error(exception))
+            }
+        )
+
 
     override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> =
         coroutineScope {
