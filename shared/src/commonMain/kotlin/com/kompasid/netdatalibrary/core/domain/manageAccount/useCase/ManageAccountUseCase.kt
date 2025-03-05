@@ -8,14 +8,7 @@ import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikR
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileType
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
-import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
-import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
-import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.IManageAccountUseCase
 import com.kompasid.netdatalibrary.core.presentation.personalInfo.resultState.PersonalInfoResultState
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 
 
 //berarti bukan manage account lagi (ini nggak ada), tapi masuk
