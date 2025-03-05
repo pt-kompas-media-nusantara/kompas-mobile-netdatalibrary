@@ -4,9 +4,11 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.repository.CheckVerifiedUserRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.other.UpdateProfileType
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -15,7 +17,8 @@ import kotlinx.coroutines.coroutineScope
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
     private val userHistoryMembershipRepository: UserHistoryMembershipRepository,
-    private val checkVerifiedUserRepository: CheckVerifiedUserRepository
+    private val checkVerifiedUserRepository: CheckVerifiedUserRepository,
+    private val updateProfileRepository: UpdateProfileRepository
 ) : IPersonalInfoUseCase {
 
 
@@ -97,6 +100,22 @@ class PersonalInfoUseCase(
             onFailure = { Results.Error(NetworkError.Error(it)) }
         )
     }
+
+    suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
+        coroutineScope {
+            runCatching {
+                val updateResult = updateProfileRepository.updateProfile(type)
+
+                if (updateResult is Results.Success) {
+                    val userDetailResult = async { userDetail() }
+                    userDetailResult.await()
+                }
+
+                updateResult
+            }.getOrElse { exception ->
+                Results.Error(NetworkError.Error(exception))
+            }
+        }
 
 
 }

@@ -10,3 +10,4 @@ data class PersonalInfoInterceptor(
     val userHistoryMembership: UserHistoryMembershipResInterceptor = UserHistoryMembershipResInterceptor(),
     val checkVerifiedUser: CheckVerifiedUserResInterceptor = CheckVerifiedUserResInterceptor()
 )
+
