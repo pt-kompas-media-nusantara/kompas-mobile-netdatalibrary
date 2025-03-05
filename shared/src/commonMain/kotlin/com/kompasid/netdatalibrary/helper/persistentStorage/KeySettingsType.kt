@@ -13,6 +13,7 @@ enum class KeySettingsType(val key: String) {
     FIRST_NAME("FIRST_NAME"),
     LAST_NAME("LAST_NAME"),
     EMAIL("EMAIL"),
+    LOGIN_TYPE("LOGIN_TYPE"), // ini ambil dari mana ya ?
     USER_GUID("USER_GUID"),
     PHONE_NUMBER("PHONE_NUMBER"),
     COUNTRY_CODE("COUNTRY_CODE"),
@@ -43,5 +44,6 @@ enum class KeySettingsType(val key: String) {
     IS_DEBUG("IS_DEBUG"),
     IS_REGISTERED("IS_REGISTERED"),
     REGISTERED_BY("REGISTERED_BY"),
+    REGISTERED_ON("REGISTERED_ON"),
     TRYTRY("TRYTRY"),
 }

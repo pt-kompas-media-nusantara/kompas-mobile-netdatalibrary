@@ -11,10 +11,6 @@ data class CheckVerifiedUserResponse(
     var data: CheckVerifiedUserResponseData? = null,
     @SerialName("message")
     var message: String? = null,
-    @SerialName("meta")
-    var meta: Meta? = null,
-    @SerialName("success")
-    var success: Boolean? = null
 )
 
 @Serializable
@@ -23,16 +19,8 @@ data class CheckVerifiedUserResponseData(
     var registered: Boolean? = null,
     @SerialName("registeredBy")
     var registeredBy: String? = null,
-//    @SerialName("registeredOn")
-//    var registeredOn: List<Any?>? = null
-)
-
-@Serializable
-data class Meta(
-    @SerialName("cache")
-    var cache: Boolean? = null,
-    @SerialName("time")
-    var time: Int? = null
+    @SerialName("registeredOn")
+    var registeredOn: List<String?>? = null
 )
 
 

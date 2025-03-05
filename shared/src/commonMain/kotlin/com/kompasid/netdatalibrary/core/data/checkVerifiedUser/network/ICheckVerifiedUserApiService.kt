@@ -6,5 +6,4 @@ import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.request.Check
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.response.CheckVerifiedUserResponse
 
 interface ICheckVerifiedUserApiService {
-    suspend fun postCheckVerifiedUser(request: CheckVerifiedUserRequest): ApiResults<CheckVerifiedUserResponse, NetworkError>
 }

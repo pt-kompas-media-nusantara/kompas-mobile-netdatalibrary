@@ -7,13 +7,16 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers.toInt
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserHistoryMembershipDataSource
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserHistoryMembershipApiService
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.supervisorScope
 
 
 class UserHistoryMembershipRepository(
     private val userHistoryMembershipApiService: UserHistoryMembershipApiService,
-    private val userHistoryMembershipDataSource: UserHistoryMembershipDataSource
+    private val userHistoryMembershipDataSource: UserHistoryMembershipDataSource,
+    private val personalInfoState: PersonalInfoState
 ) : IUserMembershipHistoryRepository {
 
     override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> =
@@ -24,11 +27,22 @@ class UserHistoryMembershipRepository(
                 when (result) {
                     is ApiResults.Success -> {
                         val resultInterceptor = result.data.toInterceptor()
-                        supervisorScope {
+                        coroutineScope {
                             launch {
-                                userHistoryMembershipDataSource.save(
-                                    resultInterceptor
-                                )
+                                runCatching {
+                                    userHistoryMembershipDataSource.save(
+                                        resultInterceptor
+                                    )
+                                }
+                            }
+                            launch {
+                                runCatching {
+                                    personalInfoState.updatePersonalInfo(
+                                        PersonalInfoInterceptor(
+                                            userHistoryMembership = resultInterceptor
+                                        )
+                                    )
+                                }
                             }
                         }
                         Results.Success(resultInterceptor)

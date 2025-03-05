@@ -18,9 +18,11 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
 
+//berarti bukan manage account lagi (ini nggak ada), tapi masuk
+//pilihanku usecase
+//update profile, masuk personal info usecase
+
 class ManageAccountUseCase(
-    private val userDetailRepository: UserDetailRepository, // buat usecase sendiri
-    private val historyMembershipRepository: UserHistoryMembershipRepository,
     private val myRubriksRepository: MyRubriksRepository,
     private val updateProfileRepository: UpdateProfileRepository,
     private val personalInfoResultState: PersonalInfoResultState
@@ -70,35 +72,28 @@ class ManageAccountUseCase(
         }
     }
 
-    suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
+//    suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
+//
+//        coroutineScope {
+//            val request = updateProfileRequest(type)
+//
+//            val updateProfileDeferred = async { updateProfileRepository.updateProfile(request) }
+//
+//            when (val updateResult = updateProfileDeferred.await()) {
+//                is Results.Success -> {
+//                    val userDetailDeferred =
+//                        async { userDetail() } // Jalankan userDetail() setelah update berhasil
+//
+//                    when (val userDetailResult = userDetailDeferred.await()) {
+//                        is Results.Success -> Results.Success(Unit) // Jika kedua proses sukses, kembalikan Success(Unit)
+//                        is Results.Error -> Results.Error(userDetailResult.error) // Jika userDetail gagal, return error dari userDetail
+//                    }
+//                }
+//
+//                is Results.Error -> Results.Error(updateResult.error) // Jika updateProfile gagal, langsung return error dari updateProfile
+//            }
+//        }
 
-        coroutineScope {
-            val request = updateProfileRequest(type)
-
-            val updateProfileDeferred = async { updateProfileRepository.updateProfile(request) }
-
-            when (val updateResult = updateProfileDeferred.await()) {
-                is Results.Success -> {
-                    val userDetailDeferred =
-                        async { userDetail() } // Jalankan userDetail() setelah update berhasil
-
-                    when (val userDetailResult = userDetailDeferred.await()) {
-                        is Results.Success -> Results.Success(Unit) // Jika kedua proses sukses, kembalikan Success(Unit)
-                        is Results.Error -> Results.Error(userDetailResult.error) // Jika userDetail gagal, return error dari userDetail
-                    }
-                }
-
-                is Results.Error -> Results.Error(updateResult.error) // Jika updateProfile gagal, langsung return error dari updateProfile
-            }
-        }
-
-    suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
-        return userDetailRepository.getUserDetailOld()
-    }
-
-    suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
-        return historyMembershipRepository.getUserMembershipHistory()
-    }
 
     suspend fun myRubrikList(): Results<List<MyRubriksResInterceptor>, NetworkError> {
         return myRubriksRepository.getMyRubriks()
@@ -108,23 +103,23 @@ class ManageAccountUseCase(
         return myRubriksRepository.saveMyRubriks(request)
     }
 
-    suspend fun fetchAllManageAccount(): Triple<
-            Results<UserDetailResInterceptor, NetworkError>,
-            Results<UserHistoryMembershipResInterceptor, NetworkError>,
-            Results<List<MyRubriksResInterceptor>, NetworkError>
-            > =
-        coroutineScope {
-
-            val userDetailDeferred = async { userDetail() }
-            val historyMembershipDeferred = async { historyMembership() }
-            val myRubrikListDeferred = async { myRubrikList() }
-
-            val userDetailResult = userDetailDeferred.await()
-            val historyMembershipResult = historyMembershipDeferred.await()
-            val myRubrikListResult = myRubrikListDeferred.await()
-
-            Triple(userDetailResult, historyMembershipResult, myRubrikListResult)
-        }
+//    suspend fun fetchAllManageAccount(): Triple<
+//            Results<UserDetailResInterceptor, NetworkError>,
+//            Results<UserHistoryMembershipResInterceptor, NetworkError>,
+//            Results<List<MyRubriksResInterceptor>, NetworkError>
+//            > =
+//        coroutineScope {
+//
+//            val userDetailDeferred = async { userDetail() }
+//            val historyMembershipDeferred = async { historyMembership() }
+//            val myRubrikListDeferred = async { myRubrikList() }
+//
+//            val userDetailResult = userDetailDeferred.await()
+//            val historyMembershipResult = historyMembershipDeferred.await()
+//            val myRubrikListResult = myRubrikListDeferred.await()
+//
+//            Triple(userDetailResult, historyMembershipResult, myRubrikListResult)
+//        }
 
 }
 

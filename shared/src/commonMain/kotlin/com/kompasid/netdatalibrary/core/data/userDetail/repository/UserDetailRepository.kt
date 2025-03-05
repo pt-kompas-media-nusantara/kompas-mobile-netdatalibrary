@@ -7,13 +7,16 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.userDetail.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.supervisorScope
 
 
 class UserDetailRepository(
     private val userDetailApiService: UserDetailApiService,
-    private val userDetailDataSource: UserDetailDataSource
+    private val userDetailDataSource: UserDetailDataSource,
+    private val personalInfoState: PersonalInfoState,
 ) : IUserDetailRepository {
 
     override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> =
@@ -24,7 +27,16 @@ class UserDetailRepository(
                 when (result) {
                     is ApiResults.Success -> {
                         val resultInterceptor = result.data.toInterceptor()
-                        supervisorScope { launch { userDetailDataSource.save(resultInterceptor) } }
+                        coroutineScope {
+                            launch { runCatching { userDetailDataSource.save(resultInterceptor) } }
+                            launch {
+                                runCatching {
+                                    personalInfoState.updatePersonalInfo(
+                                        PersonalInfoInterceptor(userDetails = resultInterceptor)
+                                    )
+                                }
+                            }
+                        }
                         Results.Success(resultInterceptor)
                     }
 
@@ -33,4 +45,5 @@ class UserDetailRepository(
             },
             onFailure = { Results.Error(NetworkError.Error(it)) }
         )
+
 }

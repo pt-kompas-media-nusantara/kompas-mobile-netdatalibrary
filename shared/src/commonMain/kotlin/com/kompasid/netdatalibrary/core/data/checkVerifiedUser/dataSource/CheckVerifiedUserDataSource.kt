@@ -1,23 +1,22 @@
 package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dataSource
 
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.interceptor.CheckVerifiedUserInterceptor
+import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.interceptor.CheckVerifiedUserResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 
 class CheckVerifiedUserDataSource(
     private val settingsHelper: SettingsHelper
 ) {
-    suspend fun save(data: CheckVerifiedUserInterceptor): Unit = coroutineScope {
+    suspend fun save(data: CheckVerifiedUserResInterceptor): Unit = supervisorScope {
         listOf(
-            async {
-                settingsHelper.save(KeySettingsType.IS_REGISTERED, data.registered)
-            },
-            async {
-                settingsHelper.save(KeySettingsType.REGISTERED_BY, data.registeredBy)
-            },
-        ).awaitAll()
+            KeySettingsType.IS_REGISTERED to data.registered,
+            KeySettingsType.REGISTERED_BY to data.registeredBy,
+            KeySettingsType.REGISTERED_ON to data.registeredOn
+        ).forEach { (key, value) ->
+            launch { runCatching { settingsHelper.save(key, value) } }
+        }
     }
+
 }
