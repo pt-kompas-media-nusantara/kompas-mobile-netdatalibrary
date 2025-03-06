@@ -104,16 +104,25 @@ class PersonalInfoUseCase(
     suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
         coroutineScope {
             runCatching {
-                val updateResult = updateProfileRepository.updateProfile(type)
+                val updateProfileDeferred =
+                    async { updateProfileRepository.updateProfile(type) } // Jalankan secara concurrent
+                val updateResult = updateProfileDeferred.await() // Tunggu hasil update
 
                 if (updateResult is Results.Success) {
-                    val userDetailResult = async { userDetail() }
-                    userDetailResult.await()
-                }
+                    val userDetailDeferred =
+                        async { userDetail() } // Jalankan userDetail() jika update sukses
+                    val userDetailResult = userDetailDeferred.await() // Tunggu hasil userDetail()
 
-                updateResult
+                    if (userDetailResult is Results.Success) {
+                        Results.Success(Unit) // Keduanya sukses
+                    } else {
+                        userDetailResult // Jika userDetail() gagal, kembalikan error
+                    }
+                } else {
+                    updateResult // Jika updateProfile() gagal, langsung kembalikan error
+                }
             }.getOrElse { exception ->
-                Results.Error(NetworkError.Error(exception))
+                Results.Error(NetworkError.Error(exception)) // Tangani error tak terduga
             }
         }
 
