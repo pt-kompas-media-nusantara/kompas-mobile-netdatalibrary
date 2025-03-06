@@ -40,7 +40,7 @@ class MyRubriksApiService(
     suspend fun saveMyRubriks(request: SaveMyRubrikRequest): ApiResults<SaveMyRubrikResponse, NetworkError> {
         return tokenInterceptor.withValidToken { validToken ->
             safeCall<SaveMyRubrikResponse> {
-                httpClient.post(ApiConfig.MY_RUBRIKS_URL) {
+                httpClient.post(ApiConfig.SAVE_MY_RUBRIKS_URL) {
                     contentType(ContentType.Application.Json)
                     accept(ContentType.Application.Json)
                     bearerAuth(validToken)

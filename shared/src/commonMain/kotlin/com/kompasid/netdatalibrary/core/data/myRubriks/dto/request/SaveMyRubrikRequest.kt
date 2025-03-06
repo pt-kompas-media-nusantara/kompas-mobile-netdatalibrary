@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SaveMyRubrikRequest(
     @SerialName("type")
-    val type: String,
+    val type: String = "rubrik pilihan",
     @SerialName("userRubriks")
     val userRubriks: List<UserRubrikRequest>
 )

@@ -50,21 +50,19 @@ class MyRubriksRepository(
 
 
     override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> =
-        coroutineScope {
-            val saveResult = myRubriksApiService.saveMyRubriks(request)
-
-            when (saveResult) {
-                is ApiResults.Success -> {
-                    val refreshDeferred = async { getMyRubriks() }
-                    when (val refreshResult = refreshDeferred.await()) {
-                        is Results.Success -> Results.Success(Unit) // Jika keduanya sukses
-                        is Results.Error -> Results.Error(refreshResult.error) // Jika refresh gagal, return error dari getMyRubriks()
-                    }
+        runCatching {
+            myRubriksApiService.saveMyRubriks(request)
+        }.fold(
+            onSuccess = { saveResult ->
+                when (saveResult) {
+                    is ApiResults.Success -> Results.Success(Unit)
+                    is ApiResults.Error -> Results.Error(saveResult.error)
                 }
-
-                is ApiResults.Error -> Results.Error(saveResult.error) // Jika penyimpanan gagal, langsung return error
+            },
+            onFailure = { exception ->
+                Results.Error(NetworkError.Error(exception))
             }
-        }
+        )
 
 
 }
