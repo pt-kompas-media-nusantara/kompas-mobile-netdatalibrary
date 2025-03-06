@@ -9,8 +9,6 @@
 import Foundation
 import KompasIdLibrary
 
-import Foundation
-
 class SettingsObserver {
     private let settingsState: SettingsState
     private var tasks: [KeySettingsType: Task<Void, Never>] = [:]
