@@ -6,17 +6,15 @@ import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.repository.CheckV
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserHistoryMembershipRepository
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.other.UpdateProfileType
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
-    private val userHistoryMembershipRepository: UserHistoryMembershipRepository,
+    private val userMembershipsRepository: UserMembershipsRepository,
     private val checkVerifiedUserRepository: CheckVerifiedUserRepository,
     private val updateProfileRepository: UpdateProfileRepository
 ) : IPersonalInfoUseCase {
@@ -69,7 +67,7 @@ class PersonalInfoUseCase(
 
     suspend fun historyMembership(): Results<Unit, NetworkError> = coroutineScope {
         runCatching {
-            userHistoryMembershipRepository.getUserMembershipHistory()
+            userMembershipsRepository.getUserMembershipHistory()
         }.fold(
             onSuccess = { result ->
                 when (result) {

@@ -1,8 +1,5 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
-import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipObjResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
@@ -10,7 +7,7 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 
-class UserHistoryMembershipDataSource(
+class UserMembershipDataSource(
     private val settingsHelper: SettingsHelper
 ) {
 

@@ -4,8 +4,8 @@ import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers.toInterceptor
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserHistoryMembershipDataSource
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserHistoryMembershipApiService
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserMembershipDataSource
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserMembershipApiService
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
@@ -13,15 +13,15 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
-class UserHistoryMembershipRepository(
-    private val userHistoryMembershipApiService: UserHistoryMembershipApiService,
-    private val userHistoryMembershipDataSource: UserHistoryMembershipDataSource,
+class UserMembershipsRepository(
+    private val userMembershipApiService: UserMembershipApiService,
+    private val userMembershipDataSource: UserMembershipDataSource,
     private val personalInfoState: PersonalInfoState
 ) : IUserMembershipHistoryRepository {
 
     override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> =
         runCatching {
-            userHistoryMembershipApiService.getUserHistoryMembership()
+            userMembershipApiService.getUserHistoryMembership()
         }.fold(
             onSuccess = { result ->
                 when (result) {
@@ -30,7 +30,7 @@ class UserHistoryMembershipRepository(
                         coroutineScope {
                             launch {
                                 runCatching {
-                                    userHistoryMembershipDataSource.save(
+                                    userMembershipDataSource.save(
                                         resultInterceptor
                                     )
                                 }
@@ -53,6 +53,7 @@ class UserHistoryMembershipRepository(
             },
             onFailure = { Results.Error(NetworkError.Error(it)) }
         )
+
 
 
 }
