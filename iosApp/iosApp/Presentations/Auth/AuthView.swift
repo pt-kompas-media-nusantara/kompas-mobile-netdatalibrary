@@ -34,6 +34,13 @@ struct AuthView: View {
                     }
                 }
                 .buttonStyle(.bordered)
+                
+                Button("Remove All Settings") {
+                    Task {
+                        try await authVM.removeAllSettingsHelper()
+                    }
+                }
+                .buttonStyle(.borderedProminent)
             }
             .padding()
         }

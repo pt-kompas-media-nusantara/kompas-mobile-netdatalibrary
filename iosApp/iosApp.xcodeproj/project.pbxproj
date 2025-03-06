@@ -10,6 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
+		231E12E22D7987B800592AD7 /* SettingsObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E12E12D7987B600592AD7 /* SettingsObserver.swift */; };
 		2339F8402D5DFB3D00F2E5C0 /* PersonalInfoVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339F83F2D5DFB3C00F2E5C0 /* PersonalInfoVMWrapper.swift */; };
 		23602BED2D75B09D0030311A /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23602BEC2D75B09D0030311A /* RootView.swift */; };
 		2363F2F82D4B69E000B5D070 /* TrackerVMWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */; };
@@ -44,6 +45,7 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		202016E6356C2C54576D4EB6 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
+		231E12E12D7987B600592AD7 /* SettingsObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObserver.swift; sourceTree = "<group>"; };
 		2339F83F2D5DFB3C00F2E5C0 /* PersonalInfoVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoVMWrapper.swift; sourceTree = "<group>"; };
 		23602BEC2D75B09D0030311A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		2363F2F72D4B69E000B5D070 /* TrackerVMWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerVMWrapper.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		231E12E02D7987A800592AD7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				231E12E12D7987B600592AD7 /* SettingsObserver.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		23602BEB2D75B08E0030311A /* View */ = {
@@ -170,6 +180,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				231E12E02D7987A800592AD7 /* Utilities */,
 				2366744C2D76A62400809766 /* Presentations */,
 				23602BEB2D75B08E0030311A /* View */,
 				2363F2F92D4BBFC500B5D070 /* Enums */,
@@ -317,6 +328,7 @@
 				23EBD85C2D3F45DB00222B4E /* SettingsVMWrapper.swift in Sources */,
 				23602BED2D75B09D0030311A /* RootView.swift in Sources */,
 				23EBD8582D3F458A00222B4E /* AuthVMWrapper.swift in Sources */,
+				231E12E22D7987B800592AD7 /* SettingsObserver.swift in Sources */,
 				2339F8402D5DFB3D00F2E5C0 /* PersonalInfoVMWrapper.swift in Sources */,
 				236674522D76AA3800809766 /* DestinationViewType.swift in Sources */,
 				23AB2F232D3E3F45007AFEE9 /* AccountView.swift in Sources */,

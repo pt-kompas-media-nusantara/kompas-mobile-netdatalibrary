@@ -12,93 +12,64 @@ import KompasIdLibrary
 @MainActor
 class AuthVMWrapper: ObservableObject {
     private let authUseCase: AuthUseCase
-    private let settingsState: SettingsState
+    private let settingsHelper: SettingsHelper
+    private let settingsObserver: SettingsObserver = SettingsObserver()
     
-    private var tasks: [KeySettingsType: Task<Void, Never>] = [:]
     
     init() {
         self.authUseCase = KoinInjector().authUseCase
-        self.settingsState = KoinInjector().settingsState
-           
-        /// String
-        observeStringSetting(for: .accessToken)
-        observeStringSetting(for: .refreshToken)
-        observeStringSetting(for: .deviceKeyId)
-        /// Boolean
-        observeBooleanSetting(for: .isVerified)
-        observeBooleanSetting(for: .isSocial)
-    }
-    
-    
-    func observeStringSetting(for key: KeySettingsType) {
-        // Batalkan task lama jika ada
-        tasks[key]?.cancel()
+        self.settingsHelper = KoinInjector().settingsHelper
         
-        // Buat task baru untuk key tertentu
-        let task = Task.detached(priority: .background) { [weak self] in
-            guard let self = self else { return }
-            
-            do {
-                for try await newValue in self.settingsState.streamStringSetting(key: key) {
-                    await MainActor.run {
-                        print("Updated Setting [\(key)]: \(newValue)")
-                    }
-                }
-            } catch {
-                print("Error observing setting [\(key)]: \(error)")
-            }
-            
-            print("Stream ended for [\(key)]. Removing task.")
-            await MainActor.run {
-                self.tasks[key] = nil // Hapus task setelah stream berakhir
-            }
+        Task {
+            await observeSettings()
         }
         
-        // Simpan task di dictionary
-        tasks[key] = task
     }
     
-    func observeBooleanSetting(for key: KeySettingsType) {
-        // Batalkan task lama jika ada
-        tasks[key]?.cancel()
-        
-        // Buat task baru untuk key tertentu
-        let task = Task.detached(priority: .background) { [weak self] in
-            guard let self = self else { return }
-            
-            do {
-                for try await newValue in self.settingsState.streamBooleanSetting(key: key) {
-                    await MainActor.run {
-                        print("Updated Setting [\(key)]: \(newValue)")
-                    }
-                }
-            } catch {
-                print("Error observing setting [\(key)]: \(error)")
-            }
-            
-            print("Stream ended for [\(key)]. Removing task.")
-            await MainActor.run {
-                self.tasks[key] = nil // Hapus task setelah stream berakhir
-            }
+    func removeAllSettingsHelper() async {
+        do {
+            try await self.settingsHelper.removeAll()
+        } catch {
+            print("removeAllSettingsHelper Error \(error.localizedDescription)")
         }
-        
-        // Simpan task di dictionary
-        tasks[key] = task
     }
     
-    func stopObserving(for key: KeySettingsType) {
-        tasks[key]?.cancel()
-        tasks[key] = nil
+    private func observeSettings() async {
+        do {
+            settingsObserver.observeStringSetting(for: .accessToken) { [weak self] newValue in
+                print("Updated Access Token: \(newValue)")
+            }
+            
+            settingsObserver.observeStringSetting(for: .refreshToken) { [weak self] newValue in
+                print("Updated Refresh Token: \(newValue)")
+            }
+            
+            settingsObserver.observeBooleanSetting(for: .isVerified) { [weak self] newValue in
+                print("Updated Is Verified: \(newValue)")
+            }
+            
+            settingsObserver.observeStringSetting(for: .deviceKeyId) { [weak self] newValue in
+                print("Updated Device Key ID: \(newValue)")
+            }
+            
+            settingsObserver.observeBooleanSetting(for: .isSocial) { [weak self] newValue in
+                print("Updated Is Social: \(newValue)")
+            }
+        } catch {
+            print("observeSettings Error \(error.localizedDescription)")
+        }
     }
     
-    func stopAllObserving() {
-        tasks.values.forEach { $0.cancel() }
-        tasks.removeAll()
+    func stopObserving() async {
+        do {
+            settingsObserver.stopAllObserving()
+        } catch {
+            print("stopObserving Error \(error.localizedDescription)")
+        }
     }
     
     deinit {
-        tasks.values.forEach { $0.cancel() }
-        tasks.removeAll()
+        settingsObserver.stopAllObserving()
     }
     
     
