@@ -15,10 +15,10 @@ class LoginEmailRepository(
     private val loginEmailDataSource: LoginEmailDataSource,
 ) : ILoginEmailRepository {
 
-    override suspend fun postLoginEmail(request: LoginEmailRequest): Results<Unit, NetworkError> =
+    override suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> =
         coroutineScope {
             runCatching {
-                loginEmailApiService.postLoginEmail(request)
+                loginEmailApiService.loginByEmail(request)
             }.fold(
                 onSuccess = { result ->
                     when (result) {

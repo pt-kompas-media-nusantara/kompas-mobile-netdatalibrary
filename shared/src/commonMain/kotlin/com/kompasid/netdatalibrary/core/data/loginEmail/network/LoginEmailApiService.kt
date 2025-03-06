@@ -23,7 +23,7 @@ class LoginEmailApiService(
     private val emailValidator = Validator(ValidationRules.emailValidation)
     private val passwordValidator = Validator(ValidationRules.passwordValidation)
 
-    override suspend fun postLoginEmail(request: LoginEmailRequest): ApiResults<LoginEmailResponse, NetworkError> {
+    override suspend fun loginByEmail(request: LoginEmailRequest): ApiResults<LoginEmailResponse, NetworkError> {
         return safeCall<LoginEmailResponse> {
 
             val emailErrors = emailValidator.validate(request.email)

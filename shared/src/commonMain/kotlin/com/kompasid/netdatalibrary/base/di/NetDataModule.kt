@@ -6,6 +6,9 @@ import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiSer
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
+import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dataSource.CheckVerifiedUserDataSource
+import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.network.CheckVerifiedUserApiService
+import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.repository.CheckVerifiedUserRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiService
@@ -32,6 +35,8 @@ import com.kompasid.netdatalibrary.core.data.loginEmail.resultState.LoginResultS
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
+import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
+import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
@@ -42,6 +47,7 @@ import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCas
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsState
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
@@ -101,6 +107,15 @@ val personalInfoModule = module {
     singleOf(::UserMembershipsRepository) { bind<UserMembershipsRepository>() }
     singleOf(::UserMembershipDataSource) { bind<UserMembershipDataSource>() }
     singleOf(::UserMembershipApiService) { bind<UserMembershipApiService>() }
+
+    /// Check Verified User
+    singleOf(::CheckVerifiedUserRepository) { bind<CheckVerifiedUserRepository>() }
+    singleOf(::CheckVerifiedUserApiService) { bind<CheckVerifiedUserApiService>() }
+    singleOf(::CheckVerifiedUserDataSource) { bind<CheckVerifiedUserDataSource>() }
+
+    /// Update Profile
+    singleOf(::UpdateProfileRepository) { bind<UpdateProfileRepository>() }
+    singleOf(::UpdateProfileApiService) { bind<UpdateProfileApiService>() }
 }
 
 val launchAppModule = module {
@@ -141,6 +156,7 @@ val updateTokenModule = module {
 }
 
 val helperModule = module {
+    singleOf(::SettingsState) { bind<SettingsState>() }
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
     singleOf(::UserDataHelper) { bind<UserDataHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }

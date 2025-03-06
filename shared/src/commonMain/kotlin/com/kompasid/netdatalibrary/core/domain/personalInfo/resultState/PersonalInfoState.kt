@@ -14,9 +14,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class PersonalInfoState(
-    private val settingsHelper: SettingsHelper
-) {
+class PersonalInfoState {
     private val _state: MutableStateFlow<PersonalInfoInterceptor> =
         MutableStateFlow(PersonalInfoInterceptor())
 

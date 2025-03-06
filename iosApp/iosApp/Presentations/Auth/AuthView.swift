@@ -14,9 +14,16 @@ struct AuthView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                Button("Login by Email") {
+                Button("Login Suber by Email") {
                     Task {
                         try await authVM.loginByEmail(type: .suberByEmail)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                
+                Button("Login Regon by Email") {
+                    Task {
+                        try await authVM.loginByEmail(type: .regonByEmail)
                     }
                 }
                 .buttonStyle(.borderedProminent)

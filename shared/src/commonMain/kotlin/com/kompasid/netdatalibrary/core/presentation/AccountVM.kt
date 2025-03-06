@@ -4,9 +4,6 @@ import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
-import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
-import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
-import com.kompasid.netdatalibrary.core.domain.manageAccount.useCase.ManageAccountUseCase
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
@@ -19,23 +16,23 @@ class AccountVM(
     private val aboutAppResultState: AboutAppResultState,
 ) : BaseVM() {
 
-    val aboutApp = aboutAppResultState.data
-
-    fun accountMenus() {
-        scope.launch {
-            val resultaccountMenus = accountUseCase.accountMenus()
-            Logger.debug { resultaccountMenus.toString() }
-
-            val resultaboutHarianKompasMenus = accountUseCase.aboutHarianKompasMenus()
-            Logger.debug { resultaboutHarianKompasMenus.toString() }
-
-            val resultaboutAppMenus = accountUseCase.aboutAppMenus()
-            Logger.debug { resultaboutAppMenus.toString() }
-
-            val resultsettingMenus = accountUseCase.settingMenus()
-            Logger.debug { resultsettingMenus.toString() }
-
-        }
-    }
+//    val aboutApp = aboutAppResultState.data
+//
+//    fun accountMenus() {
+//        scope.launch {
+//            val resultaccountMenus = accountUseCase.accountMenus()
+//            Logger.debug { resultaccountMenus.toString() }
+//
+//            val resultaboutHarianKompasMenus = accountUseCase.aboutHarianKompasMenus()
+//            Logger.debug { resultaboutHarianKompasMenus.toString() }
+//
+//            val resultaboutAppMenus = accountUseCase.aboutAppMenus()
+//            Logger.debug { resultaboutAppMenus.toString() }
+//
+//            val resultsettingMenus = accountUseCase.settingMenus()
+//            Logger.debug { resultsettingMenus.toString() }
+//
+//        }
+//    }
 
 }

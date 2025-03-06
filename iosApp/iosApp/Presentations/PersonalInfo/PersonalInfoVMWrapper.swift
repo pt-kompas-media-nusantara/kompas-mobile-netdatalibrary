@@ -15,7 +15,6 @@ class PersonalInfoVMWrapper: ObservableObject {
     private let personalInfoUseCase: PersonalInfoUseCase
     private let personalInfoState: PersonalInfoState
     
-    @Published var kmp: PersonalInfoInterceptor
     
     private var task: Task<Void, Never>?
     
@@ -23,7 +22,6 @@ class PersonalInfoVMWrapper: ObservableObject {
         self.personalInfoUseCase = KoinInjector().personalInfoUseCase
         self.personalInfoState = KoinInjector().personalInfoState
         
-        self.kmp = personalInfoState.state.value // Set nilai awal
         
         observePersonalInfo()
     }
@@ -38,7 +36,6 @@ class PersonalInfoVMWrapper: ObservableObject {
             
             while let newInfo = await iterator.next() {
                 await MainActor.run {
-                    self.kmp = newInfo
                     print("Updated Personal Info: \(newInfo)")
                 }
             }

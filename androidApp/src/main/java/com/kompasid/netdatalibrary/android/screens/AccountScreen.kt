@@ -32,7 +32,7 @@ fun AccountScreen(
     vm: AccountVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-    val aboutApp by vm.aboutApp.collectAsState()
+//    val aboutApp by vm.aboutApp.collectAsState()
 
     Column(
         modifier = Modifier
@@ -61,49 +61,49 @@ fun AccountScreen(
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.padding(bottom = 4.dp)
         )
-        Text(
-            text = aboutApp.appVersion,
-            style = MaterialTheme.typography.bodyLarge
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-        HorizontalDivider()
-
-        // 🔹 Deskripsi
-        Text(
-            text = aboutApp.desc,
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Justify,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-        HorizontalDivider()
-
-        // 🔹 Informasi Perangkat
-        Text(
-            text = aboutApp.appInfoTitle,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
-
-        // 🔹 Tampilkan List Informasi Perangkat
-        aboutApp.appInfo.forEach { info ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = info.key, style = MaterialTheme.typography.bodyMedium)
-                Text(
-                    text = info.value,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
+//        Text(
+//            text = aboutApp.appVersion,
+//            style = MaterialTheme.typography.bodyLarge
+//        )
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//        HorizontalDivider()
+//
+//        // 🔹 Deskripsi
+//        Text(
+//            text = aboutApp.desc,
+//            style = MaterialTheme.typography.bodyMedium,
+//            textAlign = TextAlign.Justify,
+//            modifier = Modifier.padding(vertical = 8.dp)
+//        )
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//        HorizontalDivider()
+//
+//        // 🔹 Informasi Perangkat
+//        Text(
+//            text = aboutApp.appInfoTitle,
+//            style = MaterialTheme.typography.bodyMedium,
+//            fontWeight = FontWeight.SemiBold,
+//            modifier = Modifier.padding(vertical = 8.dp)
+//        )
+//
+//        // 🔹 Tampilkan List Informasi Perangkat
+//        aboutApp.appInfo.forEach { info ->
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(vertical = 4.dp),
+//                horizontalArrangement = Arrangement.SpaceBetween
+//            ) {
+//                Text(text = info.key, style = MaterialTheme.typography.bodyMedium)
+//                Text(
+//                    text = info.value,
+//                    style = MaterialTheme.typography.bodyMedium,
+//                    fontWeight = FontWeight.Bold
+//                )
+//            }
+//        }
 
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider()

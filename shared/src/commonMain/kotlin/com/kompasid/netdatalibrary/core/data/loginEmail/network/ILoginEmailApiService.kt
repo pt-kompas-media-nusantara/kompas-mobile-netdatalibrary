@@ -6,5 +6,5 @@ import com.kompasid.netdatalibrary.core.data.loginEmail.dto.request.LoginEmailRe
 import com.kompasid.netdatalibrary.core.data.loginEmail.dto.response.LoginEmailResponse
 
 interface ILoginEmailApiService {
-    suspend fun postLoginEmail(request: LoginEmailRequest): ApiResults<LoginEmailResponse, NetworkError>
+    suspend fun loginByEmail(request: LoginEmailRequest): ApiResults<LoginEmailResponse, NetworkError>
 }

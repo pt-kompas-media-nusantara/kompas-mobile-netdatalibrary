@@ -10,6 +10,7 @@ import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCas
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsState
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -26,6 +27,8 @@ fun initKoin() {
 }
 
 class KoinInjector : KoinComponent {
+    val settingsState: SettingsState by inject()
+
     val authUseCase: AuthUseCase by inject()
 
     val personalInfoState: PersonalInfoState by inject()

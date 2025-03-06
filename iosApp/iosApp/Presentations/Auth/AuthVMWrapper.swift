@@ -12,10 +12,96 @@ import KompasIdLibrary
 @MainActor
 class AuthVMWrapper: ObservableObject {
     private let authUseCase: AuthUseCase
+    private let settingsState: SettingsState
+    
+    private var tasks: [KeySettingsType: Task<Void, Never>] = [:]
     
     init() {
         self.authUseCase = KoinInjector().authUseCase
+        self.settingsState = KoinInjector().settingsState
+           
+        /// String
+        observeStringSetting(for: .accessToken)
+        observeStringSetting(for: .refreshToken)
+        observeStringSetting(for: .deviceKeyId)
+        /// Boolean
+        observeBooleanSetting(for: .isVerified)
+        observeBooleanSetting(for: .isSocial)
     }
+    
+    
+    func observeStringSetting(for key: KeySettingsType) {
+        // Batalkan task lama jika ada
+        tasks[key]?.cancel()
+        
+        // Buat task baru untuk key tertentu
+        let task = Task.detached(priority: .background) { [weak self] in
+            guard let self = self else { return }
+            
+            do {
+                for try await newValue in self.settingsState.streamStringSetting(key: key) {
+                    await MainActor.run {
+                        print("Updated Setting [\(key)]: \(newValue)")
+                    }
+                }
+            } catch {
+                print("Error observing setting [\(key)]: \(error)")
+            }
+            
+            print("Stream ended for [\(key)]. Removing task.")
+            await MainActor.run {
+                self.tasks[key] = nil // Hapus task setelah stream berakhir
+            }
+        }
+        
+        // Simpan task di dictionary
+        tasks[key] = task
+    }
+    
+    func observeBooleanSetting(for key: KeySettingsType) {
+        // Batalkan task lama jika ada
+        tasks[key]?.cancel()
+        
+        // Buat task baru untuk key tertentu
+        let task = Task.detached(priority: .background) { [weak self] in
+            guard let self = self else { return }
+            
+            do {
+                for try await newValue in self.settingsState.streamBooleanSetting(key: key) {
+                    await MainActor.run {
+                        print("Updated Setting [\(key)]: \(newValue)")
+                    }
+                }
+            } catch {
+                print("Error observing setting [\(key)]: \(error)")
+            }
+            
+            print("Stream ended for [\(key)]. Removing task.")
+            await MainActor.run {
+                self.tasks[key] = nil // Hapus task setelah stream berakhir
+            }
+        }
+        
+        // Simpan task di dictionary
+        tasks[key] = task
+    }
+    
+    func stopObserving(for key: KeySettingsType) {
+        tasks[key]?.cancel()
+        tasks[key] = nil
+    }
+    
+    func stopAllObserving() {
+        tasks.values.forEach { $0.cancel() }
+        tasks.removeAll()
+    }
+    
+    deinit {
+        tasks.values.forEach { $0.cancel() }
+        tasks.removeAll()
+    }
+    
+    
     func loginByEmail(type: UserLoginType) async throws {
         var email = ""
         var password = ""
@@ -46,26 +132,18 @@ class AuthVMWrapper: ObservableObject {
                     )
             )
             switch result {
-            case let success as ResultsSuccess<KotlinPair<KotlinUnit, KotlinPair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>>>:
+            case let success as ResultsSuccess<KotlinUnit>:
                 let data = success.data
-                let first = data?.first
-                let second = data?.second
-                
-                let userDetail = second?.first
-                let membershipHistory = second?.second
-                
-                print("API Success:")
-                print("API User Detail: \(userDetail)")
-                print("API Membership History: \(membershipHistory)")
+                print("API loginByEmail: Success")
             case let error as ResultsError<NetworkError>:
                 let networkError = error.error
-                print("API loginByEmail : NetworkError: \(networkError.description)")
+                print("API NetworkError : loginByEmail \(networkError.description)")
                 
             default:
                 print("API loginByEmail : default")
             }
         } catch {
-            print("API loginByEmail : \(error.localizedDescription)")
+            print("API loginByEmail : catch \(error.localizedDescription)")
         }
     }
     
@@ -74,16 +152,16 @@ class AuthVMWrapper: ObservableObject {
             let result = try await authUseCase.logout()
             switch result {
             case let success as ResultsSuccess<KotlinUnit>:
-                print("API logout")
+                print("API logout: Success")
             case let error as ResultsError<NetworkError>:
                 let networkError = error.error
-                print("API logout : \(networkError.description)")
+                print("API NetworkError : logout \(networkError.description)")
                 
             default:
-                print("API default logout")
+                print("API logout : default")
             }
         } catch {
-            print("API catch logout : \(error.localizedDescription)")
+            print("API logout : catch \(error.localizedDescription)")
         }
     }
 }

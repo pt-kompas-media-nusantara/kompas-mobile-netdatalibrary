@@ -18,7 +18,7 @@ class AuthUseCase(
 
     suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> =
         runCatching {
-            val loginResult = loginEmailRepository.postLoginEmail(request)
+            val loginResult = loginEmailRepository.loginByEmail(request)
 
             if (loginResult is Results.Error) return Results.Error(loginResult.error)
 
