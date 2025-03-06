@@ -29,6 +29,9 @@ import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralCon
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.loginEmail.resultState.LoginResultState
+import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
+import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
+import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
 import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
@@ -36,6 +39,7 @@ import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
+import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
@@ -57,7 +61,7 @@ import org.koin.dsl.module
 
 val authModule = module {
     /// AuthInteractor
-    singleOf(::LoginResultState) { bind<LoginResultState>() }
+    singleOf(::LoginResultState) { bind<LoginResultState>() } // uji coba ui
     singleOf(::AuthVM) { bind<AuthVM>() }
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
@@ -87,13 +91,13 @@ val personalInfoModule = module {
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
     /// UserDetail
-    singleOf(::UserDetailResultState) { bind<UserDetailResultState>() }
+    singleOf(::UserDetailResultState) { bind<UserDetailResultState>() } // uji coba ui
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
     /// User History Membership
-    singleOf(::UserHistoryMembershipResultState) { bind<UserHistoryMembershipResultState>() }
+    singleOf(::UserHistoryMembershipResultState) { bind<UserHistoryMembershipResultState>() } // uji coba ui
     singleOf(::UserMembershipsRepository) { bind<UserMembershipsRepository>() }
     singleOf(::UserMembershipDataSource) { bind<UserMembershipDataSource>() }
     singleOf(::UserMembershipApiService) { bind<UserMembershipApiService>() }
@@ -121,6 +125,14 @@ val accountModule = module {
     singleOf(::AboutAppResultState) { bind<AboutAppResultState>() }
     singleOf(::AccountVM) { bind<AccountVM>() }
     singleOf(::AccountUseCase) { bind<AccountUseCase>() }
+}
+
+val myRubriksModule = module {
+    /// My Rubrik Use Case
+    singleOf(::MyRubriksState) { bind<MyRubriksState>() }
+    singleOf(::MyRubriksApiService) { bind<MyRubriksApiService>() }
+    singleOf(::MyRubriksRepository) { bind<MyRubriksRepository>() }
+    singleOf(::MyRubriksUseCase) { bind<MyRubriksUseCase>() }
 }
 
 val updateTokenModule = module {

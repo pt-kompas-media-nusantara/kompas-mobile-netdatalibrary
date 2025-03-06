@@ -4,6 +4,7 @@ import com.kompasid.netdatalibrary.base.di.accountModule
 import com.kompasid.netdatalibrary.base.di.authModule
 import com.kompasid.netdatalibrary.base.di.helperModule
 import com.kompasid.netdatalibrary.base.di.launchAppModule
+import com.kompasid.netdatalibrary.base.di.myRubriksModule
 import com.kompasid.netdatalibrary.base.di.netDataModule
 import com.kompasid.netdatalibrary.base.di.networkModule
 import com.kompasid.netdatalibrary.base.di.personalInfoModule
@@ -22,6 +23,7 @@ val sharedKoinModules = listOf(
     personalInfoModule,
     launchAppModule,
     updateContentModule,
-    accountModule
+    accountModule,
+    myRubriksModule
 )
 
