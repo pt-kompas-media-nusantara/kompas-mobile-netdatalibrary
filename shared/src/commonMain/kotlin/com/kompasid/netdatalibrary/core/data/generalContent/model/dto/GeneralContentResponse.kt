@@ -28,12 +28,6 @@ data class Result(
 )
 
 @Serializable
-data class Android(
-    @SerialName("logo")
-    val logo: List<Logo?>? = null
-)
-
-@Serializable
 data class IOS(
     @SerialName("logo")
     val logo: List<Logo>? = null,
@@ -46,5 +40,24 @@ data class Logo(
     @SerialName("value")
     val value: String? = null
 )
+
+@Serializable
+data class Android(
+    val logo: List<Logo>,
+    @SerialName("ePaper")
+    val ePaper: EData,
+    @SerialName("eBook")
+    val eBook: EData,
+) {
+    @Serializable
+    data class EData(
+        @SerialName("trial_timer_mode")
+        val trialTimerMode: Int,
+        @SerialName("trial_page_mode")
+        val trialPageMode: Int,
+        @SerialName("is_percentage_page")
+        val isPercentageActive: Boolean,
+    )
+}
 
 

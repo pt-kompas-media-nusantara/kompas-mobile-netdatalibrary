@@ -12,8 +12,8 @@ class GeneralContentRepository(
     private val generalContentServices: IGeneralContentApiService
 ) : IGeneralContentRepository {
 
-    override suspend fun getGeneralData(): Results<GeneralContentInterceptor, NetworkError> {
-        return when (val result = generalContentServices.getGeneralContent()) {
+    override suspend fun getGeneralData(customUrl: String): Results<GeneralContentInterceptor, NetworkError> {
+        return when (val result = generalContentServices.getGeneralContent(customUrl)) {
             is ApiResults.Success -> {
                 Results.Success(result.data.toInterceptor())
             }

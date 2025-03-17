@@ -100,6 +100,20 @@ publishing {
             artifactId = "shared"
             version = project.findProperty("VERSION") as String? ?: "1.0.0"
         }
+
+        create<MavenPublication>("shared") {
+            from(components["kotlin"])
+            groupId = "NetDataLibrary"
+            artifactId = "shared"
+            version = project.findProperty("VERSION") as String? ?: "1.0.0"
+        }
+
+        create<MavenPublication>("sharedAndroid") {
+            from(components["kotlin"])
+            groupId = "NetDataLibrary"
+            artifactId = "shared-android"
+            version = project.findProperty("VERSION") as String? ?: "1.0.0"
+        }
     }
     repositories {
         maven {
