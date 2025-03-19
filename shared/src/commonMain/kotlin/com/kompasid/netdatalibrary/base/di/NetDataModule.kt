@@ -31,14 +31,11 @@ import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralCont
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
-import com.kompasid.netdatalibrary.core.data.loginEmail.resultState.LoginResultState
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
 import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
-import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.resultState.UserHistoryMembershipResultState
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
@@ -66,7 +63,6 @@ import org.koin.dsl.module
 
 val authModule = module {
     /// AuthInteractor
-    singleOf(::LoginResultState) { bind<LoginResultState>() } // uji coba ui
     singleOf(::AuthVM) { bind<AuthVM>() }
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
@@ -95,13 +91,11 @@ val personalInfoModule = module {
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
     /// UserDetail
-    singleOf(::UserDetailResultState) { bind<UserDetailResultState>() } // uji coba ui
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
     /// User History Membership
-    singleOf(::UserHistoryMembershipResultState) { bind<UserHistoryMembershipResultState>() } // uji coba ui
     singleOf(::UserMembershipsRepository) { bind<UserMembershipsRepository>() }
     singleOf(::UserMembershipDataSource) { bind<UserMembershipDataSource>() }
     singleOf(::UserMembershipApiService) { bind<UserMembershipApiService>() }

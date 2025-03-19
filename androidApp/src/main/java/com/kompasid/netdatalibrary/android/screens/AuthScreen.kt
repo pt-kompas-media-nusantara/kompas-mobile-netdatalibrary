@@ -32,9 +32,6 @@ fun AuthScreen(
     onBackClick: () -> Unit,
 ) {
 
-    val login by vm.login.collectAsState()
-    val userDetail by vm.userDetail.collectAsState()
-    val userHistoryMembership by vm.userHistoryMembership.collectAsState()
 
     Column(
         modifier = Modifier
@@ -57,61 +54,61 @@ fun AuthScreen(
         Spacer(modifier = Modifier.height(16.dp))
         HorizontalDivider()
 
-        Text("login")
-        Text("accessToken: ${login.accessToken}")
-        Text("refreshToken: ${login.refreshToken}")
-
-        HorizontalDivider()
-        Spacer(modifier = Modifier.height(16.dp))
-        HorizontalDivider()
-
-        Text("userDetail")
-        Text("idGender: ${userDetail.idGender}")
-        Text("gender: ${userDetail.gender}")
-        Text("userId: ${userDetail.userId}")
-        Text("firstName: ${userDetail.firstName}")
-        Text("lastName: ${userDetail.lastName}")
-        Text("email: ${userDetail.email}")
-        Text("userGuid: ${userDetail.userGuid}")
-        Text("isActive: ${userDetail.isActive}")
-        Text("isVerified: ${userDetail.userStatus.isVerified}")
-        Text("phoneVerified: ${userDetail.userStatus.phoneVerified}")
-        Text("phoneNumber: ${userDetail.phoneNumber}")
-        Text("countryCode: ${userDetail.countryCode}")
-        Text("dateBirth: ${userDetail.dateBirth}")
-        Text("country: ${userDetail.country}")
-        Text("province: ${userDetail.province}")
-        Text("city: ${userDetail.city}")
-
-        HorizontalDivider()
-        Spacer(modifier = Modifier.height(16.dp))
-        HorizontalDivider()
-
-        Text("userHistoryMembership")
-        Text("expired: ${userHistoryMembership.user.expired}")
-        Text("isActive: ${userHistoryMembership.user.isActive}")
-        Text("startDate: ${userHistoryMembership.user.startDate}")
-        Text("endDate: ${userHistoryMembership.user.endDate}")
-        Text("totalGracePeriod: ${userHistoryMembership.user.totalGracePeriod}")
-        Text("gracePeriod: ${userHistoryMembership.user.gracePeriod}")
-        if (userHistoryMembership.active.isNotEmpty()) {
-            LazyColumn {
-                items(userHistoryMembership.active) { membership ->
-                    MembershipItem(membership)
-                }
-            }
-        } else {
-            Text(text = "No active memberships", color = Color.Gray)
-        }
-        if (userHistoryMembership.expired.isNotEmpty()) {
-            LazyColumn {
-                items(userHistoryMembership.expired) { membership ->
-                    MembershipItem(membership)
-                }
-            }
-        } else {
-            Text(text = "No active memberships", color = Color.Gray)
-        }
+//        Text("login")
+//        Text("accessToken: ${login.accessToken}")
+//        Text("refreshToken: ${login.refreshToken}")
+//
+//        HorizontalDivider()
+//        Spacer(modifier = Modifier.height(16.dp))
+//        HorizontalDivider()
+//
+//        Text("userDetail")
+//        Text("idGender: ${userDetail.idGender}")
+//        Text("gender: ${userDetail.gender}")
+//        Text("userId: ${userDetail.userId}")
+//        Text("firstName: ${userDetail.firstName}")
+//        Text("lastName: ${userDetail.lastName}")
+//        Text("email: ${userDetail.email}")
+//        Text("userGuid: ${userDetail.userGuid}")
+//        Text("isActive: ${userDetail.isActive}")
+//        Text("isVerified: ${userDetail.userStatus.isVerified}")
+//        Text("phoneVerified: ${userDetail.userStatus.phoneVerified}")
+//        Text("phoneNumber: ${userDetail.phoneNumber}")
+//        Text("countryCode: ${userDetail.countryCode}")
+//        Text("dateBirth: ${userDetail.dateBirth}")
+//        Text("country: ${userDetail.country}")
+//        Text("province: ${userDetail.province}")
+//        Text("city: ${userDetail.city}")
+//
+//        HorizontalDivider()
+//        Spacer(modifier = Modifier.height(16.dp))
+//        HorizontalDivider()
+//
+//        Text("userHistoryMembership")
+//        Text("expired: ${userHistoryMembership.user.expired}")
+//        Text("isActive: ${userHistoryMembership.user.isActive}")
+//        Text("startDate: ${userHistoryMembership.user.startDate}")
+//        Text("endDate: ${userHistoryMembership.user.endDate}")
+//        Text("totalGracePeriod: ${userHistoryMembership.user.totalGracePeriod}")
+//        Text("gracePeriod: ${userHistoryMembership.user.gracePeriod}")
+//        if (userHistoryMembership.active.isNotEmpty()) {
+//            LazyColumn {
+//                items(userHistoryMembership.active) { membership ->
+//                    MembershipItem(membership)
+//                }
+//            }
+//        } else {
+//            Text(text = "No active memberships", color = Color.Gray)
+//        }
+//        if (userHistoryMembership.expired.isNotEmpty()) {
+//            LazyColumn {
+//                items(userHistoryMembership.expired) { membership ->
+//                    MembershipItem(membership)
+//                }
+//            }
+//        } else {
+//            Text(text = "No active memberships", color = Color.Gray)
+//        }
     }
 }
 

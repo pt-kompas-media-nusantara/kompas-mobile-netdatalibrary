@@ -1,11 +1,10 @@
-package com.kompasid.netdatalibrary.core.domain.settings.resultState
+package com.kompasid.netdatalibrary.core.domain.settings
 
 import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
-import com.kompasid.netdatalibrary.core.domain.settings.resultState.enums.BooleanKeySettingsType
-import com.kompasid.netdatalibrary.core.domain.settings.resultState.enums.FloatKeySettingsType
-import com.kompasid.netdatalibrary.core.domain.settings.resultState.enums.IntKeySettingsType
-import com.kompasid.netdatalibrary.core.domain.settings.resultState.enums.StringKeySettingsType
+import com.kompasid.netdatalibrary.core.domain.settings.enums.BooleanKeySettingsType
+import com.kompasid.netdatalibrary.core.domain.settings.enums.FloatKeySettingsType
+import com.kompasid.netdatalibrary.core.domain.settings.enums.IntKeySettingsType
+import com.kompasid.netdatalibrary.core.domain.settings.enums.StringKeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.Dispatchers

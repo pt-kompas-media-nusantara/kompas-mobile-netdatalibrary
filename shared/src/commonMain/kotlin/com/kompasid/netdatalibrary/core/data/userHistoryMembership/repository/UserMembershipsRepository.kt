@@ -20,7 +20,6 @@ class UserMembershipsRepository(
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor()
 
-                    // Menyimpan data secara paralel
                     userMembershipDataSource.save(resultInterceptor)
 
                     Results.Success(resultInterceptor)

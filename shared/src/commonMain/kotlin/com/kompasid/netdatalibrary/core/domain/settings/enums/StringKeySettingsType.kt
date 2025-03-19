@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.domain.settings.resultState.enums
+package com.kompasid.netdatalibrary.core.domain.settings.enums
 
 enum class StringKeySettingsType {
     ACCESS_TOKEN,

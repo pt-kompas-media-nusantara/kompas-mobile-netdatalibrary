@@ -10,7 +10,7 @@ import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCas
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
 
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsUseCase
+import com.kompasid.netdatalibrary.core.domain.settings.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import org.koin.core.component.KoinComponent

@@ -1,7 +1,6 @@
 package com.kompasid.netdatalibrary.core.domain.aboutApp.resultState
 
 import com.kompasid.netdatalibrary.BaseVM
-import com.kompasid.netdatalibrary.core.data.loginEmail.dto.interceptor.LoginInterceptor
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AboutAppInterceptor
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AppInfoModel
 import com.kompasid.netdatalibrary.helper.UserDataHelper

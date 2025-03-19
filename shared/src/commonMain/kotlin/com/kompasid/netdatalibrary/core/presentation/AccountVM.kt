@@ -2,7 +2,6 @@ package com.kompasid.netdatalibrary.core.presentation
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.core.data.userDetail.resultState.UserDetailResultState
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
