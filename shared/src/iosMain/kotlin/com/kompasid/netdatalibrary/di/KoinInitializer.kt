@@ -11,6 +11,7 @@ import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCas
 
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsState
+import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import org.koin.core.component.KoinComponent
@@ -33,7 +34,6 @@ class KoinInjector : KoinComponent {
 
     val authUseCase: AuthUseCase by inject()
 
-    val personalInfoState: PersonalInfoState by inject()
     val personalInfoUseCase: PersonalInfoUseCase by inject()
 
 
@@ -48,6 +48,8 @@ class KoinInjector : KoinComponent {
     val myRubriksUseCase: MyRubriksUseCase by inject()
 
     val trackerManager: TrackerManager by inject()
+    
+    val settingsUseCase: SettingsUseCase by inject()
 
 
 }

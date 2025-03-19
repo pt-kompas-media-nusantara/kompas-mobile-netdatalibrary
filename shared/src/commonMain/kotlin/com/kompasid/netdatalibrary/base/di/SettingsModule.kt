@@ -1,5 +1,6 @@
 package com.kompasid.netdatalibrary.base.di
 
+import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsUseCase
 import com.kompasid.netdatalibrary.helper.UserDataHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.russhwolf.settings.ObservableSettings
@@ -21,6 +22,7 @@ val settingsModule = module {
     single<FlowSettings> { get<ObservableSettings>().toFlowSettings() }
 
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
+    singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
 }
 
 

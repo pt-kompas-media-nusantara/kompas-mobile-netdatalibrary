@@ -46,5 +46,4 @@ enum class KeySettingsType(val key: String) {
     IS_REGISTERED("IS_REGISTERED"),
     REGISTERED_BY("REGISTERED_BY"),
     REGISTERED_ON("REGISTERED_ON"),
-    TRYTRY("TRYTRY"),
 }
