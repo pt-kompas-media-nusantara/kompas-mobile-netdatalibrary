@@ -48,7 +48,7 @@ class KoinInjector : KoinComponent {
     val myRubriksUseCase: MyRubriksUseCase by inject()
 
     val trackerManager: TrackerManager by inject()
-    
+
     val settingsUseCase: SettingsUseCase by inject()
 
 

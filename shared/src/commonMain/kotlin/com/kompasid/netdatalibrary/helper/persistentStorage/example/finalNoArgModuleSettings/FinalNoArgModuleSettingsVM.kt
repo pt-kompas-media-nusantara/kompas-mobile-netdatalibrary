@@ -28,13 +28,6 @@ class FinalNoArgModuleSettingsVM(
         settingsHelper.load(KeySettingsType.HISTORY_TRANSACTION, emptyList<String>())
             .stateIn(scope, SharingStarted.Lazily, emptyList())
 
-    val trytry: StateFlow<DeviceSubcriptionState> =
-        settingsHelper.load(
-            KeySettingsType.TRYTRY,
-            DeviceSubcriptionState(),
-            DeviceSubcriptionState.serializer()
-        ).stateIn(scope, SharingStarted.Lazily, DeviceSubcriptionState())
-
     fun saveList() {
         scope.launch {
             settingsHelper.save(
@@ -84,18 +77,6 @@ class FinalNoArgModuleSettingsVM(
                 ),
             )
 
-            settingsHelper.save(
-                KeySettingsType.TRYTRY,
-                data.toJson()
-            )
-
-            delay(3000)
-            val result = DeviceSubcriptionState.fromJSON(settingsHelper.get(
-                KeySettingsType.TRYTRY,
-                ""
-            ))
-
-            Logger.info { result.toString() }
         }
     }
 }

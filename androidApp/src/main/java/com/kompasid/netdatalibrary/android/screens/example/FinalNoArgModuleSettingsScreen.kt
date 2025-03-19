@@ -29,7 +29,6 @@ fun FinalNoArgModuleSettingsScreen(
     vm: FinalNoArgModuleSettingsVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-    val trytry by vm.trytry.collectAsState()
     val originalTransactionId by vm.originalTransactionId.collectAsState()
     val transactionId by vm.transactionId.collectAsState()
     val historyTransaction by vm.historyTransaction.collectAsState()
@@ -51,27 +50,6 @@ fun FinalNoArgModuleSettingsScreen(
 
             FilledButton("saveModel") {
                 vm.saveModel()
-            }
-        }
-
-        item {
-            Text(text = "Model Original Transaction IDs:", fontWeight = FontWeight.Bold)
-            trytry.originalTransactionId.forEach { id ->
-                Text(text = id)
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(text = "Model Transaction IDs:", fontWeight = FontWeight.Bold)
-            trytry.transactionId.forEach { id ->
-                Text(text = id)
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(text = "Model History Transactions:", fontWeight = FontWeight.Bold)
-            trytry.historyTransaction.forEach { id ->
-                Text(text = id)
             }
         }
 
