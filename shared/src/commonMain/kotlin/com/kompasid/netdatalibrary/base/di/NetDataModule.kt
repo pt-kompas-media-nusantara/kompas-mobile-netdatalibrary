@@ -47,7 +47,6 @@ import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCas
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
 
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
-import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsState
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
@@ -155,7 +154,6 @@ val updateTokenModule = module {
 }
 
 val helperModule = module {
-    singleOf(::SettingsState) { bind<SettingsState>() }
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
     singleOf(::UserDataHelper) { bind<UserDataHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }
