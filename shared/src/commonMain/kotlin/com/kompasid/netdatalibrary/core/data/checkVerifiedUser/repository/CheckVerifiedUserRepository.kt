@@ -9,7 +9,7 @@ import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.network.CheckVeri
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dataSource.CheckVerifiedUserDataSource
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 

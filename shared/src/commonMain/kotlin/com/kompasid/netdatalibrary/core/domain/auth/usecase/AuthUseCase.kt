@@ -16,6 +16,7 @@ class AuthUseCase(
     private val personalInfoUseCase: PersonalInfoUseCase
 ) {
 
+    // nurirppan__ :
     suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> =
         runCatching {
             val loginResult = loginEmailRepository.loginByEmail(request)

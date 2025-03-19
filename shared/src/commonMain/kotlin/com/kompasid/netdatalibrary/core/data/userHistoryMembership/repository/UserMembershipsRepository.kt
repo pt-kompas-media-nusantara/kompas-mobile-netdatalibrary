@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.Us
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserMembershipApiService
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 class UserMembershipsRepository(
     private val userMembershipApiService: UserMembershipApiService,
     private val userMembershipDataSource: UserMembershipDataSource,
-    private val personalInfoState: PersonalInfoState
 ) : IUserMembershipHistoryRepository {
 
     override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> =
@@ -32,15 +31,6 @@ class UserMembershipsRepository(
                                 runCatching {
                                     userMembershipDataSource.save(
                                         resultInterceptor
-                                    )
-                                }
-                            }
-                            launch {
-                                runCatching {
-                                    personalInfoState.updatePersonalInfo(
-                                        PersonalInfoInterceptor(
-                                            userHistoryMembership = resultInterceptor
-                                        )
                                     )
                                 }
                             }

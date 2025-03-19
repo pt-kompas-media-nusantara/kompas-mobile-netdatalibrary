@@ -6,7 +6,7 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.updateProfile.dto.request.UpdateProfileRequest
 import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
 import com.kompasid.netdatalibrary.core.domain.personalInfo.other.UpdateProfileType
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 

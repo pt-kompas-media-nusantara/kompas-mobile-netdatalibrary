@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.settings.resultState.SettingsState
 import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase

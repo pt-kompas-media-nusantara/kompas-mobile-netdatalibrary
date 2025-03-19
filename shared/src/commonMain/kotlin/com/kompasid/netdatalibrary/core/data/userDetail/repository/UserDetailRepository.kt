@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.core.data.userDetail.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.resultState.PersonalInfoState
+
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 class UserDetailRepository(
     private val userDetailApiService: UserDetailApiService,
     private val userDetailDataSource: UserDetailDataSource,
-    private val personalInfoState: PersonalInfoState,
 ) : IUserDetailRepository {
 
     override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> =
@@ -29,13 +28,6 @@ class UserDetailRepository(
                         val resultInterceptor = result.data.toInterceptor()
                         coroutineScope {
                             launch { runCatching { userDetailDataSource.save(resultInterceptor) } }
-                            launch {
-                                runCatching {
-                                    personalInfoState.updatePersonalInfo(
-                                        PersonalInfoInterceptor(userDetails = resultInterceptor)
-                                    )
-                                }
-                            }
                         }
                         Results.Success(resultInterceptor)
                     }

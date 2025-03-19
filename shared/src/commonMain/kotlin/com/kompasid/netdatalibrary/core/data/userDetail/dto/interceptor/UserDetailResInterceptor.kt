@@ -13,7 +13,7 @@ data class UserDetailResInterceptor(
     var email: String = "",
     var userGuid: String = "",
     var isActive: Boolean = false,
-    var userStatus: UserStatusInterceptor = UserStatusInterceptor(),
+    var userStatus: UserStatusInterceptor = UserStatusInterceptor(false, false),
     var phoneNumber: String = "",
     var countryCode: String = "",
     var dateBirth: String = "",
