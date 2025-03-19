@@ -13,6 +13,7 @@ import com.kompasid.netdatalibrary.core.domain.personalInfo.other.UpdateProfileT
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
 
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
@@ -22,66 +23,53 @@ class PersonalInfoUseCase(
 ) : IPersonalInfoUseCase {
 
 
-    suspend fun getUserDetailsAndMembership(): Results<Unit, NetworkError> = coroutineScope {
-        runCatching {
-            val tasks = listOf(
-                async { userDetail() },
-                async { historyMembership() }
-            )
+    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
+        supervisorScope {
+            val userDetailDeferred = async { userDetail() }
+            val historyMembershipDeferred = async { historyMembership() }
 
-            val results = tasks.awaitAll()
+            try {
+                val userDetailResult = userDetailDeferred.await()
+                val historyMembershipResult = historyMembershipDeferred.await()
 
-            when {
-                results.all { it is Results.Success } -> Results.Success(Unit)
-                else -> {
-                    // Batalkan semua task jika ada yang gagal
-                    tasks.forEach { it.cancel() }
+                when {
+                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
+                        Results.Success(userDetailResult.data to historyMembershipResult.data)
+                    }
 
-                    // Ambil error pertama yang ditemukan
-                    val error =
-                        results.filterIsInstance<Results.Error<NetworkError>>().firstOrNull()?.error
-                            ?: NetworkError.ServerError
+                    userDetailResult is Results.Error -> {
+                        historyMembershipDeferred.cancel()
+                        Results.Error(userDetailResult.error)
+                    }
 
-                    Results.Error(error)
+                    historyMembershipResult is Results.Error -> {
+                        userDetailDeferred.cancel()
+                        Results.Error(historyMembershipResult.error)
+                    }
+
+                    else -> Results.Error(NetworkError.ServerError)
                 }
+            } catch (e: Exception) {
+                userDetailDeferred.cancel()
+                historyMembershipDeferred.cancel()
+                Results.Error(NetworkError.Error(e))
             }
-        }.getOrElse { exception ->
-            Results.Error(NetworkError.Error(exception))
+        }
+
+    suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
+        return try {
+            userDetailRepository.getUserDetailOld()
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
         }
     }
 
-    suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> = coroutineScope {
-        runCatching {
-            userDetailRepository.getUserDetailOld()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is Results.Success -> {
-                        Results.Success(result.data)
-                    }
-
-                    is Results.Error -> Results.Error(result.error)
-                }
-            },
-            onFailure = { Results.Error(NetworkError.Error(it)) }
-        )
-    }
-
-    suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> = coroutineScope {
-        runCatching {
+    suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+        return try {
             userMembershipsRepository.getUserMembershipHistory()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is Results.Success -> {
-                        Results.Success(result.data)
-                    }
-
-                    is Results.Error -> Results.Error(result.error)
-                }
-            },
-            onFailure = { Results.Error(NetworkError.Error(it)) }
-        )
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
     }
 
     suspend fun checkVerifiedUser(): Results<Unit, NetworkError> = coroutineScope {

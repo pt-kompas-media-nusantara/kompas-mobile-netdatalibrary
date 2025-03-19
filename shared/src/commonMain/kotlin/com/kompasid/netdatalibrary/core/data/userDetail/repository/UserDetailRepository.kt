@@ -18,24 +18,21 @@ class UserDetailRepository(
     private val userDetailDataSource: UserDetailDataSource,
 ) : IUserDetailRepository {
 
-    override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> =
-        runCatching {
-            userDetailApiService.getUserDetail()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is ApiResults.Success -> {
-                        val resultInterceptor = result.data.toInterceptor()
-                        coroutineScope {
-                            launch { runCatching { userDetailDataSource.save(resultInterceptor) } }
-                        }
-                        Results.Success(resultInterceptor)
-                    }
+    override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> {
+        return try {
+            when (val result = userDetailApiService.getUserDetail()) {
+                is ApiResults.Success -> {
+                    val resultInterceptor = result.data.toInterceptor()
 
-                    is ApiResults.Error -> Results.Error(result.error)
+                    userDetailDataSource.save(resultInterceptor)
+
+                    Results.Success(resultInterceptor)
                 }
-            },
-            onFailure = { Results.Error(NetworkError.Error(it)) }
-        )
 
+                is ApiResults.Error -> Results.Error(result.error)
+            }
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
+    }
 }

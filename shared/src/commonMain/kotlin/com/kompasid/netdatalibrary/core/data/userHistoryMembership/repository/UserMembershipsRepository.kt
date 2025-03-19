@@ -18,32 +18,22 @@ class UserMembershipsRepository(
     private val userMembershipDataSource: UserMembershipDataSource,
 ) : IUserMembershipHistoryRepository {
 
-    override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> =
-        runCatching {
-            userMembershipApiService.getUserHistoryMembership()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is ApiResults.Success -> {
-                        val resultInterceptor = result.data.toInterceptor()
-                        coroutineScope {
-                            launch {
-                                runCatching {
-                                    userMembershipDataSource.save(
-                                        resultInterceptor
-                                    )
-                                }
-                            }
-                        }
-                        Results.Success(resultInterceptor)
-                    }
+    override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+        return try {
+            when (val result = userMembershipApiService.getUserHistoryMembership()) {
+                is ApiResults.Success -> {
+                    val resultInterceptor = result.data.toInterceptor()
 
-                    is ApiResults.Error -> Results.Error(result.error)
+                    // Menyimpan data secara paralel
+                    userMembershipDataSource.save(resultInterceptor)
+
+                    Results.Success(resultInterceptor)
                 }
-            },
-            onFailure = { Results.Error(NetworkError.Error(it)) }
-        )
 
-
-
+                is ApiResults.Error -> Results.Error(result.error)
+            }
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
+    }
 }

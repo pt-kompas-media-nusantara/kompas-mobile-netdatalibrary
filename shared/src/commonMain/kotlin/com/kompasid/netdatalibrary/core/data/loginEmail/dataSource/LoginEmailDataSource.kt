@@ -35,7 +35,7 @@ class LoginEmailDataSource(
         try {
             tasks.awaitAll()
         } catch (e: Exception) {
-            NetworkError.Error(e)
+            throw Exception("Error ", e)
         }
     }
 
