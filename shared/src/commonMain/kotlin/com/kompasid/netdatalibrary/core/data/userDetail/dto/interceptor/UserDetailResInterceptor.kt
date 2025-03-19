@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.map
 
 
 data class UserDetailResInterceptor(
-    var idGender: Int = 0,
+    var idGender: Int = 99,
     var gender: String = "",
     var userId: String = "",
     var firstName: String = "",

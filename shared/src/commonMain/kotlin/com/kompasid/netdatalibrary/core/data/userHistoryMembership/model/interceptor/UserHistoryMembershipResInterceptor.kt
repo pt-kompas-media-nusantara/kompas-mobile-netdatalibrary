@@ -24,7 +24,7 @@ data class UserHistoryMembershipObjResInterceptor(
     var isActive: String = "",
     var startDate: String = "",
     var endDate: String = "",
-    var totalGracePeriod: Int = 0,
+    var totalGracePeriod: Int = 99,
     var gracePeriod: Boolean = false,
 )
 
