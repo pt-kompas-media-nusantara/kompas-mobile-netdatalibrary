@@ -93,7 +93,6 @@ val authModule = module {
 }
 
 val personalInfoModule = module {
-    singleOf(::PersonalInfoState) { bind<PersonalInfoState>() }
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
     /// UserDetail

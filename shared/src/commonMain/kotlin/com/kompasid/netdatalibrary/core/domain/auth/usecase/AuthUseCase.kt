@@ -8,6 +8,7 @@ import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.supervisorScope
 
 
 class AuthUseCase(
@@ -16,32 +17,33 @@ class AuthUseCase(
     private val personalInfoUseCase: PersonalInfoUseCase
 ) {
 
-    // nurirppan__ :
-    suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> =
-        runCatching {
-            val loginResult = loginEmailRepository.loginByEmail(request)
+    suspend fun loginByEmail(request: LoginEmailRequest): Results<String, NetworkError> =
+        supervisorScope {
+            try {
+                val loginResult = loginEmailRepository.loginByEmail(request)
 
-            if (loginResult is Results.Error) return Results.Error(loginResult.error)
+                if (loginResult is Results.Error) {
+                    return@supervisorScope Results.Error(loginResult.error)
+                }
 
-            coroutineScope {
-                val userDetailsAndMembershipResult =
-                    async { personalInfoUseCase.getUserDetailsAndMembership() }.await()
+                val userDetailsDeferred = async { personalInfoUseCase.getUserDetailsAndMembership() }
+
+                val userDetailsAndMembershipResult = userDetailsDeferred.await()
 
                 when (userDetailsAndMembershipResult) {
-                    is Results.Success -> Results.Success(Unit)
+                    is Results.Success -> Results.Success(userDetailsAndMembershipResult.data.first.email)
                     is Results.Error -> Results.Error(userDetailsAndMembershipResult.error)
                 }
+            } catch (exception: Exception) {
+                Results.Error(NetworkError.Error(exception))
             }
-        }.getOrElse { exception ->
-            Results.Error(NetworkError.Error(exception))
         }
 
-
-    suspend fun logout(): Results<Unit, NetworkError> = runCatching {
-        logoutRepository.postLogout()
-    }.getOrElse { exception ->
-        Results.Error(NetworkError.Error(exception))
+    suspend fun logout(): Results<Unit, NetworkError> {
+        return try {
+            logoutRepository.postLogout()
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
     }
-
-
 }

@@ -13,13 +13,19 @@ class LogoutRepository(
 ) : ILogoutRepository {
 
     override suspend fun postLogout(): Results<Unit, NetworkError> {
-        return when (val result = logoutApiService.postLogout()) {
-            is ApiResults.Success -> {
-                logoutDatasource.logout()
-                return Results.Success(Unit)
-            }
+        return try {
+            val apiResult = logoutApiService.postLogout()
 
-            is ApiResults.Error -> Results.Error(result.error)
+            when (apiResult) {
+                is ApiResults.Success -> {
+                    logoutDatasource.logout() // Dipanggil setelah API logout sukses
+                    Results.Success(Unit)
+                }
+
+                is ApiResults.Error -> Results.Error(apiResult.error)
+            }
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
         }
     }
 }

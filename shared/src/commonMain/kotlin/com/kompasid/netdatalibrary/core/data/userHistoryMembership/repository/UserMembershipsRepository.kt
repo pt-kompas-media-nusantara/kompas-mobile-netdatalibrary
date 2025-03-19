@@ -7,10 +7,6 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers.toInt
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserMembershipDataSource
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserMembershipApiService
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
-
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
 
 class UserMembershipsRepository(

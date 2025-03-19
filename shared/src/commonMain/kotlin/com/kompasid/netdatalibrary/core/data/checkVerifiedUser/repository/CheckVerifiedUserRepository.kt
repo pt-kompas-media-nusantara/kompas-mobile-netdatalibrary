@@ -8,7 +8,6 @@ import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.request.Check
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.network.CheckVerifiedUserApiService
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dataSource.CheckVerifiedUserDataSource
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.mappers.toInterceptor
-import com.kompasid.netdatalibrary.core.domain.personalInfo.interceptor.PersonalInfoInterceptor
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 class CheckVerifiedUserRepository(
     private val checkVerifiedUserApiService: CheckVerifiedUserApiService,
     private val checkVerifiedUserDataSource: CheckVerifiedUserDataSource,
-    private val personalInfoState: PersonalInfoState
 ) : ICheckVerifiedUserRepository {
 
     suspend fun postCheckVerifiedUser(): Results<CheckVerifiedUserResInterceptor, NetworkError> =
@@ -33,15 +31,6 @@ class CheckVerifiedUserRepository(
                             launch {
                                 runCatching {
                                     checkVerifiedUserDataSource.save(resultInterceptor)
-                                }
-                            }
-                            launch {
-                                runCatching {
-                                    personalInfoState.updatePersonalInfo(
-                                        PersonalInfoInterceptor(
-                                            checkVerifiedUser = resultInterceptor
-                                        )
-                                    )
                                 }
                             }
                         }
