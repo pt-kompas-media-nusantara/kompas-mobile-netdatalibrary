@@ -5,7 +5,7 @@ import io.ktor.http.HttpStatusCode
 
 interface INetworkApiService {
     suspend fun fetchDataFromApi(url: String): Pair<Any, HttpStatusCode>
-    fun mapHttpStatusToError(statusCode: Int): NetworkError
-    fun mapExceptionToError(exception: Throwable): NetworkError
+    suspend fun mapHttpStatusToError(statusCode: Int): NetworkError
+    suspend fun mapExceptionToError(exception: Throwable): NetworkError
 }
 

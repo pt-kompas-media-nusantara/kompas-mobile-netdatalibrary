@@ -1,0 +1,17 @@
+// curl --location --request POST 'https://api.kompas.id/account/api/v1/tokens/refresh' \
+// --header 'Content-Type: application/json' \
+// --header 'Accept: application/json' \
+// --data ''
+// old-v2-refresh token-400-token null
+
+
+{
+    "success": false,
+    "code": 400,
+    "message": "Format data yang dikirim tidak valid.",
+    "meta": {
+        "cache": false,
+        "time": 1729742650
+    },
+    "data": null
+}

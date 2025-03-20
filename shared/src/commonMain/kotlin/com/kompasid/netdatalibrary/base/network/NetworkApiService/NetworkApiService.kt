@@ -24,7 +24,7 @@ class NetworkApiService(private val httpClient: HttpClient) : INetworkApiService
         return Pair(response.body(), response.status)
     }
 
-    override fun mapHttpStatusToError(statusCode: Int): NetworkError {
+    override suspend fun mapHttpStatusToError(statusCode: Int): NetworkError {
         return when (statusCode) {
             401 -> NetworkError.Unauthorized
             404 -> NetworkError.NotFound
@@ -33,7 +33,7 @@ class NetworkApiService(private val httpClient: HttpClient) : INetworkApiService
         }
     }
 
-    override fun mapExceptionToError(exception: Throwable): NetworkError {
+    override suspend fun mapExceptionToError(exception: Throwable): NetworkError {
         return when (exception) {
             is RedirectResponseException -> NetworkError.Error(exception) // 3xx
             is ClientRequestException -> NetworkError.Error(exception)    // 4xx

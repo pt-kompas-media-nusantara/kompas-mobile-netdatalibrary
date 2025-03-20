@@ -1,0 +1,14 @@
+// curl --location 'https://api.kompas.id/account/api/v2/users/membership?=null' \
+// --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoia29tcGFzdGVzdGluZ2xhbmdnYW5hbkB5b3BtYWlsLmNvbSIsImlkIjoiODNkMzk2NjItZWVhNC00Nzk3LTllNmItMjQ4ODBhZTY3ZjdkIiwicnQiOjE3NzA5NjgzNDYsInNjb3BlIjpbInJlYWQtYXJ0aWNsZSIsInJlYWQtcHJvZmlsZSJdfSwiZXhwIjoxNzM5NDMzMjQ2LCJpYXQiOjE3Mzk0MzIzNDYsImlzcyI6Imh0dHBzOi8vd3d3LmtvbXBhcy5pZCJ9.vckiQQbA2AEDWAAINYGwx1Hd3lFxOhwdvW__t7Ydwbf1d5gZpPWdYxNw7tY4kkSb3IQ3hl0zqs9R2kYfn54UqOS0uj0n6bqBL_rsG8I-_sTlXPSfnOuky5L7As1F1fDJWtNPR660GAQvUxslE7hEoOs2nbbFPtTzHHBfw1Vz400'
+// old-v2-history membership-403-karyawan
+
+{
+    "success": false,
+    "code": 403,
+    "message": "Anda tidak memiliki akses ke halaman ini",
+    "meta": {
+        "cache": false,
+        "time": 1730188716
+    },
+    "data": null
+}

@@ -14,58 +14,88 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
+    onNoArgModuleSettingsClick: () -> Unit,
+    onListeneroArgModuleSettingsClick: () -> Unit,
+    onSerializationNoArgModuleSettingsClick: () -> Unit,
+    onCoroutineNoArgModuleSettingsClick: () -> Unit,
+    onLaunchAppFlowClick: () -> Unit,
+    onAuthFlowClick: () -> Unit,
     onAccountClick: () -> Unit,
-    onArticleListClick: () -> Unit,
-    onSettinsClick: () -> Unit,
-    onAuthUseCaseClick: () -> Unit,
-    onAppIconUseCaseClick: () -> Unit,
-    onMyAccountUseCaseScreenClick: () -> Unit,
-) {
+    onManageAccountClick: () -> Unit,
+    onBookmarksClick: () -> Unit,
+    onRewardClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    onContactUsClick: () -> Unit,
+    onQnAClick: () -> Unit,
+    onAboutAppClick: () -> Unit,
+    onAboutHarianKompasClick: () -> Unit,
+    ) {
 
     Column(
         modifier = Modifier
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        FilledButton("Settings View", {
-            onSettinsClick()
+        FilledButton("onNoArgModuleSettingsClick", {
+            onNoArgModuleSettingsClick()
         })
 
-        FilledButton("Auth Use Case", {
-            onAuthUseCaseClick()
+        FilledButton("onListeneroArgModuleSettingsClick", {
+            onListeneroArgModuleSettingsClick()
         })
 
-        FilledButton("App Icon Use Case", {
-            onAppIconUseCaseClick()
+        FilledButton("onSerializationNoArgModuleSettingsClick", {
+            onSerializationNoArgModuleSettingsClick()
         })
 
-        FilledButton("My Account Use Case", {
-            onMyAccountUseCaseScreenClick()
+        FilledButton("onCoroutineNoArgModuleSettingsClick", {
+            onCoroutineNoArgModuleSettingsClick()
         })
 
-//        FilledButton("Login Guest - Api Service", {
-//            articlesVM.postLoginGuest()
-//        })
-//
-//        FilledButton("Login By Email", {
-//            articlesVM.postLoginByEmail()
-//        })
-//
-//        FilledButton("Refresh Token", {
-//            articlesVM.updateToken()
-//        })
-//
-//        FilledButton("Logout", {
-//            articlesVM.postLogout()
-//        })
-//
-//        FilledButton("Article List Screen", {
-//            onArticleListClick()
-//        })
-//
-//        FilledButton("Account - Baca Nanti", {
-//            onAccountClick()
-//        })
+        FilledButton("onLaunchAppFlowClick", {
+            onLaunchAppFlowClick()
+        })
+
+        FilledButton("onAuthFlowClick", {
+            onAuthFlowClick()
+        })
+
+        FilledButton("onAccountClick", {
+            onAccountClick()
+        })
+
+        FilledButton("onManageAccountClick", {
+            onManageAccountClick()
+        })
+
+        FilledButton("onBookmarksClick", {
+            onBookmarksClick()
+        })
+
+        FilledButton("onRewardClick", {
+            onRewardClick()
+        })
+
+        FilledButton("onSettingsClick", {
+            onSettingsClick()
+        })
+
+        FilledButton("onContactUsClick", {
+            onContactUsClick()
+        })
+
+        FilledButton("onQnAClick", {
+            onQnAClick()
+        })
+
+        FilledButton("onAboutAppClick", {
+            onAboutAppClick()
+        })
+
+        FilledButton("onAboutHarianKompasClick", {
+            onAboutHarianKompasClick()
+        })
+
     }
 
 

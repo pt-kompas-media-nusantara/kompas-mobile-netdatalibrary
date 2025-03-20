@@ -9,14 +9,14 @@ let package = Package(
     products: [
         .library(
             name: "NetDataLibrary",
-            targets: ["Shared"]
+            targets: ["KompasIdLibrary"]
         )
     ],
     targets: [
         .binaryTarget(
-            name: "Shared",
-            url: "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.62/Shared.xcframework.zip",
-            checksum: "9e15a18016ebe315856a42fa7e501e94a8bed2bd012f7035dbc0c7bda89120f8"
+            name: "KompasIdLibrary",
+            url: "https://github.com/pt-kompas-media-nusantara/kompas-mobile-netdatalibrary/releases/download/1.0.64/KompasIdLibrary.xcframework.zip",
+            checksum: "80b68b7239ccc956f787c8fe815eef3e9e8698207b9e74bb003b8591df3bcc6d"
         ),
         .target(
             name: "Dummy",

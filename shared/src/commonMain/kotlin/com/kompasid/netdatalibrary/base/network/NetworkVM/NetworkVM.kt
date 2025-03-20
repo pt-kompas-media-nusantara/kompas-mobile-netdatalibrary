@@ -5,7 +5,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 
 
 class NetworkVM : INetworkVM {
-    override fun statusToError(error: NetworkError) {
+    override suspend fun statusToError(error: NetworkError) {
         when (error) {
             // error mau di tampilin view apa saja
             is NetworkError.Error -> Logger.debug { "Error: ${error.throwable.message}" }
