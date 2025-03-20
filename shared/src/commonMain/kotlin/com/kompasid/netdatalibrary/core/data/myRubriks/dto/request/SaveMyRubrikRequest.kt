@@ -16,5 +16,5 @@ data class UserRubrikRequest(
     @SerialName("isChoosen")
     val isChoosen: Boolean,
     @SerialName("value")
-    val value: String
+    val value: String = "true"
 )

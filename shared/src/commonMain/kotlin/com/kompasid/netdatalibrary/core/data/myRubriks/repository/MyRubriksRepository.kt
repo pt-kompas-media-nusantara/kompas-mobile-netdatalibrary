@@ -3,11 +3,13 @@ package com.kompasid.netdatalibrary.core.data.myRubriks.repository
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
+import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
-import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
-import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriksResInterceptor
+import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.RubricSelectionListResInterceptor
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -15,54 +17,52 @@ import kotlinx.coroutines.launch
 
 class MyRubriksRepository(
     private val myRubriksApiService: MyRubriksApiService,
-    private val myRubriksState: MyRubriksState
+    private val settingsHelper: SettingsHelper// nurirppan__:  harus pakai datasource
 ) : IMyRubriksRepository {
 
-    override suspend fun getMyRubriks(): Results<List<MyRubriksResInterceptor>, NetworkError> =
-        runCatching {
-            myRubriksApiService.getRubrikList()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is ApiResults.Success -> {
-                        val resultInterceptor = result.data.toInterceptor()
+    suspend fun getMyRubriks(): Results<Pair<List<RubricSelectionListResInterceptor>, List<MyRubriksResInterceptor>>, NetworkError> =
+        try {
+            val result = myRubriksApiService.getRubrikList()
 
-                        coroutineScope {
-                            launch {
-                                myRubriksState.updateAllRubriks(resultInterceptor)
-                            }
-                            launch {
-                                val resultMyRubriks = resultInterceptor.filter { it.isChoosen }
-                                myRubriksState.updateMyRubriks(resultMyRubriks)
-                            }
+            when (result) {
+                is ApiResults.Success -> {
+                    coroutineScope {
+                        val resultRubricSelectionListDeferred = async { result.data.toInterceptor() }
+                        val resultRubricSelectionList = resultRubricSelectionListDeferred.await()
+
+                        val resultMyRubriksDeferred = async {
+                            resultRubricSelectionList
+                                .filter { it.isChoosen }
+                                .map { MyRubriksResInterceptor(it.banner, it.desc, it.isChoosen, it.text, it.value) }
                         }
+                        val resultMyRubriks = resultMyRubriksDeferred.await()
 
-                        Results.Success(resultInterceptor)
+                        // nurirppan__: ini harus di save dalam bentuk json
+                        settingsHelper.save(KeySettingsType.RUBRIK_PILIHANKU, resultMyRubriks)
+
+                        Results.Success(Pair(resultRubricSelectionList, resultMyRubriks))
                     }
-
-                    is ApiResults.Error -> Results.Error(result.error)
                 }
-            },
-            onFailure = { exception ->
-                Results.Error(NetworkError.Error(exception))
+
+                is ApiResults.Error -> Results.Error(result.error)
             }
-        )
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
 
 
-    override suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> =
-        runCatching {
-            myRubriksApiService.saveMyRubriks(request)
-        }.fold(
-            onSuccess = { saveResult ->
-                when (saveResult) {
-                    is ApiResults.Success -> Results.Success(Unit)
-                    is ApiResults.Error -> Results.Error(saveResult.error)
-                }
-            },
-            onFailure = { exception ->
-                Results.Error(NetworkError.Error(exception))
+    suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError> =
+        try {
+            val saveResult = myRubriksApiService.saveMyRubriks(request)
+
+            when (saveResult) {
+                is ApiResults.Success -> Results.Success(Unit)
+                // nurirppan__: ini juga blm validasi selanjutnya
+                is ApiResults.Error -> Results.Error(saveResult.error)
             }
-        )
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
 
 
 }

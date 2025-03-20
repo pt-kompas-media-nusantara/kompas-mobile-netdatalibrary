@@ -6,6 +6,4 @@ import com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor.MyRubriks
 import com.kompasid.netdatalibrary.core.data.myRubriks.dto.request.SaveMyRubrikRequest
 
 interface IMyRubriksRepository {
-    suspend fun getMyRubriks(): Results<List<MyRubriksResInterceptor>, NetworkError>
-    suspend fun saveMyRubriks(request: SaveMyRubrikRequest): Results<Unit, NetworkError>
 }

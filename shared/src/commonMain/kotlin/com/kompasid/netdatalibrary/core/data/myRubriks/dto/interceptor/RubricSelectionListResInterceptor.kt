@@ -1,8 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.myRubriks.dto.interceptor
 
-
-
-data class MyRubriksResInterceptor(
+data class RubricSelectionListResInterceptor(
     val banner: String,
     val desc: String,
     val isChoosen: Boolean,
