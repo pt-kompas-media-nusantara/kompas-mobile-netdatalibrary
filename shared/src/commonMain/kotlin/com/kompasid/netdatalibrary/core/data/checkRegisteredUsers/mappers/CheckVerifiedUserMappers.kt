@@ -1,13 +1,23 @@
 package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers
 
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.RegisteredType
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
 
 
-fun CheckVerifiedUserResponse.toInterceptor(): CheckVerifiedUserResInterceptor {
-    return CheckVerifiedUserResInterceptor(
+fun CheckVerifiedUserResponse.toInterceptor(value: String): CheckRegisteredUsersResInterceptor {
+    val registeredType = if (data?.registeredBy == "email") {
+        RegisteredType.EMAIL
+    } else {
+        RegisteredType.PHONE_NUMBER
+    }
+
+    return CheckRegisteredUsersResInterceptor(
+        registeredType = registeredType,
+        text = value,
         registered = data?.registered ?: false,
         registeredBy = data?.registeredBy ?: "",
-        registeredOn = data?.registeredOn.orEmpty().filterNotNull()
+        registeredOn = data?.registeredOn?.filterNotNull().orEmpty()
     )
 }
+

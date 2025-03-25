@@ -8,7 +8,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckVerifiedUserRepository
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.login.network.LoginApiService
@@ -101,7 +101,7 @@ val personalInfoModule = module {
     singleOf(::UserMembershipApiService) { bind<UserMembershipApiService>() }
 
     /// Check Verified User
-    singleOf(::CheckVerifiedUserRepository) { bind<CheckVerifiedUserRepository>() }
+    singleOf(::CheckRegisteredUsersRepository) { bind<CheckRegisteredUsersRepository>() }
     singleOf(::CheckRegisteredUsersApiService) { bind<CheckRegisteredUsersApiService>() }
     singleOf(::CheckVerifiedUserDataSource) { bind<CheckVerifiedUserDataSource>() }
 

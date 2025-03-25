@@ -3,25 +3,22 @@ package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers.toInterceptor
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 
-
-class CheckVerifiedUserRepository(
+class CheckRegisteredUsersRepository(
     private val checkRegisteredUsersApiService: CheckRegisteredUsersApiService,
     private val checkVerifiedUserDataSource: CheckVerifiedUserDataSource,
-) : ICheckVerifiedUserRepository {
+) : ICheckRegisteredUsersRepository {
 
-    suspend fun checkRegisteredUsers(value: String): Results<CheckVerifiedUserResInterceptor, NetworkError> {
+    suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
         return try {
             when (val result = checkRegisteredUsersApiService.checkRegisteredUsers(value)) {
                 is ApiResults.Success -> {
-                    val resultInterceptor = result.data.toInterceptor()
+                    val resultInterceptor = result.data.toInterceptor(value)
 
                     checkVerifiedUserDataSource.save(resultInterceptor)
 

@@ -2,8 +2,8 @@ package com.kompasid.netdatalibrary.core.domain.personalInfo.useCase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckVerifiedUserRepository
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
@@ -12,13 +12,12 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interce
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
 import com.kompasid.netdatalibrary.helpers.logged
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
     private val userMembershipsRepository: UserMembershipsRepository,
-    private val checkVerifiedUserRepository: CheckVerifiedUserRepository,
+    private val checkRegisteredUsersRepository: CheckRegisteredUsersRepository,
     private val updateProfileRepository: UpdateProfileRepository
 ) : IPersonalInfoUseCase {
 
@@ -72,9 +71,9 @@ class PersonalInfoUseCase(
         }
     }
 
-    suspend fun checkRegisteredUsers(value: String): Results<CheckVerifiedUserResInterceptor, NetworkError> {
+    suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
         return try {
-            checkVerifiedUserRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")
+            checkRegisteredUsersRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
