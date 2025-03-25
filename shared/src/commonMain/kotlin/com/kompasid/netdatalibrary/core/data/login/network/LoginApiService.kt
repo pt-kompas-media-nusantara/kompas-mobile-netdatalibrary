@@ -74,8 +74,16 @@ class LoginApiService(
         }
     }
 
-    suspend fun loginByApple(request: LoginAppleRequest): ApiResults<LoginResponse, NetworkError> {
+    suspend fun loginByApple(accessToken: String): ApiResults<LoginResponse, NetworkError> {
         return safeCall<LoginResponse> {
+
+            val request = LoginAppleRequest(
+                accessToken = accessToken,
+                device = settingsHelper.get(KeySettingsType.DEVICE, ""),
+                deviceType = settingsHelper.get(KeySettingsType.DEVICE_TYPE, ""),
+                docReferrer = settingsHelper.get(KeySettingsType.DOC_REFERRER, ""),
+            )
+
             httpClient.post(ApiConfig.LOGIN_BY_APPLE_URL) {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)

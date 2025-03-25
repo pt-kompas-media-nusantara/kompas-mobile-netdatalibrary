@@ -66,9 +66,9 @@ class LoginRepository(
         }
     }
 
-    suspend fun loginByApple(request: LoginAppleRequest): Results<Unit, NetworkError> {
+    suspend fun loginByApple(accessToken: String): Results<Unit, NetworkError> {
         return try {
-            when (val result = loginApiService.loginByApple(request)) {
+            when (val result = loginApiService.loginByApple(accessToken)) {
                 is ApiResults.Success -> {
                     result.data.data?.let { data ->
                         coroutineScope {

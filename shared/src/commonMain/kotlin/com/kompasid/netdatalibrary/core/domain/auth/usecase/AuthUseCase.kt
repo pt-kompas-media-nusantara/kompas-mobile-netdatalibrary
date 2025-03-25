@@ -42,9 +42,9 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByApple(request: LoginAppleRequest): Results<Unit, NetworkError> {
+    suspend fun loginByApple(accessToken: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByApple(request).logged(prefix = "loginByApple")
+            loginRepository.loginByApple(accessToken).logged(prefix = "loginByApple")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
