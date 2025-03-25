@@ -2,16 +2,16 @@ package com.kompasid.netdatalibrary.core.domain.personalInfo.useCase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.repository.CheckVerifiedUserRepository
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckVerifiedUserRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
-import com.kompasid.netdatalibrary.core.domain.personalInfo.other.UpdateProfileType
+import com.kompasid.netdatalibrary.helpers.logged
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 
@@ -58,7 +58,7 @@ class PersonalInfoUseCase(
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
-            userDetailRepository.getUserDetailOld()
+            userDetailRepository.getUserDetailOld().logged(prefix = "userDetail")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
@@ -66,28 +66,36 @@ class PersonalInfoUseCase(
 
     suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
-            userMembershipsRepository.getUserMembershipHistory()
+            userMembershipsRepository.getUserMembershipHistory().logged(prefix = "historyMembership")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
     }
 
-    suspend fun checkVerifiedUser(): Results<Unit, NetworkError> = coroutineScope {
-        runCatching {
-            checkVerifiedUserRepository.postCheckVerifiedUser()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is Results.Success -> {
-                        Results.Success(Unit)
-                    }
-
-                    is Results.Error -> Results.Error(result.error)
-                }
-            },
-            onFailure = { Results.Error(NetworkError.Error(it)) }
-        )
+    suspend fun checkRegisteredUsers(value: String): Results<CheckVerifiedUserResInterceptor, NetworkError> {
+        return try {
+            checkVerifiedUserRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
     }
+
+//    suspend fun checkRegisteredUsers(value: String): Results<Unit, NetworkError> = coroutineScope {
+//        runCatching {
+//            checkVerifiedUserRepository.checkRegisteredUsers(value)
+//        }.fold(
+//            onSuccess = { result ->
+//                when (result) {
+//                    is Results.Success -> {
+//                        Results.Success(Unit)
+//                    }
+//
+//                    is Results.Error -> Results.Error(result.error)
+//                }
+//            },
+//            onFailure = { Results.Error(NetworkError.Error(it)) }
+//        )
+//    }
 
 //    suspend fun updateProfile(type: UpdateProfileType): Results<Unit, NetworkError> =
 //        coroutineScope {

@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helpers.date
+package com.kompasid.netdatalibrary.helpers
 
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone

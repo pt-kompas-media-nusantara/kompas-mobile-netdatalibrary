@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.interceptor
+package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor
 
 data class CheckVerifiedUserResInterceptor(
     var registered: Boolean = false,

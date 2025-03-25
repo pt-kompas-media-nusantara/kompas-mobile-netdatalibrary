@@ -1,6 +1,7 @@
-package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dataSource
+package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource
 
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.interceptor.CheckVerifiedUserResInterceptor
+import com.kompasid.netdatalibrary.base.logger.Logger
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.launch
@@ -15,8 +16,15 @@ class CheckVerifiedUserDataSource(
             KeySettingsType.REGISTERED_BY to data.registeredBy,
             KeySettingsType.REGISTERED_ON to data.registeredOn
         ).forEach { (key, value) ->
-            launch { runCatching { settingsHelper.save(key, value) } }
+            launch {
+                runCatching {
+                    settingsHelper.save(key, value)
+                }.onFailure {
+                    Logger.debug { "Failed to save $key: ${it.message}" }
+                }
+            }
         }
     }
+
 
 }

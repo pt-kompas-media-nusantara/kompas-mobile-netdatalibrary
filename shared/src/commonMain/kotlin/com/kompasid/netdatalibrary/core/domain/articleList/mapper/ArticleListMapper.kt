@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.core.domain.articleList.mapper
 
-import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
+import com.kompasid.netdatalibrary.helpers.RelativeTimeFormatter
 import com.kompasid.netdatalibrary.core.data.belum.articleList.model.dto.ArticleListResponse
 import com.kompasid.netdatalibrary.core.data.belum.articleList.model.dto.Category
 import com.kompasid.netdatalibrary.core.data.belum.articleList.model.dto.Thumbnails

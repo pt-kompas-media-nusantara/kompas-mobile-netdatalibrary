@@ -2,21 +2,15 @@ package com.kompasid.netdatalibrary.core.presentation.launchApp.stateState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.domain.launchApp.model.LaunchAppInterceptor
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.ConfigurationSystemState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
-import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.SharingStarted
+import com.kompasid.netdatalibrary.helpers.RelativeTimeFormatter
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.serialization.builtins.ListSerializer
 
 class LaunchAppVM(
     private val launchAppUseCase: LaunchAppUseCase,

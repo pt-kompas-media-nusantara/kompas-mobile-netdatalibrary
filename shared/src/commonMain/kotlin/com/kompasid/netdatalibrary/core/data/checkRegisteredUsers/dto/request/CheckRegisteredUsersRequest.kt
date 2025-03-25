@@ -1,11 +1,11 @@
-package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.request
+package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.request
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 
 @Serializable
-data class CheckVerifiedUserRequest(
+data class CheckRegisteredUsersRequest(
     @SerialName("type")
     var type: String? = null,
     @SerialName("value")

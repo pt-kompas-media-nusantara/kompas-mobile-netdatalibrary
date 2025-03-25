@@ -1,6 +1,5 @@
 package com.kompasid.netdatalibrary.core.domain.auth.usecase
 
-import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginAppleRequest
@@ -8,7 +7,7 @@ import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginGoogleRequest
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
-import com.kompasid.netdatalibrary.helpers.date.logged
+import com.kompasid.netdatalibrary.helpers.logged
 
 
 class AuthUseCase(

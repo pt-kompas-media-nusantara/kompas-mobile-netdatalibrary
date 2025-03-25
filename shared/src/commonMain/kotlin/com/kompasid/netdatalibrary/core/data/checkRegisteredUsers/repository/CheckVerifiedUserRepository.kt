@@ -1,50 +1,40 @@
-package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.repository
+package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository
 
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.interceptor.CheckVerifiedUserResInterceptor
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.request.CheckVerifiedUserRequest
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.network.CheckVerifiedUserApiService
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dataSource.CheckVerifiedUserDataSource
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.mappers.toInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers.toInterceptor
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
 class CheckVerifiedUserRepository(
-    private val checkVerifiedUserApiService: CheckVerifiedUserApiService,
+    private val checkRegisteredUsersApiService: CheckRegisteredUsersApiService,
     private val checkVerifiedUserDataSource: CheckVerifiedUserDataSource,
 ) : ICheckVerifiedUserRepository {
 
-    suspend fun postCheckVerifiedUser(): Results<CheckVerifiedUserResInterceptor, NetworkError> =
-        runCatching {
-            checkVerifiedUserApiService.postCheckVerifiedUser()
-        }.fold(
-            onSuccess = { result ->
-                when (result) {
-                    is ApiResults.Success -> {
-                        val resultInterceptor = result.data.toInterceptor()
+    suspend fun checkRegisteredUsers(value: String): Results<CheckVerifiedUserResInterceptor, NetworkError> {
+        return try {
+            when (val result = checkRegisteredUsersApiService.checkRegisteredUsers(value)) {
+                is ApiResults.Success -> {
+                    val resultInterceptor = result.data.toInterceptor()
 
-                        coroutineScope {
-                            launch {
-                                runCatching {
-                                    checkVerifiedUserDataSource.save(resultInterceptor)
-                                }
-                            }
-                        }
+                    checkVerifiedUserDataSource.save(resultInterceptor)
 
-                        Results.Success(resultInterceptor)
-                    }
-
-                    is ApiResults.Error -> Results.Error(result.error)
+                    Results.Success(resultInterceptor)
                 }
-            },
-            onFailure = { exception ->
-                Results.Error(NetworkError.Error(exception))
+
+                is ApiResults.Error -> Results.Error(result.error)
             }
-        )
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
+    }
+
 }
 /*
 static func getRegisteredOn(from data: [String]?) -> [RegisteredType] {

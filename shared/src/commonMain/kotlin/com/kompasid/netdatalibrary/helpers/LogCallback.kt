@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.helpers.date
+package com.kompasid.netdatalibrary.helpers
 
 import com.kompasid.netdatalibrary.base.logger.Logger
 

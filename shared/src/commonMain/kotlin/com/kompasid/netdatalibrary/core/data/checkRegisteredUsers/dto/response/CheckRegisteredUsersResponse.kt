@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.response
+package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response
 import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.SerialName
@@ -8,13 +8,13 @@ data class CheckVerifiedUserResponse(
     @SerialName("code")
     var code: Int? = null,
     @SerialName("data")
-    var data: CheckVerifiedUserResponseData? = null,
+    var data: CheckRegisteredUsersData? = null,
     @SerialName("message")
     var message: String? = null,
 )
 
 @Serializable
-data class CheckVerifiedUserResponseData(
+data class CheckRegisteredUsersData(
     @SerialName("registered")
     var registered: Boolean? = null,
     @SerialName("registeredBy")

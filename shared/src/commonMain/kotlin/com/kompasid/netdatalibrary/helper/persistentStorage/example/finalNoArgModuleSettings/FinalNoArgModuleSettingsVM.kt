@@ -1,12 +1,10 @@
 package com.kompasid.netdatalibrary.helper.persistentStorage.example.finalNoArgModuleSettings
 
 import com.kompasid.netdatalibrary.BaseVM
-import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import com.kompasid.netdatalibrary.helpers.date.RelativeTimeFormatter
-import kotlinx.coroutines.delay
+import com.kompasid.netdatalibrary.helpers.RelativeTimeFormatter
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn

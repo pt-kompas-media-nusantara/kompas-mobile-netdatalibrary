@@ -1,7 +1,7 @@
-package com.kompasid.netdatalibrary.core.data.checkVerifiedUser.mappers
+package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers
 
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.interceptor.CheckVerifiedUserResInterceptor
-import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.dto.response.CheckVerifiedUserResponse
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckVerifiedUserResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
 
 
 fun CheckVerifiedUserResponse.toInterceptor(): CheckVerifiedUserResInterceptor {
