@@ -9,12 +9,16 @@ import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginGoogleRequest
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
+import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterResInterceptor
+import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.helpers.logged
 
 
 class AuthUseCase(
-    private val loginRepository: LoginRepository,
     private val checkRegisteredUsersRepository: CheckRegisteredUsersRepository,
+    private val loginRepository: LoginRepository,
+    private val registerRepository: RegisterRepository,
     private val logoutRepository: LogoutRepository
 ) {
 
@@ -45,6 +49,14 @@ class AuthUseCase(
     suspend fun loginByApple(accessToken: String): Results<Unit, NetworkError> {
         return try {
             loginRepository.loginByApple(accessToken).logged(prefix = "loginByApple")
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
+    }
+
+    suspend fun registerByEmail(email: String, firstName: String, lastName: String, password: String): Results<RegisterResInterceptor, NetworkError> {
+        return try {
+            registerRepository.registerByEmail(email, firstName, lastName, password).logged(prefix = "registerByEmail")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }

@@ -11,6 +11,8 @@ object ApiConfig {
     const val LOGIN_BY_GOOGLE_URL = "$KID_URL/account/api/v2/login/google"
     const val LOGIN_BY_APPLE_URL = "$KID_URL/account/api/v2/login/apple"
 
+    const val REGISTER_URL = "$KID_URL/account/api/v2/register"
+
     const val USER_DETAIL_URL = "$KID_URL/account/api/v2/users/detail"
     const val USER_MEMBERSHIP_URL = "$SUBS_URL/subscriptions"
     const val USER_HISTORY_MEMBERSHIP_URL = "$KID_URL/account/api/v2/users/membership"
