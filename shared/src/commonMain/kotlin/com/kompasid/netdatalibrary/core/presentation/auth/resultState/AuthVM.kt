@@ -21,26 +21,26 @@ class AuthVM(
     }
 
     fun loginByEmailTest() {
-        scope.launch {
-            val result = authUseCase.loginByEmail(
-                LoginEmailRequest(
-                    "nur.irfan@kompas.com",
-                    "Nurirppankompas@28",
-                    "testKMP",
-                    "testKMP",
-                )
-            )
-            when (result) {
-                is Results.Error -> {
-                    Logger.error {
-                        result.error.toString()
-                    }
-                }
-
-                is Results.Success -> {
-                    // Mendapatkan data dari Pair
-                }
-            }
-        }
+//        scope.launch {
+//            val result = authUseCase.loginByEmail(
+//                LoginEmailRequest(
+//                    "nur.irfan@kompas.com",
+//                    "Nurirppankompas@28",
+//                    "testKMP",
+//                    "testKMP",
+//                )
+//            )
+//            when (result) {
+//                is Results.Error -> {
+//                    Logger.error {
+//                        result.error.toString()
+//                    }
+//                }
+//
+//                is Results.Success -> {
+//                    // Mendapatkan data dari Pair
+//                }
+//            }
+//        }
     }
 }

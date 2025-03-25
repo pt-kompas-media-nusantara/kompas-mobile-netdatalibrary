@@ -18,9 +18,9 @@ class LoginRepository(
     private val loginEmailDataSource: LoginEmailDataSource,
 ) : ILoginRepository {
 
-    suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> {
+    suspend fun loginByEmail(email: String, password: String): Results<Unit, NetworkError> {
         return try {
-            when (val result = loginApiService.loginByEmail(request)) {
+            when (val result = loginApiService.loginByEmail(email, password)) {
                 is ApiResults.Success -> {
                     result.data.data?.let { data ->
                         coroutineScope {
@@ -42,9 +42,9 @@ class LoginRepository(
         }
     }
 
-    suspend fun loginByGoogle(request: LoginGoogleRequest): Results<Unit, NetworkError> {
+    suspend fun loginByGoogle(accessToken: String, state: String): Results<Unit, NetworkError> {
         return try {
-            when (val result = loginApiService.loginByGoogle(request)) {
+            when (val result = loginApiService.loginByGoogle(accessToken, state)) {
                 is ApiResults.Success -> {
                     result.data.data?.let { data ->
                         coroutineScope {
@@ -94,6 +94,7 @@ class LoginRepository(
         loginEmailDataSource.save(
             accessToken = data.accessToken.orEmpty(),
             refreshToken = data.refreshToken.orEmpty(),
+            // nurirppan__ : disini ada isVerifyUser kalau nggak salah, kalau email bisa false atau true. kalau sosmed nggak ada apakah akan selalu true ?
             deviceKeyId = data.deviceKeyId.orEmpty(),
             isPassEmpty = data.isPassEmpty ?: false,
             isSocial = data.isSocial ?: false,

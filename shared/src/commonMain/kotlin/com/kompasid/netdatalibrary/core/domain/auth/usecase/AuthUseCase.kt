@@ -26,17 +26,17 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByEmail(request: LoginEmailRequest): Results<Unit, NetworkError> {
+    suspend fun loginByEmail(email: String, password: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByEmail(request).logged(prefix = "loginByEmail")
+            loginRepository.loginByEmail(email, password).logged(prefix = "loginByEmail")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
     }
 
-    suspend fun loginByGoogle(request: LoginGoogleRequest): Results<Unit, NetworkError> {
+    suspend fun loginByGoogle(accessToken: String, state: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByGoogle(request).logged(prefix = "loginByGoogle")
+            loginRepository.loginByGoogle(accessToken, state).logged(prefix = "loginByGoogle")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }

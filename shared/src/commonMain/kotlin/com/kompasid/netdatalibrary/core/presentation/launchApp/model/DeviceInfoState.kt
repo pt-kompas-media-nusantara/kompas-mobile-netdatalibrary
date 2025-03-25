@@ -5,7 +5,9 @@ import kotlinx.serialization.json.Json
 
 @Serializable
 data class DeviceInfoState(
+    val device: String = "",
     val deviceType: String = "",
+    val docReferrer: String = "",
     val osVersion: String = "",
     val currentVersionApp: String = "",
     val newVersionApp: String = "",
@@ -13,7 +15,7 @@ data class DeviceInfoState(
     fun toJson(): String {
         return Json.encodeToString(
             serializer(), DeviceInfoState(
-                deviceType, osVersion, currentVersionApp, newVersionApp
+                device, deviceType, docReferrer, osVersion, currentVersionApp, newVersionApp
             )
         )
     }

@@ -1,7 +1,6 @@
 package com.kompasid.netdatalibrary.di
 
 import com.kompasid.netdatalibrary.base.di.base.sharedKoinModules
-import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerManager
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
@@ -42,7 +41,6 @@ class KoinInjector : KoinComponent {
     val trackerUseCase: TrackerUseCase by inject()
 
 
-    val myRubriksState: MyRubriksState by inject()
     val myRubriksUseCase: MyRubriksUseCase by inject()
 
     val trackerManager: TrackerManager by inject()

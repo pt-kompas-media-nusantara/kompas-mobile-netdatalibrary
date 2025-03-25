@@ -10,6 +10,8 @@ import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginAppleRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginGoogleRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.response.LoginResponse
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept
 import io.ktor.client.request.post
@@ -20,23 +22,31 @@ import io.ktor.http.contentType
 
 class LoginApiService(
     private val httpClient: HttpClient,
+    private val settingsHelper: SettingsHelper,
 ) : ILoginApiService {
 
     private val emailValidator = Validator(ValidationRules.emailValidation)
     private val passwordValidator = Validator(ValidationRules.passwordValidation)
 
-    suspend fun loginByEmail(request: LoginEmailRequest): ApiResults<LoginResponse, NetworkError> {
+    suspend fun loginByEmail(email: String, password: String): ApiResults<LoginResponse, NetworkError> {
         return safeCall<LoginResponse> {
 
-            val emailErrors = emailValidator.validate(request.email)
+            val emailErrors = emailValidator.validate(email)
             if (emailErrors != null) {
                 return ApiResults.Error(NetworkError.Technical(400, "Invalid email: ${emailErrors.joinToString()}"))
             }
 
-            val passwordErrors = passwordValidator.validate(request.password)
+            val passwordErrors = passwordValidator.validate(password)
             if (passwordErrors != null) {
                 return ApiResults.Error(NetworkError.Technical(400, "Invalid password: ${passwordErrors.joinToString()}"))
             }
+
+            val request = LoginEmailRequest(
+                email = email,
+                password = password,
+                device = settingsHelper.get(KeySettingsType.DEVICE, ""),
+                deviceType = settingsHelper.get(KeySettingsType.DEVICE_TYPE, ""),
+            )
 
             httpClient.post(ApiConfig.LOGIN_BY_EMAIL_URL) {
                 contentType(ContentType.Application.Json)
@@ -46,8 +56,16 @@ class LoginApiService(
         }
     }
 
-    suspend fun loginByGoogle(request: LoginGoogleRequest): ApiResults<LoginResponse, NetworkError> {
+    suspend fun loginByGoogle(accessToken: String, state: String): ApiResults<LoginResponse, NetworkError> {
         return safeCall<LoginResponse> {
+
+            val request = LoginGoogleRequest(
+                accessToken = accessToken,
+                device = settingsHelper.get(KeySettingsType.DEVICE, ""),
+                deviceType = settingsHelper.get(KeySettingsType.DEVICE_TYPE, ""),
+                docReferrer = settingsHelper.get(KeySettingsType.DOC_REFERRER, ""),
+                state = state,
+            )
             httpClient.post(ApiConfig.LOGIN_BY_GOOGLE_URL) {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)

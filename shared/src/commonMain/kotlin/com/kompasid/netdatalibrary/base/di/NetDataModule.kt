@@ -33,7 +33,6 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.Us
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
-import com.kompasid.netdatalibrary.core.data.myRubriks.resultState.MyRubriksState
 import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
@@ -42,7 +41,6 @@ import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
-
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
@@ -136,7 +134,6 @@ val accountModule = module {
 
 val myRubriksModule = module {
     /// My Rubrik Use Case
-    singleOf(::MyRubriksState) { bind<MyRubriksState>() }
     singleOf(::MyRubriksApiService) { bind<MyRubriksApiService>() }
     singleOf(::MyRubriksRepository) { bind<MyRubriksRepository>() }
     singleOf(::MyRubriksUseCase) { bind<MyRubriksUseCase>() }
