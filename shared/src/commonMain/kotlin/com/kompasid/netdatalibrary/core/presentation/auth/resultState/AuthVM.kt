@@ -3,11 +3,9 @@ package com.kompasid.netdatalibrary.core.presentation.auth.resultState
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.loginEmail.dto.request.LoginEmailRequest
+import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
-import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class AuthVM(

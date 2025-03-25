@@ -11,9 +11,9 @@ import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.network.CheckVeri
 import com.kompasid.netdatalibrary.core.data.checkVerifiedUser.repository.CheckVerifiedUserRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
-import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiService
-import com.kompasid.netdatalibrary.core.data.loginEmail.dataSource.LoginEmailDataSource
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
+import com.kompasid.netdatalibrary.core.data.login.network.LoginApiService
+import com.kompasid.netdatalibrary.core.data.login.dataSource.LoginEmailDataSource
+import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
 import com.kompasid.netdatalibrary.core.data.loginGuest.dataSource.LoginGuestDataSource
 import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
@@ -77,9 +77,9 @@ val authModule = module {
     singleOf(::RefreshTokenApiService) { bind<RefreshTokenApiService>() }
 
     /// LoginEmail
-    singleOf(::LoginEmailRepository) { bind<LoginEmailRepository>() }
+    singleOf(::LoginRepository) { bind<LoginRepository>() }
     singleOf(::LoginEmailDataSource) { bind<LoginEmailDataSource>() }
-    singleOf(::LoginEmailApiService) { bind<LoginEmailApiService>() }
+    singleOf(::LoginApiService) { bind<LoginApiService>() }
 
     /// Logout
     singleOf(::LogoutRepository) { bind<LogoutRepository>() }
