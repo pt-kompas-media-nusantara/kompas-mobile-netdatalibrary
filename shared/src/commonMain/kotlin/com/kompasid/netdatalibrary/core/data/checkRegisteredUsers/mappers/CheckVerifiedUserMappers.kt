@@ -1,8 +1,8 @@
 package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers
 
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.RegisteredType
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.enums.RegisteredType
 
 
 fun CheckVerifiedUserResponse.toInterceptor(value: String): CheckRegisteredUsersResInterceptor {
