@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 @Serializable
 data class DeviceInfoState(
     val device: String = "",
-    val deviceType: String = "",
+    val deviceType: DeviceType = DeviceType.SMARTPHONE,
     val docReferrer: String = "",
     val osVersion: String = "",
     val currentVersionApp: String = "",
@@ -26,3 +26,4 @@ data class DeviceInfoState(
         }
     }
 }
+

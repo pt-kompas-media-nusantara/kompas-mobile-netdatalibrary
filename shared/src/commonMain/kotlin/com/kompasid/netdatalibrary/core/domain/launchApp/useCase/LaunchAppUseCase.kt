@@ -14,7 +14,7 @@ class LaunchAppUseCase(
         listOf(
             // DeviceInfoState
             async { settingsHelper.save(KeySettingsType.DEVICE, data.deviceInfoState.device) },
-            async { settingsHelper.save(KeySettingsType.DEVICE_TYPE, data.deviceInfoState.deviceType) },
+            async { settingsHelper.save(KeySettingsType.DEVICE_TYPE, data.deviceInfoState.deviceType.value) },
             async { settingsHelper.save(KeySettingsType.OS_VERSION, data.deviceInfoState.osVersion) },
             async { settingsHelper.save(KeySettingsType.CURRENT_VERSION_APP, data.deviceInfoState.currentVersionApp) },
 

@@ -27,4 +27,7 @@ object ApiConfig {
 
 
     const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"
+
+    // SUPPORT
+    const val OS_RECOMENDATION = "$CDN_URL/mobile/json/recommendedOSSettings.json"
 }
