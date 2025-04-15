@@ -54,7 +54,7 @@ class LaunchAppResultState(
             DeviceSubcriptionState(
                 originalTransactionId = originalTransactionId,
                 transactionId = transactionId,
-                historyTransaction = historyTransaction,
+                historyTransaction = "historyTransaction",
             )
         }
             .distinctUntilChanged()
@@ -69,7 +69,7 @@ class LaunchAppResultState(
     val configurationSystemState: StateFlow<ConfigurationSystemState> =
         combine(
             settingsHelper.load(KeySettingsType.FLAVORS, "").map { it ?: "" },
-            settingsHelper.load(KeySettingsType.IS_DEBUG, false).map { it ?: true }
+            settingsHelper.load(KeySettingsType.FLAVORS, false).map { it ?: true }
         ) { flavors, isDebug ->
             ConfigurationSystemState(
                 flavors = flavors,

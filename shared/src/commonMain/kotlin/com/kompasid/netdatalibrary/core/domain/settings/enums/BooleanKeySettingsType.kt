@@ -5,7 +5,6 @@ enum class BooleanKeySettingsType {
     IS_SOCIAL,
     IS_ACTIVE,
     PHONE_VERIFIED,
-    IS_DEBUG,
     IS_REGISTERED,
     REGISTERED_ON
 }

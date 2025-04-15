@@ -35,40 +35,40 @@ class LaunchAppVM(
     }
 
     fun executeTest() {
-        scope.launch {
-            try {
-                val data = LaunchAppInterceptor(
-                    deviceInfoState = DeviceInfoState(
-                        deviceType = "deviceType ${RelativeTimeFormatter().getCurrentTime()}",
-                        osVersion = "osVersion ${RelativeTimeFormatter().getCurrentTime()}",
-                        currentVersionApp = "currentVersionApp ${RelativeTimeFormatter().getCurrentTime()}",
-                        newVersionApp = "newVersionApp ${RelativeTimeFormatter().getCurrentTime()}"
-                    ),
-                    deviceSubcriptionState = DeviceSubcriptionState(
-                        originalTransactionId = listOf(
-                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
-                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
-                        ),
-                        transactionId = listOf(
-                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
-                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
-                        ),
-                        historyTransaction = listOf(
-                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
-                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
-                        ),
-                    ),
-                    configurationSystemState = ConfigurationSystemState(
-                        flavors = "flavors ${RelativeTimeFormatter().getCurrentTime()}",
-                        isDebug = false
-                    )
-                )
-
-                launchAppUseCase.execute(data)
-            } catch (e: Exception) {
-                Logger.error { "Error executing: ${e.message}" }
-            }
-        }
+//        scope.launch {
+//            try {
+//                val data = LaunchAppInterceptor(
+//                    deviceInfoState = DeviceInfoState(
+//                        deviceType = "deviceType ${RelativeTimeFormatter().getCurrentTime()}",
+//                        osVersion = "osVersion ${RelativeTimeFormatter().getCurrentTime()}",
+//                        currentVersionApp = "currentVersionApp ${RelativeTimeFormatter().getCurrentTime()}",
+//                        newVersionApp = "newVersionApp ${RelativeTimeFormatter().getCurrentTime()}"
+//                    ),
+//                    deviceSubcriptionState = DeviceSubcriptionState(
+//                        originalTransactionId = listOf(
+//                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
+//                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
+//                        ),
+//                        transactionId = listOf(
+//                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
+//                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
+//                        ),
+//                        historyTransaction = listOf(
+//                            "1 : ${RelativeTimeFormatter().getCurrentTime()}",
+//                            "2 : ${RelativeTimeFormatter().getCurrentTime()}",
+//                        ),
+//                    ),
+//                    configurationSystemState = ConfigurationSystemState(
+//                        flavors = "flavors ${RelativeTimeFormatter().getCurrentTime()}",
+//                        isDebug = false
+//                    )
+//                )
+//
+//                launchAppUseCase.execute(data)
+//            } catch (e: Exception) {
+//                Logger.error { "Error executing: ${e.message}" }
+//            }
+//        }
     }
 }
 

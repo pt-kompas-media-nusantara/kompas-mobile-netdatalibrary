@@ -69,10 +69,10 @@ class FinalNoArgModuleSettingsVM(
                     "transactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
                     "transactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
                 ),
-                historyTransaction = listOf(
-                    "historyTransaction 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "historyTransaction 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                ),
+//                historyTransaction = listOf(
+//                    "historyTransaction 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+//                    "historyTransaction 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+//                ),
             )
 
         }

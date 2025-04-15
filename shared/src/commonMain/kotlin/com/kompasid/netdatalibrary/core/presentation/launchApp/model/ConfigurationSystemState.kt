@@ -6,7 +6,8 @@ import kotlinx.serialization.json.Json
 @Serializable
 data class ConfigurationSystemState(
     val flavors: String = "",
-    val isDebug: Boolean = true,
+    val isDebug: Boolean = false,
+    val isLogActived: Boolean = false,
 ) {
     fun toJson(): String {
         return Json.encodeToString(

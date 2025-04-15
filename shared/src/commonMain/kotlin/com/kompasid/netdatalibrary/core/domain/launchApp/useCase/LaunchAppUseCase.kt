@@ -15,10 +15,8 @@ class LaunchAppUseCase(
             // DeviceInfoState
             async { settingsHelper.save(KeySettingsType.DEVICE, data.deviceInfoState.device) },
             async { settingsHelper.save(KeySettingsType.DEVICE_TYPE, data.deviceInfoState.deviceType) },
-            async { settingsHelper.save(KeySettingsType.DOC_REFERRER, data.deviceInfoState.deviceType) },
             async { settingsHelper.save(KeySettingsType.OS_VERSION, data.deviceInfoState.osVersion) },
             async { settingsHelper.save(KeySettingsType.CURRENT_VERSION_APP, data.deviceInfoState.currentVersionApp) },
-            async { settingsHelper.save(KeySettingsType.NEW_VERSION_APP, data.deviceInfoState.newVersionApp) },
 
             // DeviceSubcriptionState
             async { settingsHelper.save(KeySettingsType.ORIGINAL_TRANSACTION_ID, data.deviceSubcriptionState.originalTransactionId) },
@@ -27,7 +25,7 @@ class LaunchAppUseCase(
 
             // ConfigurationSystemState
             async { settingsHelper.save(KeySettingsType.FLAVORS, data.configurationSystemState.flavors) },
-            async { settingsHelper.save(KeySettingsType.IS_DEBUG, data.configurationSystemState.isDebug) }
+            async { settingsHelper.save(KeySettingsType.IS_LOG_ACTIVED, data.configurationSystemState.isLogActived) },
         ).awaitAll()
     }
 }

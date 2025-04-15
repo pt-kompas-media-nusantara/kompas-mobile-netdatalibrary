@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 data class DeviceSubcriptionState(
     val originalTransactionId: List<String> = emptyList(),
     val transactionId: List<String> = emptyList(),
-    val historyTransaction: List<String> = emptyList(),
+    val historyTransaction: String = "",
 ) {
     fun toJson(): String {
         return Json.encodeToString(
