@@ -9,7 +9,7 @@ import com.kompasid.netdatalibrary.android.AppBackBar
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.SerializationNoArgModuleSettingsVM
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.Address
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.model.UserProfile
-import com.kompasid.netdatalibrary.helpers.RelativeTimeFormatter
+import com.kompasid.netdatalibrary.helpers.times.RelativeTimeFormatter
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

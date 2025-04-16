@@ -1,10 +1,11 @@
-package com.kompasid.netdatalibrary.helpers
+package com.kompasid.netdatalibrary.helpers.times
 
 import kotlinx.datetime.*
 import kotlinx.datetime.TimeZone
 
 class RelativeTimeFormatter {
 
+    // output: 2025-04-16T15:53:12.123456
     fun getCurrentTime(): String {
         return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
     }

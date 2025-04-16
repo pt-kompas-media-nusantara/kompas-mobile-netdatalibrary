@@ -7,8 +7,3 @@ data class OSRecommendationResInterceptor(
 )
 
 
-enum class OSRecommendationType {
-    NO_UPDATE_OS,
-    MINOR_UPDATE_OS,
-    MAJOR_UPDATE_OS,
-}

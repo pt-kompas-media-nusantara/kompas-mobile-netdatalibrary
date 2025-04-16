@@ -8,9 +8,7 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.model.Configurati
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import com.kompasid.netdatalibrary.helpers.RelativeTimeFormatter
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class LaunchAppVM(
     private val launchAppUseCase: LaunchAppUseCase,

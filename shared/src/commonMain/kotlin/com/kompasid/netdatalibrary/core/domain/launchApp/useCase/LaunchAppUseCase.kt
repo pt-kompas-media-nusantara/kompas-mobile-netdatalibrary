@@ -13,7 +13,15 @@ class LaunchAppUseCase(
     suspend fun execute(data: LaunchAppInterceptor) = coroutineScope {
         listOf(
             // DeviceInfoState
-            async { settingsHelper.save(KeySettingsType.DEVICE, data.deviceInfoState.device) },
+
+            // hardcode sementara
+            async { settingsHelper.save(KeySettingsType.IS_FIRST_INSTALL, false) },
+            async { settingsHelper.save(KeySettingsType.IOS_UI_DEVICE_SYSTEM_NAME, "concate string") },
+            async { settingsHelper.save(KeySettingsType.IOS_UI_DEVICE_NAME, "concate string") },
+            async { settingsHelper.save(KeySettingsType.IOS_UI_DEVICE_MODEL, "concate string") },
+            async { settingsHelper.save(KeySettingsType.IOS_UI_DEVICE_SERIES, "concate string") },
+            async { settingsHelper.save(KeySettingsType.DEVICE, "concate string") },
+
             async { settingsHelper.save(KeySettingsType.DEVICE_TYPE, data.deviceInfoState.deviceType.value) },
             async { settingsHelper.save(KeySettingsType.OS_VERSION, data.deviceInfoState.osVersion) },
             async { settingsHelper.save(KeySettingsType.CURRENT_VERSION_APP, data.deviceInfoState.currentVersionApp) },
