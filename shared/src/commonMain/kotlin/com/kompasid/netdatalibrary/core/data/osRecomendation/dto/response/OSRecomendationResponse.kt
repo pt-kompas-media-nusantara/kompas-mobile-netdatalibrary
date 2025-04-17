@@ -8,7 +8,7 @@ data class OSRecomendationResponse(
     @SerialName("minimumOS")
     var minimumOS: String? = null,
     @SerialName("osRecommendation")
-    var osRecommendation: String? = null
+    var osRecommendation: String? = null,
+    @SerialName("osVersion")
+    var osVersion: String? = null,
 )
-
-

@@ -30,4 +30,5 @@ object ApiConfig {
 
     // SUPPORT
     const val OS_RECOMENDATION = "$CDN_URL/mobile/json/recommendedOSSettings.json"
+    const val FORCE_UPDATE = "$CDN_URL/mobile/json/iosForceUpdate.json"
 }

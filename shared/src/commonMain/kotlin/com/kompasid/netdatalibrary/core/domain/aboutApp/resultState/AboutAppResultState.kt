@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 
@@ -23,7 +22,7 @@ class AboutAppResultState(
 ) : BaseVM() {
 
     val currentVersionApp: StateFlow<String> =
-        settingsHelper.load(KeySettingsType.CURRENT_VERSION_APP, "")
+        settingsHelper.load(KeySettingsType.VERSION_APP_KOMPAS_ID, "")
             .distinctUntilChanged()
             .stateIn(scope, SharingStarted.Lazily, "")
 

@@ -6,7 +6,8 @@ import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.response.OSReco
 fun OSRecomendationResponse.toInterceptor(): OSRecommendationResInterceptor {
     return OSRecommendationResInterceptor(
         osRecommendation = osRecommendation ?: "",
-        minimumOS = minimumOS ?: ""
+        minimumOS = minimumOS ?: "",
+        osVersion = osVersion ?: "",
     )
 
 }

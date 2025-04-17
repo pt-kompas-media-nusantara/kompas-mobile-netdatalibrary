@@ -1,0 +1,8 @@
+// PROD: https://cdn-content.kompas.id/mobile/json/iosForceUpdate.json
+// DEV:
+
+{
+  "mobileVersion": "",
+  "maxVersion": "3.50.1",
+  "minVersion": "3.34.0"
+}

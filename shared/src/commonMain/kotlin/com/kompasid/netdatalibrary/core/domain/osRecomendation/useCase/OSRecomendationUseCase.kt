@@ -31,15 +31,15 @@ class OSRecomendationUseCase(
 
                     val lastInfo = settingsHelper.get(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, "")
                     val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, "")
-                    val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val isFirstInstall: Boolean = settingsHelper.get(KeySettingsType.IS_FIRST_INSTALL, false)
 
+                    val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val osRecommendation = result.data.osRecommendation
                     val minimumOS = result.data.minimumOS
 
                     val current = ValidateOSVersion.parse(osVersion)
-                    val min = ValidateOSVersion.parse(minimumOS)
                     val recommended = ValidateOSVersion.parse(osRecommendation)
+                    val min = ValidateOSVersion.parse(minimumOS)
 
                     if (lastInfo.isEmpty()) settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
 
