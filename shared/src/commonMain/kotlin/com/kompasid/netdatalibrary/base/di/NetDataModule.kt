@@ -49,7 +49,7 @@ import com.kompasid.netdatalibrary.core.presentation.AccountVM
 import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppResultState
-import com.kompasid.netdatalibrary.helper.UserDataHelper
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.coroutineNoArgModuleSettings.CoroutineNoArgModuleSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.example.listenerNoArgModuleSettings.ListenerNoArgModuleSettingsHelper
@@ -146,7 +146,7 @@ val updateTokenModule = module {
 
 val helperModule = module {
     singleOf(::SettingsHelper) { bind<SettingsHelper>() }
-    singleOf(::UserDataHelper) { bind<UserDataHelper>() }
+    singleOf(::SupportSettingsHelper) { bind<SupportSettingsHelper>() }
     singleOf(::DecodeJWT) { bind<DecodeJWT>() }
 
 //    EXMAPLE

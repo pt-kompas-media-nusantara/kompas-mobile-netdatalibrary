@@ -23,19 +23,18 @@ import com.kompasid.netdatalibrary.core.domain.account.data.subcriptionData
 import com.kompasid.netdatalibrary.core.domain.account.data.termsConditionsData
 import com.kompasid.netdatalibrary.core.domain.account.data.themeData
 import com.kompasid.netdatalibrary.core.domain.account.enums.AccountNavigationType
-import com.kompasid.netdatalibrary.helper.UserDataHelper
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
 import com.kompasid.netdatalibrary.helper.enums.StateUserType
-import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 
 class AccountUseCase(
-    private val userDataHelper: UserDataHelper,
+    private val supportSettingsHelper: SupportSettingsHelper,
 ) {
 
     suspend fun accountMenus(): List<AccountModel> {
-        val checkUserType = userDataHelper.checkUserType()
-        val checkAutoLogin = userDataHelper.checkAutoLogin()
+        val checkUserType = supportSettingsHelper.checkUserType()
+        val checkAutoLogin = supportSettingsHelper.checkAutoLogin()
 
         fun AccountModel.applyAccountModification(isSubscription: Boolean = false): AccountModel {
             return when {

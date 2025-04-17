@@ -3,7 +3,7 @@ package com.kompasid.netdatalibrary.core.domain.aboutApp.resultState
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AboutAppInterceptor
 import com.kompasid.netdatalibrary.core.domain.aboutApp.model.AppInfoModel
-import com.kompasid.netdatalibrary.helper.UserDataHelper
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.enums.StateUserType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 
 class AboutAppResultState(
     private val settingsHelper: SettingsHelper,
-    private val userDataHelper: UserDataHelper
+    private val supportSettingsHelper: SupportSettingsHelper
 ) : BaseVM() {
 
     val currentVersionApp: StateFlow<String> =
@@ -71,7 +71,7 @@ class AboutAppResultState(
 
     val userState: StateFlow<String> = flow {
         emit(
-            when (userDataHelper.checkUserType()) {
+            when (supportSettingsHelper.checkUserType()) {
                 StateUserType.ANON -> "Anonymous"
                 StateUserType.REGON -> "Register Only"
                 StateUserType.GRACE_PERIOD -> "Grace Period"

@@ -4,6 +4,8 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.enums.OSRecommendationType
 import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
+import com.kompasid.netdatalibrary.helper.enums.StateInstallType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
@@ -14,7 +16,8 @@ import kotlinx.datetime.LocalDateTime
 
 class OSRecomendationUseCase(
     private val osRecomendationRepository: OSRecomendationRepository,
-    private val settingsHelper: SettingsHelper
+    private val settingsHelper: SettingsHelper,
+    private val supportSettingsHelper: SupportSettingsHelper
 ) : IOSRecomendationUseCase {
 
     // ios: bisa di taruh di didFinishLaunchingWithOptions atau klik beranda
@@ -31,7 +34,6 @@ class OSRecomendationUseCase(
 
                     val lastInfo = settingsHelper.get(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, "")
                     val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, "")
-                    val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
 
                     val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val osRecommendation = result.data.osRecommendation
@@ -56,7 +58,7 @@ class OSRecomendationUseCase(
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (recTime.months >= 3 || stateInstall != 2) {
+                            if (recTime.months >= 3 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
                                 settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
                                 Results.Success(OSRecommendationType.OS_UPDATE_RECOMMENDATION)
                             } else {
@@ -72,7 +74,7 @@ class OSRecomendationUseCase(
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (infoTime.months >= 1 || stateInstall != 2) {
+                            if (infoTime.months >= 1 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
                                 settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
                                 Results.Success(OSRecommendationType.OS_UPDATE_INFORMATION)
                             } else {

@@ -1,6 +1,7 @@
 package com.kompasid.netdatalibrary.helper
 
 import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
+import com.kompasid.netdatalibrary.helper.enums.StateInstallType
 import com.kompasid.netdatalibrary.helper.enums.StateUserType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
@@ -9,11 +10,19 @@ import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.userData.S
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.userData.UserType
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.base.UserDataTrackerModel
 
-class UserDataHelper(
+class SupportSettingsHelper(
     private val settingsHelper: SettingsHelper
 ) {
 
-    suspend fun checkUserType() : StateUserType {
+    suspend fun stateInstallType(): StateInstallType {
+        val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
+        if (stateInstall != 2) {
+            return StateInstallType.FIRST_INSTALL
+        }
+        return StateInstallType.UPDATED
+    }
+
+    suspend fun checkUserType(): StateUserType {
         val isActive: String = settingsHelper.get(KeySettingsType.IS_ACTIVE, "")
         val gracePeriod: Int = settingsHelper.get(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, 0)
         val suber: String = "Aktif Berlangganan"
@@ -28,7 +37,7 @@ class UserDataHelper(
         }
     }
 
-    suspend fun checkAutoLogin() : AuthFlowType {
+    suspend fun checkAutoLogin(): AuthFlowType {
         val isActive: String = settingsHelper.get(KeySettingsType.IS_ACTIVE, "")
 //        val originalTransactionId: String = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, "")
         val gracePeriod: Int = settingsHelper.get(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, 0)

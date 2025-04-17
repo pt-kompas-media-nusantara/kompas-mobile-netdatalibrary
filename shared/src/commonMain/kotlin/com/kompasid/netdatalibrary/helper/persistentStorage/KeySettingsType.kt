@@ -64,7 +64,7 @@ enum class KeySettingsType(val key: String) {
     DEVICE_TYPE("DEVICE_TYPE"), // string |
     OS_VERSION("OS_VERSION"), // string |
 
-    STATE_INSTALL("STATE_INSTALL"), // int | 0 = kosong, 1 = first install, 2 = update
+    STATE_INSTALL("STATE_INSTALL"), // int | 0 = kosong, 1 = first install, 2 = update | stateInstallType()
     APP_VERSION_KOMPAS_ID("APP_VERSION_KOMPAS_ID"), // string |
     APP_VERSION_KOMPAS_ID_LATEST("APP_VERSION_KOMPAS_ID_LATEST"), // string |
 

@@ -4,6 +4,8 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.forceUpdate.dto.enums.ForceUpdateType
 import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateRepository
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
+import com.kompasid.netdatalibrary.helper.enums.StateInstallType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
@@ -14,7 +16,8 @@ import kotlinx.datetime.LocalDateTime
 
 class ForceUpdateUseCase(
     private val forceUpdateRepository: ForceUpdateRepository,
-    private val settingsHelper: SettingsHelper
+    private val settingsHelper: SettingsHelper,
+    private val supportSettingsHelper: SupportSettingsHelper
 ) {
     suspend fun forceUpdate(): Results<ForceUpdateType, NetworkError> {
         return try {
@@ -28,7 +31,6 @@ class ForceUpdateUseCase(
                     val now = RelativeTimeFormatter().getCurrentTime()
 
                     val lastForceUpdate = settingsHelper.get(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, "")
-                    val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
 
                     val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val maxVersion = result.data.maxVersion
@@ -51,7 +53,7 @@ class ForceUpdateUseCase(
                     return when {
                         // minor update
                         current >= min && current < max -> {
-                            if (shownTime.days >= 1 || stateInstall != 2) {
+                            if (shownTime.days >= 1 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
                                 settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
                                 Results.Success(ForceUpdateType.MINOR_UPDATE)
                             } else {
@@ -61,7 +63,7 @@ class ForceUpdateUseCase(
 
                         // major update
                         current < min -> {
-                            if (shownTime.days >= 1 || stateInstall != 2) {
+                            if (shownTime.days >= 1 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
                                 settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
                                 Results.Success(ForceUpdateType.MAJOR_UPDATE)
                             } else {
