@@ -31,7 +31,7 @@ class OSRecomendationUseCase(
 
                     val lastInfo = settingsHelper.get(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, "")
                     val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, "")
-                    val isFirstInstall: Boolean = settingsHelper.get(KeySettingsType.IS_FIRST_INSTALL, false)
+                    val isFirstInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
 
                     val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val osRecommendation = result.data.osRecommendation

@@ -28,7 +28,7 @@ class ForceUpdateUseCase(
                     val now = RelativeTimeFormatter().getCurrentTime()
 
                     val lastForceUpdate = settingsHelper.get(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, "")
-                    val isFirstInstall: Boolean = settingsHelper.get(KeySettingsType.IS_FIRST_INSTALL, false)
+                    val isFirstInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
 
                     val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val maxVersion = result.data.maxVersion
