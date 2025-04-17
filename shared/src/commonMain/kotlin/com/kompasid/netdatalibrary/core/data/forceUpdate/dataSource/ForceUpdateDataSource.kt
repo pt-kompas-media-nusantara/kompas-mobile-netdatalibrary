@@ -17,11 +17,11 @@ class ForceUpdateDataSource(
 
         val tasks = mutableListOf<Deferred<Unit>>()
 
-        tasks += async { settingsHelper.save(KeySettingsType.FORCE_UPDATE_MIN_VERSION, data.minVersion) }
-        tasks += async { settingsHelper.save(KeySettingsType.FORCE_UPDATE_MAX_VERSION, data.maxVersion) }
+        tasks += settingsHelper.saveAsync(this, KeySettingsType.FORCE_UPDATE_MIN_VERSION, data.minVersion)
+        tasks += settingsHelper.saveAsync(this, KeySettingsType.FORCE_UPDATE_MAX_VERSION, data.maxVersion)
 
         if (isDebug) {
-            tasks += async { settingsHelper.save(KeySettingsType.OS_VERSION, data.mobileVersion) }
+            tasks += settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION, data.mobileVersion)
         }
 
         try {
