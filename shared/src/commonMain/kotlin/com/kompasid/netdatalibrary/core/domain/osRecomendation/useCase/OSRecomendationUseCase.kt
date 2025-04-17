@@ -1,18 +1,15 @@
 package com.kompasid.netdatalibrary.core.domain.osRecomendation.useCase
 
-import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.enums.OSRecommendationType
-import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.interceptor.OSRecommendationResInterceptor
 import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
-import com.kompasid.netdatalibrary.core.data.refreshToken.dto.request.RefreshTokenRequest
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
 import com.kompasid.netdatalibrary.helpers.logged
 import com.kompasid.netdatalibrary.helpers.times.RelativeTimeFormatter
-import com.kompasid.netdatalibrary.helpers.times.ValidateTimeFormatter
+import com.kompasid.netdatalibrary.helpers.times.CalculateTimeFormatter
 import kotlinx.datetime.LocalDateTime
 
 class OSRecomendationUseCase(
@@ -52,7 +49,7 @@ class OSRecomendationUseCase(
 
                     return when {
                         current < min -> {
-                            val recTime = ValidateTimeFormatter().calculateTimeDifferenceComponents(
+                            val recTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
                                 try {
                                     LocalDateTime.parse(lastRec)
                                 } catch (_: Exception) {
@@ -68,7 +65,7 @@ class OSRecomendationUseCase(
                         }
 
                         current >= min && current < recommended -> {
-                            val infoTime = ValidateTimeFormatter().calculateTimeDifferenceComponents(
+                            val infoTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
                                 try {
                                     LocalDateTime.parse(lastInfo)
                                 } catch (_: Exception) {

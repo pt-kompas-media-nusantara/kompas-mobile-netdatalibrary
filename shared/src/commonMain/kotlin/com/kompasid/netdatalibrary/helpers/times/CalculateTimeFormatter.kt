@@ -3,7 +3,7 @@ package com.kompasid.netdatalibrary.helpers.times
 import com.kompasid.netdatalibrary.helpers.times.model.TimeDifferenceComponentsModel
 import kotlinx.datetime.*
 
-class ValidateTimeFormatter {
+class CalculateTimeFormatter {
 
     fun calculateTimeDifferenceComponents(
         from: LocalDateTime,
