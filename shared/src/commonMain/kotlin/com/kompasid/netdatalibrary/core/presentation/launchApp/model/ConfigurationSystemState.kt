@@ -8,18 +8,4 @@ data class ConfigurationSystemState(
     val flavors: String = "",
     val isDebug: Boolean = false,
     val isLogActived: Boolean = false,
-) {
-    fun toJson(): String {
-        return Json.encodeToString(
-            serializer(), ConfigurationSystemState(
-                flavors, isDebug
-            )
-        )
-    }
-
-    companion object {
-        fun fromJSON(data: String): ConfigurationSystemState {
-            return Json.decodeFromString(data)
-        }
-    }
-}
+)

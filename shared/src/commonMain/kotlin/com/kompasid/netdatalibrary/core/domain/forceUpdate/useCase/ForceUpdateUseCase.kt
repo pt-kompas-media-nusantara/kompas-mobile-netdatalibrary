@@ -28,7 +28,7 @@ class ForceUpdateUseCase(
                     val now = RelativeTimeFormatter().getCurrentTime()
 
                     val lastForceUpdate = settingsHelper.get(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, "")
-                    val isFirstInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
+                    val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
 
                     val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val maxVersion = result.data.maxVersion
@@ -51,7 +51,7 @@ class ForceUpdateUseCase(
                     return when {
                         // minor update
                         current >= min && current < max -> {
-                            if (shownTime.days >= 1 || isFirstInstall) {
+                            if (shownTime.days >= 1 || stateInstall != 2) {
                                 settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
                                 Results.Success(ForceUpdateType.MINOR_UPDATE)
                             } else {
@@ -61,7 +61,7 @@ class ForceUpdateUseCase(
 
                         // major update
                         current < min -> {
-                            if (shownTime.days >= 1 || isFirstInstall) {
+                            if (shownTime.days >= 1 || stateInstall != 2) {
                                 settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
                                 Results.Success(ForceUpdateType.MAJOR_UPDATE)
                             } else {

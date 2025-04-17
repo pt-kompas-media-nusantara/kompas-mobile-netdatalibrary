@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.domain.settings.enums
+package com.kompasid.netdatalibrary.helper.persistentStorage.enums
 
 enum class IntKeySettingsType {
     ID_GENDER,

@@ -8,7 +8,6 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.model.Configurati
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
-import com.kompasid.netdatalibrary.utilities.SettingsSaver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
@@ -18,7 +17,6 @@ import kotlinx.coroutines.delay
 
 class LaunchAppUseCase(
     private val settingsHelper: SettingsHelper,
-    private val settingsSaver: SettingsSaver
 ) {
     suspend fun execute(data: LaunchAppInterceptor) = coroutineScope {
         saveDeviceInfo(data.deviceInfoState)
@@ -34,14 +32,14 @@ class LaunchAppUseCase(
                     "${device.uiDeviceName} | ${device.uiDeviceModel} | " +
                     "${device.osVersion} | ${device.uiDeviceSeries}"
             listOf(
-                settingsSaver.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_SYSTEM_NAME, device.uiDeviceSystemName),
-                settingsSaver.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_NAME, device.uiDeviceName),
-                settingsSaver.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_MODEL, device.uiDeviceModel),
-                settingsSaver.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_SERIES, device.uiDeviceSeries),
-                settingsSaver.saveAsync(this, KeySettingsType.DEVICE, deviceDescription),
-                settingsSaver.saveAsync(this, KeySettingsType.DEVICE_TYPE, device.deviceType.value),
-                settingsSaver.saveAsync(this, KeySettingsType.OS_VERSION, device.osVersion),
-                settingsSaver.saveAsync(this, KeySettingsType.APP_VERSION_KOMPAS_ID, device.versionAppKompasId)
+                settingsHelper.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_SYSTEM_NAME, device.uiDeviceSystemName),
+                settingsHelper.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_NAME, device.uiDeviceName),
+                settingsHelper.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_MODEL, device.uiDeviceModel),
+                settingsHelper.saveAsync(this, KeySettingsType.IOS_UI_DEVICE_SERIES, device.uiDeviceSeries),
+                settingsHelper.saveAsync(this, KeySettingsType.DEVICE, deviceDescription),
+                settingsHelper.saveAsync(this, KeySettingsType.DEVICE_TYPE, device.deviceType.value),
+                settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION, device.osVersion),
+                settingsHelper.saveAsync(this, KeySettingsType.APP_VERSION_KOMPAS_ID, device.versionAppKompasId)
             ).awaitAll()
         }
     }
@@ -50,9 +48,9 @@ class LaunchAppUseCase(
     private suspend fun saveSubscriptionInfo(subscription: DeviceSubcriptionState) {
         coroutineScope {
             listOf(
-                settingsSaver.saveAsync(this, KeySettingsType.ORIGINAL_TRANSACTION_ID, subscription.originalTransactionId),
-                settingsSaver.saveAsync(this, KeySettingsType.TRANSACTION_ID, subscription.transactionId),
-                settingsSaver.saveAsync(this, KeySettingsType.HISTORY_TRANSACTION, subscription.historyTransaction)
+                settingsHelper.saveAsync(this, KeySettingsType.ORIGINAL_TRANSACTION_ID, subscription.originalTransactionId),
+                settingsHelper.saveAsync(this, KeySettingsType.TRANSACTION_ID, subscription.transactionId),
+                settingsHelper.saveAsync(this, KeySettingsType.HISTORY_TRANSACTION, subscription.historyTransaction)
             ).awaitAll()
         }
     }
@@ -60,9 +58,9 @@ class LaunchAppUseCase(
     private suspend fun saveConfigurationInfo(config: ConfigurationSystemState) {
         coroutineScope {
             listOf(
-                settingsSaver.saveAsync(this, KeySettingsType.FLAVORS, config.flavors),
-                settingsSaver.saveAsync(this, KeySettingsType.IS_DEBUG, config.isDebug),
-                settingsSaver.saveAsync(this, KeySettingsType.IS_LOG_ACTIVED, config.isLogActived)
+                settingsHelper.saveAsync(this, KeySettingsType.FLAVORS, config.flavors),
+                settingsHelper.saveAsync(this, KeySettingsType.IS_DEBUG, config.isDebug),
+                settingsHelper.saveAsync(this, KeySettingsType.IS_LOG_ACTIVED, config.isLogActived)
             ).awaitAll()
         }
     }

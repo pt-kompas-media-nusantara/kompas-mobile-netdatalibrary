@@ -31,7 +31,7 @@ class OSRecomendationUseCase(
 
                     val lastInfo = settingsHelper.get(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, "")
                     val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, "")
-                    val isFirstInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
+                    val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
 
                     val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     val osRecommendation = result.data.osRecommendation
@@ -56,7 +56,7 @@ class OSRecomendationUseCase(
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (recTime.months >= 3 || isFirstInstall) {
+                            if (recTime.months >= 3 || stateInstall != 2) {
                                 settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
                                 Results.Success(OSRecommendationType.OS_UPDATE_RECOMMENDATION)
                             } else {
@@ -72,7 +72,7 @@ class OSRecomendationUseCase(
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (infoTime.months >= 1 || isFirstInstall) {
+                            if (infoTime.months >= 1 || stateInstall != 2) {
                                 settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
                                 Results.Success(OSRecommendationType.OS_UPDATE_INFORMATION)
                             } else {

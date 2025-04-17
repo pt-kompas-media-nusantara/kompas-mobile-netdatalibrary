@@ -6,6 +6,10 @@ import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.serialization.decodeValue
 import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.serialization.removeValue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -19,7 +23,36 @@ import kotlinx.serialization.json.Json
 class SettingsHelper(
     private val settings: Settings,
     private val flowSettings: FlowSettings,
+    private val logger: (String, Throwable?) -> Unit = { msg, err -> println("$msg\n${err?.stackTraceToString()}") }
 ) {
+
+    private suspend fun saveWithRetry(
+        key: KeySettingsType,
+        value: Any?,
+        maxRetries: Int = 1,
+        delayMillis: Long = 200L
+    ) {
+        repeat(maxRetries) { attempt ->
+            try {
+                save(key, value)
+                return
+            } catch (e: Exception) {
+                if (attempt == maxRetries - 1) {
+                    logger("❌ Failed to save key=$key, value=$value", e)
+                } else {
+                    delay(delayMillis)
+                }
+            }
+        }
+    }
+
+    fun saveAsync(
+        scope: CoroutineScope,
+        key: KeySettingsType,
+        value: Any?
+    ): Deferred<Unit> = scope.async {
+        saveWithRetry(key, value)
+    }
 
     suspend fun <T> save(key: KeySettingsType, value: T, serializer: KSerializer<T>? = null) {
         when (value) {
