@@ -22,7 +22,7 @@ class AboutAppResultState(
 ) : BaseVM() {
 
     val currentVersionApp: StateFlow<String> =
-        settingsHelper.load(KeySettingsType.APP_VERSION_KOMPAS_ID, "")
+        settingsHelper.load(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, "")
             .distinctUntilChanged()
             .stateIn(scope, SharingStarted.Lazily, "")
 

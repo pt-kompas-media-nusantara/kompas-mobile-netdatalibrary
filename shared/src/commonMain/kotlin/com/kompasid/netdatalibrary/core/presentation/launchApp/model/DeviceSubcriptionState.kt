@@ -5,7 +5,5 @@ import kotlinx.serialization.json.Json
 
 @Serializable
 data class DeviceSubcriptionState(
-    val originalTransactionId: List<String> = emptyList(),
-    val transactionId: List<String> = emptyList(),
-    val historyTransaction: String = "",
+    val historyTransaction: String = "", // originalTransactionId & transactionId akan di ambil dari historyTransaction (convert sendiri)
 )

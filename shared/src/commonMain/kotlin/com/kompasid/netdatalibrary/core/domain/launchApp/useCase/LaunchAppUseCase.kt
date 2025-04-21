@@ -1,6 +1,5 @@
 package com.kompasid.netdatalibrary.core.domain.launchApp.useCase
 
-import com.kompasid.netdatalibrary.base.logger.Logger
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.core.domain.launchApp.model.LaunchAppInterceptor
@@ -8,22 +7,20 @@ import com.kompasid.netdatalibrary.core.presentation.launchApp.model.Configurati
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 
 class LaunchAppUseCase(
     private val settingsHelper: SettingsHelper,
 ) {
+
+    /// put here : didFinishLaunchingWithOptions
     suspend fun execute(data: LaunchAppInterceptor) = coroutineScope {
         saveDeviceInfo(data.deviceInfoState)
         saveSubscriptionInfo(data.deviceSubcriptionState)
         saveConfigurationInfo(data.configurationSystemState)
 
-        checkAndUpdateAppVersion(data.deviceInfoState.versionAppKompasId)
+        checkAndUpdateAppVersion(data.deviceInfoState.currentAppVersionKompasId)
     }
 
     private suspend fun saveDeviceInfo(device: DeviceInfoState) {
@@ -39,7 +36,7 @@ class LaunchAppUseCase(
                 settingsHelper.saveAsync(this, KeySettingsType.DEVICE, deviceDescription),
                 settingsHelper.saveAsync(this, KeySettingsType.DEVICE_TYPE, device.deviceType.value),
                 settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION, device.osVersion),
-                settingsHelper.saveAsync(this, KeySettingsType.APP_VERSION_KOMPAS_ID, device.versionAppKompasId)
+                settingsHelper.saveAsync(this, KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, device.currentAppVersionKompasId)
             ).awaitAll()
         }
     }
@@ -48,8 +45,6 @@ class LaunchAppUseCase(
     private suspend fun saveSubscriptionInfo(subscription: DeviceSubcriptionState) {
         coroutineScope {
             listOf(
-                settingsHelper.saveAsync(this, KeySettingsType.ORIGINAL_TRANSACTION_ID, subscription.originalTransactionId),
-                settingsHelper.saveAsync(this, KeySettingsType.TRANSACTION_ID, subscription.transactionId),
                 settingsHelper.saveAsync(this, KeySettingsType.HISTORY_TRANSACTION, subscription.historyTransaction)
             ).awaitAll()
         }
@@ -66,22 +61,30 @@ class LaunchAppUseCase(
     }
 
     private suspend fun checkAndUpdateAppVersion(currentVersionString: String) {
-        val storedVersion = settingsHelper.get(KeySettingsType.APP_VERSION_KOMPAS_ID, "")
-        val latestVersion = settingsHelper.get(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, "")
-
-        if (storedVersion.isEmpty()) {
-            settingsHelper.save(KeySettingsType.STATE_INSTALL, 1)
-            settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, currentVersionString)
-        } else {
-            val currentVersion = ValidateOSVersion.parse(storedVersion)
-            val latest = ValidateOSVersion.parse(latestVersion)
-
-            if (currentVersion != latest) {
-                settingsHelper.save(KeySettingsType.STATE_INSTALL, 2)
-                settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID, currentVersionString)
-                settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, currentVersionString)
-            }
-        }
+        // logic nya salah, karna bisa buka tutup lagi ketika pertama kali install
+        // jangan ambil dari json dulu
+        // PR nurirppan_ : masih salah
+//        val currentVersion = settingsHelper.get(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, "")
+//        val latestVersion = settingsHelper.get(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, "")
+//
+//        if (currentVersion.isEmpty()) {
+//            settingsHelper.save(KeySettingsType.STATE_INSTALL, 1)
+//        } else {
+//            val current = ValidateOSVersion.parse(currentVersion)
+//            val latest = ValidateOSVersion.parse(latestVersion)
+//
+//            if (current != latest) {
+//                settingsHelper.save(KeySettingsType.STATE_INSTALL, 2)
+//                if (current > latest) {
+//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, currentVersionString)
+//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, currentVersionString)
+//                } else {
+//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, currentVersionString)
+//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, currentVersionString)
+//                }
+//
+//            }
+//        }
     }
 
 

@@ -56,17 +56,17 @@ enum class KeySettingsType(val key: String) {
     TRANSACTION_ID("TRANSACTION_ID"), // List<String> |
     HISTORY_TRANSACTION("HISTORY_TRANSACTION"), // String |
 
-    IOS_UI_DEVICE_SYSTEM_NAME("IOS_UI_DEVICE_SYSTEM_NAME"), // string |
-    IOS_UI_DEVICE_NAME("IOS_UI_DEVICE_NAME"), // string |
-    IOS_UI_DEVICE_MODEL("IOS_UI_DEVICE_MODEL"), // string |
-    IOS_UI_DEVICE_SERIES("IOS_UI_DEVICE_SERIES"), // string |
-    DEVICE("DEVICE"), // string |
-    DEVICE_TYPE("DEVICE_TYPE"), // string |
-    OS_VERSION("OS_VERSION"), // string |
+    IOS_UI_DEVICE_SYSTEM_NAME("IOS_UI_DEVICE_SYSTEM_NAME"), // string | iOS | Synonym for model. Prior to iOS 16, user-assigned device name (e.g. @"My iPhone").
+    IOS_UI_DEVICE_NAME("IOS_UI_DEVICE_NAME"), // string | John's iPhone
+    IOS_UI_DEVICE_MODEL("IOS_UI_DEVICE_MODEL"), // string | iPhone
+    IOS_UI_DEVICE_SERIES("IOS_UI_DEVICE_SERIES"), // string | iPhone 6 Plus
+    DEVICE("DEVICE"), // string | (iOS) Native | iPhone | iPhone | 16.7.8 | iPhone 6 Plus
+    DEVICE_TYPE("DEVICE_TYPE"), // string | smartphone, tablet, phablet, desktop
+    OS_VERSION("OS_VERSION"), // string | 17.4
 
     STATE_INSTALL("STATE_INSTALL"), // int | 0 = kosong, 1 = first install, 2 = update | stateInstallType()
-    APP_VERSION_KOMPAS_ID("APP_VERSION_KOMPAS_ID"), // string |
-    APP_VERSION_KOMPAS_ID_LATEST("APP_VERSION_KOMPAS_ID_LATEST"), // string |
+    APP_VERSION_KOMPAS_ID_CURRENT("APP_VERSION_KOMPAS_ID"), // string | 3.50.0
+    APP_VERSION_KOMPAS_ID_LATEST("APP_VERSION_KOMPAS_ID_LATEST"), // string | 3.50.0
 
     FORCE_UPDATE_MIN_VERSION("FORCE_UPDATE_MIN_VERSION"), // string |
     FORCE_UPDATE_MAX_VERSION("FORCE_UPDATE_MAX_VERSION"), // string |
@@ -80,9 +80,9 @@ enum class KeySettingsType(val key: String) {
 
     ENDPOINT_TYPE("ENDPOINT_TYPE"), // XXX | belum di pakai
 
-    FLAVORS("FLAVORS"), // string |
-    IS_DEBUG("IS_DEBUG"), // boolean |
-    IS_LOG_ACTIVED("IS_LOG_ACTIVED"), // boolean |
+    FLAVORS("FLAVORS"), // string | DEBUG, ALLCLOUD, DKID_ID, DKID_CLOUD, DQA_ID, DQA_CLOUD, RQA_ID, RKID_ID
+    IS_DEBUG("IS_DEBUG"), // boolean | true or false
+    IS_LOG_ACTIVED("IS_LOG_ACTIVED"), // boolean | true or false
 }
 
 // CATATAN :
