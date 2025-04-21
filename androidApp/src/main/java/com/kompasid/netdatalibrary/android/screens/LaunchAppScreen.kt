@@ -29,9 +29,9 @@ fun LaunchAppScreen(
     vm: LaunchAppVM = koinViewModel(),
     onBackClick: () -> Unit,
 ) {
-    val originalTransactionId by vm.deviceInfoState.collectAsState()
-    val transactionId by vm.deviceSubscriptionState.collectAsState()
-    val historyTransaction by vm.configurationSystemState.collectAsState()
+//    val originalTransactionId by vm.deviceInfoState.collectAsState()
+//    val transactionId by vm.deviceSubscriptionState.collectAsState()
+//    val historyTransaction by vm.configurationSystemState.collectAsState()
 
     LazyColumn(
         modifier = Modifier
@@ -51,19 +51,19 @@ fun LaunchAppScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        item {
-            Text(originalTransactionId.toString())
-            HorizontalDivider()
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(transactionId.toString())
-            HorizontalDivider()
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(historyTransaction.toString())
-            HorizontalDivider()
-            Spacer(modifier = Modifier.height(16.dp))
-        }
+//        item {
+//            Text(originalTransactionId.toString())
+//            HorizontalDivider()
+//            Spacer(modifier = Modifier.height(16.dp))
+//
+//            Text(transactionId.toString())
+//            HorizontalDivider()
+//            Spacer(modifier = Modifier.height(16.dp))
+//
+//            Text(historyTransaction.toString())
+//            HorizontalDivider()
+//            Spacer(modifier = Modifier.height(16.dp))
+//        }
     }
 }
 

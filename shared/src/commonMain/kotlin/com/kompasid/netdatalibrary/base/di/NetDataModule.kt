@@ -9,6 +9,9 @@ import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
+import com.kompasid.netdatalibrary.core.data.forceUpdate.dataSource.ForceUpdateDataSource
+import com.kompasid.netdatalibrary.core.data.forceUpdate.network.ForceUpdateApiService
+import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.login.network.LoginApiService
@@ -33,18 +36,22 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.Us
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
+import com.kompasid.netdatalibrary.core.data.osRecomendation.dataSource.OSRecommendationDataSource
+import com.kompasid.netdatalibrary.core.data.osRecomendation.network.OSRecomendationApiService
+import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
 import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
 import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
+import com.kompasid.netdatalibrary.core.domain.forceUpdate.useCase.ForceUpdateUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
 import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
+import com.kompasid.netdatalibrary.core.domain.osRecomendation.useCase.OSRecomendationUseCase
 import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
-import com.kompasid.netdatalibrary.core.domain.updateOS.useCase.UpdateOSUseCase
 import com.kompasid.netdatalibrary.core.presentation.AccountVM
 import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
@@ -113,8 +120,6 @@ val launchAppModule = module {
     singleOf(::LaunchAppResultState) { bind<LaunchAppResultState>() }
     singleOf(::LaunchAppVM) { bind<LaunchAppVM>() }
     singleOf(::LaunchAppUseCase) { bind<LaunchAppUseCase>() }
-
-    singleOf(::UpdateOSUseCase) { bind<UpdateOSUseCase>() }
 }
 
 val updateContentModule = module {
@@ -137,6 +142,20 @@ val myRubriksModule = module {
     singleOf(::MyRubriksApiService) { bind<MyRubriksApiService>() }
     singleOf(::MyRubriksRepository) { bind<MyRubriksRepository>() }
     singleOf(::MyRubriksUseCase) { bind<MyRubriksUseCase>() }
+}
+
+val osRecommendationModule = module {
+    singleOf(::OSRecomendationApiService) { bind<OSRecomendationApiService>() }
+    singleOf(::OSRecomendationRepository) { bind<OSRecomendationRepository>() }
+    singleOf(::OSRecommendationDataSource) { bind<OSRecommendationDataSource>() }
+    singleOf(::OSRecomendationUseCase) { bind<OSRecomendationUseCase>() }
+}
+
+val forceUpdateModule = module {
+    singleOf(::ForceUpdateApiService) { bind<ForceUpdateApiService>() }
+    singleOf(::ForceUpdateRepository) { bind<ForceUpdateRepository>() }
+    singleOf(::ForceUpdateDataSource) { bind<ForceUpdateDataSource>() }
+    singleOf(::ForceUpdateUseCase) { bind<ForceUpdateUseCase>() }
 }
 
 val updateTokenModule = module {

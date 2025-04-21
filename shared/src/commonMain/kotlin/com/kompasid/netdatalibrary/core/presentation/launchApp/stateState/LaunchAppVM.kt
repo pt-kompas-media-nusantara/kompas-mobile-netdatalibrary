@@ -2,26 +2,45 @@ package com.kompasid.netdatalibrary.core.presentation.launchApp.stateState
 
 import com.kompasid.netdatalibrary.BaseVM
 import com.kompasid.netdatalibrary.base.logger.Logger
+import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
+import com.kompasid.netdatalibrary.core.domain.articleList.usecase.ArticleListUseCase
+import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
+import com.kompasid.netdatalibrary.core.domain.forceUpdate.useCase.ForceUpdateUseCase
+import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
 import com.kompasid.netdatalibrary.core.domain.launchApp.model.LaunchAppInterceptor
 import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
+import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
+import com.kompasid.netdatalibrary.core.domain.osRecomendation.useCase.OSRecomendationUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.ConfigurationSystemState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceInfoState
 import com.kompasid.netdatalibrary.core.presentation.launchApp.model.DeviceSubcriptionState
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import kotlinx.coroutines.flow.StateFlow
 
 class LaunchAppVM(
+    private val accountUseCase: AccountUseCase,
+    private val articleListUseCase: ArticleListUseCase,
+    private val authUseCase: AuthUseCase,
+    private val forceUpdateUseCase: ForceUpdateUseCase,
+    private val generalContentUseCase: GeneralContentUseCase,
     private val launchAppUseCase: LaunchAppUseCase,
-    private val launchAppResultState: LaunchAppResultState,
-    private val settingsHelper: SettingsHelper
+    private val myRubriksUseCase: MyRubriksUseCase,
+    private val osRecomendationUseCase: OSRecomendationUseCase,
+    private val personalInfoUseCase: PersonalInfoUseCase,
+    private val tokenUseCase: TokenUseCase,
+    private val settingsHelper: SettingsHelper,
+    private val supportSettingsHelper: SupportSettingsHelper
 ) : BaseVM() {
 
 
-    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
-    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
-        launchAppResultState.deviceSubscriptionState
-    val configurationSystemState: StateFlow<ConfigurationSystemState> =
-        launchAppResultState.configurationSystemState
+//    val deviceInfoState: StateFlow<DeviceInfoState> = launchAppResultState.deviceInfoState
+//    val deviceSubscriptionState: StateFlow<DeviceSubcriptionState> =
+//        launchAppResultState.deviceSubscriptionState
+//    val configurationSystemState: StateFlow<ConfigurationSystemState> =
+//        launchAppResultState.configurationSystemState
 
     suspend fun execute(data: LaunchAppInterceptor) {
         try {

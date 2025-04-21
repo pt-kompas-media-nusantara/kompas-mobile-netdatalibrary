@@ -9,11 +9,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
 import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
 fun MainScreen(
+//    vm: LaunchAppVM = koinViewModel(),
     onNoArgModuleSettingsClick: () -> Unit,
     onListeneroArgModuleSettingsClick: () -> Unit,
     onSerializationNoArgModuleSettingsClick: () -> Unit,

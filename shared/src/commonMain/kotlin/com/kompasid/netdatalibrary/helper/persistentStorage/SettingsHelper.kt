@@ -23,7 +23,7 @@ import kotlinx.serialization.json.Json
 class SettingsHelper(
     private val settings: Settings,
     private val flowSettings: FlowSettings,
-    private val logger: (String, Throwable?) -> Unit = { msg, err -> println("$msg\n${err?.stackTraceToString()}") }
+
 ) {
 
     private suspend fun saveWithRetry(
@@ -38,7 +38,10 @@ class SettingsHelper(
                 return
             } catch (e: Exception) {
                 if (attempt == maxRetries - 1) {
-                    logger("❌ Failed to save key=$key, value=$value", e)
+                    // private val logger: (String, Throwable?) -> Unit = { msg, err -> println("$msg\n${err?.stackTraceToString()}") }
+                    Logger.error {
+                        "❌ Failed to save key=$key, value=$value, e=$e"
+                    }
                 } else {
                     delay(delayMillis)
                 }
