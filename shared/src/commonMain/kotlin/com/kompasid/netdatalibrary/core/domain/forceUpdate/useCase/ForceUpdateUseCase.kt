@@ -12,79 +12,88 @@ import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
 import com.kompasid.netdatalibrary.helpers.logged
 import com.kompasid.netdatalibrary.helpers.times.CalculateTimeFormatter
 import com.kompasid.netdatalibrary.helpers.times.RelativeTimeFormatter
+import com.kompasid.netdatalibrary.utilities.Constants
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.LocalDateTime
 
+/// figma : https://www.figma.com/design/KuYSCw9BysUMidLfcsx8Gs/iPadOS---Akun---Misc?node-id=717-39578&p=f&t=i9Qdp0lbzXUXjVda-0
 class ForceUpdateUseCase(
     private val forceUpdateRepository: ForceUpdateRepository,
     private val settingsHelper: SettingsHelper,
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
+
+    suspend fun updateLater(minVersion: String, maxVersion: String, appVersion: String) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, minVersion),
+                settingsHelper.saveAsync(this, KeySettingsType.MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP, maxVersion),
+                settingsHelper.saveAsync(this, KeySettingsType.CURRENT_APP_VERSION_KOMPAS_ID_TEMP, appVersion)
+            ).awaitAll()
+        }
+    }
+
+    // URL ke halaman App Store Kompas.id
+    suspend fun updateNow(): String {
+        return Constants.URL_APPSTORE_KOMPAS_ID
+    }
+
     suspend fun forceUpdate(): Results<ForceUpdateType, NetworkError> {
         return try {
-
             when (val result = forceUpdateRepository.forceUpdate().logged(prefix = "forceUpdate")) {
-                is Results.Error -> {
-                    Results.Error(result.error)
-                }
+                is Results.Error -> Results.Error(result.error)
 
                 is Results.Success -> {
-                    val now = RelativeTimeFormatter().getCurrentTime()
+                    val isDebug = settingsHelper.get(KeySettingsType.IS_DEBUG, false)
 
-                    val lastForceUpdate = settingsHelper.get(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, "")
-
-                    val appVersions: List<String> = settingsHelper.get(KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList())
-                    val maxVersion = result.data.maxVersion
-                    val minVersion = result.data.minVersion
-
-                    val current = ValidateOSVersion.parse(appVersions.last())
-                    val max = ValidateOSVersion.parse(maxVersion)
-                    val min = ValidateOSVersion.parse(minVersion)
-
-                    if (lastForceUpdate.isEmpty()) settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
-
-                    val shownTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
-                        try {
-                            LocalDateTime.parse(lastForceUpdate)
-                        } catch (_: Exception) {
-                            LocalDateTime.parse(now)
-                        }
-                    )
-
-                    if (current >= max) {
-                        settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, current)
+                    val appVersions = if (isDebug) {
+                        listOf(result.data.mobileVersion)
                     } else {
-                        settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, max)
+                        settingsHelper.get(KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList())
                     }
 
+                    val current = ValidateOSVersion.parse(appVersions.lastOrNull() ?: result.data.mobileVersion)
+                    val min = ValidateOSVersion.parse(result.data.minVersion)
+                    val max = ValidateOSVersion.parse(result.data.maxVersion)
+
+                    // Simpan versi yang dipakai untuk validasi
+                    val savedVersion = if (current >= max) current else max
+                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, savedVersion)
+
+                    // Data sementara untuk mengecek apakah popup sudah muncul
+                    val minTemp = settingsHelper.get(KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, "")
+                    val maxTemp = settingsHelper.get(KeySettingsType.MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP, "")
+                    val currentTemp = settingsHelper.get(KeySettingsType.CURRENT_APP_VERSION_KOMPAS_ID_TEMP, "")
+                    val currentVersionString = appVersions.lastOrNull() ?: ""
+
+                    val alreadyPrompted =
+                        minTemp == result.data.minVersion &&
+                                maxTemp == result.data.maxVersion &&
+                                currentTemp == currentVersionString
+
                     return when {
-                        // minor update
-                        current >= min && current < max -> {
-                            if (shownTime.days >= 1 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
-                                settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
-                                Results.Success(ForceUpdateType.MINOR_UPDATE)
-                            } else {
-                                Results.Success(ForceUpdateType.NO_UPDATE)
-                            }
+                        appVersions.contains(result.data.maxVersion) -> {
+                            Results.Success(ForceUpdateType.NO_UPDATE)
                         }
 
-                        // major update
                         current < min -> {
-                            if (shownTime.days >= 1 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
-                                settingsHelper.save(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, now)
-                                Results.Success(ForceUpdateType.MAJOR_UPDATE)
-                            } else {
-                                Results.Success(ForceUpdateType.NO_UPDATE)
-                            }
+                            if (alreadyPrompted) Results.Success(ForceUpdateType.NO_UPDATE)
+                            else Results.Success(ForceUpdateType.MAJOR_UPDATE)
+                        }
 
+                        current >= min && current < max -> {
+                            if (alreadyPrompted) Results.Success(ForceUpdateType.NO_UPDATE)
+                            else Results.Success(ForceUpdateType.MINOR_UPDATE)
                         }
 
                         else -> Results.Success(ForceUpdateType.NO_UPDATE)
                     }
                 }
             }
-
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
     }
+
 }

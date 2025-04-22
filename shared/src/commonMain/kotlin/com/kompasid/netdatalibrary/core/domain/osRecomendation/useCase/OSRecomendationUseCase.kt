@@ -14,6 +14,7 @@ import com.kompasid.netdatalibrary.helpers.times.RelativeTimeFormatter
 import com.kompasid.netdatalibrary.helpers.times.CalculateTimeFormatter
 import kotlinx.datetime.LocalDateTime
 
+/// figma : https://www.figma.com/design/9J5e5MOrWDGYY2KqHrxqmy/OS-Recommendation?node-id=59-955&p=f&t=BJo9uemXqqxtDo7c-0
 class OSRecomendationUseCase(
     private val osRecomendationRepository: OSRecomendationRepository,
     private val settingsHelper: SettingsHelper,
@@ -50,6 +51,7 @@ class OSRecomendationUseCase(
                     settingsHelper.save(KeySettingsType.OS_VERSION_RECOMENDATION, osRecommendation)
 
                     return when {
+                        // OS_UPDATE_RECOMMENDATION
                         current < min -> {
                             val recTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
                                 try {
@@ -66,6 +68,7 @@ class OSRecomendationUseCase(
                             }
                         }
 
+                        // OS_UPDATE_INFORMATION
                         current >= min && current < recommended -> {
                             val infoTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
                                 try {
