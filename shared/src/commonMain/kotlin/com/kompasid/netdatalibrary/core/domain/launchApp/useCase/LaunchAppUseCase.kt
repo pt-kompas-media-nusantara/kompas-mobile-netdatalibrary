@@ -36,7 +36,7 @@ class LaunchAppUseCase(
                 settingsHelper.saveAsync(this, KeySettingsType.DEVICE, deviceDescription),
                 settingsHelper.saveAsync(this, KeySettingsType.DEVICE_TYPE, device.deviceType.value),
                 settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION, device.osVersion),
-                settingsHelper.saveAsync(this, KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, device.currentAppVersionKompasId)
+                settingsHelper.saveAsync(this, KeySettingsType.APP_VERSIONS_KOMPAS_ID, device.currentAppVersionKompasId)
             ).awaitAll()
         }
     }
@@ -61,31 +61,20 @@ class LaunchAppUseCase(
     }
 
     private suspend fun checkAndUpdateAppVersion(currentVersionString: String) {
-        // logic nya salah, karna bisa buka tutup lagi ketika pertama kali install
-        // jangan ambil dari json dulu
-        // PR nurirppan_ : masih salah
-//        val currentVersion = settingsHelper.get(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, "")
-//        val latestVersion = settingsHelper.get(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, "")
-//
-//        if (currentVersion.isEmpty()) {
-//            settingsHelper.save(KeySettingsType.STATE_INSTALL, 1)
-//        } else {
-//            val current = ValidateOSVersion.parse(currentVersion)
-//            val latest = ValidateOSVersion.parse(latestVersion)
-//
-//            if (current != latest) {
-//                settingsHelper.save(KeySettingsType.STATE_INSTALL, 2)
-//                if (current > latest) {
-//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, currentVersionString)
-//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, currentVersionString)
-//                } else {
-//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_CURRENT, currentVersionString)
-//                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_LATEST, currentVersionString)
-//                }
-//
-//            }
-//        }
+        val currentVersions: List<String> = settingsHelper.get(
+            KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList()
+        )
+
+        if (currentVersions.isEmpty()) {
+            settingsHelper.save(KeySettingsType.STATE_INSTALL, 1)
+            settingsHelper.save(KeySettingsType.APP_VERSIONS_KOMPAS_ID, listOf(currentVersionString))
+        } else if (!currentVersions.contains(currentVersionString)) {
+            settingsHelper.save(KeySettingsType.STATE_INSTALL, 2)
+            val updatedVersions = currentVersions + currentVersionString
+            settingsHelper.save(KeySettingsType.APP_VERSIONS_KOMPAS_ID, updatedVersions)
+        }
     }
+
 
 
 }

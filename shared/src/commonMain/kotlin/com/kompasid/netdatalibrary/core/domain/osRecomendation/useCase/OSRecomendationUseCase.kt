@@ -47,7 +47,7 @@ class OSRecomendationUseCase(
 
                     if (lastRec.isEmpty()) settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
 
-
+                    settingsHelper.save(KeySettingsType.OS_VERSION_RECOMENDATION, osRecommendation)
 
                     return when {
                         current < min -> {

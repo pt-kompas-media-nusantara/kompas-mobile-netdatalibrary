@@ -32,11 +32,11 @@ class ForceUpdateUseCase(
 
                     val lastForceUpdate = settingsHelper.get(KeySettingsType.LAST_FORCE_UPDATE_SHOWN_DATE, "")
 
-                    val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
+                    val appVersions: List<String> = settingsHelper.get(KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList())
                     val maxVersion = result.data.maxVersion
                     val minVersion = result.data.minVersion
 
-                    val current = ValidateOSVersion.parse(osVersion)
+                    val current = ValidateOSVersion.parse(appVersions.last())
                     val max = ValidateOSVersion.parse(maxVersion)
                     val min = ValidateOSVersion.parse(minVersion)
 
@@ -49,6 +49,12 @@ class ForceUpdateUseCase(
                             LocalDateTime.parse(now)
                         }
                     )
+
+                    if (current >= max) {
+                        settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, current)
+                    } else {
+                        settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, max)
+                    }
 
                     return when {
                         // minor update

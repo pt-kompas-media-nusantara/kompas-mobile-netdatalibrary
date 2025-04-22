@@ -63,10 +63,11 @@ enum class KeySettingsType(val key: String) {
     DEVICE("DEVICE"), // string | (iOS) Native | iPhone | iPhone | 16.7.8 | iPhone 6 Plus
     DEVICE_TYPE("DEVICE_TYPE"), // string | smartphone, tablet, phablet, desktop
     OS_VERSION("OS_VERSION"), // string | 17.4
+    OS_VERSION_RECOMENDATION("OS_VERSION_RECOMENDATION"), // string | 17.4
 
     STATE_INSTALL("STATE_INSTALL"), // int | 0 = kosong, 1 = first install, 2 = update | stateInstallType()
-    APP_VERSION_KOMPAS_ID_CURRENT("APP_VERSION_KOMPAS_ID"), // string | 3.50.0
-    APP_VERSION_KOMPAS_ID_LATEST("APP_VERSION_KOMPAS_ID_LATEST"), // string | 3.50.0
+    APP_VERSIONS_KOMPAS_ID("APP_VERSION_KOMPAS_ID"), // string | 3.50.0
+    APP_VERSION_KOMPAS_ID_API("APP_VERSION_KOMPAS_ID_LATEST"), // string | 3.50.0
 
     FORCE_UPDATE_MIN_VERSION("FORCE_UPDATE_MIN_VERSION"), // string |
     FORCE_UPDATE_MAX_VERSION("FORCE_UPDATE_MAX_VERSION"), // string |
