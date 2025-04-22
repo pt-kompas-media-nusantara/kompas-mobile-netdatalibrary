@@ -4,18 +4,14 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.forceUpdate.dto.enums.ForceUpdateType
 import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateRepository
-import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
-import com.kompasid.netdatalibrary.helper.enums.StateInstallType
+import com.kompasid.netdatalibrary.core.domain.forceUpdate.model.MinMaxVersionAppInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
 import com.kompasid.netdatalibrary.helpers.logged
-import com.kompasid.netdatalibrary.helpers.times.CalculateTimeFormatter
-import com.kompasid.netdatalibrary.helpers.times.RelativeTimeFormatter
 import com.kompasid.netdatalibrary.utilities.Constants
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import kotlinx.datetime.LocalDateTime
 
 /*
 figma :
@@ -43,13 +39,17 @@ class ForceUpdateUseCase(
     }
 
     // ketika klik bottom bar : beranda, epaper, ebook, akun
-    suspend fun forceUpdate(): Results<ForceUpdateType, NetworkError> {
+    suspend fun forceUpdate(): Results<Pair<ForceUpdateType, MinMaxVersionAppInterceptor>, NetworkError> {
         return try {
             when (val result = forceUpdateRepository.forceUpdate().logged(prefix = "forceUpdate")) {
                 is Results.Error -> Results.Error(result.error)
 
                 is Results.Success -> {
                     val isDebug = settingsHelper.get(KeySettingsType.IS_DEBUG, false)
+
+                    val minVersion = result.data.minVersion
+                    val maxVersion = result.data.maxVersion
+                    val versionInfo = MinMaxVersionAppInterceptor(minVersion, maxVersion)
 
                     val appVersions = if (isDebug) {
                         listOf(result.data.mobileVersion)
@@ -58,8 +58,8 @@ class ForceUpdateUseCase(
                     }
 
                     val current = ValidateOSVersion.parse(appVersions.lastOrNull() ?: result.data.mobileVersion)
-                    val min = ValidateOSVersion.parse(result.data.minVersion)
-                    val max = ValidateOSVersion.parse(result.data.maxVersion)
+                    val min = ValidateOSVersion.parse(minVersion)
+                    val max = ValidateOSVersion.parse(maxVersion)
 
                     // Simpan versi yang dipakai untuk validasi
                     val savedVersion = if (current >= max) current else max
@@ -72,26 +72,23 @@ class ForceUpdateUseCase(
                     val currentVersionString = appVersions.lastOrNull() ?: ""
 
                     val alreadyPrompted =
-                        minTemp == result.data.minVersion &&
-                                maxTemp == result.data.maxVersion &&
-                                currentTemp == currentVersionString
+                        minTemp == minVersion && maxTemp == maxVersion && currentTemp == currentVersionString
 
                     return when {
                         appVersions.contains(result.data.maxVersion) -> {
-                            Results.Success(ForceUpdateType.NO_UPDATE)
+                            Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
                         }
 
                         current < min -> {
-                            if (alreadyPrompted) Results.Success(ForceUpdateType.NO_UPDATE)
-                            else Results.Success(ForceUpdateType.MAJOR_UPDATE)
+                            Results.Success(Pair(ForceUpdateType.MAJOR_UPDATE, versionInfo))
                         }
 
                         current >= min && current < max -> {
-                            if (alreadyPrompted) Results.Success(ForceUpdateType.NO_UPDATE)
-                            else Results.Success(ForceUpdateType.MINOR_UPDATE)
+                            if (alreadyPrompted) Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
+                            else Results.Success(Pair(ForceUpdateType.MINOR_UPDATE, versionInfo))
                         }
 
-                        else -> Results.Success(ForceUpdateType.NO_UPDATE)
+                        else -> Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
                     }
                 }
             }
@@ -99,5 +96,5 @@ class ForceUpdateUseCase(
             Results.Error(NetworkError.Error(e))
         }
     }
-
 }
+

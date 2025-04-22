@@ -67,7 +67,7 @@ enum class KeySettingsType(val key: String) {
 
     STATE_INSTALL("STATE_INSTALL"), // int | 0 = kosong, 1 = first install, 2 = update | stateInstallType()
     APP_VERSIONS_KOMPAS_ID("APP_VERSIONS_KOMPAS_ID"), // string | 3.50.0
-    APP_VERSION_KOMPAS_ID_API("APP_VERSION_KOMPAS_ID_API"), // string | 3.50.0
+    APP_VERSION_KOMPAS_ID_API("APP_VERSION_KOMPAS_ID_API"), // string | 3.50.0 | ini untuk simpan latest kompas.id version
     MINIMUM_APP_VERSION_KOMPAS_ID_TEMP("MINIMUM_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
     MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP("MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
     CURRENT_APP_VERSION_KOMPAS_ID_TEMP("CURRENT_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
