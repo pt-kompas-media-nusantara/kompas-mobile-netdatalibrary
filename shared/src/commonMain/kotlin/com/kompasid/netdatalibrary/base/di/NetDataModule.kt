@@ -35,7 +35,6 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.Us
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
-import com.kompasid.netdatalibrary.core.data.osRecomendation.dataSource.OSRecommendationDataSource
 import com.kompasid.netdatalibrary.core.data.osRecomendation.network.OSRecomendationApiService
 import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
 import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
@@ -146,14 +145,12 @@ val myRubriksModule = module {
 val osRecommendationModule = module {
     singleOf(::OSRecomendationApiService) { bind<OSRecomendationApiService>() }
     singleOf(::OSRecomendationRepository) { bind<OSRecomendationRepository>() }
-    singleOf(::OSRecommendationDataSource) { bind<OSRecommendationDataSource>() }
     singleOf(::OSRecomendationUseCase) { bind<OSRecomendationUseCase>() }
 }
 
 val forceUpdateModule = module {
     singleOf(::ForceUpdateApiService) { bind<ForceUpdateApiService>() }
     singleOf(::ForceUpdateRepository) { bind<ForceUpdateRepository>() }
-    singleOf(::ForceUpdateDataSource) { bind<ForceUpdateDataSource>() }
     singleOf(::ForceUpdateUseCase) { bind<ForceUpdateUseCase>() }
 }
 
