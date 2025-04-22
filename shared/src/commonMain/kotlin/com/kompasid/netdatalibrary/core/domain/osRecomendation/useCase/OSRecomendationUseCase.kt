@@ -12,6 +12,8 @@ import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
 import com.kompasid.netdatalibrary.helpers.logged
 import com.kompasid.netdatalibrary.helpers.times.RelativeTimeFormatter
 import com.kompasid.netdatalibrary.helpers.times.CalculateTimeFormatter
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.LocalDateTime
 
 /// figma : https://www.figma.com/design/9J5e5MOrWDGYY2KqHrxqmy/OS-Recommendation?node-id=59-955&p=f&t=BJo9uemXqqxtDo7c-0
@@ -30,7 +32,17 @@ class OSRecomendationUseCase(
         }
     }
 
-    // ios: bisa di taruh di didFinishLaunchingWithOptions atau klik beranda
+    suspend fun closeClick(minOS: String, recoOS: String, currentOS: String) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, minOS),
+                settingsHelper.saveAsync(this, KeySettingsType.MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP, recoOS),
+                settingsHelper.saveAsync(this, KeySettingsType.CURRENT_APP_VERSION_KOMPAS_ID_TEMP, currentOS)
+            ).awaitAll()
+        }
+    }
+
+    // ketika klik bottom bar : beranda, epaper, ebook, akun
     suspend fun osRecommendation(): Results<OSRecommendationType, NetworkError> {
         return try {
 
@@ -63,19 +75,18 @@ class OSRecomendationUseCase(
 
                     if (lastRec.isEmpty()) settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
 
-                    settingsHelper.save(KeySettingsType.OS_VERSION_RECOMENDATION, osRecommendation)
 
                     return when {
-                        // OS_UPDATE_RECOMMENDATION
+                        // OS_UPDATE_INFORMATION | di bawah 16
                         current < min -> {
-                            val recTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
+                            val infoTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
                                 try {
-                                    LocalDateTime.parse(lastRec)
+                                    LocalDateTime.parse(lastInfo)
                                 } catch (_: Exception) {
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (recTime.months >= 3 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
+                            if (infoTime.months >= 1) {
                                 settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
                                 Results.Success(OSRecommendationType.OS_UPDATE_RECOMMENDATION)
                             } else {
@@ -92,7 +103,7 @@ class OSRecomendationUseCase(
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (infoTime.months >= 1 || supportSettingsHelper.stateInstallType() == StateInstallType.FIRST_INSTALL) {
+                            if (infoTime.months >= 1) {
                                 settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
                                 Results.Success(OSRecommendationType.OS_UPDATE_INFORMATION)
                             } else {

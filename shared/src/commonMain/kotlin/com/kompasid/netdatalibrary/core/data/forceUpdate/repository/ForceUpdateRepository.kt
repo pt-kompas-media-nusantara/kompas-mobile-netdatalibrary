@@ -6,7 +6,6 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.forceUpdate.dto.interceptor.ForceUpdateResInterceptor
 import com.kompasid.netdatalibrary.core.data.forceUpdate.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.forceUpdate.network.ForceUpdateApiService
-import com.kompasid.netdatalibrary.core.data.forceUpdate.dataSource.ForceUpdateDataSource
 import com.kompasid.netdatalibrary.core.data.forceUpdate.dto.enums.ForceUpdateType
 import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.enums.OSRecommendationType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
@@ -19,7 +18,6 @@ import kotlinx.datetime.LocalDateTime
 
 class ForceUpdateRepository(
     private val forceUpdateApiService: ForceUpdateApiService,
-    private val forceUpdateDataSource: ForceUpdateDataSource
 ) : IForceUpdateRepository {
 
     suspend fun forceUpdate(): Results<ForceUpdateResInterceptor, NetworkError> {
@@ -28,7 +26,6 @@ class ForceUpdateRepository(
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor()
 
-                    forceUpdateDataSource.save(resultInterceptor)
 
                     Results.Success(resultInterceptor)
                 }

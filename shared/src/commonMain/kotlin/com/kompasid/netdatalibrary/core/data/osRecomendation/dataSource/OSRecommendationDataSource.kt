@@ -17,8 +17,7 @@ class OSRecommendationDataSource(
 
         val tasks = mutableListOf<Deferred<Unit>>()
 
-        tasks += settingsHelper.saveAsync(this, KeySettingsType.RECOMENDATION_MINIMUM_OS_VERSION, data.minimumOS)
-        tasks += settingsHelper.saveAsync(this, KeySettingsType.RECOMENDATION_OS_VERSION, data.osRecommendation)
+        tasks += settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION_RECOMENDATION, data.osRecommendation)
 
         if (isDebug) {
             tasks += settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION, data.osVersion)

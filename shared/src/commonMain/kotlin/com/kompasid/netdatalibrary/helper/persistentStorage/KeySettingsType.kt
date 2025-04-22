@@ -62,23 +62,20 @@ enum class KeySettingsType(val key: String) {
     IOS_UI_DEVICE_SERIES("IOS_UI_DEVICE_SERIES"), // string | iPhone 6 Plus
     DEVICE("DEVICE"), // string | (iOS) Native | iPhone | iPhone | 16.7.8 | iPhone 6 Plus
     DEVICE_TYPE("DEVICE_TYPE"), // string | smartphone, tablet, phablet, desktop
-    OS_VERSION("OS_VERSION"), // string | 17.4
-    OS_VERSION_RECOMENDATION("OS_VERSION_RECOMENDATION"), // string | 17.4
+    OS_VERSION("OS_VERSION"), // string | 17.4\
+    OS_VERSION_RECOMENDATION("OS_VERSION_RECOMENDATION"), // string | 17.4 | untuk di tampilkan di halaman informasi perangkat di ambil dari api
+    LAST_INFORMATION_SHOWN_DATE("LAST_INFORMATION_SHOWN_DATE"), // string |
+    LAST_RECOMMENDATION_SHOWN_DATE("LAST_RECOMMENDATION_SHOWN_DATE"), // string |
 
     STATE_INSTALL("STATE_INSTALL"), // int | 0 = kosong, 1 = first install, 2 = update | stateInstallType()
     APP_VERSIONS_KOMPAS_ID("APP_VERSIONS_KOMPAS_ID"), // string | 3.50.0
     APP_VERSION_KOMPAS_ID_API("APP_VERSION_KOMPAS_ID_API"), // string | 3.50.0 | ini untuk simpan latest kompas.id version
     MINIMUM_APP_VERSION_KOMPAS_ID_TEMP("MINIMUM_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
     MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP("MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
-    CURRENT_APP_VERSION_KOMPAS_ID_TEMP("CURRENT_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
 
     FORCE_UPDATE_MIN_VERSION("FORCE_UPDATE_MIN_VERSION"), // string |
     FORCE_UPDATE_MAX_VERSION("FORCE_UPDATE_MAX_VERSION"), // string |
 
-    RECOMENDATION_OS_VERSION("RECOMENDATION_OS_VERSION"), // string |
-    RECOMENDATION_MINIMUM_OS_VERSION("RECOMENDATION_MINIMUM_OS_VERSION"), // string |
-    LAST_INFORMATION_SHOWN_DATE("LAST_INFORMATION_SHOWN_DATE"), // string |
-    LAST_RECOMMENDATION_SHOWN_DATE("LAST_RECOMMENDATION_SHOWN_DATE"), // string |
 
 
     ENDPOINT_TYPE("ENDPOINT_TYPE"), // XXX | belum di pakai

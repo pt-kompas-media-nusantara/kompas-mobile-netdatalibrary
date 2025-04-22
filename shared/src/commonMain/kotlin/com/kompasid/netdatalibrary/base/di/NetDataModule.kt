@@ -9,7 +9,6 @@ import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
-import com.kompasid.netdatalibrary.core.data.forceUpdate.dataSource.ForceUpdateDataSource
 import com.kompasid.netdatalibrary.core.data.forceUpdate.network.ForceUpdateApiService
 import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService

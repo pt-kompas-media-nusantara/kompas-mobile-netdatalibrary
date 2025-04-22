@@ -23,12 +23,11 @@ class ForceUpdateUseCase(
     private val settingsHelper: SettingsHelper,
 ) {
 
-    suspend fun updateLater(minVersion: String, maxVersion: String, appVersion: String) {
+    suspend fun updateLater(minVersion: String, maxVersion: String) {
         coroutineScope {
             listOf(
                 settingsHelper.saveAsync(this, KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, minVersion),
                 settingsHelper.saveAsync(this, KeySettingsType.MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP, maxVersion),
-                settingsHelper.saveAsync(this, KeySettingsType.CURRENT_APP_VERSION_KOMPAS_ID_TEMP, appVersion)
             ).awaitAll()
         }
     }
@@ -68,11 +67,9 @@ class ForceUpdateUseCase(
                     // Data sementara untuk mengecek apakah popup sudah muncul
                     val minTemp = settingsHelper.get(KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, "")
                     val maxTemp = settingsHelper.get(KeySettingsType.MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP, "")
-                    val currentTemp = settingsHelper.get(KeySettingsType.CURRENT_APP_VERSION_KOMPAS_ID_TEMP, "")
-                    val currentVersionString = appVersions.lastOrNull() ?: ""
 
                     val alreadyPrompted =
-                        minTemp == minVersion && maxTemp == maxVersion && currentTemp == currentVersionString
+                        minTemp == minVersion && maxTemp == maxVersion
 
                     return when {
                         appVersions.contains(result.data.maxVersion) -> {
@@ -83,9 +80,16 @@ class ForceUpdateUseCase(
                             Results.Success(Pair(ForceUpdateType.MAJOR_UPDATE, versionInfo))
                         }
 
+                        // ini kalau debug wajib muncul terus agar memudahkan pengetesan
                         current >= min && current < max -> {
-                            if (alreadyPrompted) Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
-                            else Results.Success(Pair(ForceUpdateType.MINOR_UPDATE, versionInfo))
+                            if (alreadyPrompted) {
+                                if (isDebug) {
+                                    Results.Success(Pair(ForceUpdateType.MINOR_UPDATE, versionInfo))
+                                } else {
+                                    Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
+                                }
+
+                            } else Results.Success(Pair(ForceUpdateType.MINOR_UPDATE, versionInfo))
                         }
 
                         else -> Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
