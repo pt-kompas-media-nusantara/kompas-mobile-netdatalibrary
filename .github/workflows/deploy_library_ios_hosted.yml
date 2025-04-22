@@ -138,12 +138,12 @@ jobs:
           fi
 
 
-  notification_msteams:
-    if: ${{ always() }}
-    needs: deploy_library
-    uses: ./.github/workflows/notification_hosted.yml
-    with:
-      webhook: "${{ vars.WEBHOOK_TEAMS_IOS_LIBRARY }}"
-      github_version: "${{ inputs.github_version }}"
-      github_state: "${{ needs.deploy_library.outputs.github_state }}"
+  # notification_msteams:
+  #   if: ${{ always() }}
+  #   needs: deploy_library
+  #   uses: ./.github/workflows/notification_hosted.yml
+  #   with:
+  #     webhook: "${{ vars.WEBHOOK_TEAMS_IOS_LIBRARY }}"
+  #     github_version: "${{ inputs.github_version }}"
+  #     github_state: "${{ needs.deploy_library.outputs.github_state }}"
       
