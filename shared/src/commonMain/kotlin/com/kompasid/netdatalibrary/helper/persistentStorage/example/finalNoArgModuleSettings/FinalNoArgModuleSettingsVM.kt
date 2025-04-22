@@ -59,22 +59,22 @@ class FinalNoArgModuleSettingsVM(
     }
 
     fun saveModel() {
-        scope.launch {
-            val data = DeviceSubcriptionState(
-                originalTransactionId = listOf(
-                    "originalTransactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "originalTransactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                ),
-                transactionId = listOf(
-                    "transactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-                    "transactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
-                ),
-//                historyTransaction = listOf(
-//                    "historyTransaction 1 - ${RelativeTimeFormatter().getCurrentTime()}",
-//                    "historyTransaction 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+//        scope.launch {
+//            val data = DeviceSubcriptionState(
+//                originalTransactionId = listOf(
+//                    "originalTransactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+//                    "originalTransactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
 //                ),
-            )
-
-        }
+//                transactionId = listOf(
+//                    "transactionId 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+//                    "transactionId 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+//                ),
+////                historyTransaction = listOf(
+////                    "historyTransaction 1 - ${RelativeTimeFormatter().getCurrentTime()}",
+////                    "historyTransaction 2 - ${RelativeTimeFormatter().getCurrentTime()}",
+////                ),
+//            )
+//
+//        }
     }
 }
