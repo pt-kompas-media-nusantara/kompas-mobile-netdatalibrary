@@ -17,11 +17,14 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.LocalDateTime
 
-/// figma : https://www.figma.com/design/KuYSCw9BysUMidLfcsx8Gs/iPadOS---Akun---Misc?node-id=717-39578&p=f&t=i9Qdp0lbzXUXjVda-0
+/*
+figma :
+https://www.figma.com/design/KuYSCw9BysUMidLfcsx8Gs/iPadOS---Akun---Misc?node-id=717-39578&p=f&t=i9Qdp0lbzXUXjVda-0
+https://www.figma.com/design/6mp9LQv56mUAqKXDaO60on/iOS---Akun---Misc?node-id=5540-403782&t=YalRIX6gBySOM43y-0
+*/
 class ForceUpdateUseCase(
     private val forceUpdateRepository: ForceUpdateRepository,
     private val settingsHelper: SettingsHelper,
-    private val supportSettingsHelper: SupportSettingsHelper
 ) {
 
     suspend fun updateLater(minVersion: String, maxVersion: String, appVersion: String) {
@@ -39,6 +42,7 @@ class ForceUpdateUseCase(
         return Constants.URL_APPSTORE_KOMPAS_ID
     }
 
+    // ketika klik bottom bar : beranda, epaper, ebook, akun
     suspend fun forceUpdate(): Results<ForceUpdateType, NetworkError> {
         return try {
             when (val result = forceUpdateRepository.forceUpdate().logged(prefix = "forceUpdate")) {

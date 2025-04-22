@@ -21,6 +21,15 @@ class OSRecomendationUseCase(
     private val supportSettingsHelper: SupportSettingsHelper
 ) : IOSRecomendationUseCase {
 
+    suspend fun closeClick(type: OSRecommendationType) {
+        val now = RelativeTimeFormatter().getCurrentTime()
+        when (type) {
+            OSRecommendationType.NO_UPDATE_OS -> TODO()
+            OSRecommendationType.OS_UPDATE_INFORMATION -> settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
+            OSRecommendationType.OS_UPDATE_RECOMMENDATION -> settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
+        }
+    }
+
     // ios: bisa di taruh di didFinishLaunchingWithOptions atau klik beranda
     suspend fun osRecommendation(): Results<OSRecommendationType, NetworkError> {
         return try {
@@ -35,8 +44,14 @@ class OSRecomendationUseCase(
 
                     val lastInfo = settingsHelper.get(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, "")
                     val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, "")
+                    val isDebug = settingsHelper.get(KeySettingsType.IS_DEBUG, false)
 
-                    val osVersion = settingsHelper.get(KeySettingsType.OS_VERSION, "")
+                    val osVersion = if (isDebug) {
+                        result.data.osVersion
+                    } else {
+                        settingsHelper.get(KeySettingsType.OS_VERSION, "")
+                    }
+
                     val osRecommendation = result.data.osRecommendation
                     val minimumOS = result.data.minimumOS
 

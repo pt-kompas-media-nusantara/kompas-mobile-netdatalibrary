@@ -36,7 +36,6 @@ class LaunchAppUseCase(
                 settingsHelper.saveAsync(this, KeySettingsType.DEVICE, deviceDescription),
                 settingsHelper.saveAsync(this, KeySettingsType.DEVICE_TYPE, device.deviceType.value),
                 settingsHelper.saveAsync(this, KeySettingsType.OS_VERSION, device.osVersion),
-                settingsHelper.saveAsync(this, KeySettingsType.APP_VERSIONS_KOMPAS_ID, device.currentAppVersionKompasId)
             ).awaitAll()
         }
     }

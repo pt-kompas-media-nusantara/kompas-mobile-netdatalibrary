@@ -16,10 +16,10 @@ class SupportSettingsHelper(
 
     suspend fun stateInstallType(): StateInstallType {
         val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
-        if (stateInstall != 2) {
-            return StateInstallType.FIRST_INSTALL
+        if (stateInstall == 2) {
+            return StateInstallType.UPDATED
         }
-        return StateInstallType.UPDATED
+        return StateInstallType.FIRST_INSTALL
     }
 
     suspend fun checkUserType(): StateUserType {
