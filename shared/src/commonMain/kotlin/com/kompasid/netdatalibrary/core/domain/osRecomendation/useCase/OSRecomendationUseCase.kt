@@ -23,27 +23,17 @@ class OSRecomendationUseCase(
     private val supportSettingsHelper: SupportSettingsHelper
 ) : IOSRecomendationUseCase {
 
-    suspend fun closeClick(type: OSRecommendationType) {
-        val now = RelativeTimeFormatter().getCurrentTime()
-        when (type) {
-            OSRecommendationType.NO_UPDATE_OS -> TODO()
-            OSRecommendationType.OS_UPDATE_INFORMATION -> settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
-            OSRecommendationType.OS_UPDATE_RECOMMENDATION -> settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
-        }
-    }
-
-    suspend fun closeClick(minOS: String, recoOS: String, currentOS: String) {
+    suspend fun closeClick(minOS: String, recoOS: String) {
         coroutineScope {
             listOf(
-                settingsHelper.saveAsync(this, KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, minOS),
-                settingsHelper.saveAsync(this, KeySettingsType.MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP, recoOS),
-                settingsHelper.saveAsync(this, KeySettingsType.CURRENT_APP_VERSION_KOMPAS_ID_TEMP, currentOS)
+                settingsHelper.saveAsync(this, KeySettingsType.MINIMUM_OS_TEMP, minOS),
+                settingsHelper.saveAsync(this, KeySettingsType.RECOMMENDATION_OS_TEMP, recoOS),
             ).awaitAll()
         }
     }
 
     // ketika klik bottom bar : beranda, epaper, ebook, akun
-    suspend fun osRecommendation(): Results<OSRecommendationType, NetworkError> {
+    suspend fun osRecommendation(): Results<Pair<OSRecommendationType, MinRecoOSInterceptor>, NetworkError> {
         return try {
 
             when (val result = osRecomendationRepository.osRecommendation().logged(prefix = "osRecommendation")) {
@@ -54,8 +44,8 @@ class OSRecomendationUseCase(
                 is Results.Success -> {
                     val now = RelativeTimeFormatter().getCurrentTime()
 
-                    val lastInfo = settingsHelper.get(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, "")
-                    val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, "")
+                    val lastInfo = settingsHelper.get(KeySettingsType.LAST_MINIMUM_OS_SHOWN_DATE, "")
+                    val lastRec = settingsHelper.get(KeySettingsType.LAST_RECOMMENDATION_OS_SHOWN_DATE, "")
                     val isDebug = settingsHelper.get(KeySettingsType.IS_DEBUG, false)
 
                     val osVersion = if (isDebug) {
@@ -66,14 +56,24 @@ class OSRecomendationUseCase(
 
                     val osRecommendation = result.data.osRecommendation
                     val minimumOS = result.data.minimumOS
+                    val infoRecommendation = MinRecoOSInterceptor(minimumOS, osRecommendation)
 
                     val current = ValidateOSVersion.parse(osVersion)
                     val recommended = ValidateOSVersion.parse(osRecommendation)
                     val min = ValidateOSVersion.parse(minimumOS)
 
-                    if (lastInfo.isEmpty()) settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
+                    if (lastInfo.isEmpty()) settingsHelper.save(KeySettingsType.LAST_MINIMUM_OS_SHOWN_DATE, now)
 
-                    if (lastRec.isEmpty()) settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
+                    if (lastRec.isEmpty()) settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_OS_SHOWN_DATE, now)
+
+                    // Data sementara untuk mengecek apakah popup sudah muncul
+                    val minOSTemp = settingsHelper.get(KeySettingsType.MINIMUM_OS_TEMP, "")
+                    val recoOSTemp = settingsHelper.get(KeySettingsType.RECOMMENDATION_OS_TEMP, "")
+
+                    val alreadyPromptedMinOS =
+                        minOSTemp == minimumOS
+                    val alreadyPromptedRecoOS =
+                        recoOSTemp == osRecommendation
 
 
                     return when {
@@ -86,33 +86,32 @@ class OSRecomendationUseCase(
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (infoTime.months >= 1) {
-                                settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_SHOWN_DATE, now)
-                                Results.Success(OSRecommendationType.OS_UPDATE_RECOMMENDATION)
+                            if (infoTime.months >= 1 || !alreadyPromptedMinOS) {
+                                settingsHelper.save(KeySettingsType.LAST_MINIMUM_OS_SHOWN_DATE, now)
+                                Results.Success(Pair(OSRecommendationType.OS_UPDATE_INFORMATION, infoRecommendation))
                             } else {
-                                Results.Success(OSRecommendationType.NO_UPDATE_OS)
+                                Results.Success(Pair(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
                             }
                         }
 
-                        // OS_UPDATE_INFORMATION
+                        // OS_UPDATE_RECOMMENDATION | di atas 16
                         current >= min && current < recommended -> {
-                            val infoTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
+                            val recoTime = CalculateTimeFormatter().calculateTimeDifferenceComponents(
                                 try {
-                                    LocalDateTime.parse(lastInfo)
+                                    LocalDateTime.parse(lastRec)
                                 } catch (_: Exception) {
                                     LocalDateTime.parse(now)
                                 }
                             )
-                            if (infoTime.months >= 1) {
-                                settingsHelper.save(KeySettingsType.LAST_INFORMATION_SHOWN_DATE, now)
-                                Results.Success(OSRecommendationType.OS_UPDATE_INFORMATION)
+                            if (recoTime.months >= 3 || !alreadyPromptedRecoOS) {
+                                settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_OS_SHOWN_DATE, now)
+                                Results.Success(Pair(OSRecommendationType.OS_UPDATE_RECOMMENDATION, infoRecommendation))
                             } else {
-                                Results.Success(OSRecommendationType.NO_UPDATE_OS)
+                                Results.Success(Pair(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
                             }
-
                         }
 
-                        else -> Results.Success(OSRecommendationType.NO_UPDATE_OS)
+                        else -> Results.Success(Pair(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
                     }
                 }
             }
@@ -128,3 +127,8 @@ class OSRecomendationUseCase(
   "minimumOS": "16.0.0"
 }
 * */
+
+data class MinRecoOSInterceptor(
+    val minOS: String,
+    val recoOS: String,
+)
