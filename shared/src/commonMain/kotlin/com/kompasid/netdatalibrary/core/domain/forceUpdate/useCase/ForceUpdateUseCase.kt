@@ -62,7 +62,7 @@ class ForceUpdateUseCase(
 
                     // Simpan versi yang dipakai untuk validasi
                     val savedVersion = if (current >= max) current else max
-                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, savedVersion)
+                    settingsHelper.save(KeySettingsType.APP_VERSION_KOMPAS_ID_API, appVersions.last())
 
                     // Data sementara untuk mengecek apakah popup sudah muncul
                     val minTemp = settingsHelper.get(KeySettingsType.MINIMUM_APP_VERSION_KOMPAS_ID_TEMP, "")
