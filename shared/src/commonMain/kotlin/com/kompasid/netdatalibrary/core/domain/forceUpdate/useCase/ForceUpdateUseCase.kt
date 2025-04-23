@@ -4,6 +4,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.forceUpdate.dto.enums.ForceUpdateType
 import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateRepository
+import com.kompasid.netdatalibrary.core.domain.forceUpdate.model.ForceUpdateInterceptor
 import com.kompasid.netdatalibrary.core.domain.forceUpdate.model.MinMaxVersionAppInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
@@ -38,7 +39,7 @@ class ForceUpdateUseCase(
     }
 
     // ketika klik bottom bar : beranda, epaper, ebook, akun
-    suspend fun forceUpdate(): Results<Pair<ForceUpdateType, MinMaxVersionAppInterceptor>, NetworkError> {
+    suspend fun forceUpdate(): Results<ForceUpdateInterceptor, NetworkError> {
         return try {
             when (val result = forceUpdateRepository.forceUpdate().logged(prefix = "forceUpdate")) {
                 is Results.Error -> Results.Error(result.error)
@@ -73,26 +74,26 @@ class ForceUpdateUseCase(
 
                     return when {
                         appVersions.contains(result.data.maxVersion) -> {
-                            Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
+                            Results.Success(ForceUpdateInterceptor(ForceUpdateType.NO_UPDATE, versionInfo))
                         }
 
                         current < min -> {
-                            Results.Success(Pair(ForceUpdateType.MAJOR_UPDATE, versionInfo))
+                            Results.Success(ForceUpdateInterceptor(ForceUpdateType.MAJOR_UPDATE, versionInfo))
                         }
 
                         // ini kalau debug wajib muncul terus agar memudahkan pengetesan
                         current >= min && current < max -> {
                             if (alreadyPrompted) {
                                 if (isDebug) {
-                                    Results.Success(Pair(ForceUpdateType.MINOR_UPDATE, versionInfo))
+                                    Results.Success(ForceUpdateInterceptor(ForceUpdateType.MINOR_UPDATE, versionInfo))
                                 } else {
-                                    Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
+                                    Results.Success(ForceUpdateInterceptor(ForceUpdateType.NO_UPDATE, versionInfo))
                                 }
 
-                            } else Results.Success(Pair(ForceUpdateType.MINOR_UPDATE, versionInfo))
+                            } else Results.Success(ForceUpdateInterceptor(ForceUpdateType.MINOR_UPDATE, versionInfo))
                         }
 
-                        else -> Results.Success(Pair(ForceUpdateType.NO_UPDATE, versionInfo))
+                        else -> Results.Success(ForceUpdateInterceptor(ForceUpdateType.NO_UPDATE, versionInfo))
                     }
                 }
             }

@@ -2,10 +2,11 @@ package com.kompasid.netdatalibrary.core.domain.osRecomendation.useCase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.enums.OSRecommendationType
+import com.kompasid.netdatalibrary.core.domain.osRecomendation.model.OSRecommendationType
 import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
+import com.kompasid.netdatalibrary.core.domain.osRecomendation.model.MinRecoOSInterceptor
+import com.kompasid.netdatalibrary.core.domain.osRecomendation.model.OSRecommendationInterceptor
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
-import com.kompasid.netdatalibrary.helper.enums.StateInstallType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.ValidateOSVersion
@@ -33,7 +34,7 @@ class OSRecomendationUseCase(
     }
 
     // ketika klik bottom bar : beranda, epaper, ebook, akun
-    suspend fun osRecommendation(): Results<Pair<OSRecommendationType, MinRecoOSInterceptor>, NetworkError> {
+    suspend fun osRecommendation(): Results<OSRecommendationInterceptor, NetworkError> {
         return try {
 
             when (val result = osRecomendationRepository.osRecommendation().logged(prefix = "osRecommendation")) {
@@ -88,9 +89,9 @@ class OSRecomendationUseCase(
                             )
                             if (infoTime.months >= 1 || !alreadyPromptedMinOS) {
                                 settingsHelper.save(KeySettingsType.LAST_MINIMUM_OS_SHOWN_DATE, now)
-                                Results.Success(Pair(OSRecommendationType.OS_UPDATE_INFORMATION, infoRecommendation))
+                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.OS_UPDATE_INFORMATION, infoRecommendation))
                             } else {
-                                Results.Success(Pair(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
+                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
                             }
                         }
 
@@ -105,13 +106,13 @@ class OSRecomendationUseCase(
                             )
                             if (recoTime.months >= 3 || !alreadyPromptedRecoOS) {
                                 settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_OS_SHOWN_DATE, now)
-                                Results.Success(Pair(OSRecommendationType.OS_UPDATE_RECOMMENDATION, infoRecommendation))
+                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.OS_UPDATE_RECOMMENDATION, infoRecommendation))
                             } else {
-                                Results.Success(Pair(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
+                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
                             }
                         }
 
-                        else -> Results.Success(Pair(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
+                        else -> Results.Success(OSRecommendationInterceptor(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
                     }
                 }
             }
@@ -128,7 +129,5 @@ class OSRecomendationUseCase(
 }
 * */
 
-data class MinRecoOSInterceptor(
-    val minOS: String,
-    val recoOS: String,
-)
+
+

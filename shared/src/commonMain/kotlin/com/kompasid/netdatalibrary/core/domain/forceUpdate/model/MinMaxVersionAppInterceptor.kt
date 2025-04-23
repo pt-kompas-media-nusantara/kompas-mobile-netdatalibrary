@@ -4,3 +4,4 @@ data class MinMaxVersionAppInterceptor(
     val minVersion: String,
     val maxVersion: String,
 )
+
