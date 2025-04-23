@@ -1,13 +1,29 @@
 package com.kompasid.netdatalibrary.core.data.osRecomendation.mappers
 
+import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.interceptor.IosRecoInterceptor
 import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.interceptor.OSRecommendationResInterceptor
-import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.response.OSRecomendationResponse
+import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.interceptor.OsInformationRecoInterceptor
+import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.interceptor.OsRecomendationRecoInterceptor
+import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.interceptor.UserInterfaceRecoInterceptor
+import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.response.OSRecommendationResponse
 
-fun OSRecomendationResponse.toInterceptor(): OSRecommendationResInterceptor {
+fun OSRecommendationResponse.toInterceptor(): OSRecommendationResInterceptor {
     return OSRecommendationResInterceptor(
-        osRecommendation = osRecommendation ?: "",
-        minimumOS = minimumOS ?: "",
-        osVersion = osVersion ?: "",
+        ios = IosRecoInterceptor(
+            minimumOS = ios?.minimumOS ?: "",
+            osRecommendation = ios?.osRecommendation ?: "",
+            osVersion = ios?.osVersion ?: "",
+            userInterface = UserInterfaceRecoInterceptor(
+                osInformation = OsInformationRecoInterceptor(
+                    descriptiion = ios?.userInterface?.osInformation?.descriptiion ?: "",
+                    title = ios?.userInterface?.osInformation?.title ?: "",
+                ),
+                osRecomendation = OsRecomendationRecoInterceptor(
+                    descriptiion = ios?.userInterface?.osRecomendation?.descriptiion ?: "",
+                    title = ios?.userInterface?.osRecomendation?.descriptiion ?: "",
+                )
+            ),
+        )
     )
 
 }

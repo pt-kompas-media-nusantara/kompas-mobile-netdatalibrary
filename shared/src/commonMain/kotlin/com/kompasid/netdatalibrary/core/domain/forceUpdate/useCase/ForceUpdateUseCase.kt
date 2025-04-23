@@ -16,8 +16,7 @@ import kotlinx.coroutines.coroutineScope
 
 /*
 figma :
-https://www.figma.com/design/KuYSCw9BysUMidLfcsx8Gs/iPadOS---Akun---Misc?node-id=717-39578&p=f&t=i9Qdp0lbzXUXjVda-0
-https://www.figma.com/design/6mp9LQv56mUAqKXDaO60on/iOS---Akun---Misc?node-id=5540-403782&t=YalRIX6gBySOM43y-0
+https://www.figma.com/design/6mp9LQv56mUAqKXDaO60on/iOS---Akun---Misc?node-id=1-52&t=xl7f54jHKnUaakJS-1
 */
 class ForceUpdateUseCase(
     private val forceUpdateRepository: ForceUpdateRepository,

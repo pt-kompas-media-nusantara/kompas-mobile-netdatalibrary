@@ -4,7 +4,6 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.domain.osRecomendation.model.OSRecommendationType
 import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
-import com.kompasid.netdatalibrary.core.domain.osRecomendation.model.MinRecoOSInterceptor
 import com.kompasid.netdatalibrary.core.domain.osRecomendation.model.OSRecommendationInterceptor
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
@@ -17,7 +16,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.datetime.LocalDateTime
 
-/// figma : https://www.figma.com/design/9J5e5MOrWDGYY2KqHrxqmy/OS-Recommendation?node-id=59-955&p=f&t=BJo9uemXqqxtDo7c-0
+/// figma : https://www.figma.com/design/9J5e5MOrWDGYY2KqHrxqmy/OS-Recommendation?node-id=59-956&t=VsS9fOaXFf2Iom1N-1
 class OSRecomendationUseCase(
     private val osRecomendationRepository: OSRecomendationRepository,
     private val settingsHelper: SettingsHelper,
@@ -50,14 +49,13 @@ class OSRecomendationUseCase(
                     val isDebug = settingsHelper.get(KeySettingsType.IS_DEBUG, false)
 
                     val osVersion = if (isDebug) {
-                        result.data.osVersion
+                        result.data.ios.osVersion
                     } else {
                         settingsHelper.get(KeySettingsType.OS_VERSION, "")
                     }
 
-                    val osRecommendation = result.data.osRecommendation
-                    val minimumOS = result.data.minimumOS
-                    val infoRecommendation = MinRecoOSInterceptor(minimumOS, osRecommendation)
+                    val osRecommendation = result.data.ios.osRecommendation
+                    val minimumOS = result.data.ios.minimumOS
 
                     val current = ValidateOSVersion.parse(osVersion)
                     val recommended = ValidateOSVersion.parse(osRecommendation)
@@ -89,9 +87,25 @@ class OSRecomendationUseCase(
                             )
                             if (infoTime.months >= 1 || !alreadyPromptedMinOS) {
                                 settingsHelper.save(KeySettingsType.LAST_MINIMUM_OS_SHOWN_DATE, now)
-                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.OS_UPDATE_INFORMATION, infoRecommendation))
+                                Results.Success(
+                                    OSRecommendationInterceptor(
+                                        title = result.data.ios.userInterface.osInformation.title,
+                                        descriptiion = result.data.ios.userInterface.osInformation.descriptiion,
+                                        minOS = minimumOS,
+                                        recoOS = osRecommendation,
+                                        type = OSRecommendationType.OS_UPDATE_INFORMATION,
+                                    )
+                                )
                             } else {
-                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
+                                Results.Success(
+                                    OSRecommendationInterceptor(
+                                        title = "",
+                                        descriptiion = "",
+                                        minOS = "",
+                                        recoOS = "",
+                                        type = OSRecommendationType.NO_UPDATE_OS,
+                                    )
+                                )
                             }
                         }
 
@@ -106,13 +120,39 @@ class OSRecomendationUseCase(
                             )
                             if (recoTime.months >= 3 || !alreadyPromptedRecoOS) {
                                 settingsHelper.save(KeySettingsType.LAST_RECOMMENDATION_OS_SHOWN_DATE, now)
-                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.OS_UPDATE_RECOMMENDATION, infoRecommendation))
+                                Results.Success(
+                                    OSRecommendationInterceptor(
+                                        title = result.data.ios.userInterface.osRecomendation.title,
+                                        descriptiion = result.data.ios.userInterface.osRecomendation.descriptiion,
+                                        minOS = minimumOS,
+                                        recoOS = osRecommendation,
+                                        type = OSRecommendationType.OS_UPDATE_RECOMMENDATION,
+                                    )
+                                )
                             } else {
-                                Results.Success(OSRecommendationInterceptor(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
+                                Results.Success(
+                                    OSRecommendationInterceptor(
+                                        title = "",
+                                        descriptiion = "",
+                                        minOS = "",
+                                        recoOS = "",
+                                        type = OSRecommendationType.NO_UPDATE_OS,
+                                    )
+                                )
                             }
                         }
 
-                        else -> Results.Success(OSRecommendationInterceptor(OSRecommendationType.NO_UPDATE_OS, infoRecommendation))
+                        else -> {
+                            Results.Success(
+                                OSRecommendationInterceptor(
+                                    title = "",
+                                    descriptiion = "",
+                                    minOS = "",
+                                    recoOS = "",
+                                    type = OSRecommendationType.NO_UPDATE_OS,
+                                )
+                            )
+                        }
                     }
                 }
             }
