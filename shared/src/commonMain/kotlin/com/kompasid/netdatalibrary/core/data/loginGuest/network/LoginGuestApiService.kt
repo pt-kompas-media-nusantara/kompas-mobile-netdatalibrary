@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.loginGuest.network
 
-import com.kompasid.netdatalibrary.base.network.ApiConfig
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiConfig
 import com.kompasid.netdatalibrary.core.data.loginGuest.dto.request.LoginGuestRequest
 import com.kompasid.netdatalibrary.core.data.loginGuest.dto.response.LoginGuestResponse
 import com.kompasid.netdatalibrary.base.network.ApiResults

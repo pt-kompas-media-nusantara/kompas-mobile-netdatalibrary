@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.osRecomendation.network
 
-import com.kompasid.netdatalibrary.base.network.ApiConfig
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiEnvironment
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
@@ -13,15 +13,16 @@ import io.ktor.http.contentType
 
 class OSRecomendationApiService(
     private val httpClient: HttpClient,
+    private val apiEnvironment: ApiEnvironment
 ) : IOSRecomendationApiService {
     suspend fun osRecommendation(): ApiResults<OSRecommendationResponse, NetworkError> {
+        val url = apiEnvironment.getOsRecommendationUrl()
         return safeCall<OSRecommendationResponse> {
-            httpClient.get(ApiConfig.OS_RECOMENDATION) {
+            httpClient.get(url) {
                 contentType(ContentType.Application.Json)
                 accept(ContentType.Application.Json)
             }
         }
     }
 }
-
 

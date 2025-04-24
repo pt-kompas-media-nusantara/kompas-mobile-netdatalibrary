@@ -12,6 +12,8 @@ import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterResInterceptor
 import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
 
 
@@ -19,8 +21,15 @@ class AuthUseCase(
     private val checkRegisteredUsersRepository: CheckRegisteredUsersRepository,
     private val loginRepository: LoginRepository,
     private val registerRepository: RegisterRepository,
-    private val logoutRepository: LogoutRepository
+    private val logoutRepository: LogoutRepository,
+    private val settingsHelper: SettingsHelper,
+    private val supportSettingsHelper: SupportSettingsHelper
 ) {
+
+    suspend fun checkAuthScreenType(): AuthScreenType {
+
+        return AuthScreenType.NEXT
+    }
 
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
         return try {
@@ -71,3 +80,9 @@ class AuthUseCase(
     }
 }
 
+enum class AuthScreenType {
+    NEXT,
+    AUTO_LOGIN,
+    SUBSCRIPTION,
+    APULO
+}

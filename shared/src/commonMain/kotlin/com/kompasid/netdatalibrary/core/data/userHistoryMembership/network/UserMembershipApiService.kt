@@ -1,11 +1,10 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.network
 
 
-import com.kompasid.netdatalibrary.base.network.ApiConfig
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiConfig
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.response.unitMembership.UserMembershipResponse
 import com.kompasid.netdatalibrary.core.data.userMembershipHistoryData.dto.OldUserHistoryMembershipResponse
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import io.ktor.client.HttpClient

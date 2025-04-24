@@ -1,6 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.login.network
 
-import com.kompasid.netdatalibrary.base.network.ApiConfig
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiConfig
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall

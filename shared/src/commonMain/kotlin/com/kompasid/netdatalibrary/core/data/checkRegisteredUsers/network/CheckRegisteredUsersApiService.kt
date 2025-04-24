@@ -1,15 +1,12 @@
 package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network
 
-import com.kompasid.netdatalibrary.base.network.ApiConfig
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiConfig
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.request.CheckRegisteredUsersRequest
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
-import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
-import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import com.kompasid.netdatalibrary.helpers.TextType
 import com.kompasid.netdatalibrary.helpers.TextValidator
 import io.ktor.client.HttpClient
 import io.ktor.client.request.accept

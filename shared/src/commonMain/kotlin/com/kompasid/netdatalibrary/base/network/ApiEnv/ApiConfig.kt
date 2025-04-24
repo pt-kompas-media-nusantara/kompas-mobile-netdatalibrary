@@ -1,9 +1,10 @@
-package com.kompasid.netdatalibrary.base.network
+package com.kompasid.netdatalibrary.base.network.ApiEnv
 
 object ApiConfig {
     private const val CDN_URL = "https://cdn-content.kompas.id"
     private const val KID_URL = "https://api.kompas.id"
     private const val SUBS_URL = "https://apisubs.kompas.id"
+    private const val APIARY_URL = "https://private-d6360b-hariankompasios.apiary-mock.com"
     const val GENERAL_URL = "$CDN_URL/mobile/json/generalContent.json"
 
 
@@ -29,6 +30,7 @@ object ApiConfig {
     const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"
 
     // SUPPORT
-    const val OS_RECOMENDATION = "$CDN_URL/mobile/json/recommendedOSSettings.json"
+    const val OS_RECOMMENDATION_PROD = "$CDN_URL/mobile/json/recommendedOSSettings.json"
+    const val OS_RECOMMENDATION_DEV = "$APIARY_URL/recommendos"
     const val FORCE_UPDATE = "$CDN_URL/mobile/json/iosForceUpdate.json"
 }
