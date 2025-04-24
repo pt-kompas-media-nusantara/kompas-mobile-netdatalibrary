@@ -1,6 +1,7 @@
 package com.kompasid.netdatalibrary.base.di
 
 import com.kompasid.netdatalibrary.base.DecodeJWT
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiEnvironment
 import com.kompasid.netdatalibrary.core.data.userDetail.dataSource.UserDetailDataSource
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
@@ -172,6 +173,7 @@ val helperModule = module {
 }
 
 val netDataModule = module {
+    singleOf(::ApiEnvironment) { bind<ApiEnvironment>() }
     singleOf(::NetworkApiService) { bind<INetworkApiService>() }
     singleOf(::NetworkVM) { bind<INetworkVM>() }
 

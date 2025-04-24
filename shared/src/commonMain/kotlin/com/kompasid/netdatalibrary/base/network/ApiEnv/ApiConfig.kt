@@ -29,8 +29,10 @@ object ApiConfig {
 
     const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"
 
-    // SUPPORT
+
     const val OS_RECOMMENDATION_PROD = "$CDN_URL/mobile/json/recommendedOSSettings.json"
     const val OS_RECOMMENDATION_DEV = "$APIARY_URL/recommendos"
-    const val FORCE_UPDATE = "$CDN_URL/mobile/json/iosForceUpdate.json"
+
+    const val FORCE_UPDATE_PROD = "$CDN_URL/mobile/json/iosForceUpdate.json"
+    const val FORCE_UPDATE_DEV = "$APIARY_URL/iosForceUpdate"
 }

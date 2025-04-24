@@ -5,12 +5,19 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 class ApiEnvironment(
     private val settingsHelper: SettingsHelper
-) {
+){
 
     suspend fun getOsRecommendationUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.OS_RECOMMENDATION_PROD
             else -> ApiConfig.OS_RECOMMENDATION_DEV
+        }
+    }
+
+    suspend fun getForceUpdateUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.FORCE_UPDATE_PROD
+            else -> ApiConfig.FORCE_UPDATE_DEV
         }
     }
 
