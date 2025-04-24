@@ -5,6 +5,8 @@ object ApiConfig {
     private const val KID_URL = "https://api.kompas.id"
     private const val SUBS_URL = "https://apisubs.kompas.id"
     private const val APIARY_URL = "https://private-d6360b-hariankompasios.apiary-mock.com"
+    private const val KID_CLOUD_URL = "https://api.kompas.cloud"
+
     const val GENERAL_URL = "$CDN_URL/mobile/json/generalContent.json"
 
 
@@ -29,10 +31,13 @@ object ApiConfig {
 
     const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"
 
-
     const val OS_RECOMMENDATION_PROD = "$CDN_URL/mobile/json/recommendedOSSettings.json"
     const val OS_RECOMMENDATION_DEV = "$APIARY_URL/recommendos"
 
     const val FORCE_UPDATE_PROD = "$CDN_URL/mobile/json/iosForceUpdate.json"
     const val FORCE_UPDATE_DEV = "$APIARY_URL/iosForceUpdate"
+
+    const val PURCHASE_TOKEN_CHECK_PROD = "$SUBS_URL/purchase-token/user-check"
+    const val PURCHASE_TOKEN_CHECK_DEV = "$SUBS_URL/purchase-token/user-check"
+    const val PURCHASE_TOKEN_CHECK_STAG = "$KID_CLOUD_URL/subscription/api/v1/purchase-token/user-check"
 }

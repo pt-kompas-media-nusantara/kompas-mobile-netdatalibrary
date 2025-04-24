@@ -13,6 +13,8 @@ import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterRe
 import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
+import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
 
@@ -26,9 +28,31 @@ class AuthUseCase(
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
 
-    suspend fun checkAuthScreenType(): AuthScreenType {
+    //    (hit api dulu kalau begitu, untuk mengecek apakah apulo yang muncul atau auto login)
+//    - jika user mempunyai purchase token baik aktif maupun tidak aktif akan menampilkan auto login.
+//    - jika user tidak mempunyai purchase token akan menampilkan halaman login / register / berlangganan tergantung entry point yang di click
+//    - jika user regon dan mempunyai purchase token aktif, dimana purchase token tersebut tidak mempunyai guid. maka akan menampilkan apulo
+    suspend fun checkAuthScreenType(): AuthFlowType {
+        val email: String = settingsHelper.get(KeySettingsType.EMAIL, "")
+        val originalTransactionId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
 
-        return AuthScreenType.NEXT
+        if (originalTransactionId.isNotEmpty()) {
+            return AuthFlowType.AUTO_LOGIN
+        }
+        if (email.isNotEmpty() && originalTransactionId.isNotEmpty() && ) {
+            return AuthFlowType.APULO
+        }
+
+//        if (isActive.lowercase() == suber.lowercase()) {
+//            return AuthFlowType.NEXT
+//        } else if (isActive.lowercase() != suber.lowercase()) {
+////            && originalTransactionId.isNotEmpty()
+//            // nurirppan : harusnya pas membershipnya active bukan kosong
+//            return AuthFlowType.NEXT
+//        } else {
+//
+//        }
+            return AuthFlowType.NEXT
     }
 
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
@@ -80,9 +104,3 @@ class AuthUseCase(
     }
 }
 
-enum class AuthScreenType {
-    NEXT,
-    AUTO_LOGIN,
-    SUBSCRIPTION,
-    APULO
-}

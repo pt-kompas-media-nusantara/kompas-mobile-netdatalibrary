@@ -37,23 +37,6 @@ class SupportSettingsHelper(
         }
     }
 
-    suspend fun checkAutoLogin(): AuthFlowType {
-        val isActive: String = settingsHelper.get(KeySettingsType.IS_ACTIVE, "")
-//        val originalTransactionId: String = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, "")
-        val gracePeriod: Int = settingsHelper.get(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, 0)
-        val suber: String = "Aktif Berlangganan"
-
-        if (isActive.lowercase() == suber.lowercase()) {
-            return AuthFlowType.NEXT
-        } else if (isActive.lowercase() != suber.lowercase()) {
-//            && originalTransactionId.isNotEmpty()
-            // nurirppan : harusnya pas membershipnya active bukan kosong
-            return AuthFlowType.AUTO_LOGIN
-        } else {
-            return AuthFlowType.AUTH
-        }
-    }
-
     suspend fun userDataTracker(): UserDataTrackerModel {
         return UserDataTrackerModel(
             UserType.ANONYMOUS.value,

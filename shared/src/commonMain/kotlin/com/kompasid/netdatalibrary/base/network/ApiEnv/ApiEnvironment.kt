@@ -21,8 +21,14 @@ class ApiEnvironment(
         }
     }
 
+    suspend fun getPurchaseTokenCheckUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.PURCHASE_TOKEN_CHECK_PROD
+            else -> ApiConfig.PURCHASE_TOKEN_CHECK_DEV
+        }
+    }
 
-    private suspend fun flavors(): FlavorsType {
+    suspend fun flavors(): FlavorsType {
         val flavor = settingsHelper.get(KeySettingsType.FLAVORS, "")
         return when (flavor.uppercase()) {
             FlavorsConstant.DEBUG -> FlavorsType.DEBUG
