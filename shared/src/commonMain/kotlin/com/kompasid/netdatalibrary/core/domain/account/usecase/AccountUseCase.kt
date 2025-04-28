@@ -35,22 +35,25 @@ class AccountUseCase(
         val checkUserType = supportSettingsHelper.checkUserType()
         val checkAutoLogin = supportSettingsHelper.checkAuthScreenType()
 
+        // Mapping AuthFlowType ke AccountNavigationType
+        val authFlowToNavigation = mapOf(
+            AuthFlowType.NEXT to AccountNavigationType.NEXT,
+            AuthFlowType.AUTO_LOGIN to AccountNavigationType.AUTO_LOGIN,
+            AuthFlowType.APULO to AccountNavigationType.APULO
+        )
+
         fun AccountModel.applyAccountModification(isSubscription: Boolean = false): AccountModel {
-            return when {
-                when (checkAutoLogin) {
-                    AuthFlowType.NEXT -> copy(navigation = AccountNavigationType.NEXT)
-                    AuthFlowType.AUTO_LOGIN -> copy(navigation = AccountNavigationType.AUTO_LOGIN)
-                    AuthFlowType.APULO -> copy(navigation = AccountNavigationType.APULO)
-                }
+            authFlowToNavigation[checkAutoLogin]?.let { navType ->
+                return copy(navigation = navType)
+            }
 
-                checkUserType == StateUserType.ANON -> {
-                    copy(
-                        lockIcon = "ic_lock",
-                        navigation = if (isSubscription) AccountNavigationType.SUBSCRIPTION else AccountNavigationType.REGISTER_WALL
-                    )
-                }
-
-                else -> this
+            return if (checkUserType == StateUserType.ANON) {
+                copy(
+                    lockIcon = "ic_lock",
+                    navigation = if (isSubscription) AccountNavigationType.SUBSCRIPTION else AccountNavigationType.REGISTER_WALL
+                )
+            } else {
+                this
             }
         }
 
@@ -62,7 +65,6 @@ class AccountUseCase(
             add(bookmarkData.applyAccountModification())
             add(rewardData)
             add(settingData.applyAccountModification())
-
             addAll(
                 listOf(
                     contactUsData,
@@ -73,6 +75,7 @@ class AccountUseCase(
             )
         }
     }
+
 
     suspend fun aboutHarianKompasMenus(): List<AccountModel> {
         return listOf(
