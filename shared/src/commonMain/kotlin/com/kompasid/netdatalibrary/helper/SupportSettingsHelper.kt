@@ -37,6 +37,10 @@ class SupportSettingsHelper(
         }
     }
 
+    suspend fun isRegisterWallShown(): Boolean {
+        return checkUserType() == StateUserType.ANON
+    }
+
     suspend fun checkUserType(): StateUserType {
         val isActive: String = settingsHelper.get(KeySettingsType.IS_ACTIVE, "")
         val gracePeriod: Int = settingsHelper.get(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, 0)
