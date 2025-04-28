@@ -23,6 +23,7 @@ enum class KeySettingsType(val key: String) {
     PROVINCE("PROVINCE"), // string |
     CITY("CITY"), // string |
     USERNAME("USERNAME"), // string |
+    USER_TYPE("USER_TYPE"), // int | 0 = anon, 1 = regon, 2 = suber
 
     // device information
     DEVICE_KEY_ID("DEVICE_KEY_ID"), // string |
@@ -45,7 +46,6 @@ enum class KeySettingsType(val key: String) {
     IS_ACTIVE("IS_ACTIVE"), // boolean | kayanya harus di bedain IS_ACTIVE & ACTIVE_MEMBERSHIP
     EXPIRED_MEMBERSHIPS("EXPIRED_MEMBERSHIPS"), // XXX | belum di pakai
     ACTIVE_MEMBERSHIPS("ACTIVE_MEMBERSHIPS"), // XXX | belum di pakai
-
 
     // article
     RUBRIK_PILIHANKU("RUBRIK_PILIHANKU"), // List<MyRubriksResInterceptor>
@@ -74,16 +74,16 @@ enum class KeySettingsType(val key: String) {
     MINIMUM_APP_VERSION_KOMPAS_ID_TEMP("MINIMUM_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
     MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP("MAXIMUM_APP_VERSION_KOMPAS_ID_TEMP"), // string | 3.50.0
 
-    FORCE_UPDATE_MIN_VERSION("FORCE_UPDATE_MIN_VERSION"), // string |
-    FORCE_UPDATE_MAX_VERSION("FORCE_UPDATE_MAX_VERSION"), // string |
-
-
 
     ENDPOINT_TYPE("ENDPOINT_TYPE"), // XXX | belum di pakai
 
     FLAVORS("FLAVORS"), // string | DEBUG, ALLCLOUD, DKID_ID, DKID_CLOUD, DQA_ID, DQA_CLOUD, RQA_ID, RKID_ID
     IS_DEBUG("IS_DEBUG"), // boolean | true or false
     IS_LOG_ACTIVED("IS_LOG_ACTIVED"), // boolean | true or false
+
+    EMAIL_BY_PURCHASE_TOKEN("EMAIL_BY_PURCHASE_TOKEN"), // string | kompastesting.sffacebook@getnada.com
+    REGISTER_BY_PURCHASE_TOKEN("REGISTER_BY_PURCHASE_TOKEN"), // string | facebook
+    IS_AUTO_LOGIN("IS_AUTO_LOGIN"), // boolean | true or false
 }
 
 // CATATAN :

@@ -1,0 +1,14 @@
+//curl --location --globoff '{{url_subscription}}/purchase-token/user-check' \
+//--header 'x-signature;' \
+//--header 'datetime;' \
+//--data '{
+//"token": 2000000455735483,
+//"membershipChannelId": 13
+//}'
+
+{
+"code": 400,
+"message": "given param is not valid",
+"data": null,
+"errors": "given param is not valid"
+}

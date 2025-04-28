@@ -17,6 +17,7 @@ import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
+import kotlinx.coroutines.async
 
 
 class AuthUseCase(
@@ -33,26 +34,19 @@ class AuthUseCase(
 //    - jika user tidak mempunyai purchase token akan menampilkan halaman login / register / berlangganan tergantung entry point yang di click
 //    - jika user regon dan mempunyai purchase token aktif, dimana purchase token tersebut tidak mempunyai guid. maka akan menampilkan apulo
     suspend fun checkAuthScreenType(): AuthFlowType {
-        val email: String = settingsHelper.get(KeySettingsType.EMAIL, "")
-        val originalTransactionId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
+        val isAutoLogin: Boolean = settingsHelper.get(KeySettingsType.IS_AUTO_LOGIN, false)
+        val isActive: String = settingsHelper.get(KeySettingsType.ACTIVE_MEMBERSHIP, "")
+        val totalGracePeriod: Int = settingsHelper.get(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, 0)
+        val userType: Int = settingsHelper.get(KeySettingsType.USER_TYPE, 0)
+        val oriTrxId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
 
-        if (originalTransactionId.isNotEmpty()) {
-            return AuthFlowType.AUTO_LOGIN
+        return when {
+            userType == 0 -> AuthFlowType.REGISTER_WALL
+            totalGracePeriod > 0 || isActive.lowercase() != "aktif berlangganan" -> AuthFlowType.SUBSCRIPTION
+            isAutoLogin -> AuthFlowType.AUTO_LOGIN
+            oriTrxId.isNotEmpty() && !isAutoLogin -> AuthFlowType.APULO
+            else -> AuthFlowType.NEXT
         }
-        if (email.isNotEmpty() && originalTransactionId.isNotEmpty() && ) {
-            return AuthFlowType.APULO
-        }
-
-//        if (isActive.lowercase() == suber.lowercase()) {
-//            return AuthFlowType.NEXT
-//        } else if (isActive.lowercase() != suber.lowercase()) {
-////            && originalTransactionId.isNotEmpty()
-//            // nurirppan : harusnya pas membershipnya active bukan kosong
-//            return AuthFlowType.NEXT
-//        } else {
-//
-//        }
-            return AuthFlowType.NEXT
     }
 
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
