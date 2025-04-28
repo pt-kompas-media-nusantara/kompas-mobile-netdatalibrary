@@ -7,6 +7,13 @@ class ApiEnvironment(
     private val settingsHelper: SettingsHelper
 ){
 
+    suspend fun getCheckRegisteredUsersUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.CHECK_VERIFIED_USER_URL_PROD
+            else -> ApiConfig.CHECK_VERIFIED_USER_URL_DEV
+        }
+    }
+
     suspend fun getOsRecommendationUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.OS_RECOMMENDATION_PROD

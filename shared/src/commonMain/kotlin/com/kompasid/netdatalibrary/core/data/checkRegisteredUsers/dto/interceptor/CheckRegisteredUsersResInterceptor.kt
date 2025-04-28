@@ -3,11 +3,11 @@ package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.intercept
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.enums.RegisteredType
 
 data class CheckRegisteredUsersResInterceptor(
-    var registeredType: RegisteredType = RegisteredType.EMAIL,
-    var text: String = "",
-    var registered: Boolean = false,
-    var registeredBy: String = "",
-    var registeredOn: List<String> = emptyList()
+    var registeredType: RegisteredType,
+    var text: String,
+    var registered: Boolean,
+    var registeredBy: String,
+    var registeredOn: List<String>
 )
 
 
