@@ -37,11 +37,9 @@ class AuthUseCase(
         val isAutoLogin: Boolean = settingsHelper.get(KeySettingsType.IS_AUTO_LOGIN, false)
         val isActive: String = settingsHelper.get(KeySettingsType.ACTIVE_MEMBERSHIP, "")
         val totalGracePeriod: Int = settingsHelper.get(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, 0)
-        val userType: Int = settingsHelper.get(KeySettingsType.USER_TYPE, 0)
         val oriTrxId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
 
         return when {
-            userType == 0 -> AuthFlowType.REGISTER_WALL
             totalGracePeriod > 0 || isActive.lowercase() != "aktif berlangganan" -> AuthFlowType.SUBSCRIPTION
             isAutoLogin -> AuthFlowType.AUTO_LOGIN
             oriTrxId.isNotEmpty() && !isAutoLogin -> AuthFlowType.APULO
