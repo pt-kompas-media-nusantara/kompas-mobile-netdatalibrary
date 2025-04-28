@@ -23,7 +23,6 @@ enum class KeySettingsType(val key: String) {
     PROVINCE("PROVINCE"), // string |
     CITY("CITY"), // string |
     USERNAME("USERNAME"), // string |
-    USER_TYPE("USER_TYPE"), // int | 0 = anon, 1 = regon, 2 = suber
 
     // device information
     DEVICE_KEY_ID("DEVICE_KEY_ID"), // string |

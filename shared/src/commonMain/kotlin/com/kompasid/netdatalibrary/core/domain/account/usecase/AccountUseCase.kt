@@ -27,21 +27,20 @@ import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
 import com.kompasid.netdatalibrary.helper.enums.StateUserType
 
-//    totalGracePeriod > 0 || isActive.lowercase() != "aktif berlangganan" -> AuthFlowType.SUBSCRIPTION // ini muncul kalau gradce periode di menu akun list
-//    val isActive: String = settingsHelper.get(KeySettingsType.ACTIVE_MEMBERSHIP, "")
-//    val totalGracePeriod: Int = settingsHelper.get(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, 0)
 class AccountUseCase(
     private val supportSettingsHelper: SupportSettingsHelper,
 ) {
 
     suspend fun accountMenus(): List<AccountModel> {
         val checkUserType = supportSettingsHelper.checkUserType()
-        val checkAutoLogin = supportSettingsHelper.checkAutoLogin()
+        val checkAutoLogin = supportSettingsHelper.checkAuthScreenType()
 
         fun AccountModel.applyAccountModification(isSubscription: Boolean = false): AccountModel {
             return when {
-                checkUserType == StateUserType.ANON && checkAutoLogin == AuthFlowType.AUTO_LOGIN -> {
-                    copy(navigation = AccountNavigationType.AUTO_LOGIN)
+                when (checkAutoLogin) {
+                    AuthFlowType.NEXT -> copy(navigation = AccountNavigationType.NEXT)
+                    AuthFlowType.AUTO_LOGIN -> copy(navigation = AccountNavigationType.AUTO_LOGIN)
+                    AuthFlowType.APULO -> copy(navigation = AccountNavigationType.APULO)
                 }
 
                 checkUserType == StateUserType.ANON -> {

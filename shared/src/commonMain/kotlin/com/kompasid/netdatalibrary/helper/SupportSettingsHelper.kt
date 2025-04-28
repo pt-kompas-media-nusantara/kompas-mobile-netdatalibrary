@@ -22,6 +22,21 @@ class SupportSettingsHelper(
         return StateInstallType.FIRST_INSTALL
     }
 
+    // (hit api dulu, untuk mengecek apakah apulo yang muncul atau auto login)
+    // - jika user mempunyai purchase token baik aktif maupun tidak aktif akan menampilkan auto login.
+    // - jika user tidak mempunyai purchase token akan menampilkan halaman login / register / berlangganan tergantung entry point yang di click
+    // - jika user regon dan mempunyai purchase token aktif, dimana purchase token tersebut tidak mempunyai guid. maka akan menampilkan apulo
+    suspend fun checkAuthScreenType(): AuthFlowType {
+        val isAutoLogin: Boolean = settingsHelper.get(KeySettingsType.IS_AUTO_LOGIN, false)
+        val oriTrxId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
+
+        return when {
+            isAutoLogin -> AuthFlowType.AUTO_LOGIN
+            oriTrxId.isNotEmpty() && !isAutoLogin -> AuthFlowType.APULO
+            else -> AuthFlowType.NEXT
+        }
+    }
+
     suspend fun checkUserType(): StateUserType {
         val isActive: String = settingsHelper.get(KeySettingsType.IS_ACTIVE, "")
         val gracePeriod: Int = settingsHelper.get(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, 0)

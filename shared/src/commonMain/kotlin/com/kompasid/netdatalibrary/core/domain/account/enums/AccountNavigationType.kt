@@ -3,7 +3,9 @@ package com.kompasid.netdatalibrary.core.domain.account.enums
 import com.kompasid.netdatalibrary.core.domain.account.model.NavigationType
 
 enum class AccountNavigationType(val value: String, navigationType: NavigationType) {
+    NEXT("NEXT", NavigationType.NATIVE),
     AUTO_LOGIN("AUTO_LOGIN", NavigationType.NATIVE),
+    APULO("APULO", NavigationType.NATIVE),
     LOGIN("LOGIN", NavigationType.NATIVE),
     REGISTER("REGISTER", NavigationType.NATIVE),
     REGISTER_WALL("REGISTER_WALL", NavigationType.NATIVE),
