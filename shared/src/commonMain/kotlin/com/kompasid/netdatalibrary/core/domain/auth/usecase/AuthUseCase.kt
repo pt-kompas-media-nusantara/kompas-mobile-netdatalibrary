@@ -35,12 +35,9 @@ class AuthUseCase(
 //    - jika user regon dan mempunyai purchase token aktif, dimana purchase token tersebut tidak mempunyai guid. maka akan menampilkan apulo
     suspend fun checkAuthScreenType(): AuthFlowType {
         val isAutoLogin: Boolean = settingsHelper.get(KeySettingsType.IS_AUTO_LOGIN, false)
-        val isActive: String = settingsHelper.get(KeySettingsType.ACTIVE_MEMBERSHIP, "")
-        val totalGracePeriod: Int = settingsHelper.get(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, 0)
         val oriTrxId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
 
         return when {
-            totalGracePeriod > 0 || isActive.lowercase() != "aktif berlangganan" -> AuthFlowType.SUBSCRIPTION
             isAutoLogin -> AuthFlowType.AUTO_LOGIN
             oriTrxId.isNotEmpty() && !isAutoLogin -> AuthFlowType.APULO
             else -> AuthFlowType.NEXT
