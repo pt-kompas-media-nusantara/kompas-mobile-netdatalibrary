@@ -90,6 +90,30 @@ class LoginRepository(
         }
     }
 
+    suspend fun loginByPurchaseToken(): Results<Unit, NetworkError> {
+        return try {
+            when (val result = loginApiService.loginByPurchaseToken()) {
+                is ApiResults.Success -> {
+                    result.data.data?.let { data ->
+                        coroutineScope {
+                            val loginTask = async { saveLoginData(data) }
+                            val ssoTask = async { saveSsoData(data.sso) }
+
+                            // Tunggu keduanya selesai
+                            loginTask.await()
+                            ssoTask.await()
+                        }
+                    }
+                    Results.Success(Unit)
+                }
+
+                is ApiResults.Error -> Results.Error(result.error)
+            }
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
+    }
+
     private suspend fun saveLoginData(data: LoginResponseData) {
         loginEmailDataSource.save(
             accessToken = data.accessToken.orEmpty(),

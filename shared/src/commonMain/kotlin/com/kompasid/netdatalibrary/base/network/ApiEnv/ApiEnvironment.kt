@@ -35,6 +35,13 @@ class ApiEnvironment(
         }
     }
 
+    suspend fun getLoginByPurchaseTokenUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.LOGIN_BY_PURCHASE_TOKEN_URL_PROD
+            else -> ApiConfig.LOGIN_BY_PURCHASE_TOKEN_URL_DEV
+        }
+    }
+
     suspend fun getRegisterByEmailUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.REGISTER_URL_PROD

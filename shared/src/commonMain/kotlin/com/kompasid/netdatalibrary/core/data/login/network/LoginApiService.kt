@@ -10,6 +10,7 @@ import com.kompasid.netdatalibrary.base.validation.Validator
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.request.CheckRegisteredUsersRequest
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginAppleRequest
+import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginByPurchaseTokenRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginEmailRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginGoogleRequest
 import com.kompasid.netdatalibrary.core.data.login.dto.response.LoginResponse
@@ -90,6 +91,23 @@ class LoginApiService(
             device = settingsHelper.get(KeySettingsType.DEVICE, ""),
             deviceType = settingsHelper.get(KeySettingsType.DEVICE_TYPE, ""),
             docReferrer = "iOS", // KeySettingsType.DOC_REFERRER
+        )
+
+        return safeCall<LoginResponse> {
+            httpClient.post(url) {
+                contentType(ContentType.Application.Json)
+                accept(ContentType.Application.Json)
+                setBody(request)
+            }
+        }
+    }
+
+    suspend fun loginByPurchaseToken(): ApiResults<LoginResponse, NetworkError> {
+        val url = apiEnvironment.getLoginByPurchaseTokenUrl()
+        val oriTrxId: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
+
+        val request = LoginByPurchaseTokenRequest(
+            token = oriTrxId.last()
         )
 
         return safeCall<LoginResponse> {

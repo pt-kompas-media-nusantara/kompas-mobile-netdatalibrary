@@ -24,6 +24,7 @@ class AuthUseCase(
 
     // login by phone number
     // figma: https://www.figma.com/design/Ujy2qXggVShfFcem2LWXuD/Option-OTP-via-SMS?node-id=90-21995&t=LjdnjJVXt3nMNhj8-0
+    // nurirppan_ : beluman
     suspend fun sendOTPToWhatsApp() {
 
     }
@@ -62,6 +63,15 @@ class AuthUseCase(
         }
     }
 
+    suspend fun loginByPurchaseToken(): Results<Unit, NetworkError> {
+        return try {
+            loginRepository.loginByPurchaseToken().logged(prefix = "UseCase: loginByPurchaseToken")
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
+    }
+
+    // nurirppan_ : beluman(cek lagi)
     suspend fun registerByEmail(email: String, firstName: String, lastName: String, password: String): Results<RegisterResInterceptor, NetworkError> {
         return try {
             registerRepository.registerByEmail(email, firstName, lastName, password).logged(prefix = "UseCase: registerByEmail")

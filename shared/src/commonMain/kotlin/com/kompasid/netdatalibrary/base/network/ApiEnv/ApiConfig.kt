@@ -20,6 +20,9 @@ object ApiConfig {
     const val LOGIN_BY_APPLE_URL_PROD = "$KID_URL/account/api/v2/login/apple"
     const val LOGIN_BY_APPLE_URL_DEV = "$KID_CLOUD_URL/account/api/v2/login/apple"
 
+    const val LOGIN_BY_PURCHASE_TOKEN_URL_PROD = "$KID_URL/account/api/v2/login/purchase-token"
+    const val LOGIN_BY_PURCHASE_TOKEN_URL_DEV = "$KID_CLOUD_URL/account/api/v2/login/purchase-token"
+
     const val REGISTER_URL_PROD = "$KID_URL/account/api/v2/register"
     const val REGISTER_URL_DEV = "$KID_CLOUD_URL/account/api/v2/register"
 
