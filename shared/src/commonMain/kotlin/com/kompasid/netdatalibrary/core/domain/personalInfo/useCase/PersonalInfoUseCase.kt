@@ -71,14 +71,6 @@ class PersonalInfoUseCase(
         }
     }
 
-    suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
-        return try {
-            checkRegisteredUsersRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")
-        } catch (e: Exception) {
-            Results.Error(NetworkError.Error(e))
-        }
-    }
-
 //    suspend fun checkRegisteredUsers(value: String): Results<Unit, NetworkError> = coroutineScope {
 //        runCatching {
 //            checkVerifiedUserRepository.checkRegisteredUsers(value)

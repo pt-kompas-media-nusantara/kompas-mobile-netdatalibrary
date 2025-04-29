@@ -18,33 +18,23 @@ class LoginEmailDataSource(
         deviceKeyId: String,
         isPassEmpty: Boolean,
         isSocial: Boolean,
-    ): Unit = coroutineScope {
-        val tasks = listOf(
-            async { runCatching { settingsHelper.save(KeySettingsType.ACCESS_TOKEN, accessToken) }.getOrThrow() },
-            async { runCatching { settingsHelper.save(KeySettingsType.REFRESH_TOKEN, refreshToken) }.getOrThrow() },
-            async { runCatching { settingsHelper.save(KeySettingsType.DEVICE_KEY_ID, deviceKeyId) }.getOrThrow() },
-            async { runCatching { settingsHelper.save(KeySettingsType.IS_PASS_EMPTY, isPassEmpty) }.getOrThrow() },
-            async { runCatching { settingsHelper.save(KeySettingsType.IS_SOCIAL, isSocial) }.getOrThrow() }
-        )
-
-        try {
-            tasks.awaitAll()
-        } catch (e: Exception) {
-            throw Exception("Error ", e)
+    ) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType.ACCESS_TOKEN, accessToken),
+                settingsHelper.saveAsync(this, KeySettingsType.REFRESH_TOKEN, refreshToken),
+                settingsHelper.saveAsync(this, KeySettingsType.DEVICE_KEY_ID, deviceKeyId),
+                settingsHelper.saveAsync(this, KeySettingsType.IS_PASS_EMPTY, isPassEmpty),
+                settingsHelper.saveAsync(this, KeySettingsType.IS_SOCIAL, isSocial)
+            ).awaitAll()
         }
     }
 
-    suspend fun save(
-        sso: Sso
-    ): Unit = coroutineScope {
-        val tasks = listOf(
-            async { runCatching { settingsHelper.save(KeySettingsType.SSO, sso) }.getOrThrow() },
-        )
-
-        try {
-            tasks.awaitAll()
-        } catch (e: Exception) {
-            throw Exception("Error ", e)
+    suspend fun save(sso: Sso) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType.SSO, sso),
+            ).awaitAll()
         }
     }
 

@@ -49,32 +49,3 @@ class CheckRegisteredUsersApiService(
         }
     }
 }
-
-/*
-class CheckRegisteredUsersApiService(
-    private val httpClient: HttpClient,
-    private val tokenInterceptor: TokenInterceptor,
-) : ICheckRegisteredUsersApiService {
-
-    suspend fun checkRegisteredUsers(value: String): ApiResults<CheckVerifiedUserResponse, NetworkError> {
-        return tokenInterceptor.withValidToken { validToken ->
-            safeCall<CheckVerifiedUserResponse> {
-
-                val type = TextValidator.detectType(value)
-
-                val request = CheckRegisteredUsersRequest(
-                    type = type.value, // email | phoneNumber
-                    value = value,
-                )
-
-                httpClient.post(ApiConfig.CHECK_VERIFIED_USER_URL) {
-                    contentType(ContentType.Application.Json)
-                    accept(ContentType.Application.Json)
-                    setBody(request)
-                    bearerAuth(validToken)
-                }
-            }
-        }
-    }
-}
-*/

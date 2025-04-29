@@ -29,6 +29,12 @@ class AuthUseCase(
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
 
+    // login by phone number
+    // figma: https://www.figma.com/design/Ujy2qXggVShfFcem2LWXuD/Option-OTP-via-SMS?node-id=90-21995&t=LjdnjJVXt3nMNhj8-0
+    suspend fun sendOTPToWhatsApp() {
+
+    }
+
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
         return try {
             checkRegisteredUsersRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")
@@ -77,4 +83,5 @@ class AuthUseCase(
         }
     }
 }
-
+//multiple sso : https://www.figma.com/design/6mp9LQv56mUAqKXDaO60on/iOS---Akun---Misc?node-id=6191-428951&p=f&t=sPIjsZp9TanIzOFY-0
+//login by whatsapp : https://www.figma.com/design/Ujy2qXggVShfFcem2LWXuD/Option-OTP-via-SMS?node-id=90-21995&t=LjdnjJVXt3nMNhj8-0

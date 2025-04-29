@@ -3,18 +3,28 @@ package com.kompasid.netdatalibrary.base.network.ApiEnv
 object ApiConfig {
     private const val CDN_URL = "https://cdn-content.kompas.id"
     private const val KID_URL = "https://api.kompas.id"
+    private const val KID_CLOUD_URL = "https://api.kompas.cloud"
     private const val SUBS_URL = "https://apisubs.kompas.id"
     private const val APIARY_URL = "https://private-d6360b-hariankompasios.apiary-mock.com"
-    private const val KID_CLOUD_URL = "https://api.kompas.cloud"
+
 
     const val GENERAL_URL = "$CDN_URL/mobile/json/generalContent.json"
 
 
-    const val LOGIN_BY_EMAIL_URL = "$KID_URL/account/api/v2/login/email"
-    const val LOGIN_BY_GOOGLE_URL = "$KID_URL/account/api/v2/login/google"
-    const val LOGIN_BY_APPLE_URL = "$KID_URL/account/api/v2/login/apple"
+    const val LOGIN_BY_EMAIL_URL_PROD = "$KID_URL/account/api/v2/login/email"
+    const val LOGIN_BY_EMAIL_URL_DEV = "$KID_CLOUD_URL/account/api/v2/login/email"
 
-    const val REGISTER_URL = "$KID_URL/account/api/v2/register"
+    const val LOGIN_BY_GOOGLE_URL_PROD = "$KID_URL/account/api/v2/login/google"
+    const val LOGIN_BY_GOOGLE_URL_DEV = "$KID_CLOUD_URL/account/api/v2/login/google"
+
+    const val LOGIN_BY_APPLE_URL_PROD = "$KID_URL/account/api/v2/login/apple"
+    const val LOGIN_BY_APPLE_URL_DEV = "$KID_CLOUD_URL/account/api/v2/login/apple"
+
+    const val REGISTER_URL_PROD = "$KID_URL/account/api/v2/register"
+    const val REGISTER_URL_DEV = "$KID_CLOUD_URL/account/api/v2/register"
+
+    const val LOGOUT_URL_PROD = "$KID_URL/account/api/v2/logout"
+    const val LOGOUT_URL_DEV = "$KID_CLOUD_URL/account/api/v2/logout"
 
     const val USER_DETAIL_URL = "$KID_URL/account/api/v2/users/detail"
     const val USER_MEMBERSHIP_URL = "$SUBS_URL/subscriptions"
@@ -24,7 +34,6 @@ object ApiConfig {
     const val COUNTRIES_URL = "$KID_URL/account/api/v1/countries"
     const val LOGIN_GUEST_URL = "$KID_URL/account/api/v2/login/guest"
     const val REFRESH_TOKEN_URL = "$KID_URL/account/api/v1/tokens/refresh"
-    const val LOGOUT_URL = "$KID_URL/account/api/v2/logout"
     const val UPDATE_PROFILE_URL = "$KID_URL/account/api/v1/users"
 
     const val CHECK_VERIFIED_USER_URL_PROD = "$KID_URL/account/api/v2/users/check"

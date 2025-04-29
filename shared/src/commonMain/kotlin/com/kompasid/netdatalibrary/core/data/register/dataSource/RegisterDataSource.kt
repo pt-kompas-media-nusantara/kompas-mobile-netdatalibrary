@@ -13,17 +13,13 @@ class RegisterDataSource(
     private val settingsHelper: SettingsHelper
 ) : IRegisterDataSource {
 
-    suspend fun save(data: RegisterResInterceptor): Unit = coroutineScope {
-        val tasks = listOf(
-            async { settingsHelper.save(KeySettingsType.ACCESS_TOKEN, data.accessToken) },
-            async { settingsHelper.save(KeySettingsType.REFRESH_TOKEN, data.refreshToken) },
-            async { settingsHelper.save(KeySettingsType.REGISTERED_ON, data.registeredOn) },
-        )
-
-        try {
-            tasks.awaitAll()
-        } catch (e: Exception) {
-            throw Exception("Error ", e)
+    suspend fun save(data: RegisterResInterceptor) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType.ACCESS_TOKEN, data.accessToken),
+                settingsHelper.saveAsync(this, KeySettingsType.REFRESH_TOKEN, data.refreshToken),
+                settingsHelper.saveAsync(this, KeySettingsType.REGISTERED_ON, data.registeredOn)
+            ).awaitAll()
         }
     }
 }

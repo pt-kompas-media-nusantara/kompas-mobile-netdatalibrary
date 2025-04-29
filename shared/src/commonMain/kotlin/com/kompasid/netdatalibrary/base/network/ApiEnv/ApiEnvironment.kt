@@ -7,6 +7,41 @@ class ApiEnvironment(
     private val settingsHelper: SettingsHelper
 ){
 
+    suspend fun getLogoutUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.LOGOUT_URL_PROD
+            else -> ApiConfig.LOGOUT_URL_DEV
+        }
+    }
+
+    suspend fun getLoginByEmailUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.LOGIN_BY_EMAIL_URL_PROD
+            else -> ApiConfig.LOGIN_BY_EMAIL_URL_DEV
+        }
+    }
+
+    suspend fun getLoginByGoogleUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.LOGIN_BY_GOOGLE_URL_PROD
+            else -> ApiConfig.LOGIN_BY_GOOGLE_URL_DEV
+        }
+    }
+
+    suspend fun getLoginByAppleUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.LOGIN_BY_APPLE_URL_PROD
+            else -> ApiConfig.LOGIN_BY_APPLE_URL_DEV
+        }
+    }
+
+    suspend fun getRegisterByEmailUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.REGISTER_URL_PROD
+            else -> ApiConfig.REGISTER_URL_DEV
+        }
+    }
+
     suspend fun getCheckRegisteredUsersUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.CHECK_VERIFIED_USER_URL_PROD
