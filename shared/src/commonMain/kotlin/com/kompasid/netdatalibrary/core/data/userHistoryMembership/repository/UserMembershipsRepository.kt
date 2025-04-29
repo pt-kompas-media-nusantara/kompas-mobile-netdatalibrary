@@ -15,9 +15,9 @@ class UserMembershipsRepository(
     private val userMembershipDataSource: UserMembershipDataSource,
 ) : IUserMembershipHistoryRepository {
 
-    override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+    override suspend fun getUserMembershipHistoryOld(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
-            when (val result = userMembershipApiService.getUserHistoryMembership()) {
+            when (val result = userMembershipApiService.getUserHistoryMembershipOld()) {
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor()
 

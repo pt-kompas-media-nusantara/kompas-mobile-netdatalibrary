@@ -70,10 +70,10 @@ class ApiEnvironment(
         }
     }
 
-    suspend fun getUserHistoryMembershipUrl(): String {
+    suspend fun getUserHistoryMembershipOldUrl(): String {
         return when (flavors()) {
-            FlavorsType.RELEASE -> ApiConfig.USER_HISTORY_MEMBERSHIP_URL_PROD
-            else -> ApiConfig.USER_HISTORY_MEMBERSHIP_URL_DEV
+            FlavorsType.RELEASE -> ApiConfig.USER_HISTORY_MEMBERSHIP_OLD_URL_PROD
+            else -> ApiConfig.USER_HISTORY_MEMBERSHIP_OLD_URL_DEV
         }
     }
 

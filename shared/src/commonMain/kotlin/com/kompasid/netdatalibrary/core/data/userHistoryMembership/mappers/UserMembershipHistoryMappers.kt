@@ -1,11 +1,11 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers
 
-import com.kompasid.netdatalibrary.core.data.userMembershipHistoryData.dto.UserHistoryMembershipResponse
+import com.kompasid.netdatalibrary.core.data.userMembershipHistoryData.dto.UserHistoryMembershipOldResponse
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipObjResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 
-fun UserHistoryMembershipResponse.toInterceptor(): UserHistoryMembershipResInterceptor {
+fun UserHistoryMembershipOldResponse.toInterceptor(): UserHistoryMembershipResInterceptor {
     return UserHistoryMembershipResInterceptor(
         user = UserHistoryMembershipObjResInterceptor(
             expired = data?.result?.user?.expired ?: "",

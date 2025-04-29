@@ -23,7 +23,7 @@ class PersonalInfoUseCase(
     suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
         supervisorScope {
             val userDetailDeferred = async { userDetail() }
-            val historyMembershipDeferred = async { historyMembership() }
+            val historyMembershipDeferred = async { historyMembershipOld() }
 
             try {
                 val userDetailResult = userDetailDeferred.await()
@@ -61,9 +61,9 @@ class PersonalInfoUseCase(
         }
     }
 
-    suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+    suspend fun historyMembershipOld(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
-            userMembershipsRepository.getUserMembershipHistory().logged(prefix = "UseCase: historyMembership")
+            userMembershipsRepository.getUserMembershipHistoryOld().logged(prefix = "UseCase: historyMembership")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
