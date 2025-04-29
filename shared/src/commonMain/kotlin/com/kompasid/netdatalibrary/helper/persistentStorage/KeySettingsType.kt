@@ -42,7 +42,7 @@ enum class KeySettingsType(val key: String) {
     END_DATE_MEMBERSHIP("END_DATE_MEMBERSHIP"), // string |
     TOTAL_GRACE_PERIOD_MEMBERSHIP("TOTAL_GRACE_PERIOD_MEMBERSHIP"), // int |
     GRACE_PERIOD_MEMBERSHIP("GRACE_PERIOD_MEMBERSHIP"), // boolean |
-    IS_ACTIVE("IS_ACTIVE"), // boolean | kayanya harus di bedain IS_ACTIVE & ACTIVE_MEMBERSHIP
+    IS_ACTIVE("IS_ACTIVE"), // boolean | kayanya harus di bedain IS_ACTIVE & ACTIVE_MEMBERSHIP "Aktif Berlangganan"
     EXPIRED_MEMBERSHIPS("EXPIRED_MEMBERSHIPS"), // XXX | belum di pakai
     ACTIVE_MEMBERSHIPS("ACTIVE_MEMBERSHIPS"), // XXX | belum di pakai
 

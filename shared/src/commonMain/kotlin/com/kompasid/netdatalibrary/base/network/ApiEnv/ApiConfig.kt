@@ -32,7 +32,8 @@ object ApiConfig {
     const val USER_DETAIL_URL_PROD = "$KID_URL/account/api/v2/users/detail"
     const val USER_DETAIL_URL_DEV = "$KID_CLOUD_URL/account/api/v2/users/detail"
 
-    const val USER_MEMBERSHIP_URL = "$SUBS_URL/subscriptions"
+    const val USER_MEMBERSHIP_URL_PROD = "$SUBS_URL/subscriptions"
+    const val USER_MEMBERSHIP_URL_DEV = "$SUBS_URL/subscriptions"
 
     const val USER_HISTORY_MEMBERSHIP_URL_PROD = "$KID_URL/account/api/v2/users/membership"
     const val USER_HISTORY_MEMBERSHIP_URL_DEV = "$KID_CLOUD_URL/account/api/v2/users/membership"

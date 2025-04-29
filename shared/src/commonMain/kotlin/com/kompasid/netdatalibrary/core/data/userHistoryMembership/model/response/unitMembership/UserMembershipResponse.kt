@@ -9,6 +9,10 @@ data class UserMembershipResponse(
     var code: Int? = null,
     @SerialName("data")
     var data: UserMembershipResponseData? = null,
+    @SerialName("errors")
+    var errors: String? = null,
+    @SerialName("message")
+    var message: String? = null
 )
 
 @Serializable

@@ -77,6 +77,13 @@ class ApiEnvironment(
         }
     }
 
+    suspend fun getUserMembershipUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.USER_MEMBERSHIP_URL_PROD
+            else -> ApiConfig.USER_MEMBERSHIP_URL_DEV
+        }
+    }
+
     suspend fun getForceUpdateUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.FORCE_UPDATE_PROD

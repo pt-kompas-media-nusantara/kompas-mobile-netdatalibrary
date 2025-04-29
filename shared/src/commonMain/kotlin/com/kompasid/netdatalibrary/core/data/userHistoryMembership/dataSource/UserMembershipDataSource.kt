@@ -1,6 +1,7 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource
 
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserMembershipResInterceptor
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
@@ -26,8 +27,28 @@ class UserMembershipDataSource(
             ).awaitAll()
         }
     }
-}
 
+    suspend fun save(data: UserMembershipResInterceptor) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType., data.status),
+                settingsHelper.saveAsync(this, KeySettingsType., data.duration),
+                settingsHelper.saveAsync(this, KeySettingsType., data.startDate),
+                settingsHelper.saveAsync(this, KeySettingsType., data.endDate),
+                settingsHelper.saveAsync(this, KeySettingsType., data.access),
+                settingsHelper.saveAsync(this, KeySettingsType., data.gracePeriod),
+                settingsHelper.saveAsync(this, KeySettingsType., data.gracePeriodDate),
+                settingsHelper.saveAsync(this, KeySettingsType., data.totalGracePeriod),
+                settingsHelper.saveAsync(this, KeySettingsType., data.membership),
+                settingsHelper.saveAsync(this, KeySettingsType., data.entitlement),
+                settingsHelper.saveAsync(this, KeySettingsType., data.guid),
+                settingsHelper.saveAsync(this, KeySettingsType., data.email),
+                settingsHelper.saveAsync(this, KeySettingsType., data.firstName),
+                settingsHelper.saveAsync(this, KeySettingsType., data.lastName),
+            ).awaitAll()
+        }
+    }
+}
 
 //            nurirppan__ : ini error, nggak bisa save list model
 //            async {

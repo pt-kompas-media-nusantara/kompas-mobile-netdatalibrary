@@ -7,6 +7,7 @@ import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProf
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
 import com.kompasid.netdatalibrary.helpers.logged
 import kotlinx.coroutines.async
@@ -63,6 +64,14 @@ class PersonalInfoUseCase(
     suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
             userMembershipsRepository.getUserMembershipHistory().logged(prefix = "UseCase: historyMembership")
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
+    }
+
+    suspend fun userMembership(): Results<UserMembershipResInterceptor, NetworkError> {
+        return try {
+            userMembershipsRepository.userMembership().logged(prefix = "UseCase: userMembership")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }

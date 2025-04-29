@@ -7,6 +7,7 @@ import com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers.toInt
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserMembershipDataSource
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserMembershipApiService
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserMembershipResInterceptor
 
 
 class UserMembershipsRepository(
@@ -17,6 +18,24 @@ class UserMembershipsRepository(
     override suspend fun getUserMembershipHistory(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
             when (val result = userMembershipApiService.getUserHistoryMembership()) {
+                is ApiResults.Success -> {
+                    val resultInterceptor = result.data.toInterceptor()
+
+                    userMembershipDataSource.save(resultInterceptor)
+
+                    Results.Success(resultInterceptor)
+                }
+
+                is ApiResults.Error -> Results.Error(result.error)
+            }
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
+    }
+
+    suspend fun userMembership(): Results<UserMembershipResInterceptor, NetworkError> {
+        return try {
+            when (val result = userMembershipApiService.userMembership()) {
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor()
 

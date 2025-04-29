@@ -1,11 +1,11 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.network
 
 
-import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiConfig
 import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiEnvironment
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.response.unitMembership.UserMembershipResponse
 import com.kompasid.netdatalibrary.core.data.userMembershipHistoryData.dto.UserHistoryMembershipResponse
 import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
 import io.ktor.client.HttpClient
@@ -35,6 +35,23 @@ class UserMembershipApiService(
 
         }
     }
+
+    suspend fun userMembership(): ApiResults<UserMembershipResponse, NetworkError> {
+        val url = apiEnvironment.getUserMembershipUrl()
+
+        return tokenInterceptor.withValidToken { validToken ->
+            safeCall<UserMembershipResponse> {
+                httpClient.get(url) {
+                    contentType(ContentType.Application.Json)
+                    accept(ContentType.Application.Json)
+                    bearerAuth(validToken)
+                }
+            }
+
+        }
+    }
+
+
 
     /// tidak di pakai karna sudah ada di api history membership
 //    suspend fun getUserMembership(): ApiResults<UserMembershipResponse, NetworkError> {
