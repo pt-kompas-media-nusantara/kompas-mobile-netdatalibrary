@@ -56,6 +56,20 @@ class ApiEnvironment(
         }
     }
 
+    suspend fun getUserDetailUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.USER_DETAIL_URL_PROD
+            else -> ApiConfig.USER_DETAIL_URL_DEV
+        }
+    }
+
+    suspend fun getUserHistoryMembershipUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.USER_HISTORY_MEMBERSHIP_URL_PROD
+            else -> ApiConfig.USER_HISTORY_MEMBERSHIP_URL_DEV
+        }
+    }
+
     suspend fun getForceUpdateUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.FORCE_UPDATE_PROD

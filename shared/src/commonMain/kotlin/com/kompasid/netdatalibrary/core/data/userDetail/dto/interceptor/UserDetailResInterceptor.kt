@@ -5,25 +5,25 @@ import kotlinx.coroutines.flow.map
 
 
 data class UserDetailResInterceptor(
-    var idGender: Int = 99,
-    var gender: String = "",
-    var userId: String = "",
-    var firstName: String = "",
-    var lastName: String = "",
-    var email: String = "",
-    var userGuid: String = "",
-    var isActive: Boolean = false,
-    var userStatus: UserStatusInterceptor = UserStatusInterceptor(false, false),
-    var phoneNumber: String = "",
-    var countryCode: String = "",
-    var dateBirth: String = "",
-    var country: String = "",
-    var province: String = "",
-    var city: String = "",
+    var idGender: Int,
+    var gender: String,
+    var userId: String,
+    var firstName: String,
+    var lastName: String,
+    var email: String,
+    var userGuid: String,
+    var isActive: Boolean,
+    var userStatus: UserStatusInterceptor,
+    var phoneNumber: String,
+    var countryCode: String,
+    var dateBirth: String,
+    var country: String,
+    var province: String,
+    var city: String,
 )
 
 data class UserStatusInterceptor(
-    var isVerified: Boolean = false,
-    var phoneVerified: Boolean = false
+    var isVerified: Boolean,
+    var phoneVerified: Boolean
 )
 

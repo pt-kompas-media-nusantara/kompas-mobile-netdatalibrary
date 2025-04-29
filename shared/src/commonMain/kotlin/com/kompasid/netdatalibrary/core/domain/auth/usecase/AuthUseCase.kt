@@ -4,20 +4,13 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
-import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginAppleRequest
 import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
-import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginEmailRequest
-import com.kompasid.netdatalibrary.core.data.login.dto.request.LoginGoogleRequest
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterResInterceptor
 import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
-import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
-import com.kompasid.netdatalibrary.helper.enums.AuthFlowType
-import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
-import kotlinx.coroutines.async
 
 
 class AuthUseCase(
@@ -35,6 +28,8 @@ class AuthUseCase(
 
     }
 
+    // fungsi ini digunakan untuk mengecek apakah email atau phone number yang di masukkan sudah terdaftar atau belum
+    // dan juga mengarahkan ke halaman input password, multiple sso, atau send kode OTP
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
         return try {
             checkRegisteredUsersRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")

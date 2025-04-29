@@ -14,20 +14,16 @@ class UserMembershipDataSource(
     private val settingsHelper: SettingsHelper
 ) {
 
-    suspend fun save(data: UserHistoryMembershipResInterceptor): Unit = coroutineScope {
-        val tasks = listOf(
-            async { settingsHelper.save(KeySettingsType.EXPIRED_MEMBERSHIP, data.user.expired) },
-            async { settingsHelper.save(KeySettingsType.ACTIVE_MEMBERSHIP, data.user.isActive) },
-            async { settingsHelper.save(KeySettingsType.START_DATE_MEMBERSHIP, data.user.startDate) },
-            async { settingsHelper.save(KeySettingsType.END_DATE_MEMBERSHIP, data.user.endDate) },
-            async { settingsHelper.save(KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, data.user.totalGracePeriod) },
-            async { settingsHelper.save(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, data.user.gracePeriod) }
-        )
-
-        try {
-            tasks.awaitAll()
-        } catch (e: Exception) {
-            throw Exception("Error saving membership details", e)
+    suspend fun save(data: UserHistoryMembershipResInterceptor) {
+        coroutineScope {
+            listOf(
+                settingsHelper.saveAsync(this, KeySettingsType.EXPIRED_MEMBERSHIP, data.user.expired),
+                settingsHelper.saveAsync(this, KeySettingsType.ACTIVE_MEMBERSHIP, data.user.isActive),
+                settingsHelper.saveAsync(this, KeySettingsType.START_DATE_MEMBERSHIP, data.user.startDate),
+                settingsHelper.saveAsync(this, KeySettingsType.END_DATE_MEMBERSHIP, data.user.endDate),
+                settingsHelper.saveAsync(this, KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, data.user.totalGracePeriod),
+                settingsHelper.saveAsync(this, KeySettingsType.GRACE_PERIOD_MEMBERSHIP, data.user.gracePeriod)
+            ).awaitAll()
         }
     }
 }

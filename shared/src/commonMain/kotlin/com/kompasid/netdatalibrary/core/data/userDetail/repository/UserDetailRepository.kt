@@ -8,16 +8,13 @@ import com.kompasid.netdatalibrary.core.data.userDetail.mappers.toInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-
 
 class UserDetailRepository(
     private val userDetailApiService: UserDetailApiService,
     private val userDetailDataSource: UserDetailDataSource,
 ) : IUserDetailRepository {
 
-    override suspend fun getUserDetailOld(): Results<UserDetailResInterceptor, NetworkError> {
+    override suspend fun getUserDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
             when (val result = userDetailApiService.getUserDetail()) {
                 is ApiResults.Success -> {

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 import kotlinx.serialization.SerialName
 @Serializable
-data class OldUserHistoryMembershipResponse(
+data class UserHistoryMembershipResponse(
     @SerialName("code")
     var code: Int? = null,
     @SerialName("data")

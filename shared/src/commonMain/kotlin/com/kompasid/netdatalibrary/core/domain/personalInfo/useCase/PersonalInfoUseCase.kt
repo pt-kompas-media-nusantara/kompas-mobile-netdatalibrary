@@ -2,8 +2,6 @@ package com.kompasid.netdatalibrary.core.domain.personalInfo.useCase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
@@ -17,11 +15,10 @@ import kotlinx.coroutines.supervisorScope
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
     private val userMembershipsRepository: UserMembershipsRepository,
-    private val checkRegisteredUsersRepository: CheckRegisteredUsersRepository,
     private val updateProfileRepository: UpdateProfileRepository
 ) : IPersonalInfoUseCase {
 
-
+    // ini di hit setelah login berhasil, namun user di araskan ke halaman beranda terlebih dahulu baru hit api ini
     suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
         supervisorScope {
             val userDetailDeferred = async { userDetail() }
@@ -57,7 +54,7 @@ class PersonalInfoUseCase(
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
-            userDetailRepository.getUserDetailOld().logged(prefix = "userDetail")
+            userDetailRepository.getUserDetail().logged(prefix = "userDetail")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
