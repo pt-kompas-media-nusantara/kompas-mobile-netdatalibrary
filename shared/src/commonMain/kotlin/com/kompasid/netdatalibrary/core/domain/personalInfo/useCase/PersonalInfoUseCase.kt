@@ -54,7 +54,7 @@ class PersonalInfoUseCase(
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
-            userDetailRepository.getUserDetail().logged(prefix = "userDetail")
+            userDetailRepository.getUserDetail().logged(prefix = "UseCase: userDetail")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
@@ -62,7 +62,7 @@ class PersonalInfoUseCase(
 
     suspend fun historyMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
-            userMembershipsRepository.getUserMembershipHistory().logged(prefix = "historyMembership")
+            userMembershipsRepository.getUserMembershipHistory().logged(prefix = "UseCase: historyMembership")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }

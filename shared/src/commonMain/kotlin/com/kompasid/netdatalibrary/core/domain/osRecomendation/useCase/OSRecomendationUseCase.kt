@@ -36,7 +36,7 @@ class OSRecomendationUseCase(
     suspend fun osRecommendation(): Results<OSRecommendationInterceptor, NetworkError> {
         return try {
 
-            when (val result = osRecomendationRepository.osRecommendation().logged(prefix = "osRecommendation")) {
+            when (val result = osRecomendationRepository.osRecommendation().logged(prefix = "UseCase: osRecommendation")) {
                 is Results.Error -> {
                     Results.Error(result.error)
                 }

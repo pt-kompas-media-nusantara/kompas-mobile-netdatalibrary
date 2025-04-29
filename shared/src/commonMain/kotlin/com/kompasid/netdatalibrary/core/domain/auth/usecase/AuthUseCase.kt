@@ -32,7 +32,7 @@ class AuthUseCase(
     // dan juga mengarahkan ke halaman input password, multiple sso, atau send kode OTP
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
         return try {
-            checkRegisteredUsersRepository.checkRegisteredUsers(value).logged(prefix = "checkRegisteredUsers")
+            checkRegisteredUsersRepository.checkRegisteredUsers(value).logged(prefix = "UseCase: checkRegisteredUsers")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
@@ -40,7 +40,7 @@ class AuthUseCase(
 
     suspend fun loginByEmail(email: String, password: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByEmail(email, password).logged(prefix = "loginByEmail")
+            loginRepository.loginByEmail(email, password).logged(prefix = "UseCase: loginByEmail")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
@@ -48,7 +48,7 @@ class AuthUseCase(
 
     suspend fun loginByGoogle(accessToken: String, state: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByGoogle(accessToken, state).logged(prefix = "loginByGoogle")
+            loginRepository.loginByGoogle(accessToken, state).logged(prefix = "UseCase: loginByGoogle")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
@@ -56,7 +56,7 @@ class AuthUseCase(
 
     suspend fun loginByApple(accessToken: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByApple(accessToken).logged(prefix = "loginByApple")
+            loginRepository.loginByApple(accessToken).logged(prefix = "UseCase: loginByApple")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
@@ -64,7 +64,7 @@ class AuthUseCase(
 
     suspend fun registerByEmail(email: String, firstName: String, lastName: String, password: String): Results<RegisterResInterceptor, NetworkError> {
         return try {
-            registerRepository.registerByEmail(email, firstName, lastName, password).logged(prefix = "registerByEmail")
+            registerRepository.registerByEmail(email, firstName, lastName, password).logged(prefix = "UseCase: registerByEmail")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
@@ -72,7 +72,7 @@ class AuthUseCase(
 
     suspend fun logout(): Results<Unit, NetworkError> {
         return try {
-            logoutRepository.postLogout().logged(prefix = "logout")
+            logoutRepository.postLogout().logged(prefix = "UseCase: logout")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }

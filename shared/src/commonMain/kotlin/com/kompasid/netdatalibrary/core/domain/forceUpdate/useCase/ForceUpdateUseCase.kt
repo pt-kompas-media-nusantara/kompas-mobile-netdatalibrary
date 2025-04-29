@@ -40,7 +40,7 @@ class ForceUpdateUseCase(
     // ketika klik bottom bar : beranda, epaper, ebook, akun
     suspend fun forceUpdate(): Results<ForceUpdateInterceptor, NetworkError> {
         return try {
-            when (val result = forceUpdateRepository.forceUpdate().logged(prefix = "forceUpdate")) {
+            when (val result = forceUpdateRepository.forceUpdate().logged(prefix = "UseCase: forceUpdate")) {
                 is Results.Error -> Results.Error(result.error)
 
                 is Results.Success -> {

@@ -17,7 +17,7 @@ class PurchaseTokenUseCase(
 
     suspend fun purchaseTokenCheck(datetime: String, signature: String): Results<PurchaseTokenCheckResInterceptor, NetworkError> {
         return try {
-            when (val result = purchaseTokenCheckRepository.purchaseTokenCheck(datetime, signature).logged(prefix = "purchaseTokenCheck")) {
+            when (val result = purchaseTokenCheckRepository.purchaseTokenCheck(datetime, signature).logged(prefix = "UseCase: purchaseTokenCheck")) {
                 is Results.Error -> Results.Error(result.error)
 
                 is Results.Success -> {
