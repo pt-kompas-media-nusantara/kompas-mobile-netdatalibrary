@@ -42,9 +42,9 @@ class LoginRepository(
         }
     }
 
-    suspend fun loginByGoogle(accessToken: String, state: String): Results<Unit, NetworkError> {
+    suspend fun loginByGoogle(accessTokenByGoogle: String, idTokenByGoogle: String): Results<Unit, NetworkError> {
         return try {
-            when (val result = loginApiService.loginByGoogle(accessToken, state)) {
+            when (val result = loginApiService.loginByGoogle(accessTokenByGoogle, idTokenByGoogle)) {
                 is ApiResults.Success -> {
                     result.data.data?.let { data ->
                         coroutineScope {
@@ -66,9 +66,9 @@ class LoginRepository(
         }
     }
 
-    suspend fun loginByApple(accessToken: String): Results<Unit, NetworkError> {
+    suspend fun loginByApple(accessTokenByApple: String): Results<Unit, NetworkError> {
         return try {
-            when (val result = loginApiService.loginByApple(accessToken)) {
+            when (val result = loginApiService.loginByApple(accessTokenByApple)) {
                 is ApiResults.Success -> {
                     result.data.data?.let { data ->
                         coroutineScope {

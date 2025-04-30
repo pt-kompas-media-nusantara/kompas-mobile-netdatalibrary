@@ -7,7 +7,7 @@ enum class KeySettingsType(val key: String) {
 
     // personal information user
     IS_VERIFIED("IS_VERIFIED"), // boolean |
-    SSO("SSO"), // object Sso
+    SSO("SSO"), // object Sso | ini tidak tahu untuk apa, konfirmasi lagi
     ID_GENDER("ID_GENDER"), // int |
     GENDER("GENDER"), // string |
     DATE_BIRTH("DATE_BIRTH"), // string |
@@ -28,23 +28,16 @@ enum class KeySettingsType(val key: String) {
     DEVICE_KEY_ID("DEVICE_KEY_ID"), // string |
 
     // for validation
-    IS_PASS_EMPTY("IS_PASS_EMPTY"), // boolean |
-    IS_SOCIAL("IS_SOCIAL"), // boolean |
+    IS_PASS_EMPTY("IS_PASS_EMPTY"), // boolean | ini tidak tahu untuk apa, konfirmasi lagi
+    IS_SOCIAL("IS_SOCIAL"), // boolean | ini tidak tahu untuk apa, konfirmasi lagi
     PHONE_VERIFIED("PHONE_VERIFIED"), // boolean |
-    IS_REGISTERED("IS_REGISTERED"), // boolean |
-    REGISTERED_BY("REGISTERED_BY"), // string |
     REGISTERED_ON("REGISTERED_ON"), // List<String> |
 
     // subscription data
-    EXPIRED_MEMBERSHIP("EXPIRED_MEMBERSHIP"), // string |
-    ACTIVE_MEMBERSHIP("ACTIVE_MEMBERSHIP"), // string | kayanya harus di bedain IS_ACTIVE & ACTIVE_MEMBERSHIP
-    START_DATE_MEMBERSHIP("START_DATE_MEMBERSHIP"), // string |
-    END_DATE_MEMBERSHIP("END_DATE_MEMBERSHIP"), // string |
-    TOTAL_GRACE_PERIOD_MEMBERSHIP("TOTAL_GRACE_PERIOD_MEMBERSHIP"), // int |
-    GRACE_PERIOD_MEMBERSHIP("GRACE_PERIOD_MEMBERSHIP"), // boolean |
-    IS_ACTIVE("IS_ACTIVE"), // boolean | kayanya harus di bedain IS_ACTIVE & ACTIVE_MEMBERSHIP "Aktif Berlangganan"
-    EXPIRED_MEMBERSHIPS("EXPIRED_MEMBERSHIPS"), // XXX | belum di pakai
-    ACTIVE_MEMBERSHIPS("ACTIVE_MEMBERSHIPS"), // XXX | belum di pakai
+    SUBSCRIPTION_STATUS("SUBSCRIPTION_STATUS"), // string | Aktif Berlangganan or Tidak Berlangganan
+    SUBSCRIPTION_DURATION("SUBSCRIPTION_DURATION"), // string | 18 Feb 2025 - 13 Oct 3010
+    SUBSCRIPTION_START_DATE("SUBSCRIPTION_START_DATE"), // string | 2025-02-18T10:57:22+07:00
+    SUBSCRIPTION_END_DATE("SUBSCRIPTION_END_DATE"), // string | 3010-10-13T10:57:22+07:00
 
     // article
     RUBRIK_PILIHANKU("RUBRIK_PILIHANKU"), // List<MyRubriksResInterceptor>

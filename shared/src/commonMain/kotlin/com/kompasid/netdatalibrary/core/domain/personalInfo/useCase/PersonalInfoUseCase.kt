@@ -20,38 +20,38 @@ class PersonalInfoUseCase(
 ) : IPersonalInfoUseCase {
 
     // ini di hit setelah login berhasil, namun user di araskan ke halaman beranda terlebih dahulu baru hit api ini
-    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
-        supervisorScope {
-            val userDetailDeferred = async { userDetail() }
-            val historyMembershipDeferred = async { historyMembershipOld() }
-
-            try {
-                val userDetailResult = userDetailDeferred.await()
-                val historyMembershipResult = historyMembershipDeferred.await()
-
-                when {
-                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
-                        Results.Success(userDetailResult.data to historyMembershipResult.data)
-                    }
-
-                    userDetailResult is Results.Error -> {
-                        historyMembershipDeferred.cancel()
-                        Results.Error(userDetailResult.error)
-                    }
-
-                    historyMembershipResult is Results.Error -> {
-                        userDetailDeferred.cancel()
-                        Results.Error(historyMembershipResult.error)
-                    }
-
-                    else -> Results.Error(NetworkError.ServerError)
-                }
-            } catch (e: Exception) {
-                userDetailDeferred.cancel()
-                historyMembershipDeferred.cancel()
-                Results.Error(NetworkError.Error(e))
-            }
-        }
+//    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
+//        supervisorScope {
+//            val userDetailDeferred = async { userDetail() }
+//            val historyMembershipDeferred = async { historyMembershipOld() }
+//
+//            try {
+//                val userDetailResult = userDetailDeferred.await()
+//                val historyMembershipResult = historyMembershipDeferred.await()
+//
+//                when {
+//                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
+//                        Results.Success(userDetailResult.data to historyMembershipResult.data)
+//                    }
+//
+//                    userDetailResult is Results.Error -> {
+//                        historyMembershipDeferred.cancel()
+//                        Results.Error(userDetailResult.error)
+//                    }
+//
+//                    historyMembershipResult is Results.Error -> {
+//                        userDetailDeferred.cancel()
+//                        Results.Error(historyMembershipResult.error)
+//                    }
+//
+//                    else -> Results.Error(NetworkError.ServerError)
+//                }
+//            } catch (e: Exception) {
+//                userDetailDeferred.cancel()
+//                historyMembershipDeferred.cancel()
+//                Results.Error(NetworkError.Error(e))
+//            }
+//        }
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
@@ -60,13 +60,6 @@ class PersonalInfoUseCase(
             Results.Error(NetworkError.Error(e))
         }
     }
-
-    suspend fun historyMembershipOld(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
-        return try {
-            userMembershipsRepository.getUserMembershipHistoryOld().logged(prefix = "UseCase: historyMembership")
-        } catch (e: Exception) {
-            Results.Error(NetworkError.Error(e))
-        }
     }
 
     suspend fun userMembership(): Results<UserMembershipResInterceptor, NetworkError> {

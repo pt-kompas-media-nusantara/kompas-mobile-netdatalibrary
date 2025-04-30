@@ -1,4 +1,4 @@
-package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.response.unitMembership
+package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.response
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName

@@ -47,17 +47,19 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByGoogle(accessToken: String, state: String): Results<Unit, NetworkError> {
+    // accessTokenByGoogle: The Access Token from Google.
+    // idTokenByGoogle: The ID Token from Google.
+    suspend fun loginByGoogle(accessTokenByGoogle: String, idTokenByGoogle: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByGoogle(accessToken, state).logged(prefix = "UseCase: loginByGoogle")
+            loginRepository.loginByGoogle(accessTokenByGoogle, idTokenByGoogle).logged(prefix = "UseCase: loginByGoogle")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
     }
 
-    suspend fun loginByApple(accessToken: String): Results<Unit, NetworkError> {
+    suspend fun loginByApple(accessTokenByApple: String): Results<Unit, NetworkError> {
         return try {
-            loginRepository.loginByApple(accessToken).logged(prefix = "UseCase: loginByApple")
+            loginRepository.loginByApple(accessTokenByApple).logged(prefix = "UseCase: loginByApple")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }

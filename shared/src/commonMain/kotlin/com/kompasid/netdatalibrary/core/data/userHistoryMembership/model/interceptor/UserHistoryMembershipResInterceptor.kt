@@ -1,27 +1,27 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor
 
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.response.MembershipInfo
+
 
 data class UserHistoryMembershipResInterceptor(
-    var user: UserHistoryMembershipObjResInterceptor,
-    var active: List<HistoryMembershipResInterceptor>,
-    var expired: List<HistoryMembershipResInterceptor>,
+    var active: List<MembershipInfoInterceptor>,
+    var canceled: List<MembershipInfoInterceptor>,
+    var expired: List<MembershipInfoInterceptor>,
+    var gracePeriod: List<MembershipInfoInterceptor>,
+    var user: UserHistoryInterceptor
 )
 
-data class UserHistoryMembershipObjResInterceptor(
-    var expired: String,
-    var isActive: String,
-    var startDate: String,
+data class MembershipInfoInterceptor(
     var endDate: String,
-    var totalGracePeriod: Int,
-    var gracePeriod: Boolean,
-)
-
-data class HistoryMembershipResInterceptor(
-    var membershipTitle: String,
     var membershipSlug: String,
-    var startDate: String,
-    var endDate: String,
+    var membershipTitle: String,
+    var startDate: String
+)
+
+data class UserHistoryInterceptor(
+    var email: String,
+    var firstName: String,
+    var guid: String,
+    var lastName: String,
+    var status: String,
 )

@@ -15,9 +15,9 @@ class UserMembershipsRepository(
     private val userMembershipDataSource: UserMembershipDataSource,
 ) : IUserMembershipHistoryRepository {
 
-    override suspend fun getUserMembershipHistoryOld(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+    suspend fun userMembership(): Results<UserMembershipResInterceptor, NetworkError> {
         return try {
-            when (val result = userMembershipApiService.getUserHistoryMembershipOld()) {
+            when (val result = userMembershipApiService.userMembership()) {
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor()
 
@@ -33,13 +33,11 @@ class UserMembershipsRepository(
         }
     }
 
-    suspend fun userMembership(): Results<UserMembershipResInterceptor, NetworkError> {
+    suspend fun userHistoryMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
         return try {
-            when (val result = userMembershipApiService.userMembership()) {
+            when (val result = userMembershipApiService.userHistoryMembership()) {
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor()
-
-                    userMembershipDataSource.save(resultInterceptor)
 
                     Results.Success(resultInterceptor)
                 }

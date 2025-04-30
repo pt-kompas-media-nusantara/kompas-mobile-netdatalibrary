@@ -15,60 +15,38 @@ class UserMembershipDataSource(
     private val settingsHelper: SettingsHelper
 ) {
 
-    suspend fun save(data: UserHistoryMembershipResInterceptor) {
-        coroutineScope {
-            listOf(
-                settingsHelper.saveAsync(this, KeySettingsType.EXPIRED_MEMBERSHIP, data.user.expired),
-                settingsHelper.saveAsync(this, KeySettingsType.ACTIVE_MEMBERSHIP, data.user.isActive),
-                settingsHelper.saveAsync(this, KeySettingsType.START_DATE_MEMBERSHIP, data.user.startDate),
-                settingsHelper.saveAsync(this, KeySettingsType.END_DATE_MEMBERSHIP, data.user.endDate),
-                settingsHelper.saveAsync(this, KeySettingsType.TOTAL_GRACE_PERIOD_MEMBERSHIP, data.user.totalGracePeriod),
-                settingsHelper.saveAsync(this, KeySettingsType.GRACE_PERIOD_MEMBERSHIP, data.user.gracePeriod)
-            ).awaitAll()
-        }
-    }
-
     suspend fun save(data: UserMembershipResInterceptor) {
         coroutineScope {
             listOf(
-                settingsHelper.saveAsync(this, KeySettingsType., data.status),
-                settingsHelper.saveAsync(this, KeySettingsType., data.duration),
-                settingsHelper.saveAsync(this, KeySettingsType., data.startDate),
-                settingsHelper.saveAsync(this, KeySettingsType., data.endDate),
-                settingsHelper.saveAsync(this, KeySettingsType., data.access),
-                settingsHelper.saveAsync(this, KeySettingsType., data.gracePeriod),
-                settingsHelper.saveAsync(this, KeySettingsType., data.gracePeriodDate),
-                settingsHelper.saveAsync(this, KeySettingsType., data.totalGracePeriod),
-                settingsHelper.saveAsync(this, KeySettingsType., data.membership),
-                settingsHelper.saveAsync(this, KeySettingsType., data.entitlement),
-                settingsHelper.saveAsync(this, KeySettingsType., data.guid),
-                settingsHelper.saveAsync(this, KeySettingsType., data.email),
-                settingsHelper.saveAsync(this, KeySettingsType., data.firstName),
-                settingsHelper.saveAsync(this, KeySettingsType., data.lastName),
+                settingsHelper.saveAsync(this, KeySettingsType.SUBSCRIPTION_STATUS, data.status),
+                settingsHelper.saveAsync(this, KeySettingsType.SUBSCRIPTION_DURATION, data.duration),
+                settingsHelper.saveAsync(this, KeySettingsType.SUBSCRIPTION_START_DATE, data.startDate),
+                settingsHelper.saveAsync(this, KeySettingsType.SUBSCRIPTION_END_DATE, data.endDate),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
+                settingsHelper.saveAsync(this, KeySettingsType., data.),
             ).awaitAll()
         }
     }
 }
 
-//            nurirppan__ : ini error, nggak bisa save list model
-//            async {
-//                settingsHelper.save(
-//                    KeySettingsType.ACTIVE_MEMBERSHIPS,
-//                    UserHistoryMembershipResInterceptor(active = data.active).toJson()
-//                )
-//
-////                settingsHelper.save(
-////                    KeySettingsType.ACTIVE_MEMBERSHIPS,
-////                    data.active[0].toJson()
-////                )
-//            },
-//            async {
-//                settingsHelper.save(
-//                    KeySettingsType.EXPIRED_MEMBERSHIPS,
-//                    UserHistoryMembershipResInterceptor(expired = data.expired).toJson()
-//                )
-////                settingsHelper.save(
-////                    KeySettingsType.EXPIRED_MEMBERSHIPS,
-////                    data.expired.toJson()
-////                )
-//            }
+
+
+//settingsHelper.saveAsync(this, KeySettingsType., data.),
+//settingsHelper.saveAsync(this, KeySettingsType., data.access),
+//settingsHelper.saveAsync(this, KeySettingsType., data.gracePeriod),
+//settingsHelper.saveAsync(this, KeySettingsType., data.gracePeriodDate),
+//settingsHelper.saveAsync(this, KeySettingsType., data.totalGracePeriod),
+//settingsHelper.saveAsync(this, KeySettingsType., data.membership),
+//settingsHelper.saveAsync(this, KeySettingsType., data.entitlement),
+//settingsHelper.saveAsync(this, KeySettingsType., data.guid),
+//settingsHelper.saveAsync(this, KeySettingsType., data.email),
+//settingsHelper.saveAsync(this, KeySettingsType., data.firstName),
+//settingsHelper.saveAsync(this, KeySettingsType., data.lastName),

@@ -63,15 +63,15 @@ class LoginApiService(
         }
     }
 
-    suspend fun loginByGoogle(accessToken: String, state: String): ApiResults<LoginResponse, NetworkError> {
+    suspend fun loginByGoogle(accessTokenByGoogle: String, idTokenByGoogle: String): ApiResults<LoginResponse, NetworkError> {
         val url = apiEnvironment.getLoginByGoogleUrl()
 
         val request = LoginGoogleRequest(
-            accessToken = accessToken,
+            accessToken = accessTokenByGoogle,
             device = settingsHelper.get(KeySettingsType.DEVICE, ""),
             deviceType = settingsHelper.get(KeySettingsType.DEVICE_TYPE, ""),
             docReferrer = "iOS", // KeySettingsType.DOC_REFERRER
-            state = state, // state ini isinya apa ya ?
+            state = idTokenByGoogle,
         )
 
         return safeCall<LoginResponse> {
@@ -83,11 +83,11 @@ class LoginApiService(
         }
     }
 
-    suspend fun loginByApple(accessToken: String): ApiResults<LoginResponse, NetworkError> {
+    suspend fun loginByApple(accessTokenByApple: String): ApiResults<LoginResponse, NetworkError> {
         val url = apiEnvironment.getLoginByAppleUrl()
 
         val request = LoginAppleRequest(
-            accessToken = accessToken,
+            accessToken = accessTokenByApple,
             device = settingsHelper.get(KeySettingsType.DEVICE, ""),
             deviceType = settingsHelper.get(KeySettingsType.DEVICE_TYPE, ""),
             docReferrer = "iOS", // KeySettingsType.DOC_REFERRER
