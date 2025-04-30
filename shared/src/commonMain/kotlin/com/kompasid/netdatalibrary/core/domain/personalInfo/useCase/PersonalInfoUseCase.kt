@@ -19,6 +19,7 @@ class PersonalInfoUseCase(
     private val updateProfileRepository: UpdateProfileRepository
 ) : IPersonalInfoUseCase {
 
+    // concurent setelah login getUserDetailsAndMembership
     // ini di hit setelah login berhasil, namun user di araskan ke halaman beranda terlebih dahulu baru hit api ini
 //    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
 //        supervisorScope {
