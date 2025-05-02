@@ -48,6 +48,9 @@ object ApiConfig {
     const val CHECK_VERIFIED_USER_URL_PROD = "$KID_URL/account/api/v2/users/check"
     const val CHECK_VERIFIED_USER_URL_DEV = "$KID_CLOUD_URL/account/api/v2/users/check"
 
+    const val SEND_OTP_URL_PROD = "$KID_URL/account/api/v2/users/otp/send"
+    const val SEND_OTP_URL_DEV = "$KID_CLOUD_URL/account/api/v2/users/otp/send"
+
 
     const val QNA_URL = "$CDN_URL/mobile/json/question-answer.json"
 

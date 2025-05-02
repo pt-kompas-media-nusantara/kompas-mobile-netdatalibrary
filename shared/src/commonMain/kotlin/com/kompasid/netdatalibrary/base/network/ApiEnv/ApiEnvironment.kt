@@ -56,6 +56,13 @@ class ApiEnvironment(
         }
     }
 
+    suspend fun getSendOTPUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.SEND_OTP_URL_PROD
+            else -> ApiConfig.SEND_OTP_URL_DEV
+        }
+    }
+
     suspend fun getOsRecommendationUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.OS_RECOMMENDATION_PROD

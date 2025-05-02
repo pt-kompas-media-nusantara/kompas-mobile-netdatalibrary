@@ -6,6 +6,8 @@ import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.intercepto
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
 import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
+import com.kompasid.netdatalibrary.core.data.otp.dto.interceptor.SendOTPResInterceptor
+import com.kompasid.netdatalibrary.core.data.otp.repository.SendOTPRepository
 import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterResInterceptor
 import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
@@ -18,15 +20,19 @@ class AuthUseCase(
     private val loginRepository: LoginRepository,
     private val registerRepository: RegisterRepository,
     private val logoutRepository: LogoutRepository,
+    private val sendOTPRepository: SendOTPRepository,
     private val settingsHelper: SettingsHelper,
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
 
     // login by phone number
     // figma: https://www.figma.com/design/Ujy2qXggVShfFcem2LWXuD/Option-OTP-via-SMS?node-id=90-21995&t=LjdnjJVXt3nMNhj8-0
-    // nurirppan_ : beluman
-    suspend fun sendOTPToWhatsApp() {
-
+    suspend fun sendOTP(countryCode: String, phoneNumber: String): Results<SendOTPResInterceptor, NetworkError> {
+        return try {
+            sendOTPRepository.sendOTP(countryCode, phoneNumber).logged(prefix = "UseCase: sendOTP")
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
     }
 
     // fungsi ini digunakan untuk mengecek apakah email atau phone number yang di masukkan sudah terdaftar atau belum
