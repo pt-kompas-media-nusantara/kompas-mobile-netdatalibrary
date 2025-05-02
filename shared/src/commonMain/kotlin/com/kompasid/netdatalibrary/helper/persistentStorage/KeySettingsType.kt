@@ -11,7 +11,6 @@ enum class KeySettingsType(val key: String) {
     ID_GENDER("ID_GENDER"), // int |
     GENDER("GENDER"), // string |
     DATE_BIRTH("DATE_BIRTH"), // string |
-    USER_ID("USER_ID"), // string |
     FIRST_NAME("FIRST_NAME"), // string |
     LAST_NAME("LAST_NAME"), // string |
     EMAIL("EMAIL"), // string |
@@ -38,6 +37,11 @@ enum class KeySettingsType(val key: String) {
     SUBSCRIPTION_DURATION("SUBSCRIPTION_DURATION"), // string | 18 Feb 2025 - 13 Oct 3010
     SUBSCRIPTION_START_DATE("SUBSCRIPTION_START_DATE"), // string | 2025-02-18T10:57:22+07:00
     SUBSCRIPTION_END_DATE("SUBSCRIPTION_END_DATE"), // string | 3010-10-13T10:57:22+07:00
+    GRACE_PERIOD("GRACE_PERIOD"), // boolean | false
+    GRACE_PERIOD_DATE("GRACE_PERIOD_DATE"), // string | 13 Oktober 3010 - 20 Oktober 3010
+    TOTAL_GRACE_PERIOD("TOTAL_GRACE_PERIOD"), // int | 0
+    MEMBERSHIP_DESCRIPTION("MEMBERSHIP_DESCRIPTION"), // string | Benefit-Loyalty-Gravity Form-KaryawanKMN-KDP Long
+    ENTITLEMENT("ENTITLEMENT"), // string | cash-b2c-android-app-reguler_digital-kdp-12 or karyawan
 
     // article
     RUBRIK_PILIHANKU("RUBRIK_PILIHANKU"), // List<MyRubriksResInterceptor>

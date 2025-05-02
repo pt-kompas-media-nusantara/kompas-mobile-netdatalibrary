@@ -18,22 +18,20 @@ class UserDetailDataSource(
     suspend fun save(data: UserDetailResInterceptor) {
         coroutineScope {
             listOf(
-                settingsHelper.saveAsync(this, KeySettingsType.ID_GENDER, data.idGender),
-                settingsHelper.saveAsync(this, KeySettingsType.GENDER, data.gender),
-                settingsHelper.saveAsync(this, KeySettingsType.DATE_BIRTH, data.dateBirth),
-                settingsHelper.saveAsync(this, KeySettingsType.USER_ID, data.userId),
                 settingsHelper.saveAsync(this, KeySettingsType.FIRST_NAME, data.firstName),
                 settingsHelper.saveAsync(this, KeySettingsType.LAST_NAME, data.lastName),
                 settingsHelper.saveAsync(this, KeySettingsType.EMAIL, data.email),
                 settingsHelper.saveAsync(this, KeySettingsType.USER_GUID, data.userGuid),
+                settingsHelper.saveAsync(this, KeySettingsType.IS_VERIFIED, data.userStatus.isVerified),
+                settingsHelper.saveAsync(this, KeySettingsType.PHONE_VERIFIED, data.userStatus.phoneVerified),
                 settingsHelper.saveAsync(this, KeySettingsType.PHONE_NUMBER, data.phoneNumber),
                 settingsHelper.saveAsync(this, KeySettingsType.COUNTRY_CODE, data.countryCode),
+                settingsHelper.saveAsync(this, KeySettingsType.DATE_BIRTH, data.dateBirth),
                 settingsHelper.saveAsync(this, KeySettingsType.COUNTRY, data.country),
+                settingsHelper.saveAsync(this, KeySettingsType.ID_GENDER, data.idGender),
+                settingsHelper.saveAsync(this, KeySettingsType.GENDER, data.gender),
                 settingsHelper.saveAsync(this, KeySettingsType.PROVINCE, data.province),
                 settingsHelper.saveAsync(this, KeySettingsType.CITY, data.city),
-                settingsHelper.saveAsync(this, KeySettingsType.IS_ACTIVE, data.isActive),
-                settingsHelper.saveAsync(this, KeySettingsType.IS_VERIFIED, data.userStatus.isVerified),
-                settingsHelper.saveAsync(this, KeySettingsType.PHONE_VERIFIED, data.userStatus.phoneVerified)
             ).awaitAll()
         }
     }

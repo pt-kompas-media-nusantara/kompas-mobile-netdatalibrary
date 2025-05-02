@@ -61,11 +61,18 @@ class PersonalInfoUseCase(
             Results.Error(NetworkError.Error(e))
         }
     }
-    }
 
     suspend fun userMembership(): Results<UserMembershipResInterceptor, NetworkError> {
         return try {
             userMembershipsRepository.userMembership().logged(prefix = "UseCase: userMembership")
+        } catch (e: Exception) {
+            Results.Error(NetworkError.Error(e))
+        }
+    }
+
+    suspend fun userHistoryMembership(): Results<UserHistoryMembershipResInterceptor, NetworkError> {
+        return try {
+            userMembershipsRepository.userHistoryMembership().logged(prefix = "UseCase: userHistoryMembership")
         } catch (e: Exception) {
             Results.Error(NetworkError.Error(e))
         }
