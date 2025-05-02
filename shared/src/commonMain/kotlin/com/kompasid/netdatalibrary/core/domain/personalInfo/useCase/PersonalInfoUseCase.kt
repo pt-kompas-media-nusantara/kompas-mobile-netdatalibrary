@@ -5,6 +5,7 @@ import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IPersonalInfoUseCase
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailResInterceptor
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailsAndMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserMembershipResInterceptor
@@ -21,38 +22,42 @@ class PersonalInfoUseCase(
 
     // concurent setelah login getUserDetailsAndMembership
     // ini di hit setelah login berhasil, namun user di araskan ke halaman beranda terlebih dahulu baru hit api ini
-//    suspend fun getUserDetailsAndMembership(): Results<Pair<UserDetailResInterceptor, UserHistoryMembershipResInterceptor>, NetworkError> =
-//        supervisorScope {
-//            val userDetailDeferred = async { userDetail() }
-//            val historyMembershipDeferred = async { historyMembershipOld() }
-//
-//            try {
-//                val userDetailResult = userDetailDeferred.await()
-//                val historyMembershipResult = historyMembershipDeferred.await()
-//
-//                when {
-//                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
-//                        Results.Success(userDetailResult.data to historyMembershipResult.data)
-//                    }
-//
-//                    userDetailResult is Results.Error -> {
-//                        historyMembershipDeferred.cancel()
-//                        Results.Error(userDetailResult.error)
-//                    }
-//
-//                    historyMembershipResult is Results.Error -> {
-//                        userDetailDeferred.cancel()
-//                        Results.Error(historyMembershipResult.error)
-//                    }
-//
-//                    else -> Results.Error(NetworkError.ServerError)
-//                }
-//            } catch (e: Exception) {
-//                userDetailDeferred.cancel()
-//                historyMembershipDeferred.cancel()
-//                Results.Error(NetworkError.Error(e))
-//            }
-//        }
+    suspend fun getUserDetailsAndMembership(): Results<UserDetailsAndMembershipResInterceptor, NetworkError> =
+        supervisorScope {
+            val userDetailDeferred = async { userDetail() }
+            val historyMembershipDeferred = async { userMembership() }
+
+            try {
+                val userDetailResult = userDetailDeferred.await()
+                val historyMembershipResult = historyMembershipDeferred.await()
+
+                when {
+                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
+                        val result = UserDetailsAndMembershipResInterceptor(
+                            userDetail = userDetailResult.data,
+                            userMembership = historyMembershipResult.data
+                        )
+                        Results.Success(result)
+                    }
+
+                    userDetailResult is Results.Error -> {
+                        historyMembershipDeferred.cancel()
+                        Results.Error(userDetailResult.error)
+                    }
+
+                    historyMembershipResult is Results.Error -> {
+                        userDetailDeferred.cancel()
+                        Results.Error(historyMembershipResult.error)
+                    }
+
+                    else -> Results.Error(NetworkError.ServerError)
+                }
+            } catch (e: Exception) {
+                userDetailDeferred.cancel()
+                historyMembershipDeferred.cancel()
+                Results.Error(NetworkError.Error(e))
+            }
+        }
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
