@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kompasid.netdatalibrary.android.AppBackBar
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.HistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -112,19 +111,3 @@ fun AuthScreen(
     }
 }
 
-
-@Composable
-fun MembershipItem(membership: HistoryMembershipResInterceptor) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-    ) {
-        Column(modifier = Modifier.padding(8.dp)) {
-            Text(text = "membershipTitle: ${membership.membershipTitle}")
-            Text(text = "membershipSlug: ${membership.membershipSlug}")
-            Text(text = "startDate: ${membership.startDate}")
-            Text(text = "endDate: ${membership.endDate}")
-        }
-    }
-}

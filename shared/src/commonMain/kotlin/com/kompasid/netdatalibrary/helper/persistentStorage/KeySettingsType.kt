@@ -30,7 +30,7 @@ enum class KeySettingsType(val key: String) {
     IS_PASS_EMPTY("IS_PASS_EMPTY"), // boolean | ini tidak tahu untuk apa, konfirmasi lagi
     IS_SOCIAL("IS_SOCIAL"), // boolean | ini tidak tahu untuk apa, konfirmasi lagi
     PHONE_VERIFIED("PHONE_VERIFIED"), // boolean |
-    REGISTERED_ON("REGISTERED_ON"), // List<String> |
+    REGISTERED_ON("REGISTERED_ON"), // List<String> | ["apple", "google"]
 
     // subscription data
     SUBSCRIPTION_STATUS("SUBSCRIPTION_STATUS"), // string | Aktif Berlangganan or Tidak Berlangganan

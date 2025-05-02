@@ -16,7 +16,7 @@ class CheckVerifiedUserDataSource(
     suspend fun save(data: CheckRegisteredUsersResInterceptor) {
         coroutineScope {
             listOf(
-                settingsHelper.saveAsync(this, KeySettingsType.REGISTERED_ON, data.registeredOn), // ini disimpan untuk di tampilkan akun link mana yang terhubung
+                settingsHelper.saveAsync(this, KeySettingsType.REGISTERED_ON, data.registeredOn),
             ).awaitAll()
         }
     }

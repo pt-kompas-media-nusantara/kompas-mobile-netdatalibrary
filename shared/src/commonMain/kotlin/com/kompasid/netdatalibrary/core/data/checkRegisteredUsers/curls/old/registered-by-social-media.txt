@@ -17,9 +17,6 @@ curl --location 'https://api.kompas.id/account/api/v2/users/check' \
     "data": {
         "registered": true,
         "registeredBy": "sso",
-        "registeredOn": [
-            "apple",
-            "google"
-        ]
+        "registeredOn": ["apple", "google"]
     }
 }

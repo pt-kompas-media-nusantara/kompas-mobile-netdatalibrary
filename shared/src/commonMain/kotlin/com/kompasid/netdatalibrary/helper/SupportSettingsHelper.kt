@@ -42,14 +42,14 @@ class SupportSettingsHelper(
     }
 
     suspend fun checkUserType(): StateUserType {
-        val isActive: String = settingsHelper.get(KeySettingsType.IS_ACTIVE, "")
-        val gracePeriod: Int = settingsHelper.get(KeySettingsType.GRACE_PERIOD_MEMBERSHIP, 0)
+        val subscriptionStatus: String = settingsHelper.get(KeySettingsType.SUBSCRIPTION_STATUS, "")
+        val gracePeriod: Boolean = settingsHelper.get(KeySettingsType.GRACE_PERIOD, false)
         val suber: String = "Aktif Berlangganan"
-        if (isActive.lowercase() == suber.lowercase()) {
+        if (subscriptionStatus.lowercase() == suber.lowercase()) {
             return StateUserType.SUBER
-        } else if (gracePeriod > 0) {
+        } else if (gracePeriod) {
             return StateUserType.GRACE_PERIOD
-        } else if (isActive != suber && gracePeriod == 0) {
+        } else if (subscriptionStatus != suber && !gracePeriod) {
             return StateUserType.REGON
         } else {
             return StateUserType.ANON

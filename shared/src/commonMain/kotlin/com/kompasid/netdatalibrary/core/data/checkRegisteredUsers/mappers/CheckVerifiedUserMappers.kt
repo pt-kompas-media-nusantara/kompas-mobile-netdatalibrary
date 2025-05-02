@@ -4,28 +4,30 @@ import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.constant.Check
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.enums.RegisteredType
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.enums.SSOType
 
 
 fun CheckVerifiedUserResponse.toInterceptor(value: String): CheckRegisteredUsersResInterceptor {
-    val registeredType: RegisteredType = when (data?.registeredBy) {
-        CheckVerifiedUserConstant.EMAIL -> {
-            RegisteredType.EMAIL
-        }
-        CheckVerifiedUserConstant.PHONE_NUMBER -> {
-            RegisteredType.PHONE_NUMBER
-        }
+    val registeredOn = data?.registeredOn.orEmpty().filterNotNull().map { it.lowercase() }
+
+    val registeredType: RegisteredType = when (data?.registeredBy?.lowercase()) {
+        CheckVerifiedUserConstant.EMAIL.lowercase() -> RegisteredType.EMAIL
+        CheckVerifiedUserConstant.PHONE_NUMBER.lowercase() -> RegisteredType.PHONE_NUMBER
         else -> {
-            RegisteredType.SSO
+            val ssoTypes = mutableListOf<SSOType>()
+            if ("google" in registeredOn) ssoTypes.add(SSOType.GOOGLE)
+            if ("apple" in registeredOn) ssoTypes.add(SSOType.APPLE)
+            RegisteredType.SSO(ssoTypes)
         }
     }
 
     return CheckRegisteredUsersResInterceptor(
         registeredType = registeredType,
-        text = value, // email atau phone number yang di input
+        text = value,
         registered = data?.registered ?: false,
-        registeredBy = data?.registeredBy ?: "",
         registeredOn = data?.registeredOn?.filterNotNull().orEmpty()
     )
 }
+
 
 

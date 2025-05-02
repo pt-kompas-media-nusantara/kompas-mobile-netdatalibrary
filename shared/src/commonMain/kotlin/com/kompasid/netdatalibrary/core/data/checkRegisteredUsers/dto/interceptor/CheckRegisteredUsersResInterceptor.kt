@@ -6,6 +6,7 @@ data class CheckRegisteredUsersResInterceptor(
     var registeredType: RegisteredType,
     var text: String,
     var registered: Boolean,
+    var registeredOn: List<String>,
 )
 
 
