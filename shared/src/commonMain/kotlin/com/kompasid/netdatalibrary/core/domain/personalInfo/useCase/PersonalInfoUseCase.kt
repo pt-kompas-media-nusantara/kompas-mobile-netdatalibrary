@@ -10,6 +10,9 @@ import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRep
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
 import kotlinx.coroutines.async
 import kotlinx.coroutines.supervisorScope
@@ -17,8 +20,19 @@ import kotlinx.coroutines.supervisorScope
 class PersonalInfoUseCase(
     private val userDetailRepository: UserDetailRepository,
     private val userMembershipsRepository: UserMembershipsRepository,
-    private val updateProfileRepository: UpdateProfileRepository
+    private val updateProfileRepository: UpdateProfileRepository,
+    private val settingsHelper: SettingsHelper
 ) : IPersonalInfoUseCase {
+
+    // di hit ketika login berhasil namun gagal hit api user detail atau user membership
+    // bisa di taruh ketika klik tab beranda
+    suspend fun reCallUserDetailsAndMembershipFailedAfterLogin() {
+        val email: String = settingsHelper.get(KeySettingsType.EMAIL, "")
+        val subsStatus: String = settingsHelper.get(KeySettingsType.SUBSCRIPTION_STATUS, "")
+        if (email.isEmpty() || subsStatus.isEmpty()) {
+            getUserDetailsAndMembership()
+        }
+    }
 
     // concurent setelah login getUserDetailsAndMembership
     // ini di hit setelah login berhasil, namun user di araskan ke halaman beranda terlebih dahulu baru hit api ini
