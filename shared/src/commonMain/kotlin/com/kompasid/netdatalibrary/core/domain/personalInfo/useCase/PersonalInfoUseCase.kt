@@ -26,7 +26,7 @@ class PersonalInfoUseCase(
 
     // di hit ketika login berhasil namun gagal hit api user detail atau user membership
     // bisa di taruh ketika klik tab beranda
-    suspend fun reCallUserDetailsAndMembershipFailedAfterLogin() {
+    suspend fun reCallUserDetailsAndMembershipFailedAfterLoginSucceed() {
         val email: String = settingsHelper.get(KeySettingsType.EMAIL, "")
         val subsStatus: String = settingsHelper.get(KeySettingsType.SUBSCRIPTION_STATUS, "")
         if (email.isEmpty() || subsStatus.isEmpty()) {
