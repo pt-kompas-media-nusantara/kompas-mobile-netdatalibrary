@@ -7,7 +7,8 @@ import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.Che
 import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
 import com.kompasid.netdatalibrary.core.data.otp.dto.interceptor.SendOTPResInterceptor
-import com.kompasid.netdatalibrary.core.data.otp.repository.SendOTPRepository
+import com.kompasid.netdatalibrary.core.data.otp.dto.interceptor.VerifyOTPResInterceptor
+import com.kompasid.netdatalibrary.core.data.otp.repository.OTPRepository
 import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterResInterceptor
 import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
@@ -20,7 +21,7 @@ class AuthUseCase(
     private val loginRepository: LoginRepository,
     private val registerRepository: RegisterRepository,
     private val logoutRepository: LogoutRepository,
-    private val sendOTPRepository: SendOTPRepository,
+    private val OTPRepository: OTPRepository,
     private val settingsHelper: SettingsHelper,
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
@@ -29,7 +30,15 @@ class AuthUseCase(
     // figma: https://www.figma.com/design/Ujy2qXggVShfFcem2LWXuD/Option-OTP-via-SMS?node-id=90-21995&t=LjdnjJVXt3nMNhj8-0
     suspend fun sendOTP(countryCode: String, phoneNumber: String): Results<SendOTPResInterceptor, NetworkError> {
         return try {
-            sendOTPRepository.sendOTP(countryCode, phoneNumber).logged(prefix = "UseCase: sendOTP")
+            OTPRepository.sendOTP(countryCode, phoneNumber).logged(prefix = "UseCase: sendOTP")
+        } catch (exception: Exception) {
+            Results.Error(NetworkError.Error(exception))
+        }
+    }
+
+    suspend fun verifyOTP(countryCode: String, phoneNumber: String, otp: String): Results<VerifyOTPResInterceptor, NetworkError> {
+        return try {
+            OTPRepository.verifyOTP(countryCode, phoneNumber, otp).logged(prefix = "UseCase: verifyOTP")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }

@@ -15,7 +15,7 @@ import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateR
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
 import com.kompasid.netdatalibrary.core.data.login.network.LoginApiService
-import com.kompasid.netdatalibrary.core.data.login.dataSource.LoginEmailDataSource
+import com.kompasid.netdatalibrary.core.data.login.dataSource.LoginDataSource
 import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
 import com.kompasid.netdatalibrary.core.data.loginGuest.dataSource.LoginGuestDataSource
@@ -82,7 +82,7 @@ val authModule = module {
 
     /// LoginEmail
     singleOf(::LoginRepository) { bind<LoginRepository>() }
-    singleOf(::LoginEmailDataSource) { bind<LoginEmailDataSource>() }
+    singleOf(::LoginDataSource) { bind<LoginDataSource>() }
     singleOf(::LoginApiService) { bind<LoginApiService>() }
 
     /// Logout

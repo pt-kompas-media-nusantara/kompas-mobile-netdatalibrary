@@ -63,6 +63,13 @@ class ApiEnvironment(
         }
     }
 
+    suspend fun getVerifyOTPUrl(): String {
+        return when (flavors()) {
+            FlavorsType.RELEASE -> ApiConfig.VERIFY_OTP_URL_PROD
+            else -> ApiConfig.VERIFY_OTP_URL_DEV
+        }
+    }
+
     suspend fun getOsRecommendationUrl(): String {
         return when (flavors()) {
             FlavorsType.RELEASE -> ApiConfig.OS_RECOMMENDATION_PROD

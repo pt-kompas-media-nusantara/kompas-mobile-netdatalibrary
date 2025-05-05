@@ -3,12 +3,11 @@ package com.kompasid.netdatalibrary.core.data.login.dataSource
 import com.kompasid.netdatalibrary.core.data.login.dto.response.Sso
 import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
-import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 
 
-class LoginEmailDataSource(
+class LoginDataSource(
     private val settingsHelper: SettingsHelper
 ) : ILoginEmailDataSource {
 
