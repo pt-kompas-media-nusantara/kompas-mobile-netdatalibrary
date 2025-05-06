@@ -1,0 +1,116 @@
+** INFO **
+[URL]
+https://apisubs.kompas.id/membership?
+
+[Method]
+GET
+
+[Status]
+200
+
+[Request date]
+2025-04-29 08:33:17 +0000
+
+[Response date]
+2025-04-29 08:33:17 +0000
+
+[Time interval]
+0.18479204
+
+[Timeout]
+60.0
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+** REQUEST **
+-- Headers --
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFueW9wbWFpbDFAeW9wbWFpbC5jb20iLCJpZCI6IjNjNDAxODcxLTc0MWQtNGQwMy05YzA3LWUwNDk2MjQ3NjQzMyIsInJ0IjoxNzc3NDUxNTk3LCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTc0NTkxNjQ5NywiaWF0IjoxNzQ1OTE1NTk3LCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.WtTUgr0y1sUZtr85Mo1N1_kUM0V9kdJs_xm_uzKqnWIMrHkL8fyLHRHnKTEf3Oh5CLMpkIj55KPN9iUCmFcCMkqfMG2OcAftQk13pGjO_XG4953jXlkkxp2KHQNUn2ktXLkGk4FfPJJpi3RHqONpOcDZoodGSDRQTYvhsggfr5s
+
+
+-- Body --
+
+Request body is empty
+
+
+** RESPONSE **
+-- Headers --
+
+[Server]
+cloudflare
+
+[Date]
+Tue, 29 Apr 2025 08:33:17 GMT
+
+[cf-apo-via]
+origin,host
+
+[Vary]
+Accept-Encoding
+
+[Content-Type]
+application/json
+
+[cf-cache-status]
+DYNAMIC
+
+[Content-Encoding]
+br
+
+[cf-ray]
+937d7425ee3d44bf-SIN
+
+
+-- Body --
+
+{
+  "code" : 200,
+  "message" : "Success get all membership",
+  "data" : {
+    "canceled" : [
+
+    ],
+    "active" : [
+
+    ],
+    "expired" : [
+
+    ],
+    "gracePeriod" : [
+
+    ],
+    "user" : {
+      "email" : "nurirppanyopmail1@yopmail.com",
+      "firstName" : "nur",
+      "lastName" : "pangestu",
+      "status" : "newMember",
+      "guid" : "3c401871-741d-4d03-9c07-e04962476433"
+    }
+  },
+  "errors" : null
+}
+
+
+logged via netfox - [https://github.com/kasketis/netfox]
+{
+  "code": 200,
+  "message": "Success get all membership",
+  "data": {
+    "user": {
+      "guid": "3c401871-741d-4d03-9c07-e04962476433",
+      "email": "nurirppanyopmail1@yopmail.com",
+      "firstName": "nur",
+      "lastName": "pangestu",
+      "status": "newMember"
+    },
+    "active": [],
+    "expired": [],
+    "gracePeriod": [],
+    "canceled": []
+  },
+  "errors": null
+}

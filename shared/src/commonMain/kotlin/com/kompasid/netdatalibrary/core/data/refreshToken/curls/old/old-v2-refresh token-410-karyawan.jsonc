@@ -1,0 +1,18 @@
+// curl --location 'https://api.kompas.id/account/api/v1/tokens/refresh' \
+// --header 'Content-Type: application/json' \
+// --header 'Accept: application/json' \
+// --data '{
+//   "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzYxMTI4MDQ0LCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.o6tek34YQ6p_abhaZuk-vMpqIo1naSdoDN1qFOYe2pKIImFNGXpBfzmkgKdzR7qjP_SbUjB-jvJF0ihtsgbC6zLrFtetrYdOFm4LWszHX6fzTYTaujWG7ThGNwogbhJDaSgfa8hEBW8ga-NH49l5iknn6SQIJeaT8ktq1UuVx6"
+// }'
+// old-v2-refresh token-410-karyawan
+
+{
+    "success": false,
+    "code": 410,
+    "message": "Token refresh tidak valid",
+    "meta": {
+        "cache": false,
+        "time": 1729742577
+    },
+    "data": null
+}

@@ -1,6 +1,9 @@
 package com.kompasid.netdatalibrary
 
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.OpenFromEntryPoint
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.LogLevel
+import io.github.aakira.napier.Napier
 import platform.Foundation.NSLog
 import platform.UIKit.UIDevice
 import platform.UIKit.UIScreen
@@ -17,20 +20,15 @@ actual class Platform() {
     actual val density: Int
         get() = UIScreen.mainScreen.scale.toInt()
 
-    actual fun logSystemInfo() {
+    actual suspend fun logSystemInfo() {
         NSLog(
             "($osName, $osVersion, $deviceModel, $density)"
         )
     }
 }
-//
-//// Implementasi actual untuk iOS
-//actual class OpenFromEntryPointWrapper actual constructor() {
-//    actual fun fromString(value: String): OpenFromEntryPoint? {
-//        return when (value.uppercase()) {
-//            "EMPTY" -> OpenFromEntryPoint.Empty
-//            "HOT_TOPIC_SECTION" -> OpenFromEntryPoint.HotTopicSection
-//            else -> null
-//        }
-//    }
-//}
+
+actual class LoggerWrapper {
+    actual fun initLogger() {
+        Napier.base(DebugAntilog())
+    }
+}

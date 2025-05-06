@@ -1,0 +1,245 @@
+// curl --location 'https://api.kompas.id/account/api/v2/users/rubrik?=null' \
+// --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzYxMjc5MTU1LCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTcyOTc0NDA1NSwiaWF0IjoxNzI5NzQzMTU1LCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.GQg5fggkwul5e5U88eDe93gr5d2Hvyf3uQZqZd5psgNXDbjSN2UUf4ulJ87rfSa7hXwMIAEOTjvAn9YTnD1R4lQ9Na0zQf008wAr34SxJGIRwLPx9rAD-o2ha7RBPqcAtOP0htp9tcyM2swyqJI9LfgsPVPQGfC60p8SOjOOROk'
+// old-v2-my rubrik-200-karyawan
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data Master Rubrik",
+    "meta": {
+        "cache": true,
+        "time": 1729743211
+    },
+    "data": [
+        {
+            "text": "Politik dan Hukum",
+            "value": "polhuk",
+            "desc": "Berita tentang politik, hukum, kriminal, dan pertahanan.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/politik_dan_hukum.png",
+            "isChoosen": true
+        },
+        {
+            "text": "Ekonomi",
+            "value": "ekonomi",
+            "desc": "Berita ekonomi, bisnis, perdagangan, dan investasi.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/ekonomi.png",
+            "isChoosen": true
+        },
+        {
+            "text": "Opini",
+            "value": "opini",
+            "desc": "Opini dari pakar dan tokoh tepercaya.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/opini.png",
+            "isChoosen": true
+        },
+        {
+            "text": "Humaniora",
+            "value": "humaniora",
+            "desc": "Berita kebudayaan, kesehatan, dan iptek.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/humaniora.png",
+            "isChoosen": true
+        },
+        {
+            "text": "Riset",
+            "value": "riset",
+            "desc": "Artikel berdasarkan data dan riset.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/riset.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Nusantara",
+            "value": "nusantara",
+            "desc": "Berita peristiwa nasional di luar Jabodetabek.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/nusantara.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Metropolitan",
+            "value": "metro",
+            "desc": "Berita seputar peristiwa yang terjadi di Jabodetabek.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/metropolitan.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Internasional",
+            "value": "internasional",
+            "desc": "Berita terbaru tentang peristiwa dunia.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/internasional.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Olahraga",
+            "value": "olahraga",
+            "desc": "Berita olahraga nasional dan internasional.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/olahraga.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Tokoh",
+            "value": "tokoh",
+            "desc": "Berita tentang tokoh dan sosok inspiratif.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/tokoh.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Tutur Visual",
+            "value": "tutur-visual",
+            "desc": "Liputan komprehensif dalam bentuk konten interaktif",
+            "onCds": false,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/tutur_visual.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Gaya Hidup",
+            "value": "gaya-hidup",
+            "desc": "Berita gaya hidup, otomotif, kuliner, dan properti.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/gaya_hidup.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Infografik",
+            "value": "infografik",
+            "desc": "Visualisasi data dalam bentuk grafik interaktif.",
+            "onCds": false,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/infografik.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Jelajah",
+            "value": "jelajah",
+            "desc": "Laporan hasil jelajah keindahan dan kekayaan nusantara.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/jelajah.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Video",
+            "value": "video",
+            "desc": "Video yang menampilkan berita dan cerita.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/video.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Fotografi",
+            "value": "foto",
+            "desc": "Galeri foto jurnalistik terbaru harian Kompas.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/fotografi.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Hiburan",
+            "value": "hiburan",
+            "desc": "Artikel terbaru tentang tentang dunia hiburan.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/hiburan.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Sastra",
+            "value": "sastra",
+            "desc": "Kumpulan karya sastra seperti cerpen dan puisi.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/sastra.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Buku",
+            "value": "buku",
+            "desc": "Mengulas tentang buku dari Indonesia dan internasional.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/buku.png",
+            "isChoosen": false
+        },
+        {
+            "text": "English",
+            "value": "english",
+            "desc": "Edisi bahasa Inggris dari harian Kompas.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/english.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Perjalanan",
+            "value": "perjalanan",
+            "desc": "Catatan perjalanan wartawan harian Kompas.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/perjalanan.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Di Balik Berita",
+            "value": "di-balik-berita",
+            "desc": "Cerita pengalaman liputan wartawan harian Kompas.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/di_balik_berita.png",
+            "isChoosen": false
+        },
+        {
+            "text": "Arsip Kompas",
+            "value": "arsip",
+            "desc": "Arsip artikel yang pernah terbit di harian Kompas.",
+            "onCds": true,
+            "url": "kompas.id",
+            "urlImg": "kompas.id",
+            "banner": "https://cdn-content.kompas.id/rubrik_pilihanku/arsip_kompas.png",
+            "isChoosen": false
+        }
+    ]
+}
