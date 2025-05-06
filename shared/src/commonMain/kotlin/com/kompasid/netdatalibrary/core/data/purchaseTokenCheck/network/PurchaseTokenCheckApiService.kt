@@ -30,7 +30,7 @@ class PurchaseTokenCheckApiService(
 
         val token: List<String> = settingsHelper.get(KeySettingsType.ORIGINAL_TRANSACTION_ID, emptyList())
         val membershipChannelId: Int = when (apiEnvironment.flavors()) {
-            FlavorsType.RELEASE -> 5
+            FlavorsType.RELEASE_KMP -> 5
             else -> 5 // 5 : PROD | 13 : DEV
         }
         val request = PurchaseTokenCheckRequest(

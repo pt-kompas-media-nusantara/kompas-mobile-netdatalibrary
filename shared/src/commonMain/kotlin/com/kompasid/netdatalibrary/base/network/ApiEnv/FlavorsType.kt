@@ -1,7 +1,7 @@
 package com.kompasid.netdatalibrary.base.network.ApiEnv
 
 enum class FlavorsType {
-    DEBUG,
+    DEBUG_KMP,
     ALLCLOUD,
     DKID_ID,
     DKID_CLOUD,
@@ -9,5 +9,5 @@ enum class FlavorsType {
     DQA_CLOUD,
     RQA_ID,
     RKID_ID,
-    RELEASE
+    RELEASE_KMP
 }
