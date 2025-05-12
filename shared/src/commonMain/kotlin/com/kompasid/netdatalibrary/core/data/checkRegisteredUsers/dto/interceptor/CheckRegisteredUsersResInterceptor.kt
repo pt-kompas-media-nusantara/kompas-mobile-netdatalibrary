@@ -11,9 +11,3 @@ data class CheckRegisteredUsersResInterceptor(
 )
 
 
-object RegisteredTypeCode {
-    const val EMAIL = 0
-    const val PHONE_NUMBER = 1
-    const val GOOGLE = 2
-    const val APPLE = 3
-}

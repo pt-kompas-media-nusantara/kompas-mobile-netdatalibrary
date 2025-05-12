@@ -5,6 +5,8 @@ import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiEnvironment
 import com.kompasid.netdatalibrary.base.network.ApiResults
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.safeCall
+import com.kompasid.netdatalibrary.base.validation.ValidationRules
+import com.kompasid.netdatalibrary.base.validation.Validator
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.request.CheckRegisteredUsersRequest
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
 import com.kompasid.netdatalibrary.core.data.osRecomendation.dto.response.OSRecommendationResponse
@@ -27,8 +29,16 @@ class CheckRegisteredUsersApiService(
     private val tokenInterceptor: TokenInterceptor,
 ) : ICheckRegisteredUsersApiService {
 
+    private val emptyValidator = Validator(ValidationRules.emptyValidation)
+
     suspend fun checkRegisteredUsers(value: String): ApiResults<CheckVerifiedUserResponse, NetworkError> {
         val url = apiEnvironment.getCheckRegisteredUsersUrl()
+
+        val emptyErrors = emptyValidator.validate(value)
+        if (emptyErrors != null) {
+            return ApiResults.Error(NetworkError.Technical(400, "Invalid : ${emptyErrors.joinToString()}"))
+        }
+
         return tokenInterceptor.withValidToken { validToken ->
             safeCall<CheckVerifiedUserResponse> {
 
