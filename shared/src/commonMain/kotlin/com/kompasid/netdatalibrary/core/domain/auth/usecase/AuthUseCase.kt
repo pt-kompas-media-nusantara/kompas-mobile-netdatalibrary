@@ -21,7 +21,7 @@ class AuthUseCase(
     private val loginRepository: LoginRepository,
     private val registerRepository: RegisterRepository,
     private val logoutRepository: LogoutRepository,
-    private val OTPRepository: OTPRepository,
+    private val otpRepository: OTPRepository,
     private val settingsHelper: SettingsHelper,
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
@@ -30,7 +30,7 @@ class AuthUseCase(
     // figma: https://www.figma.com/design/Ujy2qXggVShfFcem2LWXuD/Option-OTP-via-SMS?node-id=90-21995&t=LjdnjJVXt3nMNhj8-0
     suspend fun sendOTP(countryCode: String, phoneNumber: String): Results<SendOTPResInterceptor, NetworkError> {
         return try {
-            OTPRepository.sendOTP(countryCode, phoneNumber).logged(prefix = "UseCase: sendOTP")
+            otpRepository.sendOTP(countryCode, phoneNumber).logged(prefix = "UseCase: sendOTP")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }
@@ -38,7 +38,7 @@ class AuthUseCase(
 
     suspend fun verifyOTP(countryCode: String, phoneNumber: String, otp: String): Results<VerifyOTPResInterceptor, NetworkError> {
         return try {
-            OTPRepository.verifyOTP(countryCode, phoneNumber, otp).logged(prefix = "UseCase: verifyOTP")
+            otpRepository.verifyOTP(countryCode, phoneNumber, otp).logged(prefix = "UseCase: verifyOTP")
         } catch (exception: Exception) {
             Results.Error(NetworkError.Error(exception))
         }

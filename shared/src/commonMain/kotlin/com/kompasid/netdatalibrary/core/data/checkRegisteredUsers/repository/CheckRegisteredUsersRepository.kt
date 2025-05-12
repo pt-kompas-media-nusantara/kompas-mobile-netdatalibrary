@@ -5,13 +5,13 @@ import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckRegisteredUsersDataSource
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers.toInterceptor
 
 
 class CheckRegisteredUsersRepository(
     private val checkRegisteredUsersApiService: CheckRegisteredUsersApiService,
-    private val checkVerifiedUserDataSource: CheckVerifiedUserDataSource,
+    private val checkRegisteredUsersDataSource: CheckRegisteredUsersDataSource,
 ) : ICheckRegisteredUsersRepository {
 
     suspend fun checkRegisteredUsers(value: String): Results<CheckRegisteredUsersResInterceptor, NetworkError> {
@@ -20,7 +20,7 @@ class CheckRegisteredUsersRepository(
                 is ApiResults.Success -> {
                     val resultInterceptor = result.data.toInterceptor(value)
 
-                    checkVerifiedUserDataSource.save(resultInterceptor)
+                    checkRegisteredUsersDataSource.save(resultInterceptor)
 
                     Results.Success(resultInterceptor)
                 }

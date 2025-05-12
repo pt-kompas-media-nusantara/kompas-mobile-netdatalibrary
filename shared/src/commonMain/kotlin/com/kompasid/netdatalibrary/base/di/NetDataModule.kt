@@ -7,7 +7,7 @@ import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiSer
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckVerifiedUserDataSource
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckRegisteredUsersDataSource
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
 import com.kompasid.netdatalibrary.core.data.forceUpdate.network.ForceUpdateApiService
@@ -38,6 +38,11 @@ import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiServi
 import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
 import com.kompasid.netdatalibrary.core.data.osRecomendation.network.OSRecomendationApiService
 import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
+import com.kompasid.netdatalibrary.core.data.otp.network.OTPApiService
+import com.kompasid.netdatalibrary.core.data.otp.repository.OTPRepository
+import com.kompasid.netdatalibrary.core.data.register.dataSource.RegisterDataSource
+import com.kompasid.netdatalibrary.core.data.register.network.RegisterApiService
+import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
 import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
 import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
 import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
@@ -85,6 +90,20 @@ val authModule = module {
     singleOf(::LoginDataSource) { bind<LoginDataSource>() }
     singleOf(::LoginApiService) { bind<LoginApiService>() }
 
+    /// CheckRegisteredUsers
+    singleOf(::CheckRegisteredUsersRepository) { bind<CheckRegisteredUsersRepository>() }
+    singleOf(::CheckRegisteredUsersDataSource) { bind<CheckRegisteredUsersDataSource>() }
+    singleOf(::CheckRegisteredUsersApiService) { bind<CheckRegisteredUsersApiService>() }
+
+    /// OTP
+    singleOf(::OTPRepository) { bind<OTPRepository>() }
+    singleOf(::OTPApiService) { bind<OTPApiService>() }
+
+    /// Register
+    singleOf(::RegisterRepository) { bind<RegisterRepository>() }
+    singleOf(::RegisterDataSource) { bind<RegisterDataSource>() }
+    singleOf(::RegisterApiService) { bind<RegisterApiService>() }
+
     /// Logout
     singleOf(::LogoutRepository) { bind<LogoutRepository>() }
     singleOf(::LogoutDataSource) { bind<LogoutDataSource>() }
@@ -103,11 +122,6 @@ val personalInfoModule = module {
     singleOf(::UserMembershipsRepository) { bind<UserMembershipsRepository>() }
     singleOf(::UserMembershipDataSource) { bind<UserMembershipDataSource>() }
     singleOf(::UserMembershipApiService) { bind<UserMembershipApiService>() }
-
-    /// Check Verified User
-    singleOf(::CheckRegisteredUsersRepository) { bind<CheckRegisteredUsersRepository>() }
-    singleOf(::CheckRegisteredUsersApiService) { bind<CheckRegisteredUsersApiService>() }
-    singleOf(::CheckVerifiedUserDataSource) { bind<CheckVerifiedUserDataSource>() }
 
     /// Update Profile
     singleOf(::UpdateProfileRepository) { bind<UpdateProfileRepository>() }
