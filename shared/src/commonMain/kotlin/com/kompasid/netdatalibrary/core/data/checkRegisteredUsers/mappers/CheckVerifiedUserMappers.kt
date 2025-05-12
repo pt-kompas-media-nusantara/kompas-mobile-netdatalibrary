@@ -2,32 +2,32 @@ package com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.mappers
 
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.constant.CheckVerifiedUserConstant
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.CheckRegisteredUsersResInterceptor
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.interceptor.RegisteredTypeCode
 import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dto.response.CheckVerifiedUserResponse
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.enums.RegisteredType
-import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.enums.SSOType
 
 
 fun CheckVerifiedUserResponse.toInterceptor(value: String): CheckRegisteredUsersResInterceptor {
-    val registeredOn = data?.registeredOn.orEmpty().filterNotNull().map { it.lowercase() }
-
-    val registeredType: RegisteredType = when (data?.registeredBy?.lowercase()) {
-        CheckVerifiedUserConstant.EMAIL.lowercase() -> RegisteredType.EMAIL
-        CheckVerifiedUserConstant.PHONE_NUMBER.lowercase() -> RegisteredType.PHONE_NUMBER
-        else -> {
-            val ssoTypes = mutableListOf<SSOType>()
-            if ("google" in registeredOn) ssoTypes.add(SSOType.GOOGLE)
-            if ("apple" in registeredOn) ssoTypes.add(SSOType.APPLE)
-            RegisteredType.SSO(ssoTypes)
-        }
-    }
-
     return CheckRegisteredUsersResInterceptor(
-        registeredType = registeredType,
         text = value,
         registered = data?.registered ?: false,
-        registeredOn = data?.registeredOn?.filterNotNull().orEmpty()
+        registeredType = checkRegisteredType(data?.registeredBy, data?.registeredOn)
     )
 }
 
+fun checkRegisteredType(registeredBy: String?, registeredOn: List<String?>?): List<Int> {
+    val result = mutableListOf<Int>()
+
+    when (registeredBy?.lowercase()) {
+        CheckVerifiedUserConstant.EMAIL.lowercase() -> result.add(RegisteredTypeCode.EMAIL)
+        CheckVerifiedUserConstant.PHONE_NUMBER.lowercase() -> result.add(RegisteredTypeCode.PHONE_NUMBER)
+        else -> {
+            val onList = registeredOn.orEmpty().filterNotNull().map { it.lowercase() }
+            if ("google" in onList) result.add(RegisteredTypeCode.GOOGLE)
+            if ("apple" in onList) result.add(RegisteredTypeCode.APPLE)
+        }
+    }
+
+    return result
+}
 
 

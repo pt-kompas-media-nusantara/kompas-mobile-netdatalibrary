@@ -14,11 +14,11 @@ class CheckVerifiedUserDataSource(
     private val settingsHelper: SettingsHelper
 ) {
     suspend fun save(data: CheckRegisteredUsersResInterceptor) {
-        coroutineScope {
-            listOf(
-                settingsHelper.saveAsync(this, KeySettingsType.REGISTERED_ON, data.registeredOn),
-            ).awaitAll()
-        }
+//        coroutineScope {
+//            listOf(
+//                settingsHelper.saveAsync(this, KeySettingsType.REGISTERED_ON, data.registeredOn),
+//            ).awaitAll()
+//        }
     }
 
 
