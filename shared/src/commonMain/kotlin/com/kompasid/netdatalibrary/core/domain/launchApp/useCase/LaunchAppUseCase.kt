@@ -64,15 +64,19 @@ class LaunchAppUseCase(
             KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList()
         )
 
-        if (currentVersions.isEmpty()) {
+        // Hapus duplikasi dan tambahkan currentVersionString jika belum ada
+        val updatedVersions = (currentVersions + currentVersionString).distinct()
+
+        if (updatedVersions.size <= 1) {
             settingsHelper.save(KeySettingsType.STATE_INSTALL, 1)
-            settingsHelper.save(KeySettingsType.APP_VERSIONS_KOMPAS_ID, listOf(currentVersionString))
-        } else if (!currentVersions.contains(currentVersionString)) {
+        } else {
             settingsHelper.save(KeySettingsType.STATE_INSTALL, 2)
-            val updatedVersions = currentVersions + currentVersionString
-            settingsHelper.save(KeySettingsType.APP_VERSIONS_KOMPAS_ID, updatedVersions)
         }
+
+        settingsHelper.save(KeySettingsType.APP_VERSIONS_KOMPAS_ID, updatedVersions)
     }
+
+
 
 
 

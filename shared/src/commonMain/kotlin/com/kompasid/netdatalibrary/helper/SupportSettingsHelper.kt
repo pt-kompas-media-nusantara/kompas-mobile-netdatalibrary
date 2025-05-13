@@ -14,6 +14,16 @@ class SupportSettingsHelper(
     private val settingsHelper: SettingsHelper
 ) {
 
+    suspend fun getAccessRefreshToken(): AccessRefreshToken {
+        val accessToken: String = settingsHelper.get(KeySettingsType.ACCESS_TOKEN, "")
+        val refreshToken: String = settingsHelper.get(KeySettingsType.REFRESH_TOKEN, "")
+
+        return AccessRefreshToken(
+            accessToken = accessToken,
+            refreshToken = refreshToken
+        )
+    }
+
     suspend fun stateInstallType(): StateInstallType {
         val stateInstall: Int = settingsHelper.get(KeySettingsType.STATE_INSTALL, 0)
         if (stateInstall == 2) {
@@ -69,3 +79,7 @@ class SupportSettingsHelper(
 }
 
 
+data class AccessRefreshToken(
+    val accessToken: String,
+    val refreshToken: String
+)
