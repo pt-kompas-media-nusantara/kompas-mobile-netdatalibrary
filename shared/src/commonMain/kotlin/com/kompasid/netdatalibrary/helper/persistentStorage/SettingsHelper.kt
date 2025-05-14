@@ -63,7 +63,7 @@ class SettingsHelper(
             is String -> {
                 val current = get(key, "", isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving String key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "⬇️Save String key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putString(key.key, value)
                 }
             }
@@ -71,7 +71,7 @@ class SettingsHelper(
             is Int -> {
                 val current = get(key, 100, isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving Int key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "⬇️Save Int key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putInt(key.key, value)
                 }
             }
@@ -79,7 +79,7 @@ class SettingsHelper(
             is Boolean -> {
                 val current = get(key, false, isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving Boolean key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "⬇️Save Boolean key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putBoolean(key.key, value)
                 }
             }
@@ -87,7 +87,7 @@ class SettingsHelper(
             is Float -> {
                 val current = get(key, 0.0, isFromSave = true)
                 if (current != value) {
-                    Logger.debug { "💽 Saving Float key: ${key.key}, oldValue: $current, newValue: $value" }
+                    Logger.debug { "⬇️Save Float key: ${key.key}, oldValue: $current, newValue: $value" }
                     flowSettings.putFloat(key.key, value)
                 }
             }
@@ -101,7 +101,7 @@ class SettingsHelper(
                         val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving List<String> key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "⬇️Save List<String> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -113,7 +113,7 @@ class SettingsHelper(
                         val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving List<Boolean> key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "⬇️Save List<Boolean> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -124,7 +124,7 @@ class SettingsHelper(
                         val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving List<Int> key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "⬇️Save List<Int> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -136,7 +136,7 @@ class SettingsHelper(
                         val current = get(key, "[]", isFromSave = true)
 
                         if (current != json) {
-                            Logger.debug { "💽 Saving List<Float> key: ${key.key}, oldValue: $current, newValue: $json" }
+                            Logger.debug { "⬇️Save List<Float> key: ${key.key}, oldValue: $current, newValue: $json" }
                             flowSettings.putString(key.key, json)
                         }
                     }
@@ -154,10 +154,10 @@ class SettingsHelper(
 //                    val current = get(key, value, serializer, isFromSave = true)
 //                    Logger.info { "current: ${current.toString()}" }
 //                    if (current.toString() != value.toString()) {
-//                        Logger.debug { "💽 Saving key: ${key.key}, oldValue: $current, newValue: $value" }
+//                        Logger.debug { "⬇️Save key: ${key.key}, oldValue: $current, newValue: $value" }
 //                        settings.encodeValue(serializer, key.key, value)
 //                    }
-                    Logger.debug { "💽 Saving Serializer key: ${key.key}, newValue: $value" }
+                    Logger.debug { "🔷 Save Serializer key: ${key.key}, newValue: $value" }
                     settings.encodeValue(serializer, key.key, value)
                 } else {
                     throw IllegalArgumentException("Unsupported type for key: ${key.key}, value: $value")
@@ -254,7 +254,7 @@ class SettingsHelper(
         }
 
         result.onEach { value ->
-            Logger.debug { "📚 Load ${defaultValue.toString()} key: ${key.key}, Value: $value" }
+            Logger.debug { "🔶 Load ${defaultValue.toString()} key: ${key.key}, Value: $value" }
         }
 
         return result
@@ -266,15 +266,11 @@ class SettingsHelper(
         serializer: KSerializer<T>? = null,
         isFromSave: Boolean = false
     ): T {
-        if (isFromSave) {
-            Logger.debug { "💽💽 Get ${defaultValue.toString()} Key: ${key.key}, Default: $defaultValue" }
-        } else {
-            Logger.debug { "🔍 Get ${defaultValue.toString()} Key: ${key.key}, Default: $defaultValue" }
-        }
+        Logger.debug { "🔍 Get ${defaultValue.toString()} Key: ${key.key}, Default: $defaultValue" }
         return when {
             defaultValue is List<*> -> {
                 val jsonString = settings.getStringOrNull(key.key) ?: "[]"
-                Logger.debug { "📥 [GET] Raw JSON from Storage for ${key.key}: $jsonString" }
+                Logger.debug { "｛ ｝ JSON from Storage for ${key.key}: $jsonString" }
 
                 try {
                     val result: T = when {

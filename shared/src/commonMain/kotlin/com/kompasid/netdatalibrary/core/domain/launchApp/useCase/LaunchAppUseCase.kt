@@ -61,7 +61,7 @@ class LaunchAppUseCase(
 
     private suspend fun checkAndUpdateAppVersion(currentVersionString: String) {
         val currentVersions: List<String> = settingsHelper.get(
-            KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList()
+            KeySettingsType.APP_VERSIONS_KOMPAS_ID, emptyList<String>()
         )
 
         // Hapus duplikasi dan tambahkan currentVersionString jika belum ada
