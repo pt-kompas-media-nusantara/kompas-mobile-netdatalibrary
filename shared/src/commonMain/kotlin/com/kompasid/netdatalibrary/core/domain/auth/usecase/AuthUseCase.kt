@@ -11,9 +11,12 @@ import com.kompasid.netdatalibrary.core.data.otp.dto.interceptor.VerifyOTPResInt
 import com.kompasid.netdatalibrary.core.data.otp.repository.OTPRepository
 import com.kompasid.netdatalibrary.core.data.register.dto.interceptor.RegisterResInterceptor
 import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
+import com.kompasid.netdatalibrary.core.data.userDetail.dto.interceptor.UserDetailsAndMembershipResInterceptor
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
 import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
+import kotlinx.coroutines.coroutineScope
 
 
 class AuthUseCase(
@@ -22,6 +25,7 @@ class AuthUseCase(
     private val registerRepository: RegisterRepository,
     private val logoutRepository: LogoutRepository,
     private val otpRepository: OTPRepository,
+    private val personalInfoUseCase: PersonalInfoUseCase,
     private val settingsHelper: SettingsHelper,
     private val supportSettingsHelper: SupportSettingsHelper
 ) {
@@ -54,7 +58,13 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByEmail(email: String, password: String): Results<Unit, NetworkError> {
+    suspend fun loginByEmailAndFetchProfile(email: String, password: String): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
+        val loginResult = loginByEmail(email, password)
+        if (loginResult is Results.Error) return Results.Error(loginResult.error)
+        return personalInfoUseCase.getUserDetailsAndMembership()
+    }
+
+    private suspend fun loginByEmail(email: String, password: String): Results<Unit, NetworkError> {
         return try {
             loginRepository.loginByEmail(email, password).logged(prefix = "UseCase: loginByEmail")
         } catch (exception: Exception) {
@@ -62,9 +72,18 @@ class AuthUseCase(
         }
     }
 
+    suspend fun loginByGoogleAndFetchProfile(
+        accessTokenByGoogle: String,
+        idTokenByGoogle: String
+    ): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
+        val loginResult = loginByGoogle(accessTokenByGoogle, idTokenByGoogle)
+        if (loginResult is Results.Error) return Results.Error(loginResult.error)
+        return personalInfoUseCase.getUserDetailsAndMembership()
+    }
+
     // accessTokenByGoogle: The Access Token from Google.
     // idTokenByGoogle: The ID Token from Google.
-    suspend fun loginByGoogle(accessTokenByGoogle: String, idTokenByGoogle: String): Results<Unit, NetworkError> {
+    private suspend fun loginByGoogle(accessTokenByGoogle: String, idTokenByGoogle: String): Results<Unit, NetworkError> {
         return try {
             loginRepository.loginByGoogle(accessTokenByGoogle, idTokenByGoogle).logged(prefix = "UseCase: loginByGoogle")
         } catch (exception: Exception) {
@@ -72,7 +91,13 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByApple(accessTokenByApple: String): Results<Unit, NetworkError> {
+    suspend fun loginByAppleAndFetchProfile(accessTokenByApple: String): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
+        val loginResult = loginByApple(accessTokenByApple)
+        if (loginResult is Results.Error) return Results.Error(loginResult.error)
+        return personalInfoUseCase.getUserDetailsAndMembership()
+    }
+
+    private suspend fun loginByApple(accessTokenByApple: String): Results<Unit, NetworkError> {
         return try {
             loginRepository.loginByApple(accessTokenByApple).logged(prefix = "UseCase: loginByApple")
         } catch (exception: Exception) {
@@ -80,7 +105,19 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByPurchaseToken(): Results<Unit, NetworkError> {
+    suspend fun loginByPurchaseTokenAndFetchProfile(): Results<UserDetailsAndMembershipResInterceptor, NetworkError> =
+        coroutineScope {
+            val loginResult = loginByPurchaseToken()
+
+            if (loginResult is Results.Error) {
+                return@coroutineScope Results.Error(loginResult.error)
+            }
+
+            // Concurrent call to get user details and membership
+            personalInfoUseCase.getUserDetailsAndMembership()
+        }
+
+    private suspend fun loginByPurchaseToken(): Results<Unit, NetworkError> {
         return try {
             loginRepository.loginByPurchaseToken().logged(prefix = "UseCase: loginByPurchaseToken")
         } catch (exception: Exception) {

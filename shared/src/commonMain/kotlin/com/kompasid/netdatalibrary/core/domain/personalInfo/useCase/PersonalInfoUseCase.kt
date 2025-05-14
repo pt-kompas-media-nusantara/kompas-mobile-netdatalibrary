@@ -15,6 +15,7 @@ import com.kompasid.netdatalibrary.helper.persistentStorage.KeySettingsType
 import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
 import com.kompasid.netdatalibrary.helpers.logged
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.supervisorScope
 
 class PersonalInfoUseCase(
@@ -24,54 +25,26 @@ class PersonalInfoUseCase(
     private val settingsHelper: SettingsHelper
 ) : IPersonalInfoUseCase {
 
-    // di hit ketika login berhasil namun gagal hit api user detail atau user membership
-    // bisa di taruh ketika klik tab beranda
-    suspend fun reCallUserDetailsAndMembershipFailedAfterLoginSucceed() {
-        val email: String = settingsHelper.get(KeySettingsType.EMAIL, "")
-        val subsStatus: String = settingsHelper.get(KeySettingsType.SUBSCRIPTION_STATUS, "")
-        if (email.isEmpty() || subsStatus.isEmpty()) {
-            getUserDetailsAndMembership()
+    suspend fun getUserDetailsAndMembership(): Results<UserDetailsAndMembershipResInterceptor, NetworkError> = coroutineScope {
+        val userDetailDeferred = async { userDetail() }
+        val userMembershipDeferred = async { userMembership() }
+
+        val userDetailResult = userDetailDeferred.await()
+        val userMembershipResult = userMembershipDeferred.await()
+
+        if (userDetailResult is Results.Success && userMembershipResult is Results.Success) {
+            val result = UserDetailsAndMembershipResInterceptor(
+                userDetail = userDetailResult.data,
+                userMembership = userMembershipResult.data
+            )
+            Results.Success(result)
+        } else {
+            val error = (userDetailResult as? Results.Error)?.error
+                ?: (userMembershipResult as? Results.Error)?.error
+                ?: NetworkError.ServerError
+            Results.Error(error)
         }
     }
-
-    // concurent setelah login getUserDetailsAndMembership
-    // ini di hit setelah login berhasil, namun user di araskan ke halaman beranda terlebih dahulu baru hit api ini
-    suspend fun getUserDetailsAndMembership(): Results<UserDetailsAndMembershipResInterceptor, NetworkError> =
-        supervisorScope {
-            val userDetailDeferred = async { userDetail() }
-            val historyMembershipDeferred = async { userMembership() }
-
-            try {
-                val userDetailResult = userDetailDeferred.await()
-                val historyMembershipResult = historyMembershipDeferred.await()
-
-                when {
-                    userDetailResult is Results.Success && historyMembershipResult is Results.Success -> {
-                        val result = UserDetailsAndMembershipResInterceptor(
-                            userDetail = userDetailResult.data,
-                            userMembership = historyMembershipResult.data
-                        )
-                        Results.Success(result)
-                    }
-
-                    userDetailResult is Results.Error -> {
-                        historyMembershipDeferred.cancel()
-                        Results.Error(userDetailResult.error)
-                    }
-
-                    historyMembershipResult is Results.Error -> {
-                        userDetailDeferred.cancel()
-                        Results.Error(historyMembershipResult.error)
-                    }
-
-                    else -> Results.Error(NetworkError.ServerError)
-                }
-            } catch (e: Exception) {
-                userDetailDeferred.cancel()
-                historyMembershipDeferred.cancel()
-                Results.Error(NetworkError.Error(e))
-            }
-        }
 
     suspend fun userDetail(): Results<UserDetailResInterceptor, NetworkError> {
         return try {
