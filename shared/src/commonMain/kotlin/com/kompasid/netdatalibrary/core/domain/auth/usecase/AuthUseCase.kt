@@ -61,7 +61,17 @@ class AuthUseCase(
     suspend fun loginByEmailAndFetchProfile(email: String, password: String): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
         val loginResult = loginByEmail(email, password)
         if (loginResult is Results.Error) return Results.Error(loginResult.error)
-        return personalInfoUseCase.getUserDetailsAndMembership()
+
+        val profileResult = personalInfoUseCase.getUserDetailsAndMembership()
+        if (profileResult is Results.Error) {
+            val logoutResult = logout()
+            if (logoutResult is Results.Error) {
+                return Results.Error(logoutResult.error)
+            }
+            return Results.Error(profileResult.error)
+        }
+
+        return profileResult
     }
 
     private suspend fun loginByEmail(email: String, password: String): Results<Unit, NetworkError> {
@@ -78,7 +88,17 @@ class AuthUseCase(
     ): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
         val loginResult = loginByGoogle(accessTokenByGoogle, idTokenByGoogle)
         if (loginResult is Results.Error) return Results.Error(loginResult.error)
-        return personalInfoUseCase.getUserDetailsAndMembership()
+
+        val profileResult = personalInfoUseCase.getUserDetailsAndMembership()
+        if (profileResult is Results.Error) {
+            val logoutResult = logout()
+            if (logoutResult is Results.Error) {
+                return Results.Error(logoutResult.error)
+            }
+            return Results.Error(profileResult.error)
+        }
+
+        return profileResult
     }
 
     // accessTokenByGoogle: The Access Token from Google.
@@ -94,7 +114,17 @@ class AuthUseCase(
     suspend fun loginByAppleAndFetchProfile(accessTokenByApple: String): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
         val loginResult = loginByApple(accessTokenByApple)
         if (loginResult is Results.Error) return Results.Error(loginResult.error)
-        return personalInfoUseCase.getUserDetailsAndMembership()
+
+        val profileResult = personalInfoUseCase.getUserDetailsAndMembership()
+        if (profileResult is Results.Error) {
+            val logoutResult = logout()
+            if (logoutResult is Results.Error) {
+                return Results.Error(logoutResult.error)
+            }
+            return Results.Error(profileResult.error)
+        }
+
+        return profileResult
     }
 
     private suspend fun loginByApple(accessTokenByApple: String): Results<Unit, NetworkError> {
@@ -105,17 +135,21 @@ class AuthUseCase(
         }
     }
 
-    suspend fun loginByPurchaseTokenAndFetchProfile(): Results<UserDetailsAndMembershipResInterceptor, NetworkError> =
-        coroutineScope {
-            val loginResult = loginByPurchaseToken()
+    suspend fun loginByPurchaseTokenAndFetchProfile(): Results<UserDetailsAndMembershipResInterceptor, NetworkError> {
+        val loginResult = loginByPurchaseToken()
+        if (loginResult is Results.Error) return Results.Error(loginResult.error)
 
-            if (loginResult is Results.Error) {
-                return@coroutineScope Results.Error(loginResult.error)
+        val profileResult = personalInfoUseCase.getUserDetailsAndMembership()
+        if (profileResult is Results.Error) {
+            val logoutResult = logout()
+            if (logoutResult is Results.Error) {
+                return Results.Error(logoutResult.error)
             }
-
-            // Concurrent call to get user details and membership
-            personalInfoUseCase.getUserDetailsAndMembership()
+            return Results.Error(profileResult.error)
         }
+
+        return profileResult
+    }
 
     private suspend fun loginByPurchaseToken(): Results<Unit, NetworkError> {
         return try {
