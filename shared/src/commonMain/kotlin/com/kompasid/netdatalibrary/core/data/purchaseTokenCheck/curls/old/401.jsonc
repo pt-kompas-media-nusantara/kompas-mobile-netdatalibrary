@@ -1,0 +1,12 @@
+// curl --location --globoff '{{url_subscription}}/purchase-token/user-check' \
+// --data '{
+//     "token": "2000000455735483",
+//     "membershipChannelId": 13
+// }'
+
+{
+  "code": 401,
+  "message": "unauthorized",
+  "data": null,
+  "errors": "unauthorized"
+}

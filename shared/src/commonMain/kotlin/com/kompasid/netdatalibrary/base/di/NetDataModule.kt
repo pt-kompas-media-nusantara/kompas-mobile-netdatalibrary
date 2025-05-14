@@ -1,101 +1,194 @@
 package com.kompasid.netdatalibrary.base.di
 
-import com.kompasid.netdatalibrary.core.data.userDetail.model.local.UserDetailDataSource
+import com.kompasid.netdatalibrary.base.DecodeJWT
+import com.kompasid.netdatalibrary.base.network.ApiEnv.ApiEnvironment
+import com.kompasid.netdatalibrary.core.data.userDetail.dataSource.UserDetailDataSource
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.INetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkApiService.NetworkApiService
 import com.kompasid.netdatalibrary.base.network.NetworkVM.INetworkVM
 import com.kompasid.netdatalibrary.base.network.NetworkVM.NetworkVM
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.dataSource.CheckRegisteredUsersDataSource
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.network.CheckRegisteredUsersApiService
+import com.kompasid.netdatalibrary.core.data.checkRegisteredUsers.repository.CheckRegisteredUsersRepository
+import com.kompasid.netdatalibrary.core.data.forceUpdate.network.ForceUpdateApiService
+import com.kompasid.netdatalibrary.core.data.forceUpdate.repository.ForceUpdateRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.network.GeneralContentApiService
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.GeneralContentRepository
-import com.kompasid.netdatalibrary.core.data.loginEmail.network.LoginEmailApiService
-import com.kompasid.netdatalibrary.core.data.loginEmail.models.local.LoginEmailDataSource
-import com.kompasid.netdatalibrary.core.data.loginEmail.repository.LoginEmailRepository
+import com.kompasid.netdatalibrary.core.data.login.network.LoginApiService
+import com.kompasid.netdatalibrary.core.data.login.dataSource.LoginDataSource
+import com.kompasid.netdatalibrary.core.data.login.repository.LoginRepository
 import com.kompasid.netdatalibrary.core.data.loginGuest.network.LoginGuestApiService
-import com.kompasid.netdatalibrary.core.data.loginGuest.model.local.LoginGuestDataSource
+import com.kompasid.netdatalibrary.core.data.loginGuest.dataSource.LoginGuestDataSource
 import com.kompasid.netdatalibrary.core.data.loginGuest.repository.LoginGuestRepository
 import com.kompasid.netdatalibrary.core.data.logout.network.LogoutApiService
-import com.kompasid.netdatalibrary.core.data.logout.model.local.LogoutDataSource
+import com.kompasid.netdatalibrary.core.data.logout.dataSource.LogoutDataSource
 import com.kompasid.netdatalibrary.core.data.logout.repository.LogoutRepository
-import com.kompasid.netdatalibrary.core.data.refreshToken.model.local.RefreshTokenDataSource
+import com.kompasid.netdatalibrary.core.data.refreshToken.dataSource.RefreshTokenDataSource
 import com.kompasid.netdatalibrary.core.data.refreshToken.network.RefreshTokenApiService
 import com.kompasid.netdatalibrary.core.data.refreshToken.repository.RefreshTokenRepository
 import com.kompasid.netdatalibrary.core.data.userDetail.network.UserDetailApiService
 import com.kompasid.netdatalibrary.core.data.userDetail.repository.UserDetailRepository
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.network.UserMembershipHistoryApiService
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.model.local.UserMembershipHistoryDataSource
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.network.UserMembershipApiService
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.dataSource.UserMembershipDataSource
 import com.kompasid.netdatalibrary.core.data.generalContent.network.IGeneralContentApiService
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.GeneralContentUseCase
-import com.kompasid.netdatalibrary.core.data.userMembershipHistory.repository.UserMembershipHistoryRepository
+import com.kompasid.netdatalibrary.core.data.userHistoryMembership.repository.UserMembershipsRepository
 import com.kompasid.netdatalibrary.core.data.generalContent.repository.IGeneralContentRepository
-import com.kompasid.netdatalibrary.core.domain.myAccount.usecase.MyAccountUseCase
-import com.kompasid.netdatalibrary.core.domain.settings.usecase.SettingsUseCase
+import com.kompasid.netdatalibrary.core.data.myRubriks.network.MyRubriksApiService
+import com.kompasid.netdatalibrary.core.data.myRubriks.repository.MyRubriksRepository
+import com.kompasid.netdatalibrary.core.data.osRecomendation.network.OSRecomendationApiService
+import com.kompasid.netdatalibrary.core.data.osRecomendation.repository.OSRecomendationRepository
+import com.kompasid.netdatalibrary.core.data.otp.network.OTPApiService
+import com.kompasid.netdatalibrary.core.data.otp.repository.OTPRepository
+import com.kompasid.netdatalibrary.core.data.register.dataSource.RegisterDataSource
+import com.kompasid.netdatalibrary.core.data.register.network.RegisterApiService
+import com.kompasid.netdatalibrary.core.data.register.repository.RegisterRepository
+import com.kompasid.netdatalibrary.core.data.updateProfile.network.UpdateProfileApiService
+import com.kompasid.netdatalibrary.core.data.updateProfile.repository.UpdateProfileRepository
+import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
+import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
 import com.kompasid.netdatalibrary.core.domain.auth.usecase.AuthUseCase
+import com.kompasid.netdatalibrary.core.domain.forceUpdate.useCase.ForceUpdateUseCase
 import com.kompasid.netdatalibrary.core.domain.generalContent.usecase.IGeneralContentUseCase
-import com.kompasid.netdatalibrary.core.domain.personalInfo.usecase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.launchApp.useCase.LaunchAppUseCase
+import com.kompasid.netdatalibrary.core.domain.myRubriks.useCase.MyRubriksUseCase
+import com.kompasid.netdatalibrary.core.domain.osRecomendation.useCase.OSRecomendationUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.token.interceptor.TokenInterceptor
+import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
+import com.kompasid.netdatalibrary.core.presentation.AccountVM
+import com.kompasid.netdatalibrary.core.presentation.auth.resultState.AuthVM
+import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppVM
+import com.kompasid.netdatalibrary.core.presentation.launchApp.stateState.LaunchAppResultState
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.SettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.coroutineNoArgModuleSettings.CoroutineNoArgModuleSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.listenerNoArgModuleSettings.ListenerNoArgModuleSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.noArgModuleSettings.ExampleNoArgModuleSettingsHelper
+import com.kompasid.netdatalibrary.helper.persistentStorage.example.serializationNoArgModuleSettings.SerializationNoArgModuleSettingsHelper
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val authModule = module {
-    singleOf(::LoginGuestApiService) { bind<LoginGuestApiService>() }
-}
-
-
-
-val netDataModule = module {
-
-    singleOf(::NetworkApiService) { bind<INetworkApiService>() }
-    singleOf(::NetworkVM) { bind<INetworkVM>() }
-
-    // Auth
-    /**
-    Login Email
-    Login by Guest
-    Refresh Token
-    Logout
-     */
-
+    /// AuthInteractor
+    singleOf(::AuthVM) { bind<AuthVM>() }
     singleOf(::AuthUseCase) { bind<AuthUseCase>() }
 
+    /// LoginGuest
     singleOf(::LoginGuestRepository) { bind<LoginGuestRepository>() }
     singleOf(::LoginGuestDataSource) { bind<LoginGuestDataSource>() }
     singleOf(::LoginGuestApiService) { bind<LoginGuestApiService>() }
 
+    /// RefreshToken
     singleOf(::RefreshTokenRepository) { bind<RefreshTokenRepository>() }
     singleOf(::RefreshTokenDataSource) { bind<RefreshTokenDataSource>() }
     singleOf(::RefreshTokenApiService) { bind<RefreshTokenApiService>() }
 
-    singleOf(::LoginEmailRepository) { bind<LoginEmailRepository>() }
-    singleOf(::LoginEmailDataSource) { bind<LoginEmailDataSource>() }
-    singleOf(::LoginEmailApiService) { bind<LoginEmailApiService>() }
+    /// LoginEmail
+    singleOf(::LoginRepository) { bind<LoginRepository>() }
+    singleOf(::LoginDataSource) { bind<LoginDataSource>() }
+    singleOf(::LoginApiService) { bind<LoginApiService>() }
 
+    /// CheckRegisteredUsers
+    singleOf(::CheckRegisteredUsersRepository) { bind<CheckRegisteredUsersRepository>() }
+    singleOf(::CheckRegisteredUsersDataSource) { bind<CheckRegisteredUsersDataSource>() }
+    singleOf(::CheckRegisteredUsersApiService) { bind<CheckRegisteredUsersApiService>() }
+
+    /// OTP
+    singleOf(::OTPRepository) { bind<OTPRepository>() }
+    singleOf(::OTPApiService) { bind<OTPApiService>() }
+
+    /// Register
+    singleOf(::RegisterRepository) { bind<RegisterRepository>() }
+    singleOf(::RegisterDataSource) { bind<RegisterDataSource>() }
+    singleOf(::RegisterApiService) { bind<RegisterApiService>() }
+
+    /// Logout
     singleOf(::LogoutRepository) { bind<LogoutRepository>() }
     singleOf(::LogoutDataSource) { bind<LogoutDataSource>() }
     singleOf(::LogoutApiService) { bind<LogoutApiService>() }
+}
 
-    // Personal Info
-    /**
-    User Detail
-    User Membership History
-     */
+val personalInfoModule = module {
     singleOf(::PersonalInfoUseCase) { bind<PersonalInfoUseCase>() }
 
+    /// UserDetail
     singleOf(::UserDetailRepository) { bind<UserDetailRepository>() }
     singleOf(::UserDetailDataSource) { bind<UserDetailDataSource>() }
     singleOf(::UserDetailApiService) { bind<UserDetailApiService>() }
 
-    singleOf(::UserMembershipHistoryRepository) { bind<UserMembershipHistoryRepository>() }
-    singleOf(::UserMembershipHistoryDataSource) { bind<UserMembershipHistoryDataSource>() }
-    singleOf(::UserMembershipHistoryApiService) { bind<UserMembershipHistoryApiService>() }
+    /// User History Membership
+    singleOf(::UserMembershipsRepository) { bind<UserMembershipsRepository>() }
+    singleOf(::UserMembershipDataSource) { bind<UserMembershipDataSource>() }
+    singleOf(::UserMembershipApiService) { bind<UserMembershipApiService>() }
 
-    /**
-    General Content
-     */
+    /// Update Profile
+    singleOf(::UpdateProfileRepository) { bind<UpdateProfileRepository>() }
+    singleOf(::UpdateProfileApiService) { bind<UpdateProfileApiService>() }
+}
+
+val launchAppModule = module {
+    /// Launch App
+    singleOf(::LaunchAppResultState) { bind<LaunchAppResultState>() }
+    singleOf(::LaunchAppVM) { bind<LaunchAppVM>() }
+    singleOf(::LaunchAppUseCase) { bind<LaunchAppUseCase>() }
+}
+
+val updateContentModule = module {
+    /// General Content
     singleOf(::GeneralContentUseCase) { bind<IGeneralContentUseCase>() }
 
     singleOf(::GeneralContentRepository) { bind<IGeneralContentRepository>() }
     singleOf(::GeneralContentApiService) { bind<IGeneralContentApiService>() }
+}
 
-    singleOf(::MyAccountUseCase) { bind<MyAccountUseCase>() }
-    singleOf(::SettingsUseCase) { bind<SettingsUseCase>() }
+val accountModule = module {
+    /// Account Use Case
+    singleOf(::AboutAppResultState) { bind<AboutAppResultState>() }
+    singleOf(::AccountVM) { bind<AccountVM>() }
+    singleOf(::AccountUseCase) { bind<AccountUseCase>() }
+}
+
+val myRubriksModule = module {
+    /// My Rubrik Use Case
+    singleOf(::MyRubriksApiService) { bind<MyRubriksApiService>() }
+    singleOf(::MyRubriksRepository) { bind<MyRubriksRepository>() }
+    singleOf(::MyRubriksUseCase) { bind<MyRubriksUseCase>() }
+}
+
+val osRecommendationModule = module {
+    singleOf(::OSRecomendationApiService) { bind<OSRecomendationApiService>() }
+    singleOf(::OSRecomendationRepository) { bind<OSRecomendationRepository>() }
+    singleOf(::OSRecomendationUseCase) { bind<OSRecomendationUseCase>() }
+}
+
+val forceUpdateModule = module {
+    singleOf(::ForceUpdateApiService) { bind<ForceUpdateApiService>() }
+    singleOf(::ForceUpdateRepository) { bind<ForceUpdateRepository>() }
+    singleOf(::ForceUpdateUseCase) { bind<ForceUpdateUseCase>() }
+}
+
+val updateTokenModule = module {
+    singleOf(::TokenInterceptor) { bind<TokenInterceptor>() }
+    singleOf(::TokenUseCase) { bind<TokenUseCase>() }
+}
+
+val helperModule = module {
+    singleOf(::SettingsHelper) { bind<SettingsHelper>() }
+    singleOf(::SupportSettingsHelper) { bind<SupportSettingsHelper>() }
+    singleOf(::DecodeJWT) { bind<DecodeJWT>() }
+
+//    EXMAPLE
+    singleOf(::ExampleNoArgModuleSettingsHelper) { bind<ExampleNoArgModuleSettingsHelper>() }
+    singleOf(::ListenerNoArgModuleSettingsHelper) { bind<ListenerNoArgModuleSettingsHelper>() }
+    singleOf(::SerializationNoArgModuleSettingsHelper) { bind<SerializationNoArgModuleSettingsHelper>() }
+    singleOf(::CoroutineNoArgModuleSettingsHelper) { bind<CoroutineNoArgModuleSettingsHelper>() }
+}
+
+val netDataModule = module {
+    singleOf(::ApiEnvironment) { bind<ApiEnvironment>() }
+    singleOf(::NetworkApiService) { bind<INetworkApiService>() }
+    singleOf(::NetworkVM) { bind<INetworkVM>() }
+
 }

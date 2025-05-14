@@ -10,17 +10,6 @@ plugins {
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
-//group = "com.example"
-//version = "1.0"
-//
-//publishing {
-//    repositories {
-//        maven {
-//            //...
-//        }
-//    }
-//}
-
 kotlin {
 //    withSourcesJar(publish = true)
     androidTarget {
@@ -34,7 +23,8 @@ kotlin {
         }
     }
 
-    val xcframeworkName = "Shared"
+//    val xcframeworkName = "Shared"
+    val xcframeworkName = "KompasIdLibrary"
     val xcf = XCFramework(xcframeworkName)
     listOf(
         iosX64(),
@@ -43,15 +33,16 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
-            // ./gradlew :shared:assembleSharedXCFramework
+            // ./gradlew :shared:assembleSharedXCFramework -> sudah tidak terpakai karna sudah ganti ke KompasIdLibrary
+            // ./gradlew :shared:assembleKompasIdLibraryXCFramework
             // output :
-            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/Shared.xcframework
-            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/Shared.xcframework
-            // swift package compute-checksum Shared.xcframework.zip
+            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibrary.xcframework
+            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/KompasIdLibrary.xcframework
+            // swift package compute-checksum KompasIdLibrary.xcframework.zip
 
             baseName = xcframeworkName
 
-            binaryOption("bundleId", "org.example.${xcframeworkName}")
+            binaryOption("bundleId", "org.kompasid.${xcframeworkName}")
             xcf.add(this)
             isStatic = true
         }
@@ -72,6 +63,8 @@ kotlin {
             implementation(libs.napier) // logging
             implementation(libs.konform) // validation
             implementation(libs.multiplatform.settings.no.arg) // Storage for UserDefaults & SharedPreferences
+            implementation(libs.multiplatform.settings.serialization) // Storage for UserDefaults & SharedPreferences
+            implementation(libs.multiplatform.settings.coroutines) // Storage for UserDefaults & SharedPreferences
 //            implementation(libs.jwtparser) // JWTDecode
 
 //            api(libs.koin.annotations) // sementara di komen
@@ -90,7 +83,6 @@ kotlin {
             implementation(libs.kotlin.test)
              implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.kotlinx.coroutines.core.v181)
         }
     }
 
@@ -151,6 +143,10 @@ android {
             isMinifyEnabled = false
         }
     }
+}
+dependencies {
+    implementation(libs.androidx.runtime.android)
+    implementation(libs.androidx.lifecycle.viewmodel.android)
 }
 
 //// KSP Tasks

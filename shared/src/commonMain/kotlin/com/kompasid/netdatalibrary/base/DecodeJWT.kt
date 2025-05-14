@@ -49,7 +49,7 @@ class DecodeJWT {
         return Json.decodeFromString(payloadJson)
     }
 
-    fun isTokenExpired(token: String): Boolean {
+    suspend fun isTokenExpired(token: String): Boolean {
         if (token.isEmpty()) return true
 
         val exp = decodeJwt(token).exp

@@ -2,8 +2,8 @@ package com.kompasid.netdatalibrary.core.domain.articleList.usecase
 
 import com.kompasid.netdatalibrary.base.network.NetworkError
 import com.kompasid.netdatalibrary.base.network.Results
-import com.kompasid.netdatalibrary.core.data.articleList.repository.ArticleListRepository
-import com.kompasid.netdatalibrary.core.data.articleList.utils.ArticleListType
+import com.kompasid.netdatalibrary.core.data.belum.articleList.repository.ArticleListRepository
+import com.kompasid.netdatalibrary.core.data.belum.articleList.utils.ArticleListType
 import com.kompasid.netdatalibrary.core.domain.articleList.interceptor.ArticleListResInterceptor
 import com.kompasid.netdatalibrary.core.domain.articleList.mapper.ArticleListMapper
 
