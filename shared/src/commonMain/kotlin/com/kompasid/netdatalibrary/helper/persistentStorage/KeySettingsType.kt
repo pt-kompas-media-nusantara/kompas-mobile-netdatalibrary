@@ -7,7 +7,7 @@ enum class KeySettingsType(val key: String) {
 
     // personal information user
     IS_VERIFIED("IS_VERIFIED"), // boolean |
-    SSO("SSO"), // object Sso | ini tidak tahu untuk apa, konfirmasi lagi
+    SSO("SSO"), // object Sso | ini tidak tahu untuk apa, konfirmasi lagi. | sementara tidak di pakai dulu
     ID_GENDER("ID_GENDER"), // int |
     GENDER("GENDER"), // string |
     DATE_BIRTH("DATE_BIRTH"), // string |

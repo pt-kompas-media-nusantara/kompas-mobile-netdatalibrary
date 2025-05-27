@@ -7,6 +7,8 @@ plugins {
     kotlin("plugin.serialization") version "1.9.20"
     id("co.touchlab.skie") version "0.10.0"
     id("maven-publish")
+    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
+    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-43"
     // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
 }
 
@@ -84,6 +86,10 @@ kotlin {
              implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
         }
+    }
+
+    sourceSets.all {
+        languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
     }
 
 //    // KSP Common sourceSet
