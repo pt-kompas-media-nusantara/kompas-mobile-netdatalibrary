@@ -1,0 +1,28 @@
+// curl --location 'https://apisubs.kompas.id/subscriptions'
+
+{
+  "code": 200,
+  "message": "Success check subscription",
+  "data": {
+    "status": "Aktif Berlangganan",
+    "duration": "18 Feb 2025 - 13 Oct 3010",
+    "startDate": "2025-02-18T10:57:22+07:00",
+    "endDate": "3010-10-13T10:57:22+07:00",
+    "access": true,
+    "gracePeriod": false,
+    "gracePeriodDate": "13 Oktober 3010 - 20 Oktober 3010",
+    "totalGracePeriod": 0,
+    "membership": "Benefit-Loyalty-Gravity Form-KaryawanKMN-KDP Long",
+    "membershipDetail": "",
+    "entitlement": "karyawan",
+    "login": true,
+    "user": {
+      "guid": "947baf96-67cd-45a7-ac30-e900651a96c0",
+      "email": "nur.irfan@kompas.com",
+      "firstName": "Nurirp",
+      "lastName": "Pangestuuui",
+      "status": "activeMember"
+    }
+  },
+  "errors": null
+}

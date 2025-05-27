@@ -1,0 +1,115 @@
+** INFO **
+[URL]
+https://api.kompas.id/account/api/v2/login/email
+
+[Method]
+POST
+
+[Status]
+200
+
+[Request date]
+2025-03-25 05:57:40 +0000
+
+[Response date]
+2025-03-25 05:57:41 +0000
+
+[Time interval]
+0.40054703
+
+[Timeout]
+60.0
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+** REQUEST **
+-- Headers --
+
+[Content-Length]
+163
+
+[Cache-Control]
+no-cache
+
+[Content-Type]
+application/json
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc3NDQxODIxNCwic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3NDI4ODMxMTQsImlhdCI6MTc0Mjg4MjIxNCwiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.wqw_MFbubQf2i0-tVN2MtP4YOAdjhxmJT5fZ9yDLDxC9GAoctXHhmtvV26Cces0701UHctJ8VT2lBZ4wzaLsfSMGJPZhCasvaPBaVy71ulhWY-djS7N35RmF-z-_YHEb0_OxQESrLuSO0sLTXzlPXlpru2MkMwq_wKHCUUxi38s
+
+
+-- Body --
+
+{
+  "email" : "nur.irfan@kompas.com",
+  "password" : "Nurirppankompas@28",
+  "device" : "(iOS) Native |  iPhone | iPhone | 16.7.8",
+  "deviceType" : "smartphone"
+}
+
+
+** RESPONSE **
+-- Headers --
+
+[cf-cache-status]
+DYNAMIC
+
+[Set-Cookie]
+kantormu=%7B%22user%22%3A%7B%22created_at%22%3A%222021-01-06T08%3A45%3A51Z%22%2C%22first_name%22%3A%22Nurirp%22%2C%22guid%22%3A%22947baf96-67cd-45a7-ac30-e900651a96c0%22%2C%22id%22%3A%22%22%2C%22last_name%22%3A%22Pangestuuui%22%2C%22username%22%3A%22%22%7D%2C%22version%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzc0NDE4MjYxLCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTc0Mjg4MzE2MSwiaWF0IjoxNzQyODgyMjYxLCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.HzeiIti5NMJhUPpYaUHyLWu-OoW3KKOZ5vmhZjN7SGXlIddUFzBvcPxC4GnrSFSZdt98aS233ppt6Bihq1tTzAvVVfG3eSqabC-j03tggpJFznB5j6Yq4_pTs2OHukS3L0dSgz701KWMMdrJFrSqQDT_BV50vHs2gKVa0w_qOFE; Path=/; Domain=kompas.id; Max-Age=900, kompas._token_refresh=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzc0NDE4MjYxLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.xLWLb2cAAo3tmHFCMBTYt5m6hAqRaFdfTwjJLevww8kAjDPaKvFtmQ-zjl_5MkUT4jwfCRn5mEgLpOy_d0VNx_4LIHBKGbq0c67Y6ujOOI2bLS6ph3yaxYO5EDBvm6t3yvoiEy0o6PCimhwnTSQqTqvzqbxGBKXqngSmbK5afBQ; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._status=%7B%22isVerified%22%3Atrue%2C%22isMigrate%22%3Atrue%2C%22clickDate%22%3A%222023-04-19T08%3A44%3A29.135Z%22%2C%22deviceKeyId%22%3A%223WAUkUW4iEYcMT%2BZFnBeGzCmo%2FGuV7JkS8m9cqiFtGW3OHkquwSP1IrJIk55oYgQR1Z1kU7F7bdn5F7oeNni89BfP5YpcCxxfOIFhC1T%2BSjAtEvSpDYaa1xEqz%2BOiYwN%22%2C%22createdDate%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._subscriptionStatus=1; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._isOnboarding=false; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._isSubOnboarding=true; Path=/; Domain=kompas.id; Max-Age=31556952
+
+[Date]
+Tue, 25 Mar 2025 05:57:41 GMT
+
+[access-control-max-age]
+1728000
+
+[Server]
+cloudflare
+
+[Content-Type]
+application/json; charset=utf-8
+
+[Content-Encoding]
+br
+
+[access-control-allow-credentials]
+true
+
+[access-control-allow-headers]
+Authorization, Content-Type,X-Forwarded-For, X-app123-XPTO
+
+[Access-Control-Allow-Origin]
+*
+
+[access-control-allow-methods]
+GET, PUT, POST,DELETE
+
+[cf-ray]
+925c2c1499209d17-SIN
+
+[Strict-Transport-Security]
+max-age=31536000; includeSubDomains
+
+
+-- Body --
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Login berhasil!",
+    "meta": {
+        "cache": false,
+        "time": 1742882261
+    },
+    "data": {
+        "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzc0NDE4MjYxLCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTc0Mjg4MzE2MSwiaWF0IjoxNzQyODgyMjYxLCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.HzeiIti5NMJhUPpYaUHyLWu-OoW3KKOZ5vmhZjN7SGXlIddUFzBvcPxC4GnrSFSZdt98aS233ppt6Bihq1tTzAvVVfG3eSqabC-j03tggpJFznB5j6Yq4_pTs2OHukS3L0dSgz701KWMMdrJFrSqQDT_BV50vHs2gKVa0w_qOFE",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzc0NDE4MjYxLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.xLWLb2cAAo3tmHFCMBTYt5m6hAqRaFdfTwjJLevww8kAjDPaKvFtmQ-zjl_5MkUT4jwfCRn5mEgLpOy_d0VNx_4LIHBKGbq0c67Y6ujOOI2bLS6ph3yaxYO5EDBvm6t3yvoiEy0o6PCimhwnTSQqTqvzqbxGBKXqngSmbK5afBQ",
+        "isVerified": true,
+        "deviceKeyId": "3WAUkUW4iEYcMT+ZFnBeGzCmo/GuV7JkS8m9cqiFtGW3OHkquwSP1IrJIk55oYgQR1Z1kU7F7bdn5F7oeNni89BfP5YpcCxxfOIFhC1T+SjAtEvSpDYaa1xEqz+OiYwN",
+        "isSocial": false,
+        "isPassEmpty": false
+    }
+}

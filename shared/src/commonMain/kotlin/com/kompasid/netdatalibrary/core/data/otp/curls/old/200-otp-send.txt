@@ -1,0 +1,128 @@
+** INFO **
+[URL]
+https://api.kompas.id/account/api/v2/users/otp/send
+
+[Method]
+POST
+
+[Status]
+200
+
+[Request date]
+2025-04-29 08:32:53 +0000
+
+[Response date]
+2025-04-29 08:32:54 +0000
+
+[Time interval]
+0.230613
+
+[Timeout]
+60.0
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+** REQUEST **
+-- Headers --
+
+[Content-Type]
+application/json
+
+[Cache-Control]
+no-cache
+
+[Content-Length]
+73
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc3NzQ1MTQ1Miwic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3NDU5MTYzNTIsImlhdCI6MTc0NTkxNTQ1MiwiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.KebyINczFJrXHJY6vahfvTe1IAF98rPIjJ3B2KeBseUNBLQdYu8G7EQzhQaxo75UIuEJTSGX0hPVP22ZJkiefeeOQmjRpcOXnXvPyQAnG7MZBIQbmBcZ-vERmjlNVTwfxACsUpCK1cFx2RLpVf38LoXBPXItDSVael3kFm-5iNU
+
+
+-- Body --
+
+{
+  "flag" : 2,
+  "countryCode" : "62",
+  "phoneNumber" : "81513752010"
+}
+
+
+** RESPONSE **
+-- Headers --
+
+[access-control-allow-headers]
+Authorization, Content-Type,X-Forwarded-For, X-app123-XPTO
+
+[Strict-Transport-Security]
+max-age=31536000; includeSubDomains
+
+[cf-ray]
+937d7391ea04fe17-SIN
+
+[Content-Encoding]
+br
+
+[Server]
+cloudflare
+
+[access-control-allow-methods]
+GET, PUT, POST,DELETE
+
+[cf-cache-status]
+DYNAMIC
+
+[access-control-max-age]
+1728000
+
+[access-control-allow-credentials]
+true
+
+[Access-Control-Allow-Origin]
+*
+
+[Date]
+Tue, 29 Apr 2025 08:32:54 GMT
+
+[Content-Type]
+application/json; charset=utf-8
+
+
+-- Body --
+
+{
+  "success" : true,
+  "code" : 200,
+  "message" : "OTP Berhasil Terkirim",
+  "meta" : {
+    "cache" : false,
+    "time" : 1745915574
+  },
+  "data" : {
+    "countdown" : 60,
+    "remainingOtp" : 5
+  }
+}
+
+
+logged via netfox - [https://github.com/kasketis/netfox]
+{
+    "phoneNumber": "81513752010",
+    "flag": 2,
+    "countryCode": "62"
+}
+{
+    "success": true,
+    "code": 200,
+    "message": "OTP Berhasil Terkirim",
+    "meta": {
+        "cache": false,
+        "time": 1745915574
+    },
+    "data": {
+        "countdown": 60,
+        "remainingOtp": 5
+    }
+}

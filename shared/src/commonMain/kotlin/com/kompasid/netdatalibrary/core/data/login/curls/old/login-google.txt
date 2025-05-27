@@ -1,0 +1,120 @@
+** INFO **
+[URL]
+https://api.kompas.id/account/api/v2/login/google
+
+[Method]
+POST
+
+[Status]
+200
+
+[Request date]
+2025-03-25 04:01:03 +0000
+
+[Response date]
+2025-03-25 04:01:03 +0000
+
+[Time interval]
+0.41304195
+
+[Timeout]
+60.0
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+** REQUEST **
+-- Headers --
+a
+[Content-Length]
+597
+
+[Cache-Control]
+no-cache
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc3NDQxMTI0Mywic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3NDI4NzYxNDMsImlhdCI6MTc0Mjg3NTI0MywiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.rzcYYItt0jFKQT6AOb9GJoC5nxjzwqI6K0Rw5W-gMXB6E1G2BnwpUBVtDJS-a0rA0yIje9Rb1i6cf6qnoi_9Hr6-FjSjyQRkchd9GnmKAeyPm0ixlC1dPyYmf-WJK3QczSWQds8861_ULtHt6-j987ltm6Dk1cqAm4sMAC1NVsg
+
+[Content-Type]
+application/json
+
+
+-- Body --
+
+{
+    "docReferrer": "iOS",
+    "device": "(iOS) Native | iPhone | iPhone | 16.7.8",
+    "state": "ya29.a0AeXRPp7FOhF4UQpPi7gysBZ8uwen2w1WpdqizroOquPEBrQ-AjuzPmujak6AQle2TNSv0SGYHXTlTkV7dIkzXMkmwvGa9UdNal7fGPKiLsP6tolAsKzv0g5VWdvybcn-TyJKQ-KPmJKwWNYBzczRqNvcQGcezYAGPowYI884aCgYKAR0SARMSFQHGX2MiubpVNH_3T3yKdukOIFzZgg0175",
+    "accessToken": "ya29.a0AeXRPp7FOhF4UQpPi7gysBZ8uwen2w1WpdqizroOquPEBrQ-AjuzPmujak6AQle2TNSv0SGYHXTlTkV7dIkzXMkmwvGa9UdNal7fGPKiLsP6tolAsKzv0g5VWdvybcn-TyJKQ-KPmJKwWNYBzczRqNvcQGcezYAGPowYI884aCgYKAR0SARMSFQHGX2MiubpVNH_3T3yKdukOIFzZgg0175",
+    "deviceType": "smartphone"
+}
+
+
+** RESPONSE **
+-- Headers --
+
+[Date]
+Tue, 25 Mar 2025 04:01:03 GMT
+
+[access-control-allow-credentials]
+true
+
+[Server]
+cloudflare
+
+[Access-Control-Allow-Origin]
+*
+
+[Strict-Transport-Security]
+max-age=31536000; includeSubDomains
+
+[cf-cache-status]
+DYNAMIC
+
+[access-control-allow-headers]
+Authorization, Content-Type,X-Forwarded-For, X-app123-XPTO
+
+[Set-Cookie]
+kantormu=%7B%22user%22%3A%7B%22created_at%22%3A%222021-03-22T15%3A02%3A53Z%22%2C%22first_name%22%3A%22Nurirppan%22%2C%22guid%22%3A%22b2585f37-9c8e-42f0-86b0-d25073ec6a46%22%2C%22id%22%3A%22%22%2C%22last_name%22%3A%22Iiii%22%2C%22username%22%3A%22%22%7D%2C%22version%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFuQGdtYWlsLmNvbSIsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2IiwicnQiOjE3NzQ0MTEyNjMsInNjb3BlIjpbInJlYWQtYXJ0aWNsZSIsInJlYWQtcHJvZmlsZSJdfSwiZXhwIjoxNzQyODc2MTYzLCJpYXQiOjE3NDI4NzUyNjMsImlzcyI6Imh0dHBzOi8vd3d3LmtvbXBhcy5pZCJ9.Rx02M_NRLyF4pq5vC61qpRl6XTXpCrBCttMiCTOo1sFmDSV9KfrLdgHHXB8I5GONzEYW5fELfn1qMudrVYkVy7IdITFgHBFw23JzWm5Z7dFpx-2e_m_SRPLe9Qo5N9a1h9L42SJvLW5RAGrmV-JBTLxKfxOXYNpaWAoa61XU5Uc; Path=/; Domain=kompas.id; Max-Age=900, kompas._token_refresh=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmlycHBhbkBnbWFpbC5jb20iLCJleHAiOjE3NzQ0MTEyNjMsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2Iiwic3ViIjoxfQ.oWxapZxivA1zN3_5XqwaETaJGD4ZZBSRiE-N2LLws7kDWc4pwJ4mTl3enCWcpyW8g4NzIAzhxN_DxCDeBVaklpDCYymdxnhsPnFKT8IAFZr1KMYr3HARertJFWqh7c3SEE6sIw_8xt_0wDrlxGQTgi7dBdgZk0p60tLFATzMF8Q; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._status=%7B%22isVerified%22%3Atrue%2C%22isMigrate%22%3Atrue%2C%22clickDate%22%3A%222021-10-25T04%3A09%3A57.703Z%22%2C%22deviceKeyId%22%3A%223nhRUM6eER3A4kuaTrVd7HFh%2BXfx8kwpP8z8Hr8DUHl35Pped15JAYyomII7xsEq%2BOi8tHMOEjSdHgXMtOoM2FqheHbWXdcN9rJNlERGEYXAtEvSpDYaa1xEqz%2BOiYwN%22%2C%22createdDate%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._subscriptionStatus=0; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._isOnboarding=false; Path=/; Domain=kompas.id; Max-Age=31556952
+
+[Content-Type]
+application/json; charset=utf-8
+
+[Content-Encoding]
+br
+
+[access-control-allow-methods]
+GET, PUT, POST,DELETE
+
+[cf-ray]
+925b813bad8fcdde-SIN
+
+[access-control-max-age]
+1728000
+
+
+-- Body --
+{
+    "success": true,
+    "code": 200,
+    "message": "Login berhasil!",
+    "meta": {
+        "cache": false,
+        "time": 1742875263
+    },
+    "data": {
+        "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFuQGdtYWlsLmNvbSIsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2IiwicnQiOjE3NzQ0MTEyNjMsInNjb3BlIjpbInJlYWQtYXJ0aWNsZSIsInJlYWQtcHJvZmlsZSJdfSwiZXhwIjoxNzQyODc2MTYzLCJpYXQiOjE3NDI4NzUyNjMsImlzcyI6Imh0dHBzOi8vd3d3LmtvbXBhcy5pZCJ9.Rx02M_NRLyF4pq5vC61qpRl6XTXpCrBCttMiCTOo1sFmDSV9KfrLdgHHXB8I5GONzEYW5fELfn1qMudrVYkVy7IdITFgHBFw23JzWm5Z7dFpx-2e_m_SRPLe9Qo5N9a1h9L42SJvLW5RAGrmV-JBTLxKfxOXYNpaWAoa61XU5Uc",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmlycHBhbkBnbWFpbC5jb20iLCJleHAiOjE3NzQ0MTEyNjMsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2Iiwic3ViIjoxfQ.oWxapZxivA1zN3_5XqwaETaJGD4ZZBSRiE-N2LLws7kDWc4pwJ4mTl3enCWcpyW8g4NzIAzhxN_DxCDeBVaklpDCYymdxnhsPnFKT8IAFZr1KMYr3HARertJFWqh7c3SEE6sIw_8xt_0wDrlxGQTgi7dBdgZk0p60tLFATzMF8Q",
+        "docReferrer": "iOS",
+        "isSocial": true,
+        "isPassEmpty": false,
+        "userCreated": false,
+        "deviceKeyId": "3nhRUM6eER3A4kuaTrVd7HFh+Xfx8kwpP8z8Hr8DUHl35Pped15JAYyomII7xsEq+Oi8tHMOEjSdHgXMtOoM2FqheHbWXdcN9rJNlERGEYXAtEvSpDYaa1xEqz+OiYwN",
+        "sso": {
+            "social": "google",
+            "type": "login"
+        }
+    }
+}

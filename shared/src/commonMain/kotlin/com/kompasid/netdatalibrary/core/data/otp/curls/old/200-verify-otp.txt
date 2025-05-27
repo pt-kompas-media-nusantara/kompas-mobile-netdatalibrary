@@ -1,0 +1,131 @@
+** INFO **
+[URL]
+https://api.kompas.id/account/api/v2/users/otp/check
+
+[Method]
+POST
+
+[Status]
+200
+
+[Request date]
+2025-04-29 08:33:17 +0000
+
+[Response date]
+2025-04-29 08:33:17 +0000
+
+[Time interval]
+0.20641506
+
+[Timeout]
+60.0
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+** REQUEST **
+-- Headers --
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc3NzQ1MTQ1Miwic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3NDU5MTYzNTIsImlhdCI6MTc0NTkxNTQ1MiwiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.KebyINczFJrXHJY6vahfvTe1IAF98rPIjJ3B2KeBseUNBLQdYu8G7EQzhQaxo75UIuEJTSGX0hPVP22ZJkiefeeOQmjRpcOXnXvPyQAnG7MZBIQbmBcZ-vERmjlNVTwfxACsUpCK1cFx2RLpVf38LoXBPXItDSVael3kFm-5iNU
+
+[Cache-Control]
+no-cache
+
+[Content-Type]
+application/json
+
+[Content-Length]
+203
+
+
+-- Body --
+
+{
+  "docReferrer" : "verify OTP iOS",
+  "countryCode" : "62",
+  "deviceType" : "smartphone",
+  "device" : "(iOS) Native |  iPhone | iPhone | 16.7.8",
+  "otp" : "896535",
+  "phoneNumber" : "81513752010"
+}
+
+
+** RESPONSE **
+-- Headers --
+
+[access-control-allow-headers]
+Authorization, Content-Type,X-Forwarded-For, X-app123-XPTO
+
+[Access-Control-Allow-Origin]
+*
+
+[Date]
+Tue, 29 Apr 2025 08:33:17 GMT
+
+[Content-Encoding]
+br
+
+[Set-Cookie]
+kantormu=%7B%22user%22%3A%7B%22created_at%22%3A%222022-10-31T06%3A24%3A30.946Z%22%2C%22first_name%22%3A%22nur%22%2C%22guid%22%3A%223c401871-741d-4d03-9c07-e04962476433%22%2C%22id%22%3A%22%22%2C%22last_name%22%3A%22pangestu%22%2C%22username%22%3A%22%22%7D%2C%22version%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFueW9wbWFpbDFAeW9wbWFpbC5jb20iLCJpZCI6IjNjNDAxODcxLTc0MWQtNGQwMy05YzA3LWUwNDk2MjQ3NjQzMyIsInJ0IjoxNzc3NDUxNTk3LCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTc0NTkxNjQ5NywiaWF0IjoxNzQ1OTE1NTk3LCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.WtTUgr0y1sUZtr85Mo1N1_kUM0V9kdJs_xm_uzKqnWIMrHkL8fyLHRHnKTEf3Oh5CLMpkIj55KPN9iUCmFcCMkqfMG2OcAftQk13pGjO_XG4953jXlkkxp2KHQNUn2ktXLkGk4FfPJJpi3RHqONpOcDZoodGSDRQTYvhsggfr5s; Path=/; Domain=kompas.id; Max-Age=900, kompas._token_refresh=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmlycHBhbnlvcG1haWwxQHlvcG1haWwuY29tIiwiZXhwIjoxNzc3NDUxNTk3LCJpZCI6IjNjNDAxODcxLTc0MWQtNGQwMy05YzA3LWUwNDk2MjQ3NjQzMyIsInN1YiI6MX0.ES2lny7FcN3mfivJcjN88OlQqhXwcRenV8h_HFCeL0RLWZ_b7B5Vlc4TmLMiO0RedUSuVJgCzgvllXEkxuJ9lBadCAv1SVFNikNB1HHbcW-8OSkkguc1nj9S_FoW4Ry_jCZ7B7tanYA9qut-nb6O_3RSnUAFePyRZzGEhhp5v3U; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._status=%7B%22isVerified%22%3Atrue%2C%22isMigrate%22%3Afalse%2C%22clickDate%22%3A%222022-10-31T06%3A24%3A30.946Z%22%2C%22deviceKeyId%22%3A%22F4HaXRoj4z8DExe5cfiVvUN8wn2ssCK4m6mjX%2FHjs1kGFQdBJGozuQDTcMGQnAThELhGFmis4I8HEPMipGb2aIa2TuSgsa%2Bo9kuGyGfVsSnAtEvSpDYaa1xEqz%2BOiYwN%22%2C%22createdDate%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._subscriptionStatus=0; Path=/; Domain=kompas.id; Max-Age=31556952
+
+[cf-ray]
+937d7423faf26e7c-SIN
+
+[access-control-allow-methods]
+GET, PUT, POST,DELETE
+
+[cf-cache-status]
+DYNAMIC
+
+[Content-Type]
+application/json; charset=utf-8
+
+[access-control-max-age]
+1728000
+
+[Strict-Transport-Security]
+max-age=31536000; includeSubDomains
+
+[Server]
+cloudflare
+
+[access-control-allow-credentials]
+true
+
+
+-- Body --
+
+Too long to show. If you want to see it, please tap the following button
+
+
+logged via netfox - [https://github.com/kasketis/netfox]
+{
+  "docReferrer" : "verify OTP iOS",
+  "phoneNumber" : "81513752010",
+  "otp" : "896535",
+  "countryCode" : "62",
+  "deviceType" : "smartphone",
+  "device" : "(iOS) Native |  iPhone | iPhone | 16.7.8"
+}{
+    "success": true,
+    "code": 200,
+    "message": "Login berhasil!",
+    "meta": {
+        "cache": false,
+        "time": 1745915597
+    },
+    "data": {
+        "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFueW9wbWFpbDFAeW9wbWFpbC5jb20iLCJpZCI6IjNjNDAxODcxLTc0MWQtNGQwMy05YzA3LWUwNDk2MjQ3NjQzMyIsInJ0IjoxNzc3NDUxNTk3LCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTc0NTkxNjQ5NywiaWF0IjoxNzQ1OTE1NTk3LCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.WtTUgr0y1sUZtr85Mo1N1_kUM0V9kdJs_xm_uzKqnWIMrHkL8fyLHRHnKTEf3Oh5CLMpkIj55KPN9iUCmFcCMkqfMG2OcAftQk13pGjO_XG4953jXlkkxp2KHQNUn2ktXLkGk4FfPJJpi3RHqONpOcDZoodGSDRQTYvhsggfr5s",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmlycHBhbnlvcG1haWwxQHlvcG1haWwuY29tIiwiZXhwIjoxNzc3NDUxNTk3LCJpZCI6IjNjNDAxODcxLTc0MWQtNGQwMy05YzA3LWUwNDk2MjQ3NjQzMyIsInN1YiI6MX0.ES2lny7FcN3mfivJcjN88OlQqhXwcRenV8h_HFCeL0RLWZ_b7B5Vlc4TmLMiO0RedUSuVJgCzgvllXEkxuJ9lBadCAv1SVFNikNB1HHbcW-8OSkkguc1nj9S_FoW4Ry_jCZ7B7tanYA9qut-nb6O_3RSnUAFePyRZzGEhhp5v3U",
+        "docReferrer": "verify OTP iOS",
+        "isVerified": true,
+        "deviceKeyId": "F4HaXRoj4z8DExe5cfiVvUN8wn2ssCK4m6mjX/Hjs1kGFQdBJGozuQDTcMGQnAThELhGFmis4I8HEPMipGb2aIa2TuSgsa+o9kuGyGfVsSnAtEvSpDYaa1xEqz+OiYwN",
+        "isSocial": false,
+        "isPassEmpty": false,
+        "isComplete": false,
+        "isVIP": false
+    }
+}

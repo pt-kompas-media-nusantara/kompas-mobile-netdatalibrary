@@ -1,0 +1,18 @@
+// curl --location 'https://api.kompas.id/account/api/v1/tokens/refresh' \
+// --header 'Content-Type: application/json' \
+// --header 'Accept: application/json' \
+// --data '{
+//   "refreshToken": ""
+// }'
+// old-v2-refresh token-400-token empty
+
+{
+    "success": false,
+    "code": 400,
+    "message": "Token refresh wajib diisi.",
+    "meta": {
+        "cache": false,
+        "time": 1729742612
+    },
+    "data": null
+}

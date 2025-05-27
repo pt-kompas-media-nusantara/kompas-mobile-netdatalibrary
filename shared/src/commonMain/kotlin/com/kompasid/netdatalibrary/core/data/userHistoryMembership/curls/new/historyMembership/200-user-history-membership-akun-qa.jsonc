@@ -1,0 +1,33 @@
+// curl --location 'https://apisubs.kompas.id/membership'
+
+{
+  "code": 200,
+  "message": "Success get all membership",
+  "data": {
+    "user": {
+      "guid": "83d39662-eea4-4797-9e6b-24880ae67f7d",
+      "email": "kompastestinglangganan@yopmail.com",
+      "firstName": "Kompas",
+      "lastName": "Testing",
+      "status": "activeMember"
+    },
+    "active": [
+      {
+        "membershipTitle": "Cash-B2C-Android App-Reguler_Digital-KDP 12",
+        "membershipSlug": "cash-b2c-android-app-reguler_digital-kdp-12",
+        "startDate": "2025-01-08T14:46:44+07:00",
+        "endDate": "2026-01-08T14:46:44+07:00"
+      },
+      {
+        "membershipTitle": "Cash-B2C-Android App-Reguler_Digital-KDP 12",
+        "membershipSlug": "cash-b2c-android-app-reguler_digital-kdp-12",
+        "startDate": "2025-01-08T14:46:45+07:00",
+        "endDate": "2026-01-08T14:46:45+07:00"
+      }
+    ],
+    "expired": [],
+    "gracePeriod": [],
+    "canceled": []
+  },
+  "errors": null
+}

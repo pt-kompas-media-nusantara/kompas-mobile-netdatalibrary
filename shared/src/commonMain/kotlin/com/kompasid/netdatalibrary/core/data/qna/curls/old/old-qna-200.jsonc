@@ -1,0 +1,207 @@
+// https://cdn-content.kompas.id/mobile/json/question-answer.json
+// old-qna-200
+{
+  "android": [],
+  "iOS": [
+    {
+      "id": "question_1",
+      "question": "Apa itu Kompas.id?",
+      "answer": [
+        "Kompas.id adalah media digital berbayar yang merupakan ekstensi dari jurnalisme surat kabar Harian Kompas, sehingga konten Harian Kompas dapat dinikmati secara digital kapan saja dan di mana saja. Keduanya hadir melengkapi dan memperkaya satu sama lain.\n\n",
+        "Harian Kompas dan Kompas.id mewujudkan jurnalisme berkedalaman lewat produk jurnalistik yang mengutamakan substansi dan kontribusi. Kompas.id konsisten dalam menyajikan informasi yang mendalam, tepercaya, dan berkualitas.\n"
+      ]
+    },
+    {
+      "id": "question_2",
+      "question": "Bagaimana cara membuat akun di aplikasi Kompas.id? ",
+      "answer": [
+        "Ikuti langkah berikut untuk membuat akun di aplikasi Kompas.id: \n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon ![Image](img_burger_question) di pojok kiri atas pada tab beranda aplikasi.\n",
+        "1. Pilih “Daftar”, lalu tekan tombol 'Daftar dengan email/No. Ponsel' atau tekan tombol 'Lanjutkan dengan Google/Facebook/Apple.'\n",
+        "1. Isi nama depan, nama belakang, email, dan kata sandi, lalu tekan tombol 'Daftar'.\n"
+      ]
+    },
+    {
+      "id": "question_3",
+      "question": "Bagaimana cara masuk akun di aplikasi Kompas.id?",
+      "answer": [
+        "Ikuti langkah berikut untuk masuk akun di aplikasi Kompas.id: \n\n",
+        "--Masuk melalui akun yang terdaftar dengan email atau nomor ponsel--\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon ![Image](img_burger_question) di pojok kiri atas pada tab beranda aplikasi.\n",
+        "1. Pilih 'Daftar' lalu tekan tombol 'Silakan Masuk” pada bagian bawah halaman.'\n",
+        "1. Tekan tombol 'Masuk dengan Email/No.Ponsel'.\n",
+        "1. Isi email dan kata sandi atau nomor ponsel yang Anda daftarkan di Kompas.id, lalu tekan tombol 'Masuk'.\n\n",
+        "--Masuk melalui akun Google yang terdaftar--\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon ![Image](img_burger_question) di pojok kiri atas pada tab beranda aplikasi.\n",
+        "1. Pilih 'Daftar'.\n",
+        "1. Tekan tombol 'Lanjutkan dengan Google'.\n",
+        "1. Pilih akun Google Anda yang terhubung dengan Kompas.id.\n\n",
+        "--Masuk melalui akun Apple yang terdaftar--\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon ![Image](img_burger_question) di pojok kiri atas pada tab beranda aplikasi.\n",
+        "1. Pilih 'Daftar'.\n",
+        "1. Tekan tombol 'Lanjutkan dengan Apple'.\n",
+        "1. Klik 'Lanjutkan” atau 'Continue' untuk proses sinkronisasi akun.\n\n",
+        "--Masuk melalui akun Facebook yang terdaftar--\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon ![Image](img_burger_question) di pojok kiri atas pada tab beranda aplikasi.\n",
+        "1. Pilih 'Masuk'.\n",
+        "1. Tekan tombol'Lanjutkan dengan Facebook'. \n",
+        "1. Tekan tombol 'Lanjutkan sebagai [Nama Anda]' atau 'Continue as [Nama Anda] untuk proses sinkronisasi akun'.\n"
+      ]
+    },
+    {
+      "id": "question_4",
+      "question": "Bagaimana cara berlangganan Kompas.id dari aplikasi?",
+      "answer": [
+        "Untuk mengakses konten premium di Kompas.id, Anda harus terlebih dulu berlangganan. Ikuti langkah-langkah berikut untuk masuk akun di aplikasi Kompas.id:\n\n",
+        "--Berlangganan melalui aplikasi--\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon menu Akun ![Image](img_akun_question) di pojok kanan bawah pada aplikasi.\n",
+        "1. Pada halaman Akun, pilih 'Berlangganan'. \n",
+        "1. Pilih paket langganan yang sesuai dengan kebutuhan Anda.\n",
+        "1. Silakan ikuti prosesnya dan selesaikan pembayaran.\n\n",
+        "--Berlangganan melalui konten berbayar--\n",
+        "1. Masuk ke salah satu konten berbayar atau konten yang tidak berlabel 'Bebas Akses'.\n",
+        "1. Akan muncul paywall atau banner berlangganan di artikel, silakan pilih paket berlangganan yang sesuai dengan kebutuhan Anda.\n",
+        "1. Silakan ikuti prosesnya dan selesaikan pembayaran.\n"
+      ]
+    },
+    {
+      "id": "question_5",
+      "question": "Bagaimana cara keluar dari akun Kompas.id dari aplikasi?",
+      "answer": [
+        "Ikuti langkah berikut untuk keluar dari akun Kompas.id dari aplikasi:\n\n",
+        "1. Buka aplikasi Kompas.id, lalu tekan ikon menu Akun ![Image](img_akun_question) di pojok kanan bawah pada aplikasi.\n",
+        "1. Pilih 'Pengaturan'.\n",
+        "1. Pilih 'Keluar'.\n"
+      ]
+    },
+    {
+      "id": "question_6",
+      "question": "Bagaimana cara mengatur ulang kata sandi di aplikasi Kompas.id jika lupa kata sandi?",
+      "answer": [
+        "Jika Anda lupa kata sandi, ikuti langkah berikut untuk mengatur ulang kata sandi akun Kompas.id Anda:\n\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon ![Image](img_burger_question) di pojok kiri atas pada tab beranda aplikasi.\n",
+        "1. Pilih 'Daftar' lalu tekan tombol 'Silakan Masuk' pada bagian bawah halaman.\n",
+        "1. Tekan tombol 'Masuk dengan Email/No.Ponsel', lalu masukkan email yang Anda daftarkan di Kompas.id.\n",
+        "1. Pilih 'Lupa Kata Sandi', lalu Anda akan dialihkan ke tampilan web.\n",
+        "1. Tekan kotak untuk mencentang verifikasi 'I’m not a robot', lalu tekan tombol 'Kirim Tautan'\n",
+        "1. Periksa email dari Kompas.id yang berisi tautan mengatur ulang kata sandi, lalu tekan tombol 'Atur Ulang Kata Sandi' pada email.\n",
+        "1. Silakan masukkan kata sandi baru, lalu tekan tombol 'Ubah Kata Sandi'.\n"
+      ]
+    },
+    {
+      "id": "question_7",
+      "question": "Bagaimana cara mengubah kata sandi di aplikasi Kompas.id?",
+      "answer": [
+        "Ikuti langkah berikut untuk mengubah kata sandi akun Kompas.id Anda:\n\n",
+        "1. Buka aplikasi Kompas.id, lalu tekan ikon menu Akun ![Image](img_burger_question) di pojok kanan bawah pada aplikasi.\n",
+        "1. Pilih 'Pengaturan'.\n",
+        "1. Pilih 'Ubah Sandi'.\n",
+        "1. Masukkan alamat email yang Anda daftarkan di Kompas.id.\n",
+        "1. Tekan kotak untuk mencentang verifikasi 'I’m not a robot', lalu tekan tombol 'Kirim Tautan'\n",
+        "1. Periksa email dari Kompas.id yang berisi tautan mengatur ulang kata sandi, lalu tekan tombol 'Atur Ulang Kata Sandi' pada email.\n",
+        "1. Silakan masukkan kata sandi baru, lalu tekan tombol 'Ubah Kata Sandi'.\n"
+      ]
+    },
+    {
+      "id": "question_8",
+      "question": "Bagaimana cara berhenti berlangganan Kompas.id di aplikasi?",
+      "answer": [
+        "Ikuti langkah berikut untuk berhenti berlangganan Kompas.id melalui perangkat iOS Anda:\n",
+        "1. Masuk ke App Store dengan akun Apple Anda.\n",
+        "1. Tekan foto profil pada App Store.\n",
+        "1. Pilih 'Subscriptions' atau 'Langganan'.\n",
+        "1. Pilih Kompas.id, lalu tekan tombol 'Cancel subscription' atau 'Batalkan langganan'. \n"
+      ]
+    },
+    {
+      "id": "question_9",
+      "question": "Apa itu masa aktif paket berlangganan atau subscription active?",
+      "answer": [
+        "Masa aktif paket berlangganan adalah periode di mana langganan Anda berlaku. Misalnya, jika Anda berlangganan Paket Kompas Digital Premium 1 Tahun, masa aktif langganan Anda akan berlangsung dari 1 Desember 2020 hingga 1 Desember 2021, dengan durasi langganan selama 1 tahun.\n\n",
+        "Anda dapat melihat periode dan status berlangganan Anda di aplikasi dengan mengikuti langkah di bawah ini: \n\n",
+        "1. Masuk ke aplikasi Kompas.id.\n",
+        "1. Buka aplikasi Kompas.id, lalu tekan ikon menu Akun ![Image](img_akun_question) di pojok kanan bawah pada aplikasi.\n",
+        "1. Pilih 'Kelola Akun'.\n",
+        "1. Pilih tab/bagian 'Informasi Langganan'.\n\n",
+        "Di bagian ini, Anda dapat melihat informasi tentang paket, status langganan, tanggal mulai, dan tanggal berakhir langganan Anda.\n",
+        "Kami juga akan mengirimkan pengingat sebelum masa berlangganan Anda berakhir, agar Anda dapat memperpanjang langganan atau memperbaiki metode pembayaran jika diperlukan.\n"
+      ]
+    },
+    {
+      "id": "question_10",
+      "question": "Apa itu masa tenggang langganan atau grace period?",
+      "answer": [
+        "Kompas.id memberikan masa tenggang selama 7 hari bagi pelanggan untuk memperbarui langganan atau memperbaiki metode pembayaran jika terjadi kendala saat perpanjangan. Selama masa tenggang ini, pelanggan tetap dapat mengakses artikel dan konten premium, ePaper hingga edisi 30 hari terakhir, serta manfaat lain yang termasuk dalam paket langganan sebelumnya.\n\n",
+        "Untuk memeriksa status masa tenggang di aplikasi Kompas.id, ikuti langkah berikut: \n",
+        "1. Buka aplikasi Kompas.id, lalu tekan ikon menu Akun ![Image](img_akun_question) di pojok kanan bawah pada aplikasi.\n",
+        "1. Pilih 'Kelola Akun'. \n",
+        "1. Pilih tab 'Informasi Berlangganan'. \n",
+        "1. Di bagian ini, Anda akan melihat informasi Paket Berlangganan, Status, Tanggal Mulai, dan Tanggal Selesai berlangganan. \n\n",
+        "Selama masa tenggang, kami akan mengirimkan pengingat melalui aplikasi Kompas.id agar Anda dapat segera melanjutkan langganan atau memperbaiki metode pembayaran jika diperlukan. \n"
+      ]
+    },
+    {
+      "id": "question_11",
+      "question": "Apa itu konten Bebas Akses?",
+      "answer": [
+        "Konten --Bebas Akses-- adalah penanda atau label yang terdapat pada sejumlah konten di Kompas.id. Konten ini memiliki penanda --Bebas Akses-- dan dapat diakses atau dibaca oleh seluruh pengguna, baik yang belum atau sudah membuat akun Kompas.id tapi belum berlangganan. Konten --Bebas Akses-- dapat diakses sampai batas waktu tertentu secara gratis.\n\n",
+        "Untuk mengakses seluruh konten dan menggunakan fitur di aplikasi Kompas.id, pengguna harus berlangganan terlebih dahulu."
+      ]
+    },
+    {
+      "id": "question_12",
+      "question": "Bagaimana cara mengakses ePaper di aplikasi Kompas.id?",
+      "answer": [
+        "ePaper merupakan salah satu fitur unggulan Kompas.id yang dapat diakses oleh pengguna yang sedang berlangganan. Ikuti langkah berikut untuk mengakses ePaper di aplikasi Kompas.id: \n\n",
+        "1. Buka aplikasi Kompas.id lalu tekan ikon menu ePaper ![Image](img_epaper_question) di tab bagian bawah aplikasi.\n",
+        "1. Pilih edisi ePaper yang ingin Anda baca, Anda juga dapat mencari ePaper hingga 30 edisi terakhir dengan memilih tanggal edisi.\n",
+        "1. Tekan ikon ![Image](img_download_question) untuk mengunduh ePaper.\n",
+        "1. Untuk menemukan ePaper yang Anda telah unduh, pilih tab 'EPAPER SAYA'.\n"
+      ]
+    },
+    {
+      "id": "question_13",
+      "question": "Bagaimana cara menyampaikan kritik dan saran ke Kompas.id?",
+      "answer": [
+        "Jika Anda mengalami kendala atau ingin menyampaikan kritik dan saran ke Kompas.id, Anda dapat menghubungi Layanan Pelanggan Kompas.id di bawah ini: \n\n",
+        "WhatsApp: +62812 900 50 800 \n",
+        "Kompas Kring: +6221 2567 6000 \n",
+        "Email: hotline@kompas.id\n\n",
+        "Anda dapat menghubungi Layanan Pelanggan pada jam kerja 06.00-16.00 WIB.\n"
+      ]
+    },
+    {
+      "id": "question_14",
+      "question": "Mengapa saya tidak dapat menemukan fitur tertentu di aplikasi Kompas.id versi iOS? ",
+      "answer": [
+        "Jika Anda menemukan fitur pada Kompas.id versi web atau Android namun belum tersedia di versi iOS, hal ini dikarenakan fitur tersebut sedang dalam tahap pengembangan di aplikasi versi iOS. Terus nantikan pembaruan fitur terbaru di aplikasi Kompas.id!\n\n"
+      ]
+    },
+    {
+      "id": "question_15",
+      "question": "Bagaimana cara memperbarui versi iOS perangkat saya?",
+      "answer": [
+        "Kami menyarankan untuk memperbarui versi iOS (iOS 16 ke atas) di perangkat Anda agar aplikasi Kompas.id berjalan lancar dan Anda mendapatkan pengalaman terbaik saat menggunakannya. Berikut adalah langkah untuk mengecek versi iOS Anda dan memperbaruinya.\n\n",
+        "1. Buka 'Settings' atau 'Pengaturan' lalu pilih 'General' atau 'Umum'\n",
+        "1. Pilih 'About' atau 'Mengenai', lalu lihat 'Software Version' atau 'Versi Perangkat Lunak'.\n",
+        "1. Perbarui versi iOS Anda jika versi perangkat lunak masih di bawah iOS 16.\n",
+        "1. Buka 'Settings' atau 'Pengaturan' lalu pilih 'General' atau 'Umum'. \n",
+        "1. Pilih 'Software Update' atau 'Pembaruan Perangkat Lunak', lalu tekan tombol 'Download and Install' atau 'Unduh dan Instal'. \n"
+      ]
+    },
+    {
+      "id": "question_16",
+      "question": "Mengapa ePaper yang saya unduh menghilang dari ePaper Saya?",
+      "answer": [
+        "ePaper yang Anda unduh akan tersimpan di ePaper Saya. Namun, perlu diperhatikan bahwa ePaper yang diunduh akan hilang saat Anda keluar dari akun Kompas.id, karena proses ini akan menghapus semua data yang diunduh dan preferensi yang tersimpan. ePaper yang sudah terbit lebih dari 30 hari juga akan terhapus secara otomatis saat Anda keluar akun.\n\n"
+      ]
+    },
+    {
+      "id": "question_17",
+      "question": "Mengapa saya hanya bisa mengakses ePaper yang terbit 30 hari terakhir?  ",
+      "answer": [
+        "Akses ePaper 30 hari terakhir merupakan salah satu benefit bagi pelanggan berbayar Kompas.id. Durasi ini kami harap merupakan rentang waktu yang ideal agar Anda dapat membaca berita-berita penting yang terbit dalam kurun waktu satu bulan terakhir. Namun, jika Anda membutuhkan akses ke ePaper yang terbit lebih dari 30 hari terakhir, Anda dapat membeli arsip ePaper Kompas secara eceran di epaper.kompas.id.\n\n"
+      ]
+    }
+  ]
+}
