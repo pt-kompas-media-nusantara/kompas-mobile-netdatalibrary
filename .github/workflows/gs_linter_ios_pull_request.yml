@@ -1,0 +1,45 @@
+name: GS - Linter for iOS (PR)
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  gs_linter_ios_pull_request:
+    name: GS - Linter for iOS (PR)
+    runs-on: [self-hosted, Linux, node20]
+    env:
+      LANG: en_US.UTF-8
+
+    steps:
+      - name: Logs
+        run: |
+          echo "ref: ${{ github.ref }}"
+          echo "workflow: ${{ github.workflow }}"
+
+      - name: Change ownership of repository directory
+        if: always()
+        run: |
+          if [ -d "/var/data/action-runner/_work/kompas-id-ios" ]; then
+            sudo chown -R sysadm:sysadm /var/data/action-runner/_work/kompas-id-ios
+          fi
+          if [ -d "/var/data/actions-runner/_work/kompas-id-ios" ]; then
+            sudo chown -R sysadm:sysadm /var/data/actions-runner/_work/kompas-id-ios
+          fi
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Danger Swift
+        id: danger
+        uses: docker://ghcr.io/danger/danger-swift-with-swiftlint:3.15.0
+        with:
+          args: --failOnErrors --no-publish-check
+        env:
+          GITHUB_TOKEN: ${{ inputs.pat }}
