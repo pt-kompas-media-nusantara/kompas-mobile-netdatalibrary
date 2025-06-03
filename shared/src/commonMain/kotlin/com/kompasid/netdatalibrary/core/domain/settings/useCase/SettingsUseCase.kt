@@ -165,6 +165,114 @@ class SettingsUseCase(
     @NativeCoroutines
     suspend fun getDeviceKeyId(): String =
         settings.get(KeySettingsType.DEVICE_KEY_ID, "")
+
+
+    // ===== for validation
+    @NativeCoroutines
+    fun observeIsPassEmpty(): Flow<Boolean> =
+        settings.load(KeySettingsType.IS_PASS_EMPTY, false)
+
+    @NativeCoroutines
+    suspend fun getIsPassEmpty(): Boolean =
+        settings.get(KeySettingsType.IS_PASS_EMPTY, false)
+
+    @NativeCoroutines
+    fun observeIsSocial(): Flow<Boolean> =
+        settings.load(KeySettingsType.IS_SOCIAL, false)
+
+    @NativeCoroutines
+    suspend fun getIsSocial(): Boolean =
+        settings.get(KeySettingsType.IS_SOCIAL, false)
+
+    @NativeCoroutines
+    fun observePhoneVerified(): Flow<Boolean> =
+        settings.load(KeySettingsType.PHONE_VERIFIED, false)
+
+    @NativeCoroutines
+    suspend fun getPhoneVerified(): Boolean =
+        settings.get(KeySettingsType.PHONE_VERIFIED, false)
+
+    @NativeCoroutines
+    fun observeRegisteredOn(): Flow<List<String>> =
+        settings.load(KeySettingsType.REGISTERED_ON, emptyList())
+
+    @NativeCoroutines
+    suspend fun getRegisteredOn(): List<String> =
+        settings.get(KeySettingsType.REGISTERED_ON, emptyList())
+
+
+    // ===== subscription data
+    @NativeCoroutines
+    fun observeSubscriptionStatus(): Flow<String> =
+        settings.load(KeySettingsType.SUBSCRIPTION_STATUS, "")
+
+    @NativeCoroutines
+    suspend fun getSubscriptionStatus(): String =
+        settings.get(KeySettingsType.SUBSCRIPTION_STATUS, "")
+
+    @NativeCoroutines
+    fun observeSubscriptionDuration(): Flow<String> =
+        settings.load(KeySettingsType.SUBSCRIPTION_DURATION, "")
+
+    @NativeCoroutines
+    suspend fun getSubscriptionDuration(): String =
+        settings.get(KeySettingsType.SUBSCRIPTION_DURATION, "")
+
+    @NativeCoroutines
+    fun observeSubscriptionStartDate(): Flow<String> =
+        settings.load(KeySettingsType.SUBSCRIPTION_START_DATE, "")
+
+    @NativeCoroutines
+    suspend fun getSubscriptionStartDate(): String =
+        settings.get(KeySettingsType.SUBSCRIPTION_START_DATE, "")
+
+    @NativeCoroutines
+    fun observeSubscriptionEndDate(): Flow<String> =
+        settings.load(KeySettingsType.SUBSCRIPTION_END_DATE, "")
+
+    @NativeCoroutines
+    suspend fun getSubscriptionEndDate(): String =
+        settings.get(KeySettingsType.SUBSCRIPTION_END_DATE, "")
+
+    @NativeCoroutines
+    fun observeGracePeriod(): Flow<String> =
+        settings.load(KeySettingsType.GRACE_PERIOD, "")
+
+    @NativeCoroutines
+    suspend fun getGracePeriod(): String =
+        settings.get(KeySettingsType.GRACE_PERIOD, "")
+
+    @NativeCoroutines
+    fun observeGracePeriodDate(): Flow<String> =
+        settings.load(KeySettingsType.GRACE_PERIOD_DATE, "")
+
+    @NativeCoroutines
+    suspend fun getGracePeriodDate(): String =
+        settings.get(KeySettingsType.GRACE_PERIOD_DATE, "")
+
+    @NativeCoroutines
+    fun observeTotalGracePeriod(): Flow<String> =
+        settings.load(KeySettingsType.TOTAL_GRACE_PERIOD, "")
+
+    @NativeCoroutines
+    suspend fun getTotalGracePeriod(): String =
+        settings.get(KeySettingsType.TOTAL_GRACE_PERIOD, "")
+
+    @NativeCoroutines
+    fun observeMembershipDescription(): Flow<String> =
+        settings.load(KeySettingsType.MEMBERSHIP_DESCRIPTION, "")
+
+    @NativeCoroutines
+    suspend fun getMembershipDescription(): String =
+        settings.get(KeySettingsType.MEMBERSHIP_DESCRIPTION, "")
+
+    @NativeCoroutines
+    fun observeEntitlement(): Flow<String> =
+        settings.load(KeySettingsType.ENTITLEMENT, "")
+
+    @NativeCoroutines
+    suspend fun getEntitlement(): String =
+        settings.get(KeySettingsType.ENTITLEMENT, "")
 }
 
 
