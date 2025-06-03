@@ -56,7 +56,7 @@ jobs:
       - name: Automatically Add Reviewers to Developers
         uses: wow-actions/auto-assign@v3
         with:
-          GITHUB_TOKEN: ${{ inputs.pat }}
+          GITHUB_TOKEN: ${{ secrets.pat }}
           reviewers: "${{ steps.filter.outputs.filtered }}"
           assignees: "${{ inputs.assignees }}"
           numberOfReviewers: 2

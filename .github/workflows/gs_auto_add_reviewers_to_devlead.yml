@@ -24,5 +24,5 @@ jobs:
       - name: Automatically Add Reviewers to Dev Lead
         uses: wow-actions/auto-assign@v3
         with:
-          GITHUB_TOKEN: ${{ inputs.pat }}
+          GITHUB_TOKEN: ${{ secrets.pat }}
           reviewers: "${{ inputs.reviewers }}"

@@ -18,10 +18,6 @@ jobs:
       LANG: en_US.UTF-8
 
     steps:
-      - name: Logs
-        run: |
-          echo "ref: ${{ github.ref }}"
-          echo "workflow: ${{ github.workflow }}"
 
       - name: Change ownership of repository directory
         if: always()
@@ -42,4 +38,4 @@ jobs:
         with:
           args: --failOnErrors --no-publish-check
         env:
-          GITHUB_TOKEN: ${{ inputs.pat }}
+          GITHUB_TOKEN: ${{ secrets.pat }}
