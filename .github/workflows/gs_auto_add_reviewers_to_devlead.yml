@@ -1,4 +1,4 @@
-name: GS - Automatically Add Reviewers to Dev Lead
+name: GS - Auto Add Reviewers to Dev Lead
 
 on:
   workflow_call:
