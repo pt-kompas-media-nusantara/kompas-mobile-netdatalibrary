@@ -3,12 +3,13 @@ name: GS - Automatically Add Reviewers to Dev Lead
 on:
   workflow_call:
     inputs:
-      pat:
-        required: true
-        type: string
       reviewers:
         required: true
         type: string
+    secrets:
+      pat:
+        required: true
+
 
 
 jobs:
