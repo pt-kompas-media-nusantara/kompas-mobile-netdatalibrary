@@ -28,7 +28,7 @@ jobs:
           tag-committer: false
           stale-branch-label: 'stale branch 🗑️'
           compare-branches: 'info'
-          branches-filter-regex: '^(?!master$)(?!Release/).*'
+          branches-filter-regex: '^(?!master$)(?!Release/)(?!.*Development/KMP/).*'
           rate-limit: false
           pr-check: true
           dry-run: false
@@ -38,3 +38,4 @@ jobs:
 # cbrgm/cleanup-stale-branches-action@v1
 # https://github.com/marketplace/actions/remove-stale-branches
 # https://github.com/marketplace/actions/stale-branch-action
+
