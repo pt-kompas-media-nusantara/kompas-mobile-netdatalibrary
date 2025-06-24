@@ -74,28 +74,6 @@ jobs:
           echo "$JOB_CONTEXT"
           echo "::endgroup::"
 
-      - name: Quick-scan key fields
-        run: |
-          echo "event_name:            ${{ github.event_name }}"
-          echo "actor:                 ${{ github.actor }}"
-          echo "triggering_actor:      ${{ github.triggering_actor }}"
-          echo "repository:            ${{ github.repository }}"
-          echo "repository_id:         ${{ github.repository_id }}"
-          echo "repository_url:        ${{ github.repositoryUrl }}"
-          echo "workflow:              ${{ github.workflow }}"
-          echo "workflow_ref:          ${{ github.workflow_ref }}"
-          echo "workflow_sha:          ${{ github.workflow_sha }}"
-          echo "run_id / number / try: ${{ github.run_id }} / ${{ github.run_number }} / ${{ github.run_attempt }}"
-          echo "sha:                   ${{ github.sha }}"
-          echo "ref / name / type:     ${{ github.ref }} / ${{ github.ref_name }} / ${{ github.ref_type }}"
-          echo "ref_protected:         ${{ github.ref_protected }}"
-          echo "server_url:            ${{ github.server_url }}"
-          echo "api_url:               ${{ github.api_url }}"
-          echo "graphql_url:           ${{ github.graphql_url }}"
-          echo "runner:                ${{ runner.name }} (${runner.os}/${{ runner.arch }}, env=${{ runner.environment }})"
-          echo "runner temp dir:       ${{ runner.temp }}"
-          echo "runner tool_cache:     ${{ runner.tool_cache }}"
-          echo "job_status:            ${{ job.status }}"
 
 
 
