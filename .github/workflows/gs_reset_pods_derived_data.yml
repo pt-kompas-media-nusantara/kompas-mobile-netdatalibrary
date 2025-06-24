@@ -1,0 +1,26 @@
+name: GS - Reset Pods & Derived Data
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+
+defaults:
+  run:
+    shell: zsh --login --errexit --pipefail {0}
+    
+jobs:
+  gs_reset_pods_derived_data:
+    name: Reset Pods & Derived Data
+    runs-on: mk-mac-ios-01
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Reset Pods & Derived Data
+        run: >
+          fastlane exec_clear_cache_pods
+
