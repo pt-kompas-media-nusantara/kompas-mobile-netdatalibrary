@@ -1,0 +1,50 @@
+name: GS - Delete Workflow
+
+on:
+  workflow_call:
+    inputs:
+      retain_days:
+        required: true
+        type: string
+      keep_minimum_runs:
+        required: true
+        type: string
+      delete_workflow_pattern:
+        required: true
+        type: string
+      delete_workflow_by_state_pattern:
+        required: true
+        type: string
+      delete_run_by_conclusion_pattern:
+        required: true
+        type: string
+      dry_run:
+        required: true
+        type: string
+    secrets:
+      pat:
+        required: true
+
+
+
+jobs:
+  gs_delete_workflow_cron:
+    name: Automatically Delete Workflow
+    runs-on: [self-hosted, Linux, node20]
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.pat }}
+          repository: ${{ github.repository }}
+          retain_days: ${{ inputs.retain_days }}
+          keep_minimum_runs: ${{ inputs.keep_minimum_runs }}
+          delete_workflow_pattern: ${{ inputs.delete_workflow_pattern }}
+          delete_workflow_by_state_pattern: ${{ inputs.delete_workflow_by_state_pattern }}
+          delete_run_by_conclusion_pattern: ${{ inputs.delete_run_by_conclusion_pattern }}
+          dry_run: false
