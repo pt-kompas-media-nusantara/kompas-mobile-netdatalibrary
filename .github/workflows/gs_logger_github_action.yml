@@ -7,7 +7,7 @@ on:
 
 jobs:
   gs_logger_github_action:
-    name: Automatically Delete Workflow
+    name: Logger (Github Action)
     runs-on: [self-hosted, Linux, node20]
 
     steps:
