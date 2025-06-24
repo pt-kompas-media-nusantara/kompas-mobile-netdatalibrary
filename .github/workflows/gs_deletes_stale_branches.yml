@@ -28,7 +28,7 @@ jobs:
           tag-committer: false
           stale-branch-label: 'stale branch 🗑️'
           compare-branches: 'info'
-          branches-filter-regex: '^(?!master$)(?!Release/)(?!.*Development/KMP/).*'
+          branches-filter-regex: '^(?!master$)(?!Release/)(?!.*Development/KMP/)(?!.*dependabot).*'
           rate-limit: false
           pr-check: true
 
