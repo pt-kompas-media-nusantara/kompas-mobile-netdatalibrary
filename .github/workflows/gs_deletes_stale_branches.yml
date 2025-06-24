@@ -37,6 +37,3 @@ jobs:
 # cbrgm/cleanup-stale-branches-action@v1
 # https://github.com/marketplace/actions/remove-stale-branches
 # https://github.com/marketplace/actions/stale-branch-action
-
-Unexpected input(s) 'dry-run', 
-valid inputs are ['repo-token', 'days-before-stale', 'days-before-delete', 'comment-updates', 'max-issues', 'tag-committer', 'stale-branch-label', 'compare-branches', 'branches-filter-regex', 'rate-limit', 'pr-check']
