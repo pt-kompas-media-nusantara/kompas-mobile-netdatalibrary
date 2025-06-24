@@ -1,0 +1,22 @@
+name: GS - Show Available Xcode
+
+on:
+  workflow_call:
+
+defaults:
+  run:
+    shell: zsh --login --errexit --pipefail {0}
+
+jobs:
+  show_available_xcode:
+    name: Show Available Xcode
+    runs-on: mk-mac-ios-01
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Xcode List Available
+        run: ls /Applications | grep Xcode
+
