@@ -1,0 +1,142 @@
+name: GS - Logger (Github Action)
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+
+
+
+jobs:
+  gs_logger_github_action:
+    name: Automatically Delete Workflow
+    runs-on: [self-hosted, Linux, node20]
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log Github Action
+        run: |
+          echo "action: ${{ github.action }}"
+          echo "action_path: ${{ github.action_path }}"
+          echo "action_ref: ${{ github.action_ref }}"
+          echo "action_repository: ${{ github.action_repository }}"
+          echo "action_status: ${{ github.action_status }}"
+          echo "actor: ${{ github.actor }}"
+          echo "actor_id: ${{ github.actor_id }}"
+          echo "base_ref: ${{ github.base_ref }}"
+          echo "env: ${{ github.env }}"
+          echo "event: ${{ github.event }}"
+          echo "$event_name: {{ github.event_name }}"
+          echo "event_path: ${{ github.event_path }}"
+          echo "graphql_url: ${{ github.graphql_url }}"
+          echo "head_ref: ${{ github.head_ref }}"
+          echo "job: ${{ github.job }}"
+          echo "path: ${{ github.path }}"
+          echo "ref: ${{ github.ref }}"
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "ref_type: ${{ github.ref_type }}"
+          echo "repository: ${{ github.repository }}"
+          echo "repository_owner: ${{ github.repository_owner }}"
+          echo "retention_days: ${{ github.retention_days }}"
+          echo "token: ${{ github.token }}"
+          echo "triggering_actor: ${{ github.triggering_actor }}"
+          echo "workflow_ref: ${{ github.workflow_ref }}"
+          echo "workspace: ${{ github.workspace }}"
+          echo "workflow: ${{ github.workflow }}"
+          echo "run_id: ${{ github.run_id }}"
+          echo "run_number: ${{ github.run_number }}"
+          echo "sha: ${{ github.sha }}"
+          echo "server_url: ${{ github.server_url }}"
+          echo "repository_id: ${{ github.repository_id }}"
+          echo "workflow_sha: ${{ github.workflow_sha }}"
+          echo "runner_name: ${{ runner.name }}"
+          echo "runner_os: ${{ runner.os }}"
+          echo "runner_arch: ${{ runner.arch }}"
+          echo "runner_temp: ${{ runner.temp }}"
+          echo "runner_tool_cache: ${{ runner.tool_cache }}"
+          echo "runner_workspace: ${{ runner.workspace }}"
+          echo "job_status: ${{ job.status }}"
+
+      - name: Dump full contexts (grouped JSON)
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+          JOB_CONTEXT:     ${{ toJson(job) }}
+        run: |
+          echo "::group::github"
+          echo "$GITHUB_CONTEXT"
+          echo "::endgroup::"
+          echo "::group::runner"
+          echo "$RUNNER_CONTEXT"
+          echo "::endgroup::"
+          echo "::group::job"
+          echo "$JOB_CONTEXT"
+          echo "::endgroup::"
+
+      - name: Quick-scan key fields
+        run: |
+          echo "event_name:            ${{ github.event_name }}"
+          echo "actor:                 ${{ github.actor }}"
+          echo "triggering_actor:      ${{ github.triggering_actor }}"
+          echo "repository:            ${{ github.repository }}"
+          echo "repository_id:         ${{ github.repository_id }}"
+          echo "repository_url:        ${{ github.repositoryUrl }}"
+          echo "workflow:              ${{ github.workflow }}"
+          echo "workflow_ref:          ${{ github.workflow_ref }}"
+          echo "workflow_sha:          ${{ github.workflow_sha }}"
+          echo "run_id / number / try: ${{ github.run_id }} / ${{ github.run_number }} / ${{ github.run_attempt }}"
+          echo "sha:                   ${{ github.sha }}"
+          echo "ref / name / type:     ${{ github.ref }} / ${{ github.ref_name }} / ${{ github.ref_type }}"
+          echo "ref_protected:         ${{ github.ref_protected }}"
+          echo "server_url:            ${{ github.server_url }}"
+          echo "api_url:               ${{ github.api_url }}"
+          echo "graphql_url:           ${{ github.graphql_url }}"
+          echo "runner:                ${{ runner.name }} (${runner.os}/${{ runner.arch }}, env=${{ runner.environment }})"
+          echo "runner temp dir:       ${{ runner.temp }}"
+          echo "runner tool_cache:     ${{ runner.tool_cache }}"
+          echo "job_status:            ${{ job.status }}"
+
+
+
+
+
+# Note :
+# parent : Development/3.38.0/99275/dependabot
+# child : Development/3.38.0/99275/dependabot-child-one
+
+# action: __run
+# action_path:
+# action_ref:
+# action_repository:
+# action_status:
+# actor: nurirppan
+# actor_id: 22546781
+# base_ref: Development/3.38.0/99275/dependabot
+# env: /System/Volumes/Data/actions-runner/_work/_temp/_runner_file_commands/set_env_ef2ce019-855e-48c7-82cf-31557f17309c
+# event: Object
+# : {{ github.event_name }}
+# event_path: /System/Volumes/Data/actions-runner/_work/_temp/_github_workflow/event.json
+# graphql_url: https://api.github.com/graphql
+# head_ref: Development/3.38.0/99275/dependabot-child-one
+# job: print_informations
+# path: /System/Volumes/Data/actions-runner/_work/_temp/_runner_file_commands/add_path_ef2ce019-855e-48c7-82cf-31557f17309c
+# ref: refs/pull/1866/merge
+# ref_name: 1866/merge
+# ref_type: branch
+# repository: pt-kompas-media-nusantara/kompas-id-ios
+# repository_owner: pt-kompas-media-nusantara
+# retention_days: 40
+# token: ***
+# triggering_actor: nurirppan
+# workflow_ref: pt-kompas-media-nusantara/kompas-id-ios/.github/workflows/user_informations.yml@refs/pull/1866/merge
+# workspace: /System/Volumes/Data/actions-runner/_work/kompas-id-ios/kompas-id-ios
+# workflow: Print Informations
+# run_id: 9299112835
+
+
+
+
