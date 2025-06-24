@@ -2,9 +2,6 @@ name: GS - Logger (Github Action)
 
 on:
   workflow_call:
-    secrets:
-      pat:
-        required: true
 
 
 
