@@ -1,0 +1,116 @@
+name: GS - Dynamic Branch Sync
+
+on:
+  workflow_call:
+    inputs:
+      source_prefix:
+        required: true
+        type: string
+      target_prefix:
+        required: true
+        type: string
+      branch_pattern:
+        required: true
+        type: string
+    secrets:
+      pat:
+        required: true
+
+
+jobs:
+  dynamic_branch_sync:
+    name: Dynamic Branch Sync
+    runs-on: [self-hosted, Linux, node20]
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Penting untuk mendapatkan semua branch
+
+      - name: Get list of source branches
+        id: get_branches
+        env:
+          SOURCE_PREFIX: ${{ inputs.source_prefix }}
+          BRANCH_PATTERN: ${{ inputs.branch_pattern }}
+        run: |
+          # Dapatkan semua branch remote yang cocok dengan pola
+          # Gunakan sed untuk membersihkan 'origin/' dan filter sesuai pattern
+          # Pastikan pattern tidak mengandung karakter wildcard yang tidak didukung grep/sed langsung jika ingin lebih spesifik
+          # Contoh: production/* akan dicocokkan dengan production/abc, production/asdas, dll.
+          # Jika ingin lebih spesifik, bisa pakai regex lebih lanjut
+          ALL_REMOTE_BRANCHES=$(git branch -r | grep "origin/${SOURCE_PREFIX}" | sed 's/origin\///')
+
+          # Filter lebih lanjut berdasarkan branch_pattern jika diperlukan
+          # Misalnya, jika branch_pattern adalah 'production/feature-*'
+          FILTERED_BRANCHES=""
+          for branch in $ALL_REMOTE_BRANCHES; do
+            # Sederhana: cek apakah branch dimulai dengan source_prefix dan cocok dengan pattern
+            # Untuk pattern yang lebih kompleks (misal wildcard di tengah), perlu logic lebih lanjut
+            # Di sini, kita asumsikan branch_pattern adalah prefix + wildcard di akhir
+            # Atau, kita bisa langsung menggunakan git branch -r --list "origin/${BRANCH_PATTERN}"
+            if [[ "$branch" == "${SOURCE_PREFIX}"* ]]; then
+              # Jika pattern adalah 'production/*', maka semua branch dengan prefix 'production/' akan masuk
+              # Jika pattern adalah 'production/feature-*', maka perlu regex atau glob matching yang lebih canggih
+              # Untuk kesederhanaan, kita akan gunakan git branch -r --list "origin/${BRANCH_PATTERN}"
+              # yang sudah mendukung glob pattern.
+              echo "Found branch: $branch"
+              FILTERED_BRANCHES="$FILTERED_BRANCHES $branch"
+            fi
+          done
+
+          # Menggunakan git branch -r --list langsung lebih baik untuk glob pattern
+          # Membersihkan 'origin/' dari nama branch
+          MATCHING_BRANCHES=$(git branch -r --list "origin/${BRANCH_PATTERN}" | sed 's/origin\///g' | tr '\n' ' ')
+
+          if [ -z "$MATCHING_BRANCHES" ]; then
+            echo "No branches found matching pattern: ${BRANCH_PATTERN}"
+            echo "branches_found=false" >> $GITHUB_OUTPUT
+          else
+            echo "Branches to process: $MATCHING_BRANCHES"
+            echo "branches_found=true" >> $GITHUB_OUTPUT
+            echo "branches_to_process=$MATCHING_BRANCHES" >> $GITHUB_OUTPUT
+          fi
+
+
+      - name: Process and Create Target Branches
+        if: steps.get_branches.outputs.branches_found == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.pat }}
+          SOURCE_PREFIX: ${{ inputs.source_prefix }}
+          TARGET_PREFIX: ${{ inputs.target_prefix }}
+          BRANCHES_TO_PROCESS: ${{ steps.get_branches.outputs.branches_to_process }}
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+          # Loop melalui setiap branch yang ditemukan
+          for source_branch in $BRANCHES_TO_PROCESS; do
+            # Dapatkan bagian "ekor" dari nama branch (misal: abc dari production/abc)
+            BRANCH_SUFFIX=$(echo "$source_branch" | sed "s|^${SOURCE_PREFIX}||")
+
+            # Bentuk nama branch target baru
+            target_branch="${TARGET_PREFIX}${BRANCH_SUFFIX}"
+
+            echo "Processing branch: $source_branch -> $target_branch"
+
+            # Dapatkan SHA commit dari branch sumber
+            COMMIT_SHA=$(git rev-parse "origin/$source_branch")
+
+            if [ -z "$COMMIT_SHA" ]; then
+              echo "Error: Could not get commit SHA for $source_branch. Skipping."
+              continue
+            fi
+
+            # Cek apakah branch target sudah ada
+            if git ls-remote --exit-code origin "$target_branch"; then
+              echo "Branch $target_branch already exists. Skipping creation."
+            else
+              # Buat branch baru di remote dari SHA commit sumber
+              echo "Creating new branch $target_branch from $source_branch (SHA: $COMMIT_SHA)"
+              git push origin $COMMIT_SHA:refs/heads/$target_branch
+              echo "Successfully created $target_branch."
+            fi
+
+          done
