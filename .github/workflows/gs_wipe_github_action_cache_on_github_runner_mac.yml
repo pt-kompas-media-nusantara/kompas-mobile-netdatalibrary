@@ -1,0 +1,23 @@
+name: GS - Wipe Github Actions on Github Runner Mac
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+
+
+jobs:
+  gs_wipe_github_action_cache:
+    name: Wipe Github Actions Cache
+    runs-on: macos-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Clear caches
+        uses: easimon/wipe-cache@main
+        with:
+          dry-run: "false"
