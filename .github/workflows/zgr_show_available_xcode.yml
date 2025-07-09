@@ -6,7 +6,7 @@ on:
 jobs:
   show_available_xcode:
     name: Show Available Xcode
-    runs-on: macos-latest
+    runs-on: macos-15
 
     steps:
 
@@ -16,3 +16,4 @@ jobs:
       - name: Xcode List Available
         run: ls /Applications | grep Xcode
 
+# https://github.com/actions/runner-images
