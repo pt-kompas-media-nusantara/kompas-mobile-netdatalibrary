@@ -18,7 +18,7 @@ on:
 jobs:
   deploy_library:
     name: Deploy Library
-    runs-on: macos-14
+    runs-on: macos-latest
     timeout-minutes: 100
 
     steps:
