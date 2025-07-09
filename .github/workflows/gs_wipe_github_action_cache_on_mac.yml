@@ -1,6 +1,4 @@
-ini harusnya buat 2 runner atau lebih, karna self hosted kita ada banyak
-
-name: GS - Wipe Github Actions Cache
+name: GS - Wipe Github Actions Cache On Mac
 
 on:
   workflow_call:
@@ -12,7 +10,7 @@ on:
 jobs:
   gs_wipe_github_action_cache:
     name: Wipe Github Actions Cache
-    runs-on: [self-hosted, Linux, node20]
+    runs-on: [self-hosted, mk-mac-ios-01]
 
     steps:
 
@@ -23,4 +21,3 @@ jobs:
         uses: easimon/wipe-cache@main
         with:
           dry-run: "false"
-
