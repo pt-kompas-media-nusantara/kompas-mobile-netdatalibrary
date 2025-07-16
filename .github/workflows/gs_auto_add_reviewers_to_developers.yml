@@ -24,6 +24,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Log Inputs
+        run: |
+          echo "reviewers: ${{ inputs.reviewers }}"
+          echo "assignees: ${{ inputs.assignees }}"
+
       - name: Filter reviewers (remove assignees)
         id: filter
         run: |
