@@ -35,8 +35,10 @@ jobs:
 
           filtered_reviewers=()
           for reviewer in "${reviewer_array[@]}"; do
+            reviewer=$(echo "$reviewer" | xargs) # Trim spaces
             skip=false
             for assignee in "${assignee_array[@]}"; do
+              assignee=$(echo "$assignee" | xargs)
               if [[ "$reviewer" == "$assignee" ]]; then
                 skip=true
                 break
@@ -47,18 +49,18 @@ jobs:
             fi
           done
 
-          # Gabungkan kembali jadi string dengan koma
           reviewers_string=$(IFS=','; echo "${filtered_reviewers[*]}")
 
           echo "Filtered reviewers: $reviewers_string"
-          echo "filtered=$reviewers_string" >> "$GITHUB_OUTPUT"
+          echo "filtered_reviewers=$reviewers_string" >> "$GITHUB_OUTPUT"
+
 
       - name: Automatically Add Reviewers to Developers
         uses: wow-actions/auto-assign@v3
         with:
           GITHUB_TOKEN: ${{ secrets.pat }}
-          reviewers: "${{ steps.filter.outputs.filtered }}"
-          assignees: "${{ inputs.assignees }}"
+          reviewers: "${{ steps.filter.outputs.filtered_reviewers }}"
+          assignees: ${{ inputs.assignees }}
           numberOfReviewers: 6
           numberOfAssignees: 1
           skipDraft: true
