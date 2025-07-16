@@ -59,6 +59,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.pat }}
           reviewers: "${{ steps.filter.outputs.filtered }}"
           assignees: "${{ inputs.assignees }}"
-          numberOfReviewers: 3
+          numberOfReviewers: 6
           numberOfAssignees: 1
           skipDraft: true
