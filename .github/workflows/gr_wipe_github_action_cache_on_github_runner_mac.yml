@@ -1,4 +1,4 @@
-name: GS - Wipe Github Actions on Github Runner Mac
+name: GR - Wipe Github Actions on Github Runner Mac
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
 
 
 jobs:
-  gs_wipe_github_action_cache:
+  gr_wipe_github_action_cache:
     name: Wipe Github Actions Cache
     runs-on: macos-latest
 

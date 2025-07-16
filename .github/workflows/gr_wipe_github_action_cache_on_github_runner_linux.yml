@@ -1,4 +1,4 @@
-name: GS - Wipe Github Actions on Github Runner Linux
+name: GR - Wipe Github Actions on Github Runner Linux
 
 on:
   workflow_call:
