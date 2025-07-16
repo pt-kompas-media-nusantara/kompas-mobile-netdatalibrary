@@ -67,5 +67,5 @@ jobs:
           reviewers: "${{ steps.filter.outputs.filtered_reviewers }}"
           assignees: ${{ inputs.assignees }}
           numberOfReviewers: 6
-          numberOfAssignees: 1
+          numberOfAssignees: 2
           skipDraft: true
