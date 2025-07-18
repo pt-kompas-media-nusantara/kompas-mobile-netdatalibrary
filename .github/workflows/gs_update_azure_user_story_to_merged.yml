@@ -36,7 +36,6 @@ jobs:
 
       # dari resolved ke merged untuk US jika closed PR      
       - name: Update Azure Work Items
-        if: "${{ github.event.pull_request.state == 'closed' }}"
         uses: pt-kompas-media-nusantara/azure-pr-update-work-item-state@development
         env:
           gh_token: '${{ secrets.gh_token }}'
