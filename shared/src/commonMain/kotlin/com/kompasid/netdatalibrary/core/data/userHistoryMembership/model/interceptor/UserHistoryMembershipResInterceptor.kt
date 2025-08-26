@@ -8,7 +8,6 @@ data class UserHistoryMembershipResInterceptor(
     var canceled: List<MembershipInfoInterceptor>,
     var expired: List<MembershipInfoInterceptor>,
     var gracePeriod: List<MembershipInfoInterceptor>,
-    var user: UserHistoryInterceptor
 )
 
 data class MembershipInfoInterceptor(
@@ -16,12 +15,4 @@ data class MembershipInfoInterceptor(
     var membershipSlug: String,
     var membershipTitle: String,
     var startDate: String
-)
-
-data class UserHistoryInterceptor(
-    var email: String,
-    var firstName: String,
-    var guid: String,
-    var lastName: String,
-    var status: String,
 )
