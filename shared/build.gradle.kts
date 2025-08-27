@@ -4,12 +4,11 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    kotlin("plugin.serialization") version "1.9.20"
-    id("co.touchlab.skie") version "0.10.0"
+    kotlin("plugin.serialization") version "2.2.10"
+    id("co.touchlab.skie") version "0.10.6"
     id("maven-publish")
-    id("com.google.devtools.ksp") version "2.1.21-2.0.1"
-    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-43"
-    // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
+    id("com.google.devtools.ksp") version "2.2.10-2.0.2"
+    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-46"
 }
 
 kotlin {
@@ -35,7 +34,6 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
-            // ./gradlew :shared:assembleSharedXCFramework -> sudah tidak terpakai karna sudah ganti ke KompasIdLibrary
             // ./gradlew :shared:assembleKompasIdLibraryXCFramework
             // output :
             // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibrary.xcframework
