@@ -1,7 +1,6 @@
 package com.kompasid.netdatalibrary.core.data.userHistoryMembership.mappers
 
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.MembershipInfoInterceptor
-import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserHistoryMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.interceptor.UserMembershipResInterceptor
 import com.kompasid.netdatalibrary.core.data.userHistoryMembership.model.response.MembershipInfo
