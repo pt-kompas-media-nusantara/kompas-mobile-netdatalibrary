@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "NetDataLibrary"
-  spec.version      = "1.0.81"
+  spec.version      = "1.0.82"
   spec.summary      = "Kompas.id"
 
   # This description is used to generate tags and improve search results.
