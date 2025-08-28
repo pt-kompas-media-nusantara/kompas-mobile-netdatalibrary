@@ -1,0 +1,28 @@
+name: GS - Auto Add Reviewers to Dev Lead
+
+on:
+  workflow_call:
+    inputs:
+      reviewers:
+        required: true
+        type: string
+    secrets:
+      pat:
+        required: true
+
+
+
+jobs:
+  gs_auto_add_reviewers_to_devlead:
+    name: Automatically Add Reviewers to Dev Lead
+    runs-on: [self-hosted, Linux, node20]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Automatically Add Reviewers to Dev Lead
+        uses: wow-actions/auto-assign@v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.pat }}
+          reviewers: "${{ inputs.reviewers }}"

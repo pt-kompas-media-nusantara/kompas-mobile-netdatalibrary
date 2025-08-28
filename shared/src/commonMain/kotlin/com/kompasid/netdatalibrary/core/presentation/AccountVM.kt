@@ -1,0 +1,37 @@
+package com.kompasid.netdatalibrary.core.presentation
+
+import com.kompasid.netdatalibrary.BaseVM
+import com.kompasid.netdatalibrary.base.logger.Logger
+import com.kompasid.netdatalibrary.core.domain.aboutApp.resultState.AboutAppResultState
+import com.kompasid.netdatalibrary.core.domain.account.usecase.AccountUseCase
+import com.kompasid.netdatalibrary.core.domain.personalInfo.useCase.PersonalInfoUseCase
+import com.kompasid.netdatalibrary.core.domain.token.usecase.TokenUseCase
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.TrackerUseCase
+import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.OpenFromEntryPoint
+import kotlinx.coroutines.launch
+
+class AccountVM(
+    private val accountUseCase: AccountUseCase,
+    private val aboutAppResultState: AboutAppResultState,
+) : BaseVM() {
+
+//    val aboutApp = aboutAppResultState.data
+//
+//    fun accountMenus() {
+//        scope.launch {
+//            val resultaccountMenus = accountUseCase.accountMenus()
+//            Logger.debug { resultaccountMenus.toString() }
+//
+//            val resultaboutHarianKompasMenus = accountUseCase.aboutHarianKompasMenus()
+//            Logger.debug { resultaboutHarianKompasMenus.toString() }
+//
+//            val resultaboutAppMenus = accountUseCase.aboutAppMenus()
+//            Logger.debug { resultaboutAppMenus.toString() }
+//
+//            val resultsettingMenus = accountUseCase.settingMenus()
+//            Logger.debug { resultsettingMenus.toString() }
+//
+//        }
+//    }
+
+}

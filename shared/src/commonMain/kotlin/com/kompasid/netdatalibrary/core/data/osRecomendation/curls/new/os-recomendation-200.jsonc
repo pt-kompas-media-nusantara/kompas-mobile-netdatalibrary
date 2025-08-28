@@ -1,0 +1,7 @@
+// PROD: https://cdn-content.kompas.id/mobile/json/recommendedOSSettings.json
+// DEV: https://private-d6360b-hariankompasios.apiary-mock.com/recommendos
+
+{
+  "osRecommendation": "17.0.0",
+  "minimumOS": "16.0.0"
+}

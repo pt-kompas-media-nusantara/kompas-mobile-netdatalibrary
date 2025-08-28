@@ -1,0 +1,71 @@
+name: GS - Auto Add Reviewers to Developers
+
+on:
+  workflow_call:
+    inputs:
+      reviewers:
+        required: true
+        type: string
+      assignees:
+        required: true
+        type: string
+    secrets:
+      pat:
+        required: true
+
+
+
+jobs:
+  gs_auto_add_reviewers_to_developers:
+    name: Automatically Add Reviewers to Developers
+    runs-on: [self-hosted, Linux, node20]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log Inputs
+        run: |
+          echo "reviewers: ${{ inputs.reviewers }}"
+          echo "assignees: ${{ inputs.assignees }}"
+
+      - name: Filter reviewers (remove assignees)
+        id: filter
+        run: |
+          reviewers="${{ inputs.reviewers }}"
+          assignees="${{ inputs.assignees }}"
+
+          IFS=',' read -r -a reviewer_array <<< "$reviewers"
+          IFS=',' read -r -a assignee_array <<< "$assignees"
+
+          filtered_reviewers=()
+          for reviewer in "${reviewer_array[@]}"; do
+            reviewer=$(echo "$reviewer" | xargs) # Trim spaces
+            skip=false
+            for assignee in "${assignee_array[@]}"; do
+              assignee=$(echo "$assignee" | xargs)
+              if [[ "$reviewer" == "$assignee" ]]; then
+                skip=true
+                break
+              fi
+            done
+            if ! $skip; then
+              filtered_reviewers+=("$reviewer")
+            fi
+          done
+
+          reviewers_string=$(IFS=','; echo "${filtered_reviewers[*]}")
+
+          echo "Filtered reviewers: $reviewers_string"
+          echo "filtered_reviewers=$reviewers_string" >> "$GITHUB_OUTPUT"
+
+
+      - name: Automatically Add Reviewers to Developers
+        uses: wow-actions/auto-assign@v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.pat }}
+          reviewers: "${{ steps.filter.outputs.filtered_reviewers }}"
+          assignees: ${{ inputs.assignees }}
+          numberOfReviewers: 6
+          numberOfAssignees: 2
+          skipDraft: true

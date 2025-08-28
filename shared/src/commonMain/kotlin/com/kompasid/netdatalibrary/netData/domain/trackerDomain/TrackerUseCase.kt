@@ -1,30 +1,25 @@
 package com.kompasid.netdatalibrary.netData.domain.trackerDomain
 
-import com.kompasid.netdatalibrary.helper.UserDataHelper
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.AuthenticationEntryPoint
+import com.kompasid.netdatalibrary.helper.SupportSettingsHelper
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.enums.OpenFromEntryPoint
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.AboutKompasDailyModel
 import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.ExampleModel
-import com.kompasid.netdatalibrary.netData.domain.trackerDomain.model.SignUpStartedModel
 
 class TrackerUseCase(
     private var trackerManager: TrackerManager,
-    private var userDataHelper: UserDataHelper,
+    private var supportSettingsHelper: SupportSettingsHelper,
 ) {
 
-    suspend fun coba() {
-
-    }
 
     suspend fun pageViewed(openFromEntryPoint: OpenFromEntryPoint) {
         trackerManager.post(
             EventName.PAGE_VIEWED,
             pageViewedMapping(openFromEntryPoint),
-            userDataHelper.userDataTracker()
+            supportSettingsHelper.userDataTracker()
         )
     }
 
-    private fun pageViewedMapping(openFromEntryPoint: OpenFromEntryPoint): Any {
+    private suspend fun pageViewedMapping(openFromEntryPoint: OpenFromEntryPoint): Any {
         return when (openFromEntryPoint) {
             is OpenFromEntryPoint.AboutAppPage -> ExampleModel(openFromEntryPoint.description)
             is OpenFromEntryPoint.AboutKompasDailyPage -> AboutKompasDailyModel(openFromEntryPoint.description)

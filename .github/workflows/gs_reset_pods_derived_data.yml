@@ -1,0 +1,45 @@
+name: GS - Reset Pods & Derived Data
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+
+defaults:
+  run:
+    shell: zsh --login --errexit --pipefail {0}
+
+jobs:
+  gs_reset_pods_derived_data:
+    name: Reset Pods & Derived Data
+    runs-on: mk-mac-ios-01
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Ruby Gems
+        run: |
+          bundle config set --local path '/tmp/gem-bundle/${{ runner.name }}'
+          bundle install
+          ruby --version
+          bundle --version
+          bundle exec rake --version
+          fastlane --version
+          pod --version
+          pod install --repo-update
+
+      - name: Library Version After
+        run: |
+          ruby --version
+          bundle --version
+          bundle exec rake --version
+          fastlane --version
+          pod --version
+
+      - name: Reset Pods & Derived Data
+        run: >
+          fastlane exec_clear_cache_pods
+

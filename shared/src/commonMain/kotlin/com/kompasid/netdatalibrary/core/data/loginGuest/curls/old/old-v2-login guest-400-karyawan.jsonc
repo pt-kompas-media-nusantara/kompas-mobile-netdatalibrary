@@ -1,0 +1,16 @@
+// curl --location --request POST 'https://api.kompas.id/account/api/v2/login/guest' \
+// --header 'Accept: application/json' \
+// --header 'Content-Type: application/json' \
+// --data ''
+// old-v2-login guest-400-karyawan
+
+{
+    "success": false,
+    "code": 400,
+    "message": "Format data yang dikirim tidak valid.",
+    "meta": {
+        "cache": false,
+        "time": 1728904198
+    },
+    "data": null
+}

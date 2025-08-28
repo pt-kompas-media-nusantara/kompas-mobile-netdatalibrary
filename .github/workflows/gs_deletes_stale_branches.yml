@@ -1,0 +1,40 @@
+name: GS - Deletes Stale Branches
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        required: true
+
+
+jobs:
+  gs_deletes_stale_branches:
+    name: Deletes Stale Branches
+    runs-on: [self-hosted, Linux, node20]
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Stale Branches
+        uses: crs-k/stale-branches@v5.0.0
+        with:
+          repo-token: '${{ secrets.pat }}'
+          days-before-stale: 60
+          days-before-delete: 70
+          comment-updates: false
+          max-issues: 50
+          tag-committer: false
+          stale-branch-label: 'stale branch 🗑️'
+          compare-branches: 'info'
+          branches-filter-regex: '^(?!master$)(?!Release/)(?!.*KMP|dependabot).*'
+          rate-limit: false
+          pr-check: true
+          ignore-issue-interaction: true
+
+
+# TIDAK COCOK
+# cbrgm/cleanup-stale-branches-action@v1
+# https://github.com/marketplace/actions/remove-stale-branches
+# https://github.com/marketplace/actions/stale-branch-action

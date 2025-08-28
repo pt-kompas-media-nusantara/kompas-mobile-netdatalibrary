@@ -41,6 +41,37 @@ object ValidationRules {
             it.trim().matches(Regex(".*[@#\$%^&+=!].*"))
         }
     }
+
+    // Contoh Input yang Dianggap Valid:
+    // +6281234567890
+    // 081234567890
+    // 6281234567890
+    // +60123456789 (Malaysia)
+    // +14085551234 (US)
+    val phoneValidation = Validation<String> {
+        // Tidak boleh kosong
+        addConstraint("Phone number must not be empty") {
+            it.trim().isNotEmpty()
+        }
+
+        // Harus dimulai dengan +, 08, atau 62
+        addConstraint("Phone number must start with +, 62, or 08") {
+            val number = it.trim()
+            number.startsWith("+") || number.startsWith("08") || number.startsWith("62")
+        }
+
+        // Hanya karakter angka (boleh + di awal)
+        addConstraint("Phone number contains invalid characters") {
+            it.trim().matches(Regex("^\\+?[0-9]{8,15}\$"))
+        }
+
+        // Validasi khusus Indonesia (optional tapi disarankan)
+        addConstraint("Invalid Indonesian phone number") {
+            val number = it.trim()
+            !number.startsWith("08") || number.length in 10..13
+        }
+    }
+
 }
 
 

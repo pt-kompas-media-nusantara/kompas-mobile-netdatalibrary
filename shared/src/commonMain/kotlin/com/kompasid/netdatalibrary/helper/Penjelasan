@@ -39,7 +39,7 @@ val formattedDate = DateUtil.formatDate(LocalDate.now())
 
 ✅ **Contoh (Kotlin - Helper Class)**
 ```kotlin
-class AuthHelper(private val settingsUseCase: SettingsUseCase) {
+class AuthHelper(private val settingsHelper: SettingsHelper) {
     fun getUserToken(): String {
         return settingsUseCase.getToken() ?: "Guest"
     }
@@ -124,7 +124,7 @@ Helper biasanya berisi logika bisnis atau memanfaatkan dependency injection. Gun
 
 📌 **Contoh kode (Helper untuk mendapatkan token pengguna dari storage)**
 ```kotlin
-class AuthHelper(private val settingsUseCase: SettingsUseCase) {
+class AuthHelper(private val settingsHelper: SettingsHelper) {
     fun getUserToken(): String {
         return settingsUseCase.getToken() ?: "Guest"
     }

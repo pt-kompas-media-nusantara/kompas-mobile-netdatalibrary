@@ -1,0 +1,97 @@
+// curl --location 'https://api.kompas.id/account/api/v2/users/detail' \
+// --header 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzcwOTY3MzcxLCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTczOTQzMjI3MSwiaWF0IjoxNzM5NDMxMzcxLCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.Pph63IgNjEbyZx990SgmmecjZuiiHRog_PdrUj7aB3UDp8tHR0LzLQ__qOzyJqnbEUPhnXiMbziyZsCMDvrObRxOIC93yYdv1ojOjViUSi-lZkToNEL7W-V7VA04DY3ZW6hzV07Ic6ETjASToowEZonMr646uz6Ph-OEYzQXM0E' \
+// --header 'Cookie: kantormu=%7B%22user%22%3A%7B%22created_at%22%3A%222021-01-06T08%3A45%3A51Z%22%2C%22first_name%22%3A%22Nurirp%22%2C%22guid%22%3A%22947baf96-67cd-45a7-ac30-e900651a96c0%22%2C%22id%22%3A%22%22%2C%22last_name%22%3A%22Pangestuuuu%22%2C%22username%22%3A%22%22%7D%2C%22version%22%3A%22%22%7D; kompas._isOnboarding=false; kompas._status=%7B%22isVerified%22%3Atrue%2C%22isMigrate%22%3Atrue%2C%22clickDate%22%3A%222023-04-19T08%3A44%3A29.135Z%22%2C%22deviceKeyId%22%3A%223WAUkUW4iEYcMT%2BZFnBeGzCmo%2FGuV7JkS8m9cqiFtGW3OHkquwSP1IrJIk55oYgQhEE3K5IPelibfvTXwYpoKB4ca3shtr3hEk0fAzGw1trAtEvSpDYaa1xEqz%2BOiYwN%22%2C%22createdDate%22%3A%22%22%7D; kompas._subscriptionStatus=1; kompas._token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyLmlyZmFuQGtvbXBhcy5jb20iLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInJ0IjoxNzcwOTY3MzcxLCJzY29wZSI6WyJyZWFkLWFydGljbGUiLCJyZWFkLXByb2ZpbGUiXX0sImV4cCI6MTczOTQzMjI3MSwiaWF0IjoxNzM5NDMxMzcxLCJpc3MiOiJodHRwczovL3d3dy5rb21wYXMuaWQifQ.Pph63IgNjEbyZx990SgmmecjZuiiHRog_PdrUj7aB3UDp8tHR0LzLQ__qOzyJqnbEUPhnXiMbziyZsCMDvrObRxOIC93yYdv1ojOjViUSi-lZkToNEL7W-V7VA04DY3ZW6hzV07Ic6ETjASToowEZonMr646uz6Ph-OEYzQXM0E; kompas._token_refresh=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51ci5pcmZhbkBrb21wYXMuY29tIiwiZXhwIjoxNzcwOTY3MzcxLCJpZCI6Ijk0N2JhZjk2LTY3Y2QtNDVhNy1hYzMwLWU5MDA2NTFhOTZjMCIsInN1YiI6MX0.VKC0KKVRNDVXmAh7CT4kTZNXyujzFcMbjwCiVxyQxamas_62XqdvwBx95QBFrwbKYUxYSmYxSUw0ad1f7Q7NEOEcuASfS3FRGvCqhDxWb8_VIfDSTSNcfeT3BBdMynrabB203WDU67OCGyK9jBTnqntYI_oZGeufgm36YzbK5rI'
+// 200
+
+{
+    "success": true,
+    "code": 200,
+    "message": "Berhasil menampilkan data pengguna",
+    "meta": {
+        "cache": false,
+        "time": 1739431403
+    },
+    "data": {
+        "userId": "947baf96-67cd-45a7-ac30-e900651a96c0",
+        "firstName": "Nurirp",
+        "lastName": "Pangestuuuu",
+        "email": "nur.irfan@kompas.com",
+        "userGuid": "947baf96-67cd-45a7-ac30-e900651a96c0",
+        "isActive": true,
+        "authentication": {
+            "apple": {
+                "email": "",
+                "token": ""
+            },
+            "facebook": {
+                "email": ""
+            },
+            "google": {
+                "email": ""
+            }
+        },
+        "userStatus": {
+            "isVerified": true,
+            "clickDate": "2023-04-19T08:44:29.135Z",
+            "phoneVerified": false,
+            "deviceID": ""
+        },
+        "phoneNumber": "",
+        "countryCode": "",
+        "dateBirth": "1994-07-15T17:00:00Z",
+        "country": "Indonesia",
+        "gender": 2,
+        "province": "DKI Jakarta",
+        "city": "Kota Adm. Jakarta Barat",
+        "createDate": {
+            "fullDate": "2021-01-06 08:45:51 +0000 UTC",
+            "year": "2021",
+            "month": "1",
+            "day": "6"
+        },
+        "userCompleted": true,
+        "address": {
+            "addressShipCompleted": false,
+            "addressBillCompleted": false,
+            "addressShipment": {
+                "address": "",
+                "city": "",
+                "companyName": "",
+                "district": "",
+                "country": "",
+                "phoneNumber": "",
+                "email": "",
+                "firstName": "",
+                "lastName": "",
+                "postalCode": "",
+                "province": "",
+                "village": ""
+            },
+            "addressBilling": {
+                "address": "",
+                "city": "",
+                "companyName": "",
+                "district": "",
+                "country": "",
+                "phoneNumber": "",
+                "email": "",
+                "firstName": "",
+                "lastName": "",
+                "postalCode": "",
+                "province": "",
+                "village": ""
+            }
+        },
+        "isMigrate": true,
+        "isPassEmpty": false,
+        "isSocial": false,
+        "authPriority": {
+            "alternate": [],
+            "main": [
+                "password"
+            ]
+        },
+        "isVVIP": false
+    }
+}
+

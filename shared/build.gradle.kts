@@ -4,22 +4,12 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    kotlin("plugin.serialization") version "1.9.20"
-    id("co.touchlab.skie") version "0.10.0"
+    kotlin("plugin.serialization") version "2.2.10"
+    id("co.touchlab.skie") version "0.10.6"
     id("maven-publish")
-    // id("com.google.devtools.ksp") version "2.0.20-1.0.25" // https://insert-koin.io/docs/setup/annotations : belum di gunakan coba cek lagi cara penggunaannya bagaiaman
+    id("com.google.devtools.ksp") version "2.2.10-2.0.2"
+    id("com.rickclephas.kmp.nativecoroutines") version "1.0.0-ALPHA-46"
 }
-
-//group = "com.example"
-//version = "1.0"
-//
-//publishing {
-//    repositories {
-//        maven {
-//            //...
-//        }
-//    }
-//}
 
 kotlin {
 //    withSourcesJar(publish = true)
@@ -34,7 +24,8 @@ kotlin {
         }
     }
 
-    val xcframeworkName = "Shared"
+//    val xcframeworkName = "Shared"
+    val xcframeworkName = "KompasIdLibrary"
     val xcf = XCFramework(xcframeworkName)
     listOf(
         iosX64(),
@@ -43,15 +34,15 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             // generate xcframework : https://kotlinlang.org/docs/native-spm.html#set-up-remote-integration
-            // ./gradlew :shared:assembleSharedXCFramework
+            // ./gradlew :shared:assembleKompasIdLibraryXCFramework
             // output :
-            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/Shared.xcframework
-            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/Shared.xcframework
-            // swift package compute-checksum Shared.xcframework.zip
+            // - /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/release/KompasIdLibrary.xcframework
+            // -  /Users/kompasdigital/Documents/project/kmp/NetDataLibrary/shared/build/XCFrameworks/debug/KompasIdLibrary.xcframework
+            // swift package compute-checksum KompasIdLibrary.xcframework.zip
 
             baseName = xcframeworkName
 
-            binaryOption("bundleId", "org.example.${xcframeworkName}")
+            binaryOption("bundleId", "org.kompasid.${xcframeworkName}")
             xcf.add(this)
             isStatic = true
         }
@@ -72,6 +63,8 @@ kotlin {
             implementation(libs.napier) // logging
             implementation(libs.konform) // validation
             implementation(libs.multiplatform.settings.no.arg) // Storage for UserDefaults & SharedPreferences
+            implementation(libs.multiplatform.settings.serialization) // Storage for UserDefaults & SharedPreferences
+            implementation(libs.multiplatform.settings.coroutines) // Storage for UserDefaults & SharedPreferences
 //            implementation(libs.jwtparser) // JWTDecode
 
 //            api(libs.koin.annotations) // sementara di komen
@@ -90,8 +83,11 @@ kotlin {
             implementation(libs.kotlin.test)
              implementation(libs.koin.test)
             implementation(libs.kotlinx.coroutines.test)
-            implementation(libs.kotlinx.coroutines.core.v181)
         }
+    }
+
+    sourceSets.all {
+        languageSettings.optIn("kotlin.experimental.ExperimentalObjCName")
     }
 
 //    // KSP Common sourceSet
@@ -151,6 +147,10 @@ android {
             isMinifyEnabled = false
         }
     }
+}
+dependencies {
+    implementation(libs.androidx.runtime.android)
+    implementation(libs.androidx.lifecycle.viewmodel.android)
 }
 
 //// KSP Tasks

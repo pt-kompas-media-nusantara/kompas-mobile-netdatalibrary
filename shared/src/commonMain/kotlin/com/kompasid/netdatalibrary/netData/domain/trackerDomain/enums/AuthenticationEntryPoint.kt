@@ -22,7 +22,7 @@ enum class AuthenticationEntryPoint(val value: String) {
     AUTO_LOGIN_SIGN_IN_BY_OTHER_METHODS("Auto Login Another Account");
 
     companion object {
-        fun fromValue(value: String): AuthenticationEntryPoint {
+        suspend fun fromValue(value: String): AuthenticationEntryPoint {
             return values().find { it.value == value }
                 ?: SUBSCRIPTION_BANNER // Default case jika tidak ditemukan
         }

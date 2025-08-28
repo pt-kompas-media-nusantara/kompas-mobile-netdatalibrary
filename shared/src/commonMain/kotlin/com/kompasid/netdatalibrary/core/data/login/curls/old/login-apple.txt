@@ -1,0 +1,180 @@
+** INFO **
+[URL]
+https://api.kompas.id/account/api/v2/login/apple
+
+
+
+[Method]
+POST
+
+
+
+[Status]
+200
+
+
+
+[Request date]
+2025-03-25 04:06:24 +0000
+
+
+
+[Response date]
+2025-03-25 04:06:25 +0000
+
+
+
+[Time interval]
+0.4085089
+
+
+
+[Timeout]
+60.0
+
+
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+
+
+** REQUEST **
+-- Headers --
+
+
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc3NDQxMTU2MCwic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3NDI4NzY0NjAsImlhdCI6MTc0Mjg3NTU2MCwiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.kdp220zQKqwe4bHvYCEm_u9gwohbPShrQF19vnZJCUB7WG9f6_3ay8Xnj-vkXZnJfcVvj3HYgMiKGUjcKc1hZh9B-N5nh9lARUHTcDDWkbfRKpuUfosLt-IDcXTjCGGd2YFfT-sXZejERFjDApzGQZEbiFx27AoIvaplwrFhutA
+
+
+
+[Content-Length]
+895
+
+
+
+[Cache-Control]
+no-cache
+
+
+
+[Content-Type]
+application/json
+
+
+
+
+
+-- Body --
+
+
+
+{
+  "docReferrer" : "iOS",
+  "device" : "(iOS) Native | iPhone | iPhone | 16.7.8",
+  "accessToken" : "eyJraWQiOiJkTWxFUkJhRmRLIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoiaWQua29tcGFzLmFwcCIsImV4cCI6MTc0Mjk2MTk4MywiaWF0IjoxNzQyODc1NTgzLCJzdWIiOiIwMDA4NTguNTliZTY3YWZkNjMzNDNmMjhmMmNiOTUzNjVhYzY0MTUuMDQ1OCIsImNfaGFzaCI6IkhnZk84Zm45Z2tGa25rU0IweEx4dVEiLCJlbWFpbCI6Im51cmlycHBhbkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXV0aF90aW1lIjoxNzQyODc1NTgzLCJub25jZV9zdXBwb3J0ZWQiOnRydWV9.ObP8heWvOn_juid0X-9UlWJ0WSjPZf28oeVxcqfUzSQ_0phmwYeC4Rtav1Hs5321fNFm3muAOnURNobDccnIBg4i44QKeJO6agfneByaNgwFmFI7uEyKyouoR8t1IpsiQo6jBt8aOvDkD_NrptBo6A393dlFolfNaHIHUnymzDNRW2GIqCMe2lr9pMx4jppSGpwnN6MSExSIGCk4tdJanQpULUYYevtk_zrS2di-uzQAoQPLVER_NOvUu1xLu6_iwJRqh3s_FLhNczrGyIxJRsSg2w7F19bs1gtsXpshN4PyUpIYJfYFOiOCa-t5qX-WJw0Ckc7PbyM41wb-AhJNhw",
+  "deviceType" : "smartphone"
+}
+
+
+
+
+
+** RESPONSE **
+-- Headers --
+
+
+
+[cf-cache-status]
+DYNAMIC
+
+
+
+[Content-Encoding]
+br
+
+
+
+[access-control-allow-methods]
+GET, PUT, POST,DELETE
+
+
+
+[Server]
+cloudflare
+
+
+
+[access-control-allow-headers]
+Authorization, Content-Type,X-Forwarded-For, X-app123-XPTO
+
+
+
+[Access-Control-Allow-Origin]
+*
+
+
+
+[Strict-Transport-Security]
+max-age=31536000; includeSubDomains
+
+
+
+[Set-Cookie]
+kantormu=%7B%22user%22%3A%7B%22created_at%22%3A%222021-03-22T15%3A02%3A53Z%22%2C%22first_name%22%3A%22Nurirppan%22%2C%22guid%22%3A%22b2585f37-9c8e-42f0-86b0-d25073ec6a46%22%2C%22id%22%3A%22%22%2C%22last_name%22%3A%22Iiii%22%2C%22username%22%3A%22%22%7D%2C%22version%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFuQGdtYWlsLmNvbSIsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2IiwicnQiOjE3NzQ0MTE1ODQsInNjb3BlIjpbInJlYWQtYXJ0aWNsZSIsInJlYWQtcHJvZmlsZSJdfSwiZXhwIjoxNzQyODc2NDg0LCJpYXQiOjE3NDI4NzU1ODQsImlzcyI6Imh0dHBzOi8vd3d3LmtvbXBhcy5pZCJ9.vrZPTai6CmhK_SHMTZrKtiX0ca-6GBL_Ez2nCA950jwG2lkwQ_PBg1h4TgMp-P8xLibEdMDV8AofvziV8MLeILRpV5LHGcf4t8-rYG0VMwjxFwrXYgqR7LGTLfGPP17YoLIgPdjSbgcqMpA6Xb34FYVOZxYVPctrtT2a4JswS44; Path=/; Domain=kompas.id; Max-Age=900, kompas._token_refresh=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmlycHBhbkBnbWFpbC5jb20iLCJleHAiOjE3NzQ0MTE1ODQsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2Iiwic3ViIjoxfQ.MI6Nnah43r7JunYpcAi1erc2nFYaoBfOBnVmtyhZnp2YUQ0QmuTx3zx0-e4mpd3tBlcmKAnSJ8DJ5MjrQN-s8TA-Rlfh7aQmHsWTrvTc_5-wmoBXu9HzpQ541z8-s1eW6o7Q9Rg1E3Vu2cmnhA616QgDUdm3iRwDGSDeeWGSKG8; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._status=%7B%22isVerified%22%3Atrue%2C%22isMigrate%22%3Atrue%2C%22clickDate%22%3A%222021-10-25T04%3A09%3A57.703Z%22%2C%22deviceKeyId%22%3A%223nhRUM6eER3A4kuaTrVd7HFh%2BXfx8kwpP8z8Hr8DUHl35Pped15JAYyomII7xsEq%2BYsAweQUaBjL0OaaNeCdTd3spVNWEC31%2BmUEJxdPoWrAtEvSpDYaa1xEqz%2BOiYwN%22%2C%22createdDate%22%3A%22%22%7D; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._subscriptionStatus=0; Path=/; Domain=kompas.id; Max-Age=31556952, kompas._isOnboarding=false; Path=/; Domain=kompas.id; Max-Age=31556952
+
+
+
+[access-control-allow-credentials]
+true
+
+
+
+[access-control-max-age]
+1728000
+
+
+
+[cf-ray]
+925b89147f44ce02-SIN
+
+
+
+[Date]
+Tue, 25 Mar 2025 04:06:24 GMT
+
+
+
+[Content-Type]
+application/json; charset=utf-8
+
+
+
+
+
+-- Body --
+{
+    "success": true,
+    "code": 200,
+    "message": "Login berhasil!",
+    "meta": {
+        "cache": false,
+        "time": 1742875584
+    },
+    "data": {
+        "accessToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoibnVyaXJwcGFuQGdtYWlsLmNvbSIsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2IiwicnQiOjE3NzQ0MTE1ODQsInNjb3BlIjpbInJlYWQtYXJ0aWNsZSIsInJlYWQtcHJvZmlsZSJdfSwiZXhwIjoxNzQyODc2NDg0LCJpYXQiOjE3NDI4NzU1ODQsImlzcyI6Imh0dHBzOi8vd3d3LmtvbXBhcy5pZCJ9.vrZPTai6CmhK_SHMTZrKtiX0ca-6GBL_Ez2nCA950jwG2lkwQ_PBg1h4TgMp-P8xLibEdMDV8AofvziV8MLeILRpV5LHGcf4t8-rYG0VMwjxFwrXYgqR7LGTLfGPP17YoLIgPdjSbgcqMpA6Xb34FYVOZxYVPctrtT2a4JswS44",
+        "refreshToken": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im51cmlycHBhbkBnbWFpbC5jb20iLCJleHAiOjE3NzQ0MTE1ODQsImlkIjoiYjI1ODVmMzctOWM4ZS00MmYwLTg2YjAtZDI1MDczZWM2YTQ2Iiwic3ViIjoxfQ.MI6Nnah43r7JunYpcAi1erc2nFYaoBfOBnVmtyhZnp2YUQ0QmuTx3zx0-e4mpd3tBlcmKAnSJ8DJ5MjrQN-s8TA-Rlfh7aQmHsWTrvTc_5-wmoBXu9HzpQ541z8-s1eW6o7Q9Rg1E3Vu2cmnhA616QgDUdm3iRwDGSDeeWGSKG8",
+        "docReferrer": "iOS",
+        "isSocial": true,
+        "isPassEmpty": false,
+        "userCreated": false,
+        "deviceKeyId": "3nhRUM6eER3A4kuaTrVd7HFh+Xfx8kwpP8z8Hr8DUHl35Pped15JAYyomII7xsEq+YsAweQUaBjL0OaaNeCdTd3spVNWEC31+mUEJxdPoWrAtEvSpDYaa1xEqz+OiYwN",
+        "sso": {
+            "social": "apple",
+            "type": "login"
+        }
+    }
+}

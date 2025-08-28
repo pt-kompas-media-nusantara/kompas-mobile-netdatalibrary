@@ -41,7 +41,6 @@ val networkModule = module {
                 level = LogLevel.ALL
             }
         }
-            .also { Napier.base(DebugAntilog()) }
     }
 }
 

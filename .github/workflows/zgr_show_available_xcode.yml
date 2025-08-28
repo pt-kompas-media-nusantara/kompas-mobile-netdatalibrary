@@ -1,0 +1,19 @@
+name: ZGR - Show Available Xcode
+
+on:
+  workflow_call:
+
+jobs:
+  show_available_xcode:
+    name: Show Available Xcode
+    runs-on: macos-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Xcode List Available
+        run: ls /Applications | grep Xcode
+
+# https://github.com/actions/runner-images

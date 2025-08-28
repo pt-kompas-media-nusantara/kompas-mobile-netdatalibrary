@@ -1,0 +1,54 @@
+name: GS - Update Azure User Story to Merged
+
+on:
+  workflow_call:
+    inputs:
+      ghrepo:
+        required: true
+        type: string
+    secrets:
+      gh_token:
+        required: true
+      ado_token:
+        required: true
+
+jobs:
+  gs_update_azure_user_story_to_merged:
+    name: GS - Update Azure User Story to Merged
+    runs-on: [self-hosted, Linux, node20]
+    env:
+      LANG: en_US.UTF-8
+
+    steps:
+
+      - name: Change ownership of repository directory
+        if: always()
+        run: |
+          if [ -d "/var/data/action-runner/_work/kompas-id-ios" ]; then
+            sudo chown -R sysadm:sysadm /var/data/action-runner/_work/kompas-id-ios
+          fi
+          if [ -d "/var/data/actions-runner/_work/kompas-id-ios" ]; then
+            sudo chown -R sysadm:sysadm /var/data/actions-runner/_work/kompas-id-ios
+          fi
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # dari resolved ke merged untuk US jika closed PR      
+      - name: Update Azure Work Items
+        uses: pt-kompas-media-nusantara/azure-pr-update-work-item-state@development
+        env:
+          gh_token: '${{ secrets.gh_token }}'
+          ado_token: '${{ secrets.ado_token }}'
+          ado_organization: 'kompasmedianusantara'
+          ado_project: 'Technology Product dan Data'
+          closedstate: 'Merged'
+          propenstate: 'Resolved'
+          inprogressstate: 'Active'
+          closedtaskstate: 'Closed'
+          propentaskstate: 'New'
+          inprogresstaskstate: 'New'
+          ghrepo_owner: 'pt-kompas-media-nusantara'
+          ghrepo: '${{ inputs.ghrepo }}'
+          pull_number: '${{github.event.number}}'
+          branch_name: ${{ github.ref }}

@@ -49,7 +49,7 @@ sealed class OpenFromEntryPoint(val description: String) {
     data class RubricIndex(val name: String) : OpenFromEntryPoint("$name Page")
 
     companion object {
-        fun fromString(value: String): OpenFromEntryPoint? {
+        suspend fun fromString(value: String): OpenFromEntryPoint? {
             return when (value.uppercase()) {
                 "" -> Empty
                 "BOOKMARK_PAGE" -> BookmarkPage

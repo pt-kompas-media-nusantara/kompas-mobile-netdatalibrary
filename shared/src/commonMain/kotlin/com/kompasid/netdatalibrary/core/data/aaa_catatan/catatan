@@ -1,0 +1,7 @@
+nurirppan__:
+
+user sudah verifikasi atau belum email yang teregistrasi ambild ari api verify, bukan api login
+ini ambil dari api verify
+async { runCatching { settingsHelper.save(KeySettingsType.IS_VERIFIED, isVerified) }.getOrThrow() },
+
+KeySettingsType.LOGIN_TYPE

@@ -1,22 +1,28 @@
 [versions]
-agp = "8.7.2"
+# 17 Feb 2025, maksimal
+# gradle 8.5.0,
+# AS: Android Studio Ladybug Feature Drop | 2024.2.2 Patch 1
+# xcode : ?
+agp = "8.8.2"
 koinAnnotations = "2.0.0-Beta2"
-kotlin = "2.0.20"
-compose = "1.7.5"
-compose-material3 = "1.3.1"
-androidx-activityCompose = "1.9.3"
-kotlinxCoroutinesCore = "1.9.0"
-kotlinxCoroutinesCoreVersion = "1.8.1"
+kotlin = "2.2.10"
+compose = "1.9.0"
+compose-material3 = "1.3.2"
+androidx-activityCompose = "1.10.1"
+kotlinxCoroutinesCore = "1.10.1"
+kotlinxCoroutinesCoreVersion = "1.9.0"
 kotlinxDatetime = "0.6.1"
 ktorClient = "3.0.0"
 koin = "4.0.0" # "3.4.3" # "4.0.0"
 mockmp = "1.11.0"
 napier = "2.7.1"
 konform = "0.7.0"
-navigationCompose = "2.8.4"
-lifecycleViewmodelKtx = "2.8.7"
+navigationCompose = "2.9.3"
+lifecycleViewmodelKtx = "2.9.2"
 multiplatformSettings = "1.2.0"
 coilCompose = "2.7.0"
+runtimeAndroid = "1.9.0"
+lifecycleViewmodelAndroid = "2.9.2"
 #coreKtx = "1.15.0"
 #junit = "4.13.2"
 #junitVersion = "1.2.1"
@@ -41,7 +47,6 @@ koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-test-junit5 = { module = "io.insert-koin:koin-test-junit5", version.ref = "koin" }
 koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-kotlinx-coroutines-core-v181 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCoreVersion" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesCore" }
 
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -81,6 +86,10 @@ mockmp = { module = "org.kodein.mock:mockmp", version.ref = "mockmp" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 konform = { module = "io.konform:konform", version.ref = "konform" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
+multiplatform-settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "multiplatformSettings" }
+multiplatform-settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "multiplatformSettings" }
+androidx-runtime-android = { group = "androidx.compose.runtime", name = "runtime-android", version.ref = "runtimeAndroid" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 #androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 #junit = { group = "junit", name = "junit", version.ref = "junit" }
 #androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -1,0 +1,110 @@
+** INFO **
+[URL]
+https://api.kompas.id/account/api/v2/users/check
+
+[Method]
+POST
+
+[Status]
+200
+
+[Request date]
+2025-03-25 09:17:27 +0000
+
+[Response date]
+2025-03-25 09:17:27 +0000
+
+[Time interval]
+0.26506495
+
+[Timeout]
+60.0
+
+[Cache policy]
+UseProtocolCachePolicy
+
+
+
+** REQUEST **
+-- Headers --
+
+[Cache-Control]
+no-cache
+
+[Content-Type]
+application/json
+
+[Authorization]
+Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiYW5vbnlub3VzLnVzZXJAa29tcGFzLmlkIiwiaWQiOiI0YzdiOWNmMC0zYTg5LTQwNGYtOGZmOC0xM2FlZGMxN2NlOGQiLCJydCI6MTc3NDQyOTk5MSwic2NvcGUiOlsicmVhZC1hcnRpY2xlIiwicmVhZC1wcm9maWxlIl19LCJleHAiOjE3NDI4OTQ4OTEsImlhdCI6MTc0Mjg5Mzk5MSwiaXNzIjoiaHR0cHM6Ly93d3cua29tcGFzLmlkIn0.sjGFSkVl4D_ib1GcWuvMtMB5RdKBv2DFtnolF2gsxiZh3SvAOBnBn-iBcN8SbArQW8Gez0hD5faAxGW6vq3vglM4i0L6pGmvDdKcLKAzGGKx6iscGmNh21GbCrA72YSAujXsm6H-6Uz_LV3ovAdU1280s0CwEbrAJHOcrYU7pNQ
+
+[Content-Length]
+57
+
+
+-- Body --
+
+{
+  "type" : "phoneNumber",
+  "value" : "6281513752010"
+}
+
+
+** RESPONSE **
+-- Headers --
+
+[cf-ray]
+925d50b6ba0efd32-SIN
+
+[Date]
+Tue, 25 Mar 2025 09:17:27 GMT
+
+[access-control-max-age]
+1728000
+
+[Strict-Transport-Security]
+max-age=31536000; includeSubDomains
+
+[access-control-allow-credentials]
+true
+
+[access-control-allow-headers]
+Authorization, Content-Type,X-Forwarded-For, X-app123-XPTO
+
+[Server]
+cloudflare
+
+[cf-cache-status]
+DYNAMIC
+
+[Content-Type]
+application/json; charset=utf-8
+
+[Access-Control-Allow-Origin]
+*
+
+[Content-Encoding]
+br
+
+[access-control-allow-methods]
+GET, PUT, POST,DELETE
+
+
+-- Body --
+
+{
+  "success" : true,
+  "code" : 200,
+  "message" : "Sukses mengecek pengguna terdaftar.",
+  "meta" : {
+    "cache" : false,
+    "time" : 1742894247
+  },
+  "data" : {
+    "registeredBy" : "phoneNumber",
+    "registeredOn" : [
+
+    ],
+    "registered" : true
+  }
+}
+
